@@ -13,7 +13,10 @@
 	</definition>
 	<definition name="main" extends="baseLayout">
 		<put-attribute name="title" value="메인화면" />
-		<put-attribute name="body"
-			value="/WEB-INF/views/main.jsp" />
+		<put-attribute name="body" value="/WEB-INF/views/main.jsp" />
+	</definition>
+	<definition name="search" extends="baseLayout">
+		<put-attribute name="title" value="메인화면" />
+		<put-attribute name="body" value="/WEB-INF/views/search.jsp" />
 	</definition>
 </tiles-definitions>
