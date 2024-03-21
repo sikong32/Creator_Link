@@ -11,6 +11,10 @@ public class Home_Controller {
 	@Autowired
 	SqlSession sqlSession;
 	
+	@RequestMapping(value = "/")
+	public String index() {
+		return "main";
+	}
 	@RequestMapping(value = "/index")
 	public String index(Model mo) {
 		return "main";
