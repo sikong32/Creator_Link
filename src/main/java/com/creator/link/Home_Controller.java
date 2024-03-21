@@ -11,10 +11,16 @@ public class Home_Controller {
 	@Autowired
 	SqlSession sqlSession;
 	
+	@RequestMapping(value = "/")
+	public String main(Model mo) {
+		return "main";
+	}
+	
 	@RequestMapping(value = "/index")
 	public String index(Model mo) {
 		return "main";
 	}
+	
 	@RequestMapping(value = "/search")
 	public String search(Model mo) {
 		return "search";
