@@ -10,8 +10,8 @@ public class Member_Controller {
 	@Autowired
 	SqlSession sqlSession;
 	
-	@RequestMapping(value = "sample")
-	public String sample() {
-		return "sample";
+	@RequestMapping(value = "sample_member")
+	public String sample_member() {
+		return "sample_member";
 	}
 }

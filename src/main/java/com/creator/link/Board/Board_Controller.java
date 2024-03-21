@@ -10,8 +10,8 @@ public class Board_Controller {
 	@Autowired
 	SqlSession sqlSession;
 	
-	@RequestMapping(value = "sample")
-	public String sample() {
-		return "sample";
+	@RequestMapping(value = "sample_board")
+	public String sample_board() {
+		return "sample_board";
 	}
 }
