@@ -10,6 +10,7 @@
 		<config>src/main/java/com/creator/link/Board/Board_DAO.xml</config>
 		<config>src/main/java/com/creator/link/Member/Member_DAO.xml</config>
 		<config>src/main/java/com/creator/link/Store/Store_DAO.xml</config>
+		<config>src/main/java/com/creator/link/Home_DAO.xml</config>
 	</configs>
 	<autoconfigs>
 		<config>src/main/webapp/WEB-INF/spring/appServlet/servlet-context.xml</config>
