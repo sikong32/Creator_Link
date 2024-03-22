@@ -18,4 +18,16 @@ public class Store_Controller {
 	public String shopping_cart() {
 		return "shopping_cart";
 	}
+	@RequestMapping(value = "store_detail")
+	public String store_detail() {
+		return "store_detail";
+	}
+	@RequestMapping(value = "shoping_buy")
+	public String shoping_buy() {
+		return "shoping_buy";
+	}
+	@RequestMapping(value = "shoping_buy_fix")
+	public String shoping_buy_fix() {
+		return "shoping_buy_fix";
+	}
 }

@@ -19,6 +19,6 @@
 	상품명, 가격<br><br>
 	
 	가격 합계 : <br>
-	<button type="button" onclick="">결재하기</button>
+	<button type="button" onclick="href='location.store_'">결재하기</button>
 </body>
 </html>

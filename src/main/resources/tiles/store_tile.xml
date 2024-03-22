@@ -15,4 +15,16 @@
 		<put-attribute name="title" value="메인화면" />
 		<put-attribute name="body" value="/WEB-INF/views/store/store_main.jsp" />
 	</definition>
+	<definition name="store_detail" extends="baseLayout">
+		<put-attribute name="title" value="메인화면" />
+		<put-attribute name="body" value="/WEB-INF/views/store/store_detail.jsp" />
+	</definition>
+	<definition name="shoping_buy" extends="baseLayout">
+		<put-attribute name="title" value="메인화면" />
+		<put-attribute name="body" value="/WEB-INF/views/store/shoping_buy.jsp" />
+	</definition>
+	<definition name="shoping_buy_fix" extends="baseLayout">
+		<put-attribute name="title" value="메인화면" />
+		<put-attribute name="body" value="/WEB-INF/views/store/shoping_buy_fix.jsp" />
+	</definition>
 </tiles-definitions>
