@@ -24,7 +24,7 @@
 	<nav class="navbar">
 		<!-- 로고 -->
 		<div class="navbar_logo">
-			<a href="index"><img src="./resources/cssimage/logo1.PNG">Creator Link</a>
+			<a href="index"><img src="./resources/cssimage/logo.PNG">Creator Link</a>
 		</div>
 		
 		<!-- 기본 메뉴  <i class="fa-solid fa-store"></i>-->
