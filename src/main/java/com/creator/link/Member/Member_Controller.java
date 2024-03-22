@@ -10,8 +10,24 @@ public class Member_Controller {
 	@Autowired
 	SqlSession sqlSession;
 	
-	@RequestMapping(value = "sample_member")
-	public String sample_member() {
-		return "sample_member";
+	@RequestMapping(value = "regist")
+	public String regist() {
+		return "regist";
+	}
+	@RequestMapping(value = "regist_do")
+	public String regist_do() {
+		return "redirect:index";
+	}
+	@RequestMapping(value = "login")
+	public String login() {
+		return "login";
+	}
+	@RequestMapping(value = "login_do")
+	public String login_do() {
+		return "redirect:index";
+	}
+	@RequestMapping(value = "mypage")
+	public String mypage() {
+		return "mypage";
 	}
 }

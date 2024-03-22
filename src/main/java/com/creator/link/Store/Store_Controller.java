@@ -10,8 +10,12 @@ public class Store_Controller {
 	@Autowired
 	SqlSession sqlSession;
 	
-	@RequestMapping(value = "sample_store")
-	public String sample_store() {
-		return "sample_store";
+	@RequestMapping(value = "store_main")
+	public String store_main() {
+		return "store_main";
+	}
+	@RequestMapping(value = "shopping_cart")
+	public String shopping_cart() {
+		return "shopping_cart";
 	}
 }
