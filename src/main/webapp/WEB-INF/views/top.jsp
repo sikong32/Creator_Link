@@ -19,6 +19,7 @@
 </head>
 
 <body>
+
 	<!-- 네비게이션 바  -->
 	<nav class="navbar">
 		<!-- 로고 -->
@@ -59,7 +60,7 @@
 		<!-- 반응형 웹 기능 (토글 버튼) -->
 		<a href="#" class="toogle_bnt"><i class="fa-solid fa-bars"></i></a>
 	</nav>
-	
+
 </body>
 
 </html>
