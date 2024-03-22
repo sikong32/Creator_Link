@@ -7,123 +7,28 @@
     font-style: normal;
 }
 
-/* LIVE 목록 */
 body {
 	margin : 0;
 	font-family:'Pretendard-Regular';
 }
 
-.home_container {
-    display: flex;
+a {
+	text-decoration: none;
+	color: white;
 }
-
-.streamcate_bar {
-    margin-right: 20px;
-}
-
 
 .live_container {
-    flex-grow: 1;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    padding: 10px;
+	background-color: gray;
 }
 
 .live_header {
-    font-size: 20px;
-    margin: 10px;
+	background-color: yellow;
 }
 
-.live_scinfo {
-    list-style:none;
-    position: relative;
+.live_info {
+	background-color: red;
 }
 
-.live_scinfo ul{
-    padding-left: 0;
-}
-
-.live_scinfo li{
-    list-style:none;
-}
-
-.live_screen {
-    background-color: black;
-    border-radius: 20px;
-    width: 150;
-    height: 150px;
-}
-
-.live_icon {
-    color: white;
-    background-color:red;
-    border-radius: 5px;
-    width: 50px;
-    height: 20px;
-    text-align: center;
-    position: absolute;
-    top: 0;
-    left: 10px;
-    margin: 5px;
-}
-
-.live_viewer {
-    color: white;
-    background-color: black;
-    border-radius: 5px;
-    width: 100px;
-    height: 20px;
-    text-align: center;
-    position: absolute;
-    top: 0;
-    left: 70px;
-    margin: 5px;
-}
-
-.live_infoarea {
-	width: 200px;
-	height: 200px;
-}
-
-.live_crinfo ul{
-    padding-top: 0;
-    padding-left: 0;
-}
-
-.live_crinfo li{
-    height: 20%;
-    list-style: none;
-    position: relative;
-}
-
-.creator_profile img{
-	width: 50px;
-	height: 50px;
-	border-radius: 50%;
-    position: absolute;
-    left: 0px;
-}
-
-.creator_nickname {
-    font-weight: bold;
-    position: absolute;
-    left: 100px;
-}
-
-
-/* 방송 카테고리 */
-.streamcate_bar {
-  margin-top: 20px;
-  background-color: #2A2F4F;
-  width: 100px;
-  height: 300px;
-}
-
-.streamcate_bar a{
-  text-decoration: none;
-  color: white;
-}
-
-.streamcate_detail {
-  list-style:none;
+.live_creatorinfo {
+	background-color: green;
 }

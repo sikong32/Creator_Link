@@ -6,43 +6,46 @@
 <meta charset="UTF-8">
 <title>Creator Link</title>
 </head>
-<!-- CSS 경로  -->
-	<link href="${pageContext.request.contextPath}/resources/css/main.css" rel="stylesheet" type="text/css">
 </head>
 <body>
 
-	<div class="home_container">
-	<!-- 방송 카테고리 (사이드바) -->
-	<aside class="streamcate_bar">
-		<div class="streamcate_header"></div>
-			<ul class="streamcate_detail">
-				<li><a href="#">먹방</a></li>
-				<li><a href="#">게임</a></li>
-				<li><a href="#">코딩</a></li>
-				<li><a href="#">음악</a></li>
-				<li><a href="#">수다</a></li>
-			</ul>
-	</aside>
-
-	<!-- LIVE 목록 -->	
+	<!-- LIVE 목록 -->
 	<section class="live_container">
-		<div class="live_header">LIVE</div>
-		<section class="live_infoarea">
-				<div class="live_scinfo">
-					<ul>
-						<li class="live_screen"></li>
-						<li class="live_icon">LIVE</li>
-						<li class="live_viewer">시청자수</li>
-					</ul>
-				</div>
-				<div class="live_crinfo">
-					<ul>
-						<li class="creator_profile"><img src="./resources/cssimage/happy.jpg"></li>
-						<li class="creator_nickname">해피</li>
-					</ul>
-				</div>
-		</section>
-	</section>
+	<div class="live_header">LIVE</div>
+	<section class="live_info">방송정보
+		<div class="live_screen">라이브 화면</div>
+		<ul class="live_inscreen">화면 요소
+			<li class="live_icon">아이콘</li>
+			<li class="live_watcher">시청자수</li>
+		</ul>
+	<div class="live_creatorinfo">
+		<ul>
+			<li class="creator_profile">방송프로필</li>
+			<li class="live_title">방송제목</li>
+			<li class="creator_nickname">방송인닉네임</li>
+		</ul>
 	</div>
+	</section>
+	</section>
+	
+	<!-- 크롤링 해온 데이터 받아서 foreach로 쭉 뿌려볼 예정<br>
+	<a href="#">개쩌는사람</a>
+	<a href="#">재밌는사람</a>
+	<a href="#">ㅁ친사람</a>
+	<a href="#">자는사람</a>
+	<a href="#">재미없는사람</a> -->
+	
+	<!-- 방송 카테고리 (사이드바) -->
+	<section class="streamcate_container">
+	<div class="streamcate_header">방송카테고리</div>
+		<ul class="streamcate_detail">
+			<li><a href="#"></a>먹방</li>
+			<li><a href="#"></a>게임</li>
+			<li><a href="#"></a>코딩</li>
+			<li><a href="#"></a>음악</li>
+			<li><a href="#"></a>수다</li>
+		</ul>
+	</section>
+	
 </body>
 </html>
