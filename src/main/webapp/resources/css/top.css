@@ -12,11 +12,6 @@ body {
 	font-family:'Pretendard-Regular';
 }
 
-a {
-	text-decoration: none;
-	color: white;
-}
-
 .navbar {
 	display: flex;
 	justify-content: space-between;
@@ -26,10 +21,20 @@ a {
 	font-family: 'Pretendard-Regular';
 }
 
+.navbar a {
+	text-decoration: none;
+	color: white;
+}
+
 .navbar_logo {
 	font-size:24px;
 	color: white;
-	font-family: 'Madimi One'
+	font-family: 'Madimi One';
+}
+
+.navbar_logo img{
+	width: 70px;
+	height: 70px;
 }
 
 .navbar_menu {
