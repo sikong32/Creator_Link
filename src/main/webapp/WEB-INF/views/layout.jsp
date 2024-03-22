@@ -14,30 +14,6 @@
 		        document.getElementById('footer').style.width = container_actual_width + 'px';
 		}
 	</script>
-	<style type="text/css">
-		#top{
-			position: fixed;
-			top: 0px;
-			text-align: center;
-			line-height: 150px;
-			height: 150px;
-			margin: auto;
-			background-color: rgb(0,0,0,0.2);
-		}
-		#body{
-			margin-top: 160px;
-			margin-bottom: 30px;
-		}
-		#footer{
-			position: fixed;
-			bottom: 0px;
-			text-align: center;
-			line-height: 20px;
-			margin: auto;
-			border: solid;
-			width: 100%;
-		}
-	</style>
 <meta charset="UTF-8">
 <title><t:insertAttribute name="title" /></title>
 </head>
