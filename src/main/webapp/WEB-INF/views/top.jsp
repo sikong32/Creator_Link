@@ -45,10 +45,17 @@
 		
 		<!-- 로그인 (로그인 전 글자) -->
 		<ul class="navbar_login">
-			<li><a href="login">로그인</a></li>
-			<li><a href="regist">회원가입</a></li>
-		</ul>	
-		
+			<c:choose>
+				<c:when test="${loginState == true }">
+					<li><a href="#"><span style="color:#FDE2F3">${member.mb_id }님 환영합니다!</span></a></li>
+					<li><a href="memberLogout"><span class="glyphicon glyphicon-log-in"></span>로그아웃</a></li>
+				</c:when>
+				<c:otherwise>
+					<li><a href="loginForm">로그인</a></li>
+					<li><a href="regist">회원가입</a></li>
+				</c:otherwise>
+			</c:choose>
+		</ul>
 		<!-- 로그인 (로그인 후 아이콘)
 		<ul class="navbar_icon">
 			<li><a href=""><i class="fa-regular fa-star"></i></a></li>
