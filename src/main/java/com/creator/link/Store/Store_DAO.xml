@@ -1,5 +1,11 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.creator.link.Store.Store_Service">
-
+<select id="store_mainout" resultType="com.creator.link.Store.Store_DTO">
+	select * from PRODUCT_TBL
+</select>
+<insert id="">
+	insert into PRODUCT_TBL(PD_NUMBER,PD_NAME,PD_PRICE,PD_CATEGORY,PD_CONTENT,PD_PHOTO,PD_SIZE,PD_STOCK,PD_TABLE,MB_NUMBER,PC_NUMBER,MF_NAME)
+    VALUES(1,'name',1000,'gategory','content','photo','A',1,1,1,1,'mf_name');
+</insert>
 </mapper>

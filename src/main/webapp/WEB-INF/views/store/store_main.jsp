@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+	<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,7 +9,7 @@
 </head>
 <body>
 	<form action="">
-		<table>
+		<table border="1" align="center">
 			<tr>
 				<th>굿즈 스토어</th>
 			</tr>
@@ -28,15 +29,12 @@
 				<th>굿즈</th>
 			</tr>
 			<tr>
-				<td><a href="store_detail"><img src="./resources/store/item_cover/gift.png" width="100"></a></td>
-				<td><a href="store_detail"><img src="https://image1.marpple.co/files/u_3300167/2024/1/original/872be372507d7301aca396a37c556cd82aeffda61.png?q=92&w=1480&f=jpeg&bg=f6f6f6" width="100"></a></td>
-				<td><a href="store_detail"><img src="https://image1.marpple.co/files/u_3300167/2024/1/original/872be372507d7301aca396a37c556cd82aeffda61.png?q=92&w=1480&f=jpeg&bg=f6f6f6" width="100"></a></td>
-				<td><a href="store_detail"><img src="https://image1.marpple.co/files/u_3300167/2024/1/original/872be372507d7301aca396a37c556cd82aeffda61.png?q=92&w=1480&f=jpeg&bg=f6f6f6" width="100"></a></td>
-				<td><a href="store_detail"><img src="https://image1.marpple.co/files/u_3300167/2024/1/original/872be372507d7301aca396a37c556cd82aeffda61.png?q=92&w=1480&f=jpeg&bg=f6f6f6" width="100"></a></td>
-				<td><a href="store_detail"><img src="https://image1.marpple.co/files/u_3300167/2024/1/original/872be372507d7301aca396a37c556cd82aeffda61.png?q=92&w=1480&f=jpeg&bg=f6f6f6" width="100"></a></td>
+				<td><a href="gifthub"><img src="./resources/store/item_cover/gift.png" width="100"></a></td>
+				<c:forEach items="${list}" var="s">
+				<td><a href="store_detail?pd_number=${s.pd_number}"><img src="./resources/store/item_cover/${s.pd_photo}" width="100"><br>${s.pd_name}<br>${s.pd_price}</a></td>
+				</c:forEach>
 			</tr>
 		</table>
 	</form>
-
 </body>
 </html>

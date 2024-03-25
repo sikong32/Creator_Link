@@ -18,8 +18,4 @@ public class Board_Controller {
 	public String board_creator() {
 		return "board_creator";
 	}
-	@RequestMapping(value = "gifthub")
-	public String gifthub() {
-		return "gifthub";
-	}
 }

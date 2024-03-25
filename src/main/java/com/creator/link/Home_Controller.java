@@ -25,4 +25,8 @@ public class Home_Controller {
 	public String search(Model mo) {
 		return "search";
 	}
+	@RequestMapping(value = "/test")
+	public String NewFile(Model mo) {
+		return "test";
+	}
 }
