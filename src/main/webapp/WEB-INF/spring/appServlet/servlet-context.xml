@@ -25,8 +25,10 @@
 	<resources mapping="/creator/creator_prefile/**" location="/creator/creator_prefile/" />
 	<resources mapping="/creator/preview/**" location="/creator/preview/" />
 	
-	<resources mapping="/member/**" location="/member/" />
-	<resources mapping="/member/member_profile/**" location="/member/member_profile/" />
+	<resources mapping="/resource/member/**" location="/resource/member/" />
+	<resources mapping="/resources/member/basic_profile/**" location="/resources/member/basic_profile/" />
+	<resources mapping="/resources/member/member_profile/**" location="/resources/member/member_profile/" />
+	
 
 	<!-- Resolves views selected for rendering by @Controllers to .jsp resources in the /WEB-INF/views directory -->
 <!-- 	<beans:bean class="org.springframework.web.servlet.view.InternalResourceViewResolver"> -->

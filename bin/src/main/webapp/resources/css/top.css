@@ -1,0 +1,170 @@
+@charset "UTF-8";
+
+@font-face {
+    font-family:'Pretendard-Regular';
+    src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
+    font-weight: 400;
+    font-style: normal;
+}
+
+body {
+	margin : 0;
+	font-family:'Pretendard-Regular';
+}
+
+a {
+	text-decoration: none;
+	color: white;
+}
+
+.navbar {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	background-color: #2A2F4F;
+	padding: 8px 12px;
+	font-family: 'Pretendard-Regular';
+}
+
+.navbar_logo {
+	font-size:24px;
+	color: white;
+	font-family: 'Madimi One'
+}
+
+.navbar_menu {
+	display: flex;
+	list-style: none;
+	padding-left: 0;
+	font-size: 20px;
+}
+
+.navbar_menu li {
+	padding: 8px 12px;
+}
+
+.navbar_menu li:hover {
+	color: #2A2F4F;
+	background-color: #FDE2F3;
+	border-radius: 20px;
+}
+
+.search_box {
+	padding-left: 0;
+	height: 30px;
+	width: 300px;
+	background: white;
+	border-radius: 20px;
+	padding: 10;
+	border: 3px solid #FDE2F3;
+}
+
+.search_txt {
+	border: none;
+	background: none;
+	outline: none;
+	float: left;
+	padding-left: 15px;
+	color: #797979;
+	font-size: 16px;
+	line-height: 30px;
+	width: 200px;
+}
+
+.search_btn {
+	color: #2A2F4F;
+	float: right;
+	width: 40px;
+	height: 100%;
+	border-radius: 50%;
+	background-color: white;
+	border: none;
+	font-size: 16px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.navbar_login {
+	display: flex;
+	list-style: none;
+	padding-left: 0;
+	font-size: 20px;
+}
+
+.navbar_login li {
+	padding: 8px 12px;
+}
+
+.navbar_login li:hover {
+	color: #2A2F4F;
+	background-color: #FDE2F3;
+	border-radius: 20px;
+}
+
+.navbar_icon {
+	padding-left: 0;
+	list-style: none;
+	color: white;
+	display: flex;
+}
+
+.navbar_icon li {
+	padding: 8px 12px;
+}
+
+.toogle_bnt {
+	display: none;
+	position: absolute;
+	right: 32px;
+	font-size: 24px;
+	color: white;
+}
+
+/* 반응형 웹 기능 */
+@media screen and (max-width: 768px) {
+	.navbar {
+	flex-direction: column;
+	align-items: flex-start;
+	}
+	
+	.navbar_menu {
+	display: none;
+	flex-direction: column;
+	align-items: center;
+	width: 100%;
+	}
+	
+	.navbar_menu li{
+	width: 100%;
+	text-align: center;
+	}
+	
+	.navbar_search {
+	display: none;
+	width: 100%;
+	justify-content: center;
+	}
+	
+	.navbar_login {
+	display: none;
+	flex-direction: column;
+	align-items: center;
+	width: 100%;
+	}
+	
+	.navbar_login li{
+	width: 100%;
+	text-align: center;
+	}
+	
+	.navbar_icon {
+	display: none;
+	width: 100%;
+	justify-content: center;
+	}
+	
+	.toogle_bnt {
+	display: block;
+	}
+}
