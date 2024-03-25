@@ -157,6 +157,8 @@
                     'MathType'
                 ]
             });
-	</script>
+
+        </script>
+
 </body>
 </html>
