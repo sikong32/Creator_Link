@@ -11,13 +11,13 @@
 	테이블로 받아서 Foreach로 뿌릴 게시판 카테고리<br>
 	ex)<a href="board_main">전체글</a><br>
 	<a href="board_creator">&emsp;자유게시판</a><br>
-	<a href="board_creator">&emsp;Q&A</a><br>
+	<a href="board_creator">&emsp;문의게시판</a><br>
 	<a href="board_creator">&emsp;공지</a><br><br>
 	
 	테이블로 받아서 Foreach로 뿌릴 게시판 카테고리<br>
 	ex)<a href="board_main">전체글</a><br>
 	<a href="board_main">&emsp;자유게시판</a><br>
-	<a href="board_main">&emsp;Q&A</a><br>
+	<a href="board_main">&emsp;문의게시판</a><br>
 	<a href="board_main">&emsp;공지</a><br>
 	<a href="store_main">스토어</a><br>
 	<a href="gifthub">선물하기</a><br>
