@@ -8,19 +8,22 @@
 		<put-attribute name="title" value="" />
 		<put-attribute name="top" value="/WEB-INF/views/top.jsp" />
 		<put-attribute name="body" value="" />
-		<put-attribute name="footer"
-			value="/WEB-INF/views/footer.jsp" />
+		<put-attribute name="footer" value="/WEB-INF/views/footer.jsp" />
 	</definition>
-	<definition name="regist" extends="baseLayout">
+	
+	<definition name="member_regist" extends="baseLayout">
 		<put-attribute name="title" value="회원가입" />
-		<put-attribute name="body" value="/WEB-INF/views/member/regist.jsp" />
+		<put-attribute name="body" value="/WEB-INF/views/member/member_regist.jsp" />
 	</definition>
-	<definition name="loginForm" extends="baseLayout">
+	
+	<definition name="member_login" extends="baseLayout">
 		<put-attribute name="title" value="로그인" />
-		<put-attribute name="body" value="/WEB-INF/views/member/loginForm.jsp" />
+		<put-attribute name="body" value="/WEB-INF/views/member/member_login.jsp" />
 	</definition>
-	<definition name="mypage" extends="baseLayout">
+	
+	<definition name="member_mypage" extends="baseLayout">
 		<put-attribute name="title" value="마이페이지" />
-		<put-attribute name="body" value="/WEB-INF/views/member/mypage.jsp" />
+		<put-attribute name="body" value="/WEB-INF/views/member/member_mypage.jsp" />
 	</definition>
+	
 </tiles-definitions>

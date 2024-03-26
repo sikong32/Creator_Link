@@ -6,4 +6,8 @@ public interface Member_Service {
 
 	Member_DTO memberLogin(String loginId, String loginPw);
 
+	Member_DTO myPage(String myId);
+
+	void exPasswordCheck(String exPw);
+
 }

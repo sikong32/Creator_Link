@@ -17,6 +17,7 @@ import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
+import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 public class Member_Controller {
@@ -27,10 +28,8 @@ public class Member_Controller {
 	
 	@RequestMapping(value = "regist")
 	public String regist() {
-		return "regist";
+		return "member_regist";
 	}
-	
-	
 	
 	@RequestMapping(value = "regist_do")
 	public String regist_do(HttpServletRequest request) throws IOException {
@@ -50,8 +49,6 @@ public class Member_Controller {
 		return "redirect:index";
 	}
 	
-	
-	
 	private String filesave(String rgPhoto2, byte[] bs) throws IOException {
 		UUID uid = UUID.randomUUID();
 		String randomName = uid.toString()+"_"+rgPhoto2;
@@ -61,9 +58,9 @@ public class Member_Controller {
 		return randomName;
 	}
 
-	@RequestMapping(value = "loginForm")
+	@RequestMapping(value = "login")
 	public String login() {
-		return "loginForm";
+		return "member_login";
 	}
 	
 	@RequestMapping(value = "login_do")
@@ -81,13 +78,13 @@ public class Member_Controller {
 		} else {
 			response.setContentType("text/html;charset=utf-8");
 			PrintWriter pw = response.getWriter();
-			pw.print("<script> alert('아이디가 존재하지 않거나 잘못 입력했습니다.'); window.location.href='loginForm'; </script>");
+			pw.print("<script> alert('아이디가 존재하지 않거나 잘못 입력했습니다.'); window.location.href='member_login'; </script>");
 			return null;
 		}
 		
 	}
 	
-	@RequestMapping(value = "memberLogout")
+	@RequestMapping(value = "logout")
 	public String memberLogout(HttpServletRequest request) {
 		HttpSession hs = request.getSession();
 		hs.removeAttribute("member");
@@ -97,7 +94,42 @@ public class Member_Controller {
 	}
 	
 	@RequestMapping(value = "mypage")
-	public String mypage() {
-		return "mypage";
+	public ModelAndView mypage(HttpServletRequest request) {
+		ModelAndView mav = new ModelAndView();
+		String myId = request.getParameter("myId");
+		Member_Service mService = sqlSession.getMapper(Member_Service.class);
+		Member_DTO mDto = mService.myPage(myId);
+		System.out.println("프로필사진 : "+mDto.getMb_photo());
+		mav.addObject("dto", mDto);
+		mav.setViewName("member_mypage");
+		return mav;
 	}
+	
+	@RequestMapping(value = "mypage_do")
+	public String mypage_do() {
+		
+		return "redirect:index";
+	}
+	
+	@RequestMapping(value = "mypage_pwCheck")
+	public String mypage_pwCheck(HttpServletRequest request) {
+		Member_Service mService = sqlSession.getMapper(Member_Service.class);
+		String exPw = request.getParameter("pw");
+		mService.exPasswordCheck(exPw);
+		return "redirect:index";
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }
