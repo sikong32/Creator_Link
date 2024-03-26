@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -7,18 +7,35 @@
 <title>Insert title here</title>
 </head>
 <body>
-	테이블로 받아서 Foreach로 뿌릴 게시판 카테고리<br>
-	ex)<a href="board_main">전체글</a><br>
-	<a href="board_main">&emsp;자유게시판</a><br>
-	<a href="board_main">&emsp;Q&A</a><br>
-	<a href="board_main">&emsp;공지</a><br>
-	<a href="store_main">스토어</a><br>
-	<a href="#">관리자용 게시판설정</a><br><br>
+	<a href="board_main" style="color: black;">전체글</a><br>
+	<c:forEach items="${attribute_list}" var="atli">
+	<a href="board_main?bat_number=${atli.bat_number}" style="color: black;">${atli.bat_cls}</a><br>
+	</c:forEach>
+	<a href="store_main" style="color: black;">스토어</a><br>
+	<a href="#" style="color: black;">관리자용 게시판설정</a><br><br>
 	
 	방문한 크리에이터 게시판 기록 (누르면 이동)<br>
-	테이블 제작시 게시판이 될 예정<br>
-	공지<br>
-	카테고리 모두 포함 최신글<br>
+	<table border="1">
+		<tr>
+			<th>글번호</th>
+			<th>제목</th>
+			<th>작성자</th>
+			<th>작성날짜</th>
+			<th>조회수</th>
+			<th>좋아요</th>
+		</tr>
+		<c:forEach items="${board_list}" var="boli">
+			<tr>
+				<td>${boli.bct_content_number}</td>
+				<td><a href="board_view?bct_content_number=${boli.bct_content_number}" style="color: blue;">${boli.bct_title}</a></td>
+				<td>${boli.bct_writer}</td>
+				<td>${boli.bct_write_date.substring(0, 10)}</td>
+				<td>${boli.bct_view_cnt}</td>
+				<td>${boli.bct_like_cnt}</td>
+			</tr>
+		</c:forEach>
+	</table>
+	
 	<button type="button" onclick="">인기글</button>
 	<select id="search">
 	<option value="title">제목</option>
@@ -28,6 +45,6 @@
 	</select>
 	<input type="text" id="value">
 	<button type="button" id="search_do" onclick="">검색</button>
-	<button type="button" onclick="">글쓰기</button>
+	<button type="button" onclick="location.href='board_write'">글쓰기</button>
 </body>
 </html>

@@ -1,5 +1,22 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.creator.link.Board.Board_Service">
-
+	<insert id="board_save">
+		insert into board_content_tbl values(bct_content_number_seq.nextval, #{param1}, #{param2}, #{param3}, sysdate, 0, 0, #{param4}, #{param5})
+	</insert>
+	<select id="board_list" resultType="com.creator.link.Board.Board_DTO">
+		select * from board_content_tbl where mb_number = #{param1} order by bct_content_number desc
+	</select>
+	<select id="board_atlist" resultType="com.creator.link.Board.Board_DTO">
+		select * from board_content_tbl where mb_number = #{param1} and bat_number = #{param2} order by bct_content_number desc
+	</select>
+	<select id="attribute_list" resultType="com.creator.link.Board.Attribute_DTO">
+		select * from board_attribute_tbl where mb_number = #{param1}
+	</select>
+	<update id="board_view_cntup">
+		update board_content_tbl set bct_view_cnt = bct_view_cnt+1 where bct_content_number = #{param1}
+	</update>
+	<select id="board_view" resultType="com.creator.link.Board.Board_DTO">
+		select * from board_content_tbl where bct_content_number = #{param1}
+	</select>
 </mapper>
