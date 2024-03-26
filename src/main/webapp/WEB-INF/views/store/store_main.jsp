@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-	<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -29,10 +29,19 @@
 				<th>굿즈</th>
 			</tr>
 			<tr>
-				<td><a href="gifthub"><img src="./resources/store/item_cover/gift.png" width="100"></a></td>
+				<td><a href="gifthub"><img
+						src="./resources/store/item_cover/gift.png" width="100"></a></td>
 				<c:forEach items="${list}" var="s">
-				<td><a href="store_detail?pd_number=${s.pd_number}"><img src="./resources/store/item_cover/${s.pd_photo}" width="100"><br>${s.pd_name}<br>${s.pd_price}</a></td>
+					<td><a href="store_detail?pd_number=${s.pd_number}"><img
+							src="./resources/store/item_cover/${s.pd_photo}" width="100"><br>${s.pd_name}<br>${s.pd_price}</a></td>
 				</c:forEach>
+			</tr>
+		</table>
+	</form>
+	<form action="">
+		<table>
+			<tr>
+				<th><input type="button" value="상품 등록" onclick="location.href='store_input'"></th>
 			</tr>
 		</table>
 	</form>

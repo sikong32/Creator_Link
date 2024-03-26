@@ -4,8 +4,17 @@
 <select id="store_mainout" resultType="com.creator.link.Store.Store_DTO">
 	select * from PRODUCT_TBL
 </select>
-<insert id="">
-	insert into PRODUCT_TBL(PD_NUMBER,PD_NAME,PD_PRICE,PD_CATEGORY,PD_CONTENT,PD_PHOTO,PD_SIZE,PD_STOCK,PD_TABLE,MB_NUMBER,PC_NUMBER,MF_NAME)
-    VALUES(1,'name',1000,'gategory','content','photo','A',1,1,1,1,'mf_name');
+<insert id="store_insert0">
+	insert into PRODUCT_TBL(PD_NUMBER,PD_NAME,PD_PRICE,PD_CATEGORY,PD_CONTENT,PD_PHOTO,PD_STOCK,MB_NUMBER,PC_NUMBER,PD_SIZE,MF_NUMBER)
+    VALUES(PD_NUMBER_SQL.nextval,#{param1},#{param2},#{param3},#{param4},#{param5},#{param6},1001,1001,'only one',1001)
 </insert>
+<insert id="store_insert1" >
+	insert into PRODUCT_TBL(PD_NUMBER,PD_NAME,PD_PRICE,PD_CATEGORY,PD_CONTENT,PD_PHOTO,PD_STOCK,MB_NUMBER,PC_NUMBER,PD_SIZE,MF_NUMBER)
+    VALUES(PD_NUMBER_SQL.nextval,#{param1},#{param2},#{param3},#{param4},#{param5},#{param6},1001,1001,'only one',1001)
+	INSERT INTO product_opstion_tbl(os_number,pd_number,OS_1NAME,OS_1PRICE,OS_1PHOTO,OS_1STOCK) 
+	VALUES (OS_NUMBER_SQL.nextval,PD_NUMBER_SQL.currval,#{param7},#{param8},#{param9},#{param10})
+</insert>
+<select id="store_detail" resultType="com.creator.link.Store.Store_DTO">
+	select * from PRODUCT_TBL where PD_NUMBER = #{param1}
+</select>
 </mapper>
