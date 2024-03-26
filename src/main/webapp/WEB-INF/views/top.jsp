@@ -47,11 +47,18 @@
 		<ul class="navbar_login">
 			<c:choose>
 				<c:when test="${loginState == true }">
-					<li><a href="#"><span style="color:#FDE2F3">${member.mb_id }님 환영합니다!</span></a></li>
-					<li><a href="memberLogout"><span class="glyphicon glyphicon-log-in"></span>로그아웃</a></li>
+					<c:choose>
+						<c:when test="${member.mb_nick_name == 0 }">
+							<li><a href="mypage?myId=${member.mb_id }"><span style="color:#FDE2F3">${member.mb_id }님 환영합니다!</span></a></li>
+						</c:when>
+						<c:otherwise>
+							<li><a href="mypage?myId=${member.mb_id }"><span style="color:#FDE2F3">${member.mb_nick_name }님 환영합니다!</span></a></li>
+						</c:otherwise>
+					</c:choose>
+					<li><a href="logout"><span class="glyphicon glyphicon-log-in"></span>로그아웃</a></li>
 				</c:when>
 				<c:otherwise>
-					<li><a href="loginForm">로그인</a></li>
+					<li><a href="login">로그인</a></li>
 					<li><a href="regist">회원가입</a></li>
 				</c:otherwise>
 			</c:choose>

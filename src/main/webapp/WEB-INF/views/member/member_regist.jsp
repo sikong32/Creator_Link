@@ -31,7 +31,7 @@ $(document).ready(function() {
 }); //document
 </script>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>Sign Up : Creator Link</title>
 </head>
 <body>
 	<form action="regist_do" method="post">
