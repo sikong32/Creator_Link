@@ -23,9 +23,11 @@
 	<!-- 네비게이션 바  -->
 	<nav class="navbar">
 		<!-- 로고 -->
-		<div class="navbar_logo">
-			<a href="index"><img src="./resources/cssimage/logo.PNG">Creator Link</a>
-		</div>
+		<ul class="navbar_logo">
+			<li><a href="index">
+            <img src="./resources/cssimage/logo.PNG">
+            <span>Creator Link</span></a></li>
+        </ul>
 		
 		<!-- 기본 메뉴  <i class="fa-solid fa-store"></i>-->
 		<ul class="navbar_menu">
