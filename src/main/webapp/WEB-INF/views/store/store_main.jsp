@@ -5,17 +5,18 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<link href="${pageContext.request.contextPath}/resources/css/store_main.css" rel="stylesheet" type="text/css">
+<title>Creator Link_Store Main</title>
 </head>
 <body>
-	<form action="">
+	<form action="#">
 		<table border="1" align="center">
 			<tr>
 				<th>굿즈 스토어</th>
 			</tr>
 		</table>
 	</form>
-	<form action="">
+	<form action="#">
 		<table>
 			<tr>
 				<th>공지</th>
@@ -23,7 +24,7 @@
 			</tr>
 		</table>
 	</form>
-	<form action="">
+	<form action="#">
 		<table>
 			<tr>
 				<th>굿즈</th>
@@ -38,7 +39,7 @@
 			</tr>
 		</table>
 	</form>
-	<form action="">
+	<form action="#">
 		<table>
 			<tr>
 				<th><input type="button" value="상품 등록" onclick="location.href='store_input'"></th>
