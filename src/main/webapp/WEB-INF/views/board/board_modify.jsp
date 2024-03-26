@@ -20,7 +20,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<form action="board_save" method="post">
+	<form action="board_modify_do" method="post">
 		<div id="container">
 			<table border="1">
 				<tr>
@@ -29,13 +29,14 @@
 								<option value="${atli.bat_number}">${atli.bat_cls}</option>
 							</c:forEach>
 						</select>
-						<input type="text" name="title" placeholder="제목"></td>
+						<input type="text" name="title" placeholder="제목" value="${post.bct_title}"></td>
 				</tr>
 				<tr>
-					<td><textarea name="content" id="editor"></textarea>
+					<td><textarea name="content" id="editor">${post.bct_content}</textarea>
 				</tr>
 				<tr>
-					<td align="right"><input type="submit" value="글 작성"></td>
+					<td align="right"><input type="submit" value="수정">
+										<input type="button" value="취소"></td>
 				</tr>
 			</table>
 		</div>

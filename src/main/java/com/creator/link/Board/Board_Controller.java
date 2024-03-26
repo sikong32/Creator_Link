@@ -4,13 +4,16 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
+
+import com.creator.link.Paging;
+import com.creator.link.Member.Member_DTO;
 
 @Controller
 public class Board_Controller {
@@ -21,27 +24,29 @@ public class Board_Controller {
 	@RequestMapping(value = "board_main")
 	public String board_main(HttpServletRequest request, Model mo) {
 		String now_page = request.getParameter("now_page");
+		if (now_page == null) now_page = "1";
 		String view_per_page = request.getParameter("view_per_page");
+		if (view_per_page == null) view_per_page = "5";
+		String mb_number = request.getParameter("mb_number");
+		if (mb_number == null) mb_number = "1";
+		String bat_number = request.getParameter("bat_number");
+		String search = request.getParameter("search");
+		String value = request.getParameter("value");
 		int value_of_total = 0;
 		
-		String mb_number = request.getParameter("mb_number");
-		String bat_number = request.getParameter("bat_number");
-		ArrayList<Board_DTO> board_list = new ArrayList<Board_DTO>();
 		ArrayList<Attribute_DTO> attribute_list = new ArrayList<Attribute_DTO>();
-		if (mb_number == null) mb_number = "1";
-		String sql_mb_number = mb_number;
-		
 		Board_Service sv = sqlSession.getMapper(Board_Service.class);
-		attribute_list = sv.attribute_list(sql_mb_number);
-		if (bat_number == null) {
-			board_list = sv.board_list(sql_mb_number);
-		}
-		else {
-			board_list = sv.board_atlist(sql_mb_number, bat_number);
-		}
+		attribute_list = sv.attribute_list(mb_number);
+		value_of_total = sv.value_of_total(mb_number, bat_number, search, value);
 		
-		mo.addAttribute("board_list", board_list);
+		Paging paging = new Paging(Integer.parseInt(now_page), Integer.parseInt(view_per_page), value_of_total);
+		
+		mo.addAttribute("board_list", sv.board_list(mb_number, paging, bat_number, search, value));
 		mo.addAttribute("attribute_list", attribute_list);
+		mo.addAttribute("page", paging);
+		mo.addAttribute("bat_number", bat_number);
+		mo.addAttribute("search", search);
+		mo.addAttribute("value", value);
 		
 		return "board_main";
 	}
@@ -68,13 +73,15 @@ public class Board_Controller {
 		return "board_write";
 	}
 	@RequestMapping(value = "board_save")
-	public String board_save(MultipartHttpServletRequest request) throws IllegalStateException, IOException {
-		// 로그인되면 httpsession에 user DTO를 저장해서 작성자 꺼내오기
-		String bct_writer = "사용자01";
+	public String board_save(HttpServletRequest request) throws IllegalStateException, IOException {
 		String bct_title = request.getParameter("title");
 		String bct_content = request.getParameter("content");
 		String bat_number = request.getParameter("attribute");
 		String mb_number = "1";
+		
+		HttpSession hs = request.getSession();
+		Member_DTO dto = (Member_DTO)hs.getAttribute("member");
+		String bct_writer = dto.getMb_id();
 		
 		Board_Service sv = sqlSession.getMapper(Board_Service.class);
 		sv.board_save(bct_writer, bct_title, bct_content, bat_number, mb_number);
@@ -85,12 +92,45 @@ public class Board_Controller {
 	public String board_view(HttpServletRequest request, Model mo) {
 		String bct_content_number = request.getParameter("bct_content_number");
 		
+		HttpSession hs = request.getSession();
+		Member_DTO member = (Member_DTO)hs.getAttribute("member");
+		
 		Board_Service sv = sqlSession.getMapper(Board_Service.class);
 		sv.board_view_cntup(bct_content_number);
 		Board_DTO post = sv.board_view(bct_content_number);
 		
 		mo.addAttribute("post", post);
+		mo.addAttribute("member", member);
 		
 		return "board_view";
+	}
+	@RequestMapping(value = "board_delete")
+	public String board_delete(HttpServletRequest request) {
+		String bct_content_number = request.getParameter("bct_content_number");
+		
+		Board_Service sv = sqlSession.getMapper(Board_Service.class);
+		sv.board_delete(bct_content_number);
+		
+		return "redirect:board_main";
+	}
+	@RequestMapping(value = "board_modify")
+	public String board_modify(HttpServletRequest request, Model mo) {
+		String bct_content_number = request.getParameter("bct_content_number");
+		
+		Board_Service sv = sqlSession.getMapper(Board_Service.class);
+		Board_DTO post = sv.board_view(bct_content_number);
+		ArrayList<Attribute_DTO> attribute_list = sv.attribute_list(String.valueOf(post.mb_number));
+		
+		mo.addAttribute("post", post);
+		mo.addAttribute("attribute_list", attribute_list);
+		
+		return "board_modify";
+	}
+	@RequestMapping(value = "board_modify_do")
+	public String board_modify_do(HttpServletRequest request, Model mo) {
+		
+		Board_Service sv = sqlSession.getMapper(Board_Service.class);
+		
+		return "redirect:board_main";
 	}
 }

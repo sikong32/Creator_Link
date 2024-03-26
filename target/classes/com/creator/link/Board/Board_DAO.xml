@@ -4,11 +4,51 @@
 	<insert id="board_save">
 		insert into board_content_tbl values(bct_content_number_seq.nextval, #{param1}, #{param2}, #{param3}, sysdate, 0, 0, #{param4}, #{param5})
 	</insert>
-	<select id="board_list" resultType="com.creator.link.Board.Board_DTO">
-		select * from board_content_tbl where mb_number = #{param1} order by bct_content_number desc
+	<select id="value_of_total" resultType="int">
+		<if test="param2 == null">
+			<if test="param3 == null">
+				select count(*) from board_content_tbl where mb_number = #{param1}
+			</if>
+			<if test="param3 != null">
+				select count(*) from board_content_tbl where mb_number = #{param1} and ${param3} like '%${param4}%'
+			</if>
+		</if>
+		<if test="param2 != null">
+			<if test="param3 == null">
+				select count(*) from board_content_tbl where mb_number = #{param1} and bat_number = ${param2}
+			</if>
+			<if test="param3 != null">
+				select count(*) from board_content_tbl where mb_number = #{param1} and bat_number = ${param2} and ${param3} like '%${param4}%'
+			</if>
+		</if>
 	</select>
-	<select id="board_atlist" resultType="com.creator.link.Board.Board_DTO">
-		select * from board_content_tbl where mb_number = #{param1} and bat_number = #{param2} order by bct_content_number desc
+	<select id="board_list" resultType="com.creator.link.Board.Board_DTO">
+		<if test="param3 == null">
+			select * from (
+				select rownum rn, list.* from (
+					<if test="param4 == null">
+						select * from board_content_tbl where mb_number = #{param1} order by bct_content_number desc
+					</if>
+					<if test="param4 != null">
+						select * from board_content_tbl where mb_number = #{param1} and ${param4} like '%${param5}%' order by bct_content_number desc
+					</if>
+				)list
+			)
+			where rn between ${param2.start_value} and ${param2.end_value}
+		</if>
+		<if test="param3 != null">
+			select * from (
+				select rownum rn, list.* from (
+					<if test="param4 == null">
+						select * from board_content_tbl where mb_number = #{param1} and bat_number = ${param3} order by bct_content_number desc
+					</if>
+					<if test="param4 != null">
+						select * from board_content_tbl where mb_number = #{param1} and bat_number = ${param3} and ${param4} like '%${param5}%' order by bct_content_number desc
+					</if>
+				)list
+			)
+			where rn between ${param2.start_value} and ${param2.end_value}
+		</if>
 	</select>
 	<select id="attribute_list" resultType="com.creator.link.Board.Attribute_DTO">
 		select * from board_attribute_tbl where mb_number = #{param1}
@@ -19,4 +59,7 @@
 	<select id="board_view" resultType="com.creator.link.Board.Board_DTO">
 		select * from board_content_tbl where bct_content_number = #{param1}
 	</select>
+	<delete id="board_delete">
+		delete from board_content_tbl where bct_content_number = #{param1}
+	</delete>
 </mapper>
