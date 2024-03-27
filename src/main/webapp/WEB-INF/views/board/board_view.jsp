@@ -21,7 +21,7 @@
 		</tr>
 		<tr>
 			<td align="right">	<button type="button" onclick="post_modify()">수정</button>
-								<button type="button" onclick="post_del()">삭제1</button></td>
+								<button type="button" onclick="post_del()">삭제</button></td>
 		</tr>
 	</table>
 </body>

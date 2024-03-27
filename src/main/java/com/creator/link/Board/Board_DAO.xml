@@ -62,4 +62,7 @@
 	<delete id="board_delete">
 		delete from board_content_tbl where bct_content_number = #{param1}
 	</delete>
+	<update id="board_modify">
+		update board_content_tbl set bct_title = #{param1}, bct_content = #{param2} where bct_content_number = #{param3}
+	</update>
 </mapper>
