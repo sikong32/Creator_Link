@@ -20,4 +20,6 @@ public interface Board_Service {
 
 	void board_delete(String bct_content_number);
 
+	void board_modify(String bct_title, String bct_content, String bct_content_number);
+
 }
