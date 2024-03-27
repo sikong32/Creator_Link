@@ -5,6 +5,7 @@
 <html>
 <head>
 <script type="text/javascript" src="resources/js/address.js">
+alert("fdsf");
 $(document).ready(function() {
 	$("#passwordBtn").click(function() {
 		//비밀번호 체크 정규식 및 변수
