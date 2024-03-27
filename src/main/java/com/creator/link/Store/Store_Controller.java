@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
+
+import com.creator.link.Member.Member_DTO;
 
 @Controller
 public class Store_Controller {
@@ -72,7 +75,10 @@ public class Store_Controller {
 	@RequestMapping(value = "store_save", method = RequestMethod.POST)
 	public String store_save(MultipartHttpServletRequest mul,HttpServletRequest request) throws IllegalStateException, IOException {
 		Store_Service  ss = sqlSession.getMapper(Store_Service.class);
-		//		int mb_nember = Integer.parseInt(mul.getParameter("mb_nember"));
+		// 회원 번호 가져오기
+		HttpSession hs = request.getSession();
+		Member_DTO dto = (Member_DTO)hs.getAttribute("member");
+		// 상품 정보 가져오기
 		String pd_category = mul.getParameter("pd_category");
 		String pd_name = mul.getParameter("pd_name");
 		int pd_price = Integer.parseInt(mul.getParameter("pd_price"));
@@ -82,12 +88,15 @@ public class Store_Controller {
 		String pd_pohto = filesave(mf.getOriginalFilename());
 		mf.transferTo(new File(imagePaht + "\\"+pd_pohto));
 		int pd_option_su = Integer.parseInt(mul.getParameter("pd_option_su"));
+		// 제대로 가져왔는지 확인
 		System.out.println(pd_option_su);
 		System.out.println(pd_name+"이름"+pd_price+"가격"+pd_content+"내용"+pd_pohto+"사진"+pd_stock+"재고"+pd_category+"카테고리");
 		System.out.println("컨텐츠 "+pd_content);
+		System.out.println("id 번호:"+dto.getMb_number());
+		// 만약 옵션 수가 없으면 그냥 저장
 		if(pd_option_su==0) {
-			ss.store_insert0(pd_name,pd_price,pd_category,pd_content,pd_pohto,pd_stock);
-		}else if(pd_option_su==1){
+			ss.store_insert0(pd_name,pd_price,pd_category,pd_content,pd_pohto,pd_stock,dto.getMb_number());
+		}else if(pd_option_su==1){// 옵션 수가 1개이면 아래 코드로 저장
 			String os_1name = mul.getParameter("os_1name");
 			int os_1price = Integer.parseInt(mul.getParameter("os_1priec"));
 			MultipartFile mf1 = mul.getFile("os_1photo");
@@ -99,9 +108,9 @@ public class Store_Controller {
 			System.out.println(os_1stock);
 			System.out.println("여기까지 안 왔어?");
 			ss.store_insert1(pd_name,pd_price,pd_category,pd_content,pd_pohto,pd_stock,os_1name,os_1price,os_1pohto,os_1stock);
-		}else if(pd_option_su==2) {
+		}else if(pd_option_su==2) {// 옵션 수가 2개이면 아래 코드로 저장
 			
-		}else {
+		}else {// 옵션 수가 3개이면 아래 코드로 저장
 			
 		}
 		System.out.println("저장완료");
@@ -110,7 +119,6 @@ public class Store_Controller {
 	private String filesave(String fname) throws IOException {
 		UUID uuid = UUID.randomUUID();
 		String sname = uuid.toString()+"_"+fname;
-		System.out.println(sname);
 		return sname;
 	}
 }

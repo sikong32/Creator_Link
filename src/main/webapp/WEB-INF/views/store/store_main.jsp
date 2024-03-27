@@ -39,6 +39,8 @@
 			</tr>
 		</table>
 	</form>
+	<c:choose>
+	<c:when test="${loginState == true}">
 	<form action="#">
 		<table>
 			<tr>
@@ -46,5 +48,9 @@
 			</tr>
 		</table>
 	</form>
+	</c:when>
+	<c:otherwise>
+	</c:otherwise>
+	</c:choose>
 </body>
 </html>

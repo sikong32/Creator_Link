@@ -3,27 +3,10 @@
 <!DOCTYPE html>
 <html>
 <head>
-<script
-	src="https://cdn.ckeditor.com/ckeditor5/34.2.0/super-build/ckeditor.js"></script>
+<script src="https://cdn.ckeditor.com/ckeditor5/34.2.0/super-build/ckeditor.js"></script>
+<script type="text/javascript" src="resources/js/stooe_option.js"></script>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<script>
-function addOptionFields() {
-    var optionCount = document.getElementById("pd_option_su").value;
-    var optionContainer = document.getElementById("option_container");
-    optionContainer.innerHTML = ""; // Clear previous fields
-    
-    for (var i = 1; i <= optionCount; i++) {
-    	var optionFields = '<li>' +
-        i + '번 옵션 이름<input type="text" name="os_' + i + 'name">' +
-        i + '번 옵션 가격<input type="text" name="os_' + i + 'priec">' +
-        i + '번 옵션 이미지<input type="file" name="os_' + i + 'photo">' +
-        i + '번 옵션 재고<input type="number" min="0" name="os_' + i + 'stock">' +
-        '</li>';
-        optionContainer.innerHTML += optionFields;
-    }
-}
-</script>
 </head>
 <body>
 	<form action="store_save" method="post" enctype="multipart/form-data">
@@ -37,63 +20,17 @@ function addOptionFields() {
 				<li><input type="text" name="pd_price"></li>
 				<li>상품대표 이미지</li>
 				<li><input type="file" name="pd_pohto"></li>
-				<li>1번째 옵션 분류</li>
-				<li><select id="pd_option_su" name = "pd_option_su" onchange="addOptionFields(this)">
-						<option value="0">0</option>
-						<option value="1">1</option>
-						<option value="2">2</option>
-						<option value="3">3</option>
-				</select></li>
-				<li>2번째 옵션 분류</li>
-				<li><select id="pd_option_su" name = "pd_option_su" onchange="addOptionFields(this)">
-						<option value="0">0</option>
-						<option value="1">1</option>
-						<option value="2">2</option>
-						<option value="3">3</option>
-				</select></li>
-				<li>3번째 옵션 분류</li>
-				<li><select id="pd_option_su" name = "pd_option_su" onchange="addOptionFields(this)">
-						<option value="0">0</option>
-						<option value="1">1</option>
-						<option value="2">2</option>
-						<option value="3">3</option>
-				</select></li>
-				<li id="option_container"></li>
-        		<li>상품 재고</li>
+				<li><div id="optionCategories">
+				    <!-- 여기에 옵션 부류 추가됨 -->
+					</div>
+				<input  type="button" onclick="addOptionCategory()" value="옵션 부류 추가"></li>
+				<li>상품 재고</li>
 				<li><input type="number" min="0" id="pd_stock" name="pd_stock"></li>
 				<li>상세페이지</li>
 				<li><textarea id="editor" name="pd_content" cols="20" rows="5"></textarea></li>
 				<li><input type="submit" value="전송"></li>
 			</ul>
 		</div>
-
-		<!-- 			<tr> -->
-		<!-- 				<th>1번 옵션</th> -->
-		<!-- 				<td> -->
-		<!-- 				옵션 이름<input type="text" name="os_1name"> -->
-		<!-- 				옵션 가격<input type="text" name="os_1priec"> -->
-		<!-- 				옵션 이미지<input type="file" name="os_1photo"> -->
-		<!-- 				옵션 재고<input type="number" min="0" name="os_1stock"> -->
-		<!-- 				</td> -->
-		<!-- 			</tr> -->
-		<!-- 			<tr> -->
-		<!-- 				<th>2번 옵션</th> -->
-		<!-- 				<td> -->
-		<!-- 				옵션 이름<input type="text" name="os_2name"> -->
-		<!-- 				옵션 가격<input type="text" name="os_2priec"> -->
-		<!-- 				옵션 이미지<input type="file" name="os_2photo"> -->
-		<!-- 				옵션 재고<input type="number" min="0" name="os_2stock"> -->
-		<!-- 				</td> -->
-		<!-- 			</tr> -->
-		<!-- 			<tr> -->
-		<!-- 				<th>3번 옵션</th> -->
-		<!-- 				<td> -->
-		<!-- 				옵션 이름<input type="text" name="os_3name"> -->
-		<!-- 				옵션 가격<input type="text" name="os_3priec"> -->
-		<!-- 				옵션 이미지<input type="file" name="os_3photo"> -->
-		<!-- 				옵션 재고<input type="number" min="0" name="os_3stock"> -->
-		<!-- 				</td> -->
-		<!-- 			</tr> -->
 	</form>
 </body>
 <script>

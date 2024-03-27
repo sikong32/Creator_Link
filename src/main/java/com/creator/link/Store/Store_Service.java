@@ -7,7 +7,7 @@ public interface Store_Service {
 	ArrayList<Store_DTO> store_mainout();
 
 	void store_insert0(String pd_name, int pd_price, String pd_category, String pd_content, String pd_pohto,
-			int pd_stock);
+			int pd_stock, String member_number);
 
 
 	Store_DTO store_detail(String pd_number);
