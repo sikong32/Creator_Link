@@ -13,7 +13,15 @@
 </select>
 
 <select id="myPage" resultType="com.creator.link.Member.Member_DTO">
-	select * from member_tbl where mb_id=#{param1}
+	select * from crering.member_tbl where mb_id=#{param1}
+</select>
+
+<select id="passwordCheck" resultType="int">
+	select count(*) from crering.member_tbl where mb_id=#{param1} and mb_password=#{param2}
+</select>
+
+<select id="passwordModify">
+	update crering.member_tbl set mb_password=#{param3} where mb_id=#{param1} and mb_password=#{param2}
 </select>
 
 </mapper>

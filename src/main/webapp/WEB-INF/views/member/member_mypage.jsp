@@ -4,71 +4,76 @@
 <!DOCTYPE html>
 <html>
 <head>
-<script type="text/javascript" src="resources/js/address.js">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script type="text/javascript">
 $(document).ready(function() {
-	$("#passwordBtn").click(function() {
+	var exPwCnt = 0;
+	$("#psCheckBtn").click(function() {
 		//비밀번호 체크 정규식 및 변수
 		var f = document.member_mypage_form;
-		var vPw = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[!@#$%^*-=_]).{8,20}$/
-		var exPw = f.exPw.value;
+		var vPw = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[!@#$%^*-=_]).{8,20}$/;
+		var exId = "${dto.mb_id}";
+		var exPw = "${dto.mb_password}";
+		var exPwVr = f.exPw.value;
 		var mdPw = f.mdPw.value;
 		var mdPwVr = f.mdPwVr.value;
 		
-		$.ajax({
-			type:"post",
-			async:true,
-			url:"mypage_pwCheck",
-			dataType:"text",
-			data:{"pw":exPw},
-			success:function(pass) {
-				if (pass == 1) {
-					var checkVar = 1;
-				} else {
-					alert("기존 비밀번호를 잘못 입력했습니다.");
-				} //else
-			} //success
-		}); //ajax
-		
-		if (exPw=="") {
-			alert("기존의 비밀번호를 입력해주세요.");
-			return false
+		if (exPwCnt == 0 || exPwCnt == null) {
+			if (exPwVr=="") {
+				alert("기존의 비밀번호를 입력해주세요.");
+				return false
+			} else if (exPw == exPwVr) {
+				alert("비밀번호가 확인됐습니다. 새 비밀번호를 입력해주세요.");
+				$("input[id='exPw']").prop("readonly",true);
+				$("input[id='mdPw']").prop("readonly",false);
+				$("input[id='mdPwVr']").prop("readonly",false);
+				exPwCnt = 1;
+				return false;
+			} else {
+				alert("기존 비밀번호를 잘못 입력했습니다.");
+				return false;
+			} //{if-else}
 		}
 		
-		if (mdPw=="") {
-			alert("새로 변경할 비밀번호를 입력해주세요.");
-			return false;
-		}
-		
-		if (mdPwVr=="") {
-			alert("비밀번호 확인란에도 새 비밀번호와 동일한 비밀번호를 입력해주세요.");
-		}
-		
-		if (!vPw.test(mdPw)) {
-			alert("비밀번호는 특수문자와 영어 대문자및 숫자를 포함한 8~20자 이내로 만들어주세요.");
-			return false;
-		}
-		
-		if (mdPw != mdPwVr) {
-			alert("새 비밀번호를 동일하게 입력해주세요")
-			return false;
-		}
-		
-		if (checkVar == 1) {
-			$.ajax({
-				type:"post",
-				async:true,
-				url:"mypage_pwModify",
-				dataType:"text",
-				data:{"pw":exPw},
-				success:function(pass) {
-					if (pass == 1) {
-						alert("비밀번호가 변경됐습니다.");
-					} else {
-						alert("서버 통신 중 오류가 발생했습니다.");
-					} //else
-				} //success
-			}); //ajax
-		}//if
+		if (exPwCnt == 1) {
+			if (mdPw=="") {
+				alert("새로 변경할 비밀번호를 입력해주세요.");
+				return false;
+			}
+			
+			if (!vPw.test(mdPw)) {
+				alert("비밀번호는 특수문자,영 대/소문자와 숫자를 포함한 8~20자 이내로 작성해야 합니다.");
+				return false;
+			}
+			
+			if (mdPwVr=="") {
+				alert("새 비밀번호 확인란에도 비밀번호를 입력해주세요.");
+				return false
+			}
+			if (mdPw != mdPwVr) {
+				alert("새 비밀번호를 동일하게 입력해주세요");
+				return false;
+			}
+			
+			if (vPw.test(mdPw) && (mdPw == mdPwVr)) {
+				$.ajax({
+					type:"post",
+					async:true,
+					url:"mypage_pwModify",
+					dataType:"text",
+					data:{"exId":exId,"exPw":exPw,"mdPw":mdPw},
+					success:function(pass) {
+						if (pass == 1) {
+							$("input[id='mdPw']").prop("readonly",true);
+							$("input[id='mdPwVr']").prop("readonly",true);
+							alert("비밀번호가 변경됐습니다.");
+						} else {
+							alert("서버 통신 중 오류가 발생했습니다.");
+						} //else
+					} //success
+				}); //ajax
+			}//{if}
+		} //[if]
 	}); //click function
 }); //document
 </script>
@@ -85,10 +90,10 @@ $(document).ready(function() {
 		<tr>
 			<th>비밀번호</th>
 			<td>
-				<input type="text" name="exPw" placeholder="기존 비밀번호"><br>
-				<input type="text" name="mdPw" placeholder="새 비밀번호"><br>
-				<input type="text" name="mdPwVr" placeholder="새 비밀번호 확인">
-				<input type="button" value="변경하기" id="passwordBtn">
+				<input type="text" name="exPwVr" id="exPw" placeholder="기존 비밀번호">*기존 비밀번호 확인부터 해주세요.<br>
+				<input type="text" name="mdPw" id="mdPw" readonly placeholder="새 비밀번호">*기존 비밀번호 확인 후 입력해주세요.<br>
+				<input type="text" name="mdPwVr" id="mdPwVr" readonly placeholder="새 비밀번호 확인">
+				<input type="button" value="확인하기" id="psCheckBtn">
 			</td>
 		</tr>
 		<tr>
