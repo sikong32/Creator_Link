@@ -4,29 +4,21 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<!-- CSS 경로  -->
+<link href="${pageContext.request.contextPath}/resources/css/member/member_login.css" rel="stylesheet" type="text/css">
 <title>Login : Creator Link</title>
 </head>
+
 <body>
-	<form action="login_do" method="post">
-		<table border="1">
-			<tr>
-				<th>아이디</th>
-				<td>
-					<input type="text" name="id">
-				</td>
-			</tr>
-			<tr>
-				<th>패스워드</th>
-				<td>
-					<input type="text" name="pw">
-				</td>
-			</tr>
-			<tr>
-				<td colspan="2" align="center">
-					<input type="submit" value="로그인">
-				</td>
-			</tr>
-		</table>
-	</form>
+	<section class="login_container">
+        <h2>로그인</h2>
+       	<form class="login_input" action="login_do" method="post">
+            <div class="login_idpw">
+                <div class="box_id"><input class="login_id" type="text" name="id" placeholder="아이디 입력"></div>
+                <div class="box_pw"><input class="login_pw" type="text" name="pw" placeholder="비밀번호 입력"></div>
+                <input class="login_bnt" type="submit" value="로그인">
+            </div>
+       	</form>
+	</section>
 </body>
 </html>

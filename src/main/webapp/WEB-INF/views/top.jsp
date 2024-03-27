@@ -29,7 +29,7 @@
             <span>Creator Link</span></a></li>
         </ul>
 		
-		<!-- 기본 메뉴  <i class="fa-solid fa-store"></i>-->
+		<!-- 기본 메뉴 -->
 		<ul class="navbar_menu">
 			<li><a href="store_main">스토어</a></li>
 			<li><a href="board_main">게시판</a></li>
@@ -51,10 +51,22 @@
 				<c:when test="${loginState == true }">
 					<c:choose>
 						<c:when test="${member.mb_nick_name == 0 }">
-							<li><a href="mypage?myId=${member.mb_id }"><span style="color:#FDE2F3">${member.mb_id }님 환영합니다!</span></a></li>
+							<ul class="navbar_icon">
+								<li><a href="#"><i class="fa-regular fa-star"></i></a></li>
+								<li><a href="#"><i class="fa-regular fa-heart"></i></a></li>
+								<li><a href="#"><i class="fa-solid fa-cart-shopping"></i></a></li>
+								<li><a href="mypage?myId=${member.mb_id}"><i class="fa-regular fa-user"></i></a></li>
+							</ul>
+							<!-- <div><a href="mypage?myId=${member.mb_id }"><span style="color:#FDE2F3">${member.mb_id }님 환영합니다!</span></a></div> -->
 						</c:when>
-						<c:otherwise>
-							<li><a href="mypage?myId=${member.mb_id }"><span style="color:#FDE2F3">${member.mb_nick_name }님 환영합니다!</span></a></li>
+						<c:otherwise>							
+							<ul class="navbar_icon">
+								<li><a href="#"><i class="fa-regular fa-star"></i></a></li>
+								<li><a href="#"><i class="fa-regular fa-heart"></i></a></li>
+								<li><a href="#"><i class="fa-solid fa-cart-shopping"></i></a></li>
+								<li><a href="mypage?myId=${member.mb_id }"><i class="fa-regular fa-user"></i></a></li>
+							</ul>
+							<!-- <li><a href="mypage?myId=${member.mb_id }"><span style="color:#FDE2F3">${member.mb_nick_name }님 환영합니다!</span></a></li> -->
 						</c:otherwise>
 					</c:choose>
 					<li><a href="logout"><span class="glyphicon glyphicon-log-in"></span>로그아웃</a></li>
@@ -65,13 +77,6 @@
 				</c:otherwise>
 			</c:choose>
 		</ul>
-		<!-- 로그인 (로그인 후 아이콘)
-		<ul class="navbar_icon">
-			<li><a href=""><i class="fa-regular fa-star"></i></a></li>
-			<li><a href=""><i class="fa-regular fa-heart"></i></a></li>
-			<li><a href=""><i class="fa-solid fa-cart-shopping"></i></a></li>
-			<li><a href=""><i class="fa-regular fa-user"></i></a></li>
-		</ul> -->
 		
 		<!-- 반응형 웹 기능 (토글 버튼) -->
 		<a href="#" class="toogle_bnt"><i class="fa-solid fa-bars"></i></a>

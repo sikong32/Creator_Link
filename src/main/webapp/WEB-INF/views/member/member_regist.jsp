@@ -31,50 +31,46 @@ $(document).ready(function() {
 }); //document
 </script>
 <meta charset="UTF-8">
+<link href="${pageContext.request.contextPath}/resources/css/member/member_regist.css" rel="stylesheet" type="text/css">
 <title>Sign Up : Creator Link</title>
 </head>
 <body>
-	<form action="regist_do" method="post">
-		<table border="1">
-			<tr>
-				<th>아이디</th>
-				<td>
-					<input type="text" name="id">
-					<input type="button" value="중복확인" id="idCheck" placeholder="아이디">
-				</td>
-			</tr>
-			<tr>
-				<th>패스워드</th>
-				<td><input type="text" name="pw" placeholder="비밀번호"></td>
-			</tr>
-			<tr>
-				<th>패스워드 확인</th>
-				<td><input type="text" name="pw_verify" placeholder="비밀번호 확인"></td>
-			</tr>
-			<tr>
-				<th>이름</th>
-				<td><input type="text" name="name" placeholder="이름"></td>
-			</tr>
-			<tr>
-				<th>생년월일</th>
-				<td>
-					<input type="date" name="birthDate">
-				</td>
-			</tr>
-			<tr>
-				<th>전화번호</th>
-				<td>
-					<input type="text" name="phone1" size="8" placeholder="010"> -
-					<input type="text" name="phone2" size="8" placeholder="0000"> -
-					<input type="text" name="phone3" size="8" placeholder="0000">
-				</td>
-			</tr>
-			<tr>
-				<td colspan="2" align="center">
-					<input type="submit" id="registBtn" value="회원가입">
-				</td>
-			</tr>
-		</table>
-	</form>
+	<section class="member_regist">
+		<h2>회원가입</h2>
+		<form class="regist_form" action="regist_do" method="post">
+			<div class="regist_menu">
+				<label for="id">아이디</label>
+				<div class="regist_id">
+				<input type="text" name="id" id="id" placeholder="아이디">
+				<input type="button" value="중복확인" id="idCheck">
+				</div>
+			</div>
+			<div class="regist_menu">
+				<label for="pw">비밀번호</label>
+				<input type="text" name="pw" placeholder="비밀번호">
+			</div>
+			<div class="regist_menu">
+				<label for="pw_verify">비밀번호 확인</label>
+				<input type="text" name="pw_verify" placeholder="비밀번호 확인">
+			</div>
+			<div class="regist_menu">
+				<label for="name">이름</label>
+				<input type="text" name="name" placeholder="이름">
+			</div>
+			<div class="regist_menu">
+				<label for="date">생년월일</label>
+				<input type="date" name="birthDate">
+			</div>
+			<div class="regist_menu">
+				<label for="phone">전화번호</label>
+				<div class="regist_phone">
+				<input id="phone" type="text" name="phone1" size="8" placeholder="010"> -
+				<input id="phone" type="text" name="phone2" size="8" placeholder="0000"> -
+				<input id="phone" type="text" name="phone3" size="8" placeholder="0000">
+				</div>
+			</div>
+				<input type="submit" id="registBtn" value="회원가입">
+		</form>
+	</section>
 </body>
 </html>
