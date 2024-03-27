@@ -38,10 +38,10 @@ public class Board_Controller {
 		Board_Service sv = sqlSession.getMapper(Board_Service.class);
 		attribute_list = sv.attribute_list(mb_number);
 		value_of_total = sv.value_of_total(mb_number, bat_number, search, value);
-		
 		Paging paging = new Paging(Integer.parseInt(now_page), Integer.parseInt(view_per_page), value_of_total);
+		ArrayList<Board_DTO> board_list = sv.board_list(mb_number, paging, bat_number, search, value);
 		
-		mo.addAttribute("board_list", sv.board_list(mb_number, paging, bat_number, search, value));
+		mo.addAttribute("board_list", board_list);
 		mo.addAttribute("attribute_list", attribute_list);
 		mo.addAttribute("page", paging);
 		mo.addAttribute("bat_number", bat_number);
@@ -128,8 +128,12 @@ public class Board_Controller {
 	}
 	@RequestMapping(value = "board_modify_do")
 	public String board_modify_do(HttpServletRequest request, Model mo) {
+		String bct_content_number = request.getParameter("bct_content_number");
+		String bct_title = request.getParameter("title");
+		String bct_content = request.getParameter("content");
 		
 		Board_Service sv = sqlSession.getMapper(Board_Service.class);
+		sv.board_modify(bct_title, bct_content, bct_content_number);
 		
 		return "redirect:board_main";
 	}

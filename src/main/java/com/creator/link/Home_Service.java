@@ -1,5 +1,14 @@
 package com.creator.link;
 
+import java.util.ArrayList;
+
+import com.creator.link.Member.Member_DTO;
+import com.creator.link.Store.Store_DTO;
+
 public interface Home_Service {
+
+	ArrayList<Store_DTO> search_item(String value);
+
+	ArrayList<Member_DTO> search_creator(String value);
 
 }

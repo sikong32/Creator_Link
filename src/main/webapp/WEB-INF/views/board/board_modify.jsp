@@ -21,6 +21,7 @@
 </head>
 <body>
 	<form action="board_modify_do" method="post">
+	<input type="hidden" name="bct_content_number" value="${post.bct_content_number}">
 		<div id="container">
 			<table border="1">
 				<tr>
