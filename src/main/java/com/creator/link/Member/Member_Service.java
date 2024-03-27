@@ -8,6 +8,8 @@ public interface Member_Service {
 
 	Member_DTO myPage(String myId);
 
-	void exPasswordCheck(String exPw);
+	int passwordCheck(String exId, String exPw);
+
+	void passwordModify(String exId, String exPw, String mdPw);
 
 }

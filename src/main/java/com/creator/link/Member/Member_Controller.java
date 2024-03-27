@@ -15,6 +15,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
@@ -93,7 +95,7 @@ public class Member_Controller {
 		return "redirect:index";
 	}
 	
-	@RequestMapping(value = "mypage")
+	@RequestMapping(value = "mypage", method = RequestMethod.POST)
 	public ModelAndView mypage(HttpServletRequest request) {
 		ModelAndView mav = new ModelAndView();
 		String myId = request.getParameter("myId");
@@ -105,18 +107,18 @@ public class Member_Controller {
 		return mav;
 	}
 	
-	@RequestMapping(value = "mypage_do")
-	public String mypage_do() {
-		
-		return "redirect:index";
-	}
-	
-	@RequestMapping(value = "mypage_pwCheck")
-	public String mypage_pwCheck(HttpServletRequest request) {
+	@ResponseBody
+	@RequestMapping(value = "mypage_pwModify", method = RequestMethod.POST)
+	public int mypage_pwCheck(HttpServletRequest request) {
 		Member_Service mService = sqlSession.getMapper(Member_Service.class);
-		String exPw = request.getParameter("pw");
-		mService.exPasswordCheck(exPw);
-		return "redirect:index";
+		String exId = request.getParameter("exId");
+		String exPw = request.getParameter("exPw");
+		String mdPw = request.getParameter("mdPw");
+		int pass = mService.passwordCheck(exId,exPw);
+		if (pass == 1) {
+			mService.passwordModify(exId,exPw,mdPw);
+		}
+		return pass;
 	}
 	
 	
