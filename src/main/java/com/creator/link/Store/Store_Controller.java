@@ -1,11 +1,15 @@
 package com.creator.link.Store;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Properties;
 import java.util.UUID;
 
+import javax.annotation.PostConstruct;
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -24,8 +28,24 @@ import com.creator.link.Member.Member_DTO;
 public class Store_Controller {
 	@Autowired
 	SqlSession sqlSession;
+
+	@Autowired
+	ServletContext servletContext;
+
+	String imagePath;
 	
-	String imagePaht = "C:\\github\\Creator_Link\\src\\main\\webapp\\resources\\store\\item_cover";
+	@PostConstruct
+	public void init() {
+        Properties properties = new Properties();
+        try {
+        	String Path = servletContext.getRealPath(".");
+            properties.load(new FileInputStream(Path+"/META-INF/maven/com.creator/link/pom.properties"));
+            String projectLocation = properties.getProperty("m2e.projectLocation");
+            imagePath = projectLocation + "/src/main/webapp/resources/store/item_cover/";
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+	}
 	
 	@RequestMapping(value = "store_main")
 	public String store_main(Model model) {
@@ -86,35 +106,35 @@ public class Store_Controller {
 		int pd_stock = Integer.parseInt(mul.getParameter("pd_stock"));
 		MultipartFile mf = mul.getFile("pd_pohto");
 		String pd_pohto = filesave(mf.getOriginalFilename());
-		mf.transferTo(new File(imagePaht + "\\"+pd_pohto));
-		int pd_option_su = Integer.parseInt(mul.getParameter("pd_option_su"));
+		mf.transferTo(new File(imagePath + pd_pohto));
+//		int pd_option_su = Integer.parseInt(mul.getParameter("pd_option_su"));
 		// 제대로 가져왔는지 확인
-		System.out.println(pd_option_su);
+//		System.out.println(pd_option_su);
 		System.out.println(pd_name+"이름"+pd_price+"가격"+pd_content+"내용"+pd_pohto+"사진"+pd_stock+"재고"+pd_category+"카테고리");
 		System.out.println("컨텐츠 "+pd_content);
 		System.out.println("id 번호:"+dto.getMb_number());
 		// 만약 옵션 수가 없으면 그냥 저장
-		if(pd_option_su==0) {
+//		if(pd_option_su==0) {
 			ss.store_insert0(pd_name,pd_price,pd_category,pd_content,pd_pohto,pd_stock,dto.getMb_number());
-		}else if(pd_option_su==1){// 옵션 수가 1개이면 아래 코드로 저장
-			String os_1name = mul.getParameter("os_1name");
-			int os_1price = Integer.parseInt(mul.getParameter("os_1priec"));
-			MultipartFile mf1 = mul.getFile("os_1photo");
-			String os_1pohto = filesave(mf1.getOriginalFilename());
-			int os_1stock = Integer.parseInt(mul.getParameter("os_1stock"));
-			System.out.println(os_1name);
-			System.out.println(os_1price);
-			System.out.println(os_1pohto);
-			System.out.println(os_1stock);
-			System.out.println("여기까지 안 왔어?");
-			ss.store_insert1(pd_name,pd_price,pd_category,pd_content,pd_pohto,pd_stock,os_1name,os_1price,os_1pohto,os_1stock);
-		}else if(pd_option_su==2) {// 옵션 수가 2개이면 아래 코드로 저장
-			
-		}else {// 옵션 수가 3개이면 아래 코드로 저장
-			
-		}
+//		}else if(pd_option_su==1){// 옵션 수가 1개이면 아래 코드로 저장
+//			String os_1name = mul.getParameter("os_1name");
+//			int os_1price = Integer.parseInt(mul.getParameter("os_1priec"));
+//			MultipartFile mf1 = mul.getFile("os_1photo");
+//			String os_1pohto = filesave(mf1.getOriginalFilename());
+//			int os_1stock = Integer.parseInt(mul.getParameter("os_1stock"));
+//			System.out.println(os_1name);
+//			System.out.println(os_1price);
+//			System.out.println(os_1pohto);
+//			System.out.println(os_1stock);
+//			System.out.println("여기까지 안 왔어?");
+//			ss.store_insert1(pd_name,pd_price,pd_category,pd_content,pd_pohto,pd_stock,os_1name,os_1price,os_1pohto,os_1stock);
+//		}else if(pd_option_su==2) {// 옵션 수가 2개이면 아래 코드로 저장
+//			
+//		}else {// 옵션 수가 3개이면 아래 코드로 저장
+//			
+//		}
 		System.out.println("저장완료");
-		return "store_main";
+		return "redirect:store_main";
 	}
 	private String filesave(String fname) throws IOException {
 		UUID uuid = UUID.randomUUID();
