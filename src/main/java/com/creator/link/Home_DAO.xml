@@ -33,7 +33,6 @@
 		<result property="mb_attribute" column="mb_attribute"/>
 	</resultMap>
 	<resultMap type="com.creator.link.Search_DTO" id="search_dto">
-		<result property="mb_id" column="mb_id"/>
 		<result property="mb_nick_name" column="mb_nick_name"/>
 		<result property="pd_name" column="pd_name"/>
 		<result property="pd_price" column="pd_price"/>
@@ -43,19 +42,19 @@
 		<collection property="member_dto" ofType="com.creator.link.Member.Member_DTO" resultMap="member_dto"></collection>
 	</resultMap>
 	<select id="search_item" resultMap="search_dto">
-      select *
-      from product_tbl pt, member_tbl mt
-      where pt.mb_number = mt.mb_number and (mt.mb_id like '%'||#{param1}||'%' or pt.pd_name like '%'||#{param1}||'%')
-      order by mt.mb_number
-   </select>
-   <select id="search_creator" resultType="com.creator.link.Member.Member_DTO">
-      SELECT *
-      from member_tbl where mb_attribute = 'creator' and mb_id like '%'||#{param1}||'%'
-   </select>
-   <select id="search_seller" resultType="string">
-      select distinct mt.mb_id
-      from product_tbl pt, member_tbl mt
-      where pt.mb_number = mt.mb_number and (mt.mb_id like '%'||#{param1}||'%' or pt.pd_name like '%'||#{param1}||'%')
-      order BY mt.mb_number
-   </select>
+		select *
+		from product_tbl pt, member_tbl mt
+		where pt.mb_number = mt.mb_number and (mt.mb_id like '%'||#{param1}||'%' or pt.pd_name like '%'||#{param1}||'%')
+		order by mt.mb_number
+	</select>
+	<select id="search_creator" resultType="com.creator.link.Member.Member_DTO">
+		SELECT *
+		from member_tbl where mb_attribute = 'creator' and mb_id like '%'||#{param1}||'%'
+	</select>
+	<select id="search_seller" resultType="string">
+		select distinct mt.mb_nick_name
+		from product_tbl pt, member_tbl mt
+		where pt.mb_number = mt.mb_number and (mt.mb_id like '%'||#{param1}||'%' or pt.pd_name like '%'||#{param1}||'%')
+		order BY mt.mb_nick_name
+	</select>
 </mapper>

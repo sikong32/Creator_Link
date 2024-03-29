@@ -81,7 +81,7 @@ public class Board_Controller {
 		
 		HttpSession hs = request.getSession();
 		Member_DTO dto = (Member_DTO)hs.getAttribute("member");
-		String bct_writer = dto.getMb_id();
+		String bct_writer = dto.getMb_nick_name();
 		
 		Board_Service sv = sqlSession.getMapper(Board_Service.class);
 		sv.board_save(bct_writer, bct_title, bct_content, bat_number, mb_number);
@@ -98,9 +98,11 @@ public class Board_Controller {
 		Board_Service sv = sqlSession.getMapper(Board_Service.class);
 		sv.board_view_cntup(bct_content_number);
 		Board_DTO post = sv.board_view(bct_content_number);
+		ArrayList<Comment_DTO> comment = sv.comment_list(bct_content_number);
 		
 		mo.addAttribute("post", post);
 		mo.addAttribute("member", member);
+		mo.addAttribute("comment", comment);
 		
 		return "board_view";
 	}
@@ -141,11 +143,19 @@ public class Board_Controller {
 	public String comment_save(HttpServletRequest request, Model mo) {
 		String cm_content = request.getParameter("cm_content");
 		String bct_content_number = request.getParameter("bct_content_number");
-		String mb_number = request.getParameter("mb_number");
+		String cm_inheritance = request.getParameter("Inheritance");
+		if (cm_inheritance == null) cm_inheritance = "0";
 		
-//		Board_Service sv = sqlSession.getMapper(Board_Service.class);
-//		sv.comment_save();
+		HttpSession hs = request.getSession();
+		Member_DTO member = (Member_DTO)hs.getAttribute("member");
+		String mb_number = member.getMb_number();
+		String mb_nick_name = member.getMb_nick_name();
 		
-		return "";
+		Board_Service sv = sqlSession.getMapper(Board_Service.class);
+		sv.comment_save(cm_content, bct_content_number, mb_number, cm_inheritance, mb_nick_name);
+		
+		mo.addAttribute("bct_content_number", bct_content_number);
+		
+		return "redirect:board_view";
 	}
 }

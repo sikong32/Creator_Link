@@ -137,7 +137,7 @@ public class Store_Controller {
 		}
 		mf.transferTo(new File(imagePath + pd_pohto)); // 상품 대표사진파일저장
 		System.out.println("저장됨");
-		return "store_main";
+		return "redirect:store_main";
 
 	}
 	private String filesave(String fname) throws IOException {
