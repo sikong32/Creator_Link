@@ -137,4 +137,15 @@ public class Board_Controller {
 		
 		return "redirect:board_main";
 	}
+	@RequestMapping(value = "comment_save")
+	public String comment_save(HttpServletRequest request, Model mo) {
+		String cm_content = request.getParameter("cm_content");
+		String bct_content_number = request.getParameter("bct_content_number");
+		String mb_number = request.getParameter("mb_number");
+		
+//		Board_Service sv = sqlSession.getMapper(Board_Service.class);
+//		sv.comment_save();
+		
+		return "";
+	}
 }

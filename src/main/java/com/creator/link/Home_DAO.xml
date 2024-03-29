@@ -1,13 +1,61 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.creator.link.Home_Service">
-	<select id="search_item" resultType="com.creator.link.Store.Store_DTO">
+	<resultMap type="com.creator.link.Store.Store_DTO" id="store_dto">
+		<result property="pd_number" column="pd_number"/>
+		<result property="pd_name" column="pd_name"/>
+		<result property="pd_price" column="pd_price"/>
+		<result property="pd_category" column="pd_category"/>
+		<result property="pd_content" column="pd_content"/>
+		<result property="pd_photo" column="pd_photo"/>
+		<result property="pd_size" column="pd_size"/>
+		<result property="pd_stock" column="pd_stock"/>
+		<result property="pd_table" column="pd_table"/>
+		<result property="mb_number" column="mb_number"/>
+		<result property="pc_number" column="pc_number"/>
+		<result property="mf_name" column="mf_name"/>
+	</resultMap>
+	<resultMap type="com.creator.link.Member.Member_DTO" id="member_dto">
+		<result property="mb_number" column="mb_number"/>
+		<result property="mb_id" column="mb_id"/>
+		<result property="mb_password" column="mb_password"/>
+		<result property="mb_photo" column="mb_photo"/>
+		<result property="mb_nick_name" column="mb_nick_name"/>
+		<result property="mb_name" column="mb_name"/>
+		<result property="mb_birth_date" column="mb_birth_date"/>
+		<result property="mb_phone" column="mb_phone"/>
+		<result property="mb_email" column="mb_email"/>
+		<result property="mb_addr" column="mb_addr"/>
+		<result property="mb_signup_date" column="mb_signup_date"/>
+		<result property="mb_coupon" column="mb_coupon"/>
+		<result property="mb_follow" column="mb_follow"/>
+		<result property="mb_order_list" column="mb_order_list"/>
+		<result property="mb_attribute" column="mb_attribute"/>
+	</resultMap>
+	<resultMap type="com.creator.link.Search_DTO" id="search_dto">
+		<result property="mb_id" column="mb_id"/>
+		<result property="mb_nick_name" column="mb_nick_name"/>
+		<result property="pd_name" column="pd_name"/>
+		<result property="pd_price" column="pd_price"/>
+		<result property="pd_photo" column="pd_photo"/>
+		<result property="pd_stock" column="pd_stock"/>
+		<collection property="store_dto" ofType="com.creator.link.Store.Store_DTO" resultMap="store_dto"></collection>
+		<collection property="member_dto" ofType="com.creator.link.Member.Member_DTO" resultMap="member_dto"></collection>
+	</resultMap>
+	<select id="search_item" resultMap="search_dto">
 		select *
 		from product_tbl pt, member_tbl mt
-		where pt.mb_number = mt.mb_number and mt.mb_id like '%'||#{param1}||'%'
+		where pt.mb_number = mt.mb_number and mt.mb_id like '%'||#{param1}||'%' 
+		order by mt.mb_number
 	</select>
 	<select id="search_creator" resultType="com.creator.link.Member.Member_DTO">
 		SELECT *
 		from member_tbl where mb_attribute = 'creator' and mb_id like '%'||#{param1}||'%'
+	</select>
+	<select id="search_seller" resultType="string">
+		select distinct mt.mb_id
+		from product_tbl pt, member_tbl mt
+		where pt.mb_number = mt.mb_number and mt.mb_id like '%'||0||'%'
+		order BY mt.mb_id
 	</select>
 </mapper>
