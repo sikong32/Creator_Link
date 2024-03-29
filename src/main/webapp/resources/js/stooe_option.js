@@ -112,7 +112,7 @@ function addOption3() {// 3번 옵션 카테고리에 옵션 생성 함수
     var div = document.createElement('div');
     div.setAttribute("name",'option3');
     div.id= 'option3'+ option3Count;
-    if(){
+    
         div.innerHTML = option3Count +'옵션 이름: <input type="text" id="os_'+ option3Count +'name" name="os_3'+ option3Count +'name" >' + 
                         option3Count +'옵션 가격: <input type="text"	id="os_'+ option3Count +'price" name="os_3'+ option3Count +'price" >' +
                         option3Count +'옵션 사진: <input type="file"	id="os_'+ option3Count +'photo" name="os_3'+ option3Count +'photo" >' +
@@ -126,9 +126,7 @@ function addOption3() {// 3번 옵션 카테고리에 옵션 생성 함수
         };
         div.appendChild(deleteButton);
         container.appendChild(div);
-	    }else{
-
-        }
+	 
     }
 }
 //옵션 삭제 버튼

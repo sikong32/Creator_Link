@@ -116,7 +116,6 @@ public class Store_Controller {
 		// 만약 옵션 수가 없으면 그냥 저장
 //		if(pd_option_su==0) {
 			ss.store_insert0(pd_name,pd_price,pd_category,pd_content,pd_pohto,pd_stock,dto.getMb_number());
-=======
 		Store_Service sv = sqlSession.getMapper(Store_Service.class);
 		int opCategoryCnt1 = Integer.parseInt(request.getParameter("optionsContainer1"));
 		int opCategoryCnt2 = Integer.parseInt(request.getParameter("optionsContainer2"));
@@ -133,8 +132,8 @@ public class Store_Controller {
 		for (int i=1; i< request.getParameterValues("option1").length+1; i++) {
 			String os_name = (String)request.getParameter("os_1"+i+"name");
 			String os_prcie = (String)request.getParameter("os_1"+i+"price");
-			MultipartFile mf = mul.getFile("os_1"+i+"photo");
-			String os_pohto = filesave(mf.getOriginalFilename());
+			MultipartFile mf1 = mul.getFile("os_1"+i+"photo");
+			String os_pohto = filesave(mf1.getOriginalFilename());
 //			mf.transferTo(new File(imagePaht + "\\"+pd_pohto));
 			String os_stock = (String)request.getParameter("os_1"+i+"stock");
 			oList1.add(new Store_OS_DTO(os_name, os_prcie, os_pohto, os_stock));
@@ -266,12 +265,10 @@ public class Store_Controller {
 //		}else {// 옵션 수가 3개이면 아래 코드로 저장
 //			
 //		}
-		System.out.println("저장완료");
-		return "redirect:store_main";
-=======
+
 		System.out.println("저장안됨");
 		return "store_main";
->>>>>>> Stashed changes
+
 	}
 	private void os_category(HttpServletRequest request, MultipartHttpServletRequest mul) throws IOException {
 		for (int i = 0; i < 10; i++) {
@@ -279,7 +276,7 @@ public class Store_Controller {
 			String os_price = request.getParameter("os_"+i+"price");
 			MultipartFile mf = mul.getFile("os_"+i+"photo");
 			String os_photo = filesave(mf.getOriginalFilename());
-			mf.transferTo(new File(imagePaht + "\\"+os_photo));
+			mf.transferTo(new File(imagePath + "\\"+os_photo));
 			String os_stock = request.getParameter("os_"+i+"stock");
 			System.out.println(os_name);
 			System.out.println(os_price);
