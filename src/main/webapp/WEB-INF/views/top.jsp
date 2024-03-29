@@ -3,7 +3,32 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
+<script type="text/javascript">
+function sendPostRequest(url, data) {
+	var form = document.createElement("form");
+	form.method = "post";
+	form.action = "mypage";
+	
+	var input = document.createElement("input");
+	input.type = "hidden";
+	input.name = Object.keys(data)[0];
+	input.value = data[Object.keys(data)[0]];
+	form.appendChild(input);
+	
+	document.body.appendChild(form);
+	form.submit();
+}
 
+$(document).ready(function() {
+	$("#myPageLink").click(function(event) {
+		event.preventDefault();
+		
+		var memberId = "${member.mb_id}";
+		var exId = memberId.trim();
+		sendPostRequest("mypage", {"exId":exId});
+	}); //#myPageLink
+}); //document
+</script>
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
@@ -55,7 +80,7 @@
 								<li><a href="#"><i class="fa-regular fa-star"></i></a></li>
 								<li><a href="#"><i class="fa-regular fa-heart"></i></a></li>
 								<li><a href="#"><i class="fa-solid fa-cart-shopping"></i></a></li>
-								<li><a href="mypage?myId=${member.mb_id}"><i class="fa-regular fa-user"></i></a></li>
+								<li><a href="#" id="myPageLink"><i class="fa-regular fa-user"></i></a></li>
 							</ul>
 							<!-- <div><a href="mypage?myId=${member.mb_id }"><span style="color:#FDE2F3">${member.mb_id }님 환영합니다!</span></a></div> -->
 						</c:when>
@@ -64,7 +89,7 @@
 								<li><a href="#"><i class="fa-regular fa-star"></i></a></li>
 								<li><a href="#"><i class="fa-regular fa-heart"></i></a></li>
 								<li><a href="#"><i class="fa-solid fa-cart-shopping"></i></a></li>
-								<li><a href="mypage?myId=${member.mb_id }"><i class="fa-regular fa-user"></i></a></li>
+								<li><a href="#" id="myPageLink" ><i class="fa-regular fa-user"></i></a></li>
 							</ul>
 							<!-- <li><a href="mypage?myId=${member.mb_id }"><span style="color:#FDE2F3">${member.mb_nick_name }님 환영합니다!</span></a></li> -->
 						</c:otherwise>

@@ -25,8 +25,8 @@ import org.springframework.web.servlet.ModelAndView;
 public class Member_Controller {
 	@Autowired
 	SqlSession sqlSession;
-	String basic_path = "C:\\이젠디지털12\\CreaterLink\\CreaterLinkProject\\src\\main\\webapp\\resources\\member\\basic_photo";
-	String profile_path = "C:\\이젠디지털12\\CreaterLink\\CreaterLinkProject\\src\\main\\webapp\\resources\\member\\member_profile";
+	String basic_path = "C:\\EZEN\\CreatorLink\\CreatorLink_github\\-Creator_Link\\src\\main\\webapp\\resources\\member\\basic_photo";
+	String profile_path = "C:\\EZEN\\CreatorLink\\CreatorLink_github\\-Creator_Link\\src\\main\\main\\webapp\\resources\\member\\member_profile";
 	
 	@RequestMapping(value = "regist")
 	public String regist() {
@@ -45,7 +45,6 @@ public class Member_Controller {
 
 		String rgPhone = request.getParameter("phone1") + request.getParameter("phone2") + request.getParameter("phone3");
 
-		
 		mService.regist(rgId,rgPw,rgName,rgBirthDate,rgPhone);
 		
 		return "redirect:index";
@@ -98,7 +97,8 @@ public class Member_Controller {
 	@RequestMapping(value = "mypage", method = RequestMethod.POST)
 	public ModelAndView mypage(HttpServletRequest request) {
 		ModelAndView mav = new ModelAndView();
-		String myId = request.getParameter("myId");
+		String myId = request.getParameter("exId");
+		System.out.println("아이디 도착 : "+myId);
 		Member_Service mService = sqlSession.getMapper(Member_Service.class);
 		Member_DTO mDto = mService.myPage(myId);
 		System.out.println("프로필사진 : "+mDto.getMb_photo());
@@ -121,7 +121,7 @@ public class Member_Controller {
 		return pass;
 	}
 	
-	
+	//public int 
 	
 	
 	

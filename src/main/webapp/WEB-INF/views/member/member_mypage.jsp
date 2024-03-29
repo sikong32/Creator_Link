@@ -6,11 +6,68 @@
 <head>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script type="text/javascript">
+var nickPass = 0;
+var pwPass = 0;
+var eMailPass = 0;
+
+function nickNameVr() {
+	var f = document.member_mypage_form;
+	var vrNick = /^(?=.*[A-Za-z\d가-힣])[A-Za-z\d가-힣]{2,8}$/;
+	if (!f.nickName.value) {
+		alert("닉네임을 입력해주세요.");
+		return false;
+	}
+	if (f.nickName.value.length < 2 || f.nickName.value.length > 8) {
+		alert("닉네임은 2~8글자 이내로 만들어주세요.");
+		return false;
+	}
+	if (!vrNick.test(f.nickName.value)) {
+		alert("닉네임은 영어 및 한글, 숫자만 가능합니다.");
+		return false;
+	}
+	if (vrNick.test(f.nickName.value) && (f.nickName.value.length < 2 || f.nickName.value.length > 8)) {
+		$.ajax({
+			type:"post",
+			async:true,
+			url:"mypage_nickName_check";
+			dataType:"text",
+			data:{"nickName":f.nickName.value},
+			success:function(check) {
+				if (check == 1) {
+					alert("사용 가능한 닉네임입니다.");
+				} else {
+					alert{"사용 불가능한 닉네임입니다."};
+					
+				}
+			}
+		});
+		
+		
+		
+		$.ajax({
+			type:"post", //전송타입
+			async:true,
+			url:"mypage_pwModify",
+			dataType:"text",
+			data:{"exId":exId,"exPw":exPw,"mdPw":mdPw},
+			success:function(pass) {
+				if (pass == 1) {
+					$("input[id='mdPw']").prop("readonly",true);
+					$("input[id='mdPwVr']").prop("readonly",true);
+					alert("비밀번호가 변경됐습니다.");
+				} else {
+					alert("서버 통신 중 오류가 발생했습니다.");
+				} //else
+			} //success
+		}); //ajax
+	}
+} //function nickNameVr
+
 $(document).ready(function() {
 	var exPwCnt = 0;
+	var f = document.member_mypage_form;
 	$("#psCheckBtn").click(function() {
 		//비밀번호 체크 정규식 및 변수
-		var f = document.member_mypage_form;
 		var vPw = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[!@#$%^*-=_]).{8,20}$/;
 		var exId = "${dto.mb_id}";
 		var exPw = "${dto.mb_password}";
@@ -36,7 +93,7 @@ $(document).ready(function() {
 		}
 		
 		if (exPwCnt == 1) {
-			if (mdPw=="") {
+			if (mdPw == "") {
 				alert("새로 변경할 비밀번호를 입력해주세요.");
 				return false;
 			}
@@ -46,10 +103,16 @@ $(document).ready(function() {
 				return false;
 			}
 			
-			if (mdPwVr=="") {
+			if (mdPwVr == "") {
 				alert("새 비밀번호 확인란에도 비밀번호를 입력해주세요.");
 				return false
 			}
+			
+			if (mdPw == exPw) {
+				alert("기존 비밀번호와 동일합니다. 다르게 설정해주세요.");
+				return false;
+			}
+			
 			if (mdPw != mdPwVr) {
 				alert("새 비밀번호를 동일하게 입력해주세요");
 				return false;
@@ -57,7 +120,7 @@ $(document).ready(function() {
 			
 			if (vPw.test(mdPw) && (mdPw == mdPwVr)) {
 				$.ajax({
-					type:"post",
+					type:"post", //전송타입
 					async:true,
 					url:"mypage_pwModify",
 					dataType:"text",
@@ -72,7 +135,7 @@ $(document).ready(function() {
 						} //else
 					} //success
 				}); //ajax
-			}//{if}
+			} //{if}
 		} //[if]
 	}); //click function
 }); //document
@@ -119,12 +182,13 @@ $(document).ready(function() {
 				<c:when test="${dto.mb_nick_name == 0 }">			
 					<td>
 						<input type="text" name="nickName" placeholder="닉네임을 만들어주세요 :D">
-						<input type="button" name="nickNameVrBtn" value="중복확인" onclick="nickNameVr">
+						<input type="button" name="nickNameVrBtn" value="중복확인" onclick="nickNameVr()">
 					</td>
 				</c:when>
 				<c:otherwise>
 					<td>
 						<input type="text" name="nickName" value="${dto.mb_nick_name }">
+						<input type="button" name="nickNameVrBtn" value="중복확인" onclick="nickNameVr()">
 					</td>
 				</c:otherwise>
 			</c:choose>
