@@ -17,7 +17,7 @@
 				<li>상품명</li>
 				<li><input type="text" name="pd_name"></li>
 				<li>상품가격</li>
-				<li><input type="text" name="pd_price"></li>
+				<li><input type="number" name="pd_price" min="1"></li>
 				<li>상품대표 이미지</li>
 				<li><input type="file" name="pd_pohto"></li>
 				<li><div id="optionCategories">
