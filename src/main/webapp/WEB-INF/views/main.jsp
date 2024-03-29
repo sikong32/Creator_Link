@@ -8,9 +8,9 @@
 <link href="${pageContext.request.contextPath}/resources/css/main.css" rel="stylesheet" type="text/css">
 <title>Creator Link</title>
 </head>
-<body>
 
-	<div class="main_container">
+<body>
+<div class="main_container">
 	<!-- 방송 카테고리 (사이드바) -->
 	<aside class="streamcate_bar">
         <ul class="streamcate_detail">
@@ -108,6 +108,6 @@
         	</div>
         </div>
 	</section>
-	</div>
+</div>
 </body>
 </html>
