@@ -4,7 +4,7 @@
 
 <insert id="regist">
 	insert into crering.member_tbl values (mb_number_seq.nextval,#{param1},#{param2},
-									'basic_photo.png','0',#{param3},#{param4},#{param5},'0',
+									'basic_photo.png',#{param1},#{param3},#{param4},#{param5},'0',
 									'0',sysdate,'0','0','0','일반 회원')
 </insert>
 
