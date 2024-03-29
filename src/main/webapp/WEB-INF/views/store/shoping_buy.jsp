@@ -11,9 +11,8 @@
 </head>
 <body>
 	<form action="shoping_buy_fix">
-		<table border="1">
-			<tr>
-				<th>아이템 리스트</th>
+		<div class="shoping_container">
+				아이템 리스트</th>
 			</tr>
 			<tr>
 				<td><img
@@ -72,7 +71,7 @@
 				<input type="reset" value="취소" onclick="location.href='index'">
 				</td>
 			</tr>
-		</table>
+		</div>
 	</form>
 </body>
 <script type="text/javascript" src="./js/address.js"></script>

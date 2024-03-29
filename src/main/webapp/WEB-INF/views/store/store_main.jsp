@@ -9,48 +9,39 @@
 <title>Creator Link_Store Main</title>
 </head>
 <body>
-	<form action="#">
-		<table border="1" align="center">
-			<tr>
-				<th>굿즈 스토어</th>
-			</tr>
-		</table>
-	</form>
-	<form action="#">
-		<table>
-			<tr>
-				<th>공지</th>
-				<td>공지 내용</td>
-			</tr>
-		</table>
-	</form>
-	<form action="#">
-		<table>
-			<tr>
-				<th>굿즈</th>
-			</tr>
-			<tr>
-				<td><a href="gifthub"><img
-						src="./resources/store/item_cover/gift.png" width="100"></a></td>
+	<section class=store_container>
+			<div class="">
+				<h2>굿즈 스토어</h2>
+				<div class="store_list"></div>
+				</div>
+				<div class="store_notices">
+					<h2>공지 내용</h2>
+				</div>
+				<div class="store_gifthub">
+					<h2>GiftHub</h2>
+					<div>
+						<a href="gifthub">
+						<img src="./resources/store/item_cover/gift.png" width="100"></a>
+					</div>
+					<h2>협력사</h2>
+				<div class=store_list></div>
+			</div>
+			<div>
 				<c:forEach items="${list}" var="s">
-					<td><a href="store_detail?pd_number=${s.pd_number}"><img
-							src="./resources/store/item_cover/${s.pd_photo}" width="100"><br>${s.pd_name}<br>${s.pd_price}</a></td>
+					<div><a href="store_detail?pd_number=${s.pd_number}">
+						<span><img src="./resources/store/item_cover/${s.pd_photo}" width="100"></span>
+						<span>${s.pd_name}</span>
+						<span>${s.pd_price}</span></a>
+					</div>
 				</c:forEach>
-			</tr>
-		</table>
-	</form>
-	<c:choose>
-	<c:when test="${loginState == true}">
-	<form action="#">
-		<table>
-			<tr>
-				<th><input type="button" value="상품 등록" onclick="location.href='store_input'"></th>
-			</tr>
-		</table>
-	</form>
-	</c:when>
-	<c:otherwise>
-	</c:otherwise>
-	</c:choose>
+			</div>
+		<c:choose>
+			<c:when test="${loginState == true}">
+				<input type="button" value="상품 등록" onclick="location.href='store_input'">
+			</c:when>
+			<c:otherwise>
+			</c:otherwise>
+		</c:choose>
+	</section>
 </body>
 </html>

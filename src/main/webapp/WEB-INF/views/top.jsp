@@ -75,28 +75,15 @@
 		<!-- 로그인 (로그인 전 글자) -->
 		<ul class="navbar_login">
 			<c:choose>
-				<c:when test="${loginState == true }">
-					<c:choose>
-						<c:when test="${member.mb_nick_name == 0 }">
-							<ul class="navbar_icon">
-								<li><a href="#"><i class="fa-regular fa-star"></i></a></li>
-								<li><a href="#"><i class="fa-regular fa-heart"></i></a></li>
-								<li><a href="#"><i class="fa-solid fa-cart-shopping"></i></a></li>
-								<li><a href="#" id="myPageLink"><i class="fa-regular fa-user"></i></a></li>
-							</ul>
-							<!-- <div><a href="mypage?myId=${member.mb_id }"><span style="color:#FDE2F3">${member.mb_id }님 환영합니다!</span></a></div> -->
-						</c:when>
-						<c:otherwise>							
-							<ul class="navbar_icon">
-								<li><a href="#"><i class="fa-regular fa-star"></i></a></li>
-								<li><a href="#"><i class="fa-regular fa-heart"></i></a></li>
-								<li><a href="#"><i class="fa-solid fa-cart-shopping"></i></a></li>
-								<li><a href="#" id="myPageLink" ><i class="fa-regular fa-user"></i></a></li>
-							</ul>
-							<!-- <li><a href="mypage?myId=${member.mb_id }"><span style="color:#FDE2F3">${member.mb_nick_name }님 환영합니다!</span></a></li> -->
-						</c:otherwise>
-					</c:choose>
-					<li><a href="logout"><span class="glyphicon glyphicon-log-in"></span>로그아웃</a></li>
+				<c:when test="${loginState == true }">		
+					<ul class="navbar_icon">
+						<li>${member.mb_nick_name}님 환영합니다!</li>
+						<li><a href="#"><i class="fa-regular fa-star"></i></a></li>
+						<li><a href="#"><i class="fa-regular fa-heart"></i></a></li>
+						<li><a href="#"><i class="fa-solid fa-cart-shopping"></i></a></li>
+						<li><a href="#" id="myPageLink" ><i class="fa-regular fa-user"></i></a></li>
+						<li><a href="logout"><i class="fa-solid fa-door-open"></i></a></li>
+					</ul>
 				</c:when>
 				<c:otherwise>
 					<li><a href="login">로그인</a></li>

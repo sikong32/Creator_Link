@@ -3,19 +3,21 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<script type="text/javascript">
-		window.onload = function() {
-			 var container_width = document.getElementById('container').offsetWidth;
-		        var container_border_width = document.getElementById('container').clientWidth - document.getElementById('container').offsetWidth;
-		        var container_actual_width = container_width + container_border_width;
-
-		        document.getElementById('top').style.width = container_actual_width + 'px';
-		        document.getElementById('body').style.width = container_actual_width + 'px';
-		        document.getElementById('footer').style.width = container_actual_width + 'px';
-		}
-	</script>
 <meta charset="UTF-8">
 <title><t:insertAttribute name="title" /></title>
+<style type="text/css">
+body {
+	margin : 0;
+	padding: 0;
+	border: 0;
+	width: 100%;
+	height: 90%;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+	font-family:'Pretendard-Regular';
+}
+</style>
 </head>
 <body>
 	<div id="container">
