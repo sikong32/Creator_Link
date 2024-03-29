@@ -107,29 +107,31 @@ public class Store_Controller {
 		int pd_stock = Integer.parseInt(mul.getParameter("pd_stock"));
 		MultipartFile mf = mul.getFile("pd_pohto");
 		String pd_pohto = filesave(mf.getOriginalFilename());
-		int os1_su = request.getParameterValues("os1_su").length; //1번 옵션 카테고리 옵션수 체크
-		//옵션이 1개라도 있는지 여부 체크
-		if(os1_su>0) {
-			ss.store_insert0(pd_name, pd_price, pd_category, pd_content, pd_pohto, pd_stock, 1001);
-			int max_index = ss.store_max_index();
-			System.out.println(max_index);
-			for (int i = 1; i < os1_su+1; i++) {
-				String os_name = request.getParameter("os_1"+i+"name");
-				String os_price = request.getParameter("os_1"+i+"price");
-				String os_stock = request.getParameter("os_1"+i+"stock");
-				MultipartFile mf1;
-				String os_photo;
-				if(mul.getFile("os_1"+i+"pohto")==null){
-					os_photo = pd_pohto;
-				}else {
-					mf1 = mul.getFile("os_1"+i+"pohto");
-					os_photo = filesave(mf1.getOriginalFilename());
-					mf1.transferTo(new File(imagePath + os_photo)); // 옵션사진파일저장
+		if(request.getParameterValues("os1_su")!=null) {
+			int os1_su = request.getParameterValues("os1_su").length; //1번 옵션 카테고리 옵션수 체크
+			//옵션이 1개라도 있는지 여부 체크
+			if(os1_su>0) {
+				ss.store_insert0(pd_name, pd_price, pd_category, pd_content, pd_pohto, pd_stock, 1001);
+				int max_index = ss.store_max_index();
+				System.out.println(max_index);
+				for (int i = 1; i < os1_su+1; i++) {
+					String os_name = request.getParameter("os_1"+i+"name");
+					String os_price = request.getParameter("os_1"+i+"price");
+					String os_stock = request.getParameter("os_1"+i+"stock");
+					MultipartFile mf1;
+					String os_photo;
+					if(mul.getFile("os_1"+i+"pohto")==null){
+						os_photo = pd_pohto;
+					}else {
+						mf1 = mul.getFile("os_1"+i+"pohto");
+						os_photo = filesave(mf1.getOriginalFilename());
+						mf1.transferTo(new File(imagePath + os_photo)); // 옵션사진파일저장
+					}
+					ss.os1_insert(os_name,os_price,os_photo,os_stock,max_index);
 				}
-				ss.os1_insert(os_name,os_price,os_photo,os_stock,max_index);
+			}else {
+				ss.store_insert0(pd_name, pd_price, pd_category, pd_content, pd_pohto, pd_stock, 1001);
 			}
-		}else {
-			ss.store_insert0(pd_name, pd_price, pd_category, pd_content, pd_pohto, pd_stock, 1001);
 		}
 		mf.transferTo(new File(imagePath + pd_pohto)); // 상품 대표사진파일저장
 		System.out.println("저장됨");
