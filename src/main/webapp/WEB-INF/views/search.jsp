@@ -14,11 +14,14 @@
 		</c:when>
 		<c:otherwise>
 			<c:forEach begin="0" end="${creator.size()-1}" var="i">
-				${creator.get(i).getMb_id()}<c:if test="${i != creator.size()-1}"><br></c:if>
+				${creator.get(i).getMb_id()}
+				<c:if test="${i != creator.size()-1}"><br></c:if>
 			</c:forEach>
 		</c:otherwise>
 	</c:choose><br>
+	
 	<div style="width: 60%; height: 1px; background-color: black;"></div>
+	
 	<span>상품 목록</span><br>
 	<c:choose>
 		<c:when test="${item.size() == 0}">

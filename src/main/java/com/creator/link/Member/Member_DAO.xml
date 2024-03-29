@@ -9,7 +9,7 @@
 </insert>
 
 <select id="memberLogin" resultType="com.creator.link.Member.Member_DTO">
-	select mb_id,mb_nick_name from crering.member_tbl where mb_id=#{param1} and mb_password=#{param2}
+	select mb_id,mb_nick_name,mb_number from crering.member_tbl where mb_id=#{param1} and mb_password=#{param2}
 </select>
 
 <select id="myPage" resultType="com.creator.link.Member.Member_DTO">

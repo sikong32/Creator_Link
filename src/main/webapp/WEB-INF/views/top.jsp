@@ -37,8 +37,8 @@
 		
 		<!-- 검색창 -->
 		<div class="navbar_search">
-			<form class="search_box" action="#" method="get">
-				<input class="search_txt" type="text" name="" placeholder="검색어를 입력하세요">
+			<form class="search_box" action="search" method="get">
+				<input class="search_txt" type="text" name="value" placeholder="검색어를 입력하세요">
 				<button class="search_btn" type="submit">
 					<i class="fa-solid fa-magnifying-glass"></i>
 				</button>

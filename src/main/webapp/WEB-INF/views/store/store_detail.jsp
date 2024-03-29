@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -40,9 +40,29 @@
 				</select></td>
 			</tr>
 			<tr>
-				<td><input type="button" value="장바구니" onclick=""></td>
+				<th>구매수량</th>
+				<td>
+				<c:choose>
+					<c:when test="${dto.pd_stock < 1}">
+						품절
+					</c:when>
+					<c:otherwise>
+						<select name="buy_quantity">
+							<c:forEach begin="1" end="${dto.pd_stock}" var="i">
+								<option value="${i}">${i}</option>
+							</c:forEach>
+						</select>
+					</c:otherwise>
+				</c:choose>
+				</td>
+			</tr>
+			<tr>
+				<td><input type="button" value="장바구니" 
+					onclick="" 
+					<c:if test="${dto.pd_stock < 1}">disabled</c:if>></td>
 				<td><input type="button" value="구매"
-					onclick="location.href='shoping_buy'"></td>
+					onclick="location.href='shoping_buy'"
+					<c:if test="${dto.pd_stock < 1}">disabled</c:if>></td>
 			</tr>
 		</table>
 	</form>
