@@ -11,8 +11,8 @@
 
 <body>
 	<section class="login_container">
-        <h2>로그인</h2>
        	<form class="login_input" action="login_do" method="post">
+       		<h2>로그인</h2>
             <div class="login_idpw">
                 <div class="box_id"><input class="login_id" type="text" name="id" placeholder="아이디 입력"></div>
                 <div class="box_pw"><input class="login_pw" type="text" name="pw" placeholder="비밀번호 입력"></div>

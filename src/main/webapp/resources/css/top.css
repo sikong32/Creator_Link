@@ -11,12 +11,15 @@ body {
 	margin : 0;
 	padding: 0;
 	border: 0;
-    width: 100%;
-    height: 100%;
 	font-size: 100%;
 	font: inherit;
 	vertical-align: baseline;
 	font-family:'Pretendard-Regular';
+}
+
+.navbar_container {
+	width: 100vw;
+	height: 15vh;
 }
 
 .navbar {
@@ -31,13 +34,13 @@ body {
 .navbar a {
 	text-decoration: none;
 	color: white;
+	white-space: nowrap;
 }
 
 .navbar_logo{
 	list-style: none;
 	position: relative;
 	top: -15px;
-	display: inline-block;
 	align-items: center;
 }
 
@@ -66,23 +69,32 @@ body {
 }
 
 .navbar_menu li {
-	padding: 8px 50px;
+    padding: 8px 30px;
+    margin: 0 15px;
 }
 
 .navbar_menu li:hover {
-	color: #2A2F4F;
-	background-color: #FDE2F3;
+	background-color: #FFFFFF;
 	border-radius: 20px;
+}
+
+.navbar_menu li:hover a {
+    color: #2A2F4F;
 }
 
 .search_box {
 	padding-left: 0;
+	padding: 10;
 	height: 30px;
 	width: 300px;
 	background: white;
 	border-radius: 20px;
-	padding: 10;
-	border: 3px solid #FDE2F3;
+	border: 3px solid #917FB3;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	position: inline-block;
+    margin: 0 15px;
 }
 
 .search_txt {
@@ -90,26 +102,24 @@ body {
 	background: none;
 	outline: none;
 	float: left;
-	padding-left: 15px;
+	padding: 0 15px;
 	color: #797979;
 	font-size: 16px;
-	line-height: 30px;
-	width: 200px;
+	box-sizing: border-box;
+	width: 100%;
 	font-family: 'Pretendard-Regular';
 }
 
 .search_btn {
-	color: #2A2F4F;
 	float: right;
-	width: 40px;
+	width: 30px;
 	height: 100%;
 	border-radius: 50%;
+	color: #917FB3;
 	background-color: white;
 	border: none;
 	font-size: 16px;
-	display: flex;
-	justify-content: center;
-	align-items: center;
+	margin-right: 5px;
 }
 
 .navbar_login {
@@ -121,13 +131,17 @@ body {
 }
 
 .navbar_login li {
-	padding: 8px 50px;
+    padding: 8px 30px;
+    margin: 0 15px;
 }
 
 .navbar_login li:hover {
-	color: #2A2F4F;
-	background-color: #FDE2F3;
+	background-color: #FFFFFF;
 	border-radius: 20px;
+}
+
+.navbar_login li:hover a {
+    color: #2A2F4F;
 }
 
 .navbar_icon {
@@ -139,9 +153,10 @@ body {
 
 .navbar_icon li {
 	padding: 8px 12px;
+    margin-right: 10px;
 }
 
-.toogle_bnt {
+.navbar_toggleBtn {
 	display: none;
 	position: absolute;
 	right: 32px;
@@ -170,8 +185,6 @@ body {
 	
 	.navbar_search {
 	display: none;
-	width: 100%;
-	justify-content: center;
 	}
 	
 	.navbar_login {
@@ -192,7 +205,15 @@ body {
 	justify-content: center;
 	}
 	
-	.toogle_bnt {
+	.navbar_toggleBtn {
 	display: block;
 	}
+	
+	.navbar_menu.active,
+	.navbar_login.active,
+	.navbar_icon.active {
+	display: flex;
+	}
+	
+}
 }
