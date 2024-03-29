@@ -4,8 +4,8 @@ var option3Count = 1;
 var optionCategoryCount = 0;
 
 function addOptionCategory() { // 옵션 카테고리 추가
-	if(optionCategoryCount>2){
-		alert("옵션 카테고리 개수는 최대 3개까지 입니다.");
+	if(optionCategoryCount>0){
+		alert("옵션 카테고리 개수는 일단 1개까지 입니다.");
 	}else{
     optionCategoryCount++; // 옵션 카테고리 누적
     var container = document.getElementById('optionCategories'); // 만들 태그 위치 찾기
@@ -31,10 +31,11 @@ function addOptionCategory() { // 옵션 카테고리 추가
     var div = document.createElement('div');
     div.setAttribute("name","option"+optionCategoryCount);
     div.id= 'option1'+ optionCategoryCount;
-    div.innerHTML = '1옵션 이름: <input type="text" id="os_1name" name="os_1name" >' + 
-				    '1옵션 가격: <input type="text"	id="os_1price" name="os_1price" >' +
-				    '1옵션 사진: <input type="file"	id="os_1photo" name="os_1photo" >' +
-				    '1옵션 재고: <input type="number" min="0"	id="os_1stock" name="os_1stock" onchange="tot_stock()" class="stock">';
+    div.innerHTML = '<input type="hidden" name="os1_su">' +
+                    '1옵션 이름: <input type="text" id="os_1name" name="os_11name" >' + 
+				    '1옵션 가격: <input type="text"	id="os_1price" name="os_11price" >' +
+				    '1옵션 사진: <input type="file"	id="os_1photo" name="os_11photo" >' +
+				    '1옵션 재고: <input type="number" min="0"	id="os_1stock" name="os_11stock" onchange="tot_stock()" class="stock">';
     container.appendChild(div);
 	}
 }
@@ -64,7 +65,8 @@ function addOption1() { // 옵션 생성
     div.setAttribute("name",'option1'); // 옵션 태그 네임명 설정
     div.id= 'option1'+ option1Count; // 옵션 태그 ID명
  	// 옵션 태그 에 들어갈 내용
-    div.innerHTML = option1Count +'옵션 이름: <input type="text" id="os_'+ option1Count +'name" name="os_1'+ option1Count +'name" >' + 
+    div.innerHTML = '<input type="hidden" name="os1_su">' +
+                    option1Count +'옵션 이름: <input type="text" id="os_'+ option1Count +'name" name="os_1'+ option1Count +'name" >' + 
 				    option1Count +'옵션 가격: <input type="text"	id="os_'+ option1Count +'price" name="os_1'+ option1Count +'price" >' +
 				    option1Count +'옵션 사진: <input type="file"	id="os_'+ option1Count +'photo" name="os_1'+ option1Count +'photo" >' +
 				    option1Count +'옵션 재고: <input type="number" min="0"	id="os_'+ option1Count +'stock" name="os_1'+ option1Count +'stock" onchange="tot_stock()" class="stock">';
@@ -88,7 +90,8 @@ function addOption2() { // 2번 옵션 카테고리에 옵션 생성 함수
     var div = document.createElement('div');
     div.setAttribute("name",'option2');
     div.id= 'option2'+ option2Count;
-    div.innerHTML = option2Count +'옵션 이름: <input type="text" id="os_'+ option2Count +'name" name="os_2'+ option2Count +'name" >' + 
+    div.innerHTML = '<input type="hidden" name="os1_su">' +
+                    option2Count +'옵션 이름: <input type="text" id="os_'+ option2Count +'name" name="os_2'+ option2Count +'name" >' + 
 				    option2Count +'옵션 가격: <input type="text"	id="os_'+ option2Count +'price" name="os_2'+ option2Count +'price" >' +
 				    option2Count +'옵션 사진: <input type="file"	id="os_'+ option2Count +'photo" name="os_2'+ option2Count +'photo" >' +
 				    option2Count +'옵션 재고: <input type="number" min="0"	id="os_'+ option2Count +'stock" name="os_2'+ option2Count +'stock" onchange="tot_stock()" class="stock">' ;
@@ -113,7 +116,8 @@ function addOption3() {// 3번 옵션 카테고리에 옵션 생성 함수
     div.setAttribute("name",'option3');
     div.id= 'option3'+ option3Count;
     
-        div.innerHTML = option3Count +'옵션 이름: <input type="text" id="os_'+ option3Count +'name" name="os_3'+ option3Count +'name" >' + 
+        div.innerHTML = '<input type="hidden" name="os1_su">' +
+                        option3Count +'옵션 이름: <input type="text" id="os_'+ option3Count +'name" name="os_3'+ option3Count +'name" >' + 
                         option3Count +'옵션 가격: <input type="text"	id="os_'+ option3Count +'price" name="os_3'+ option3Count +'price" >' +
                         option3Count +'옵션 사진: <input type="file"	id="os_'+ option3Count +'photo" name="os_3'+ option3Count +'photo" >' +
                         option3Count +'옵션 재고: <input type="number" min="0"	id="os_'+ option3Count +'stock" name="os_3'+ option3Count +'stock" onchange="tot_stock()" class="stock">' ;

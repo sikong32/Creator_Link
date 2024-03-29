@@ -4,7 +4,6 @@ CKEDITOR.ClassicEditor.create(document.getElementById("editor"), {
     // https://ckeditor.com/docs/ckeditor5/latest/features/toolbar/toolbar.html#extended-toolbar-configuration-format
     toolbar: {
         items: [
-
             'heading', '|',
             'bold', 'italic', '|',
             'bulletedList', 'numberedList', 'todoList', '|',
@@ -136,4 +135,9 @@ CKEDITOR.ClassicEditor.create(document.getElementById("editor"), {
         // from a local file system (file://) - load this site via HTTP server if you enable MathType
         'MathType'
     ]
+}).then( newEditor => {
+    editor = newEditor;
+} )
+.catch( error => {
+    console.error( error );
 });
