@@ -127,11 +127,13 @@ public class Store_Controller {
 						os_photo = filesave(mf1.getOriginalFilename());
 						mf1.transferTo(new File(imagePath + os_photo)); // 옵션사진파일저장
 					}
+					System.out.println("옵션 저장이 됨");
 					ss.os1_insert(os_name,os_price,os_photo,os_stock,max_index);
 				}
-			}else {
-				ss.store_insert0(pd_name, pd_price, pd_category, pd_content, pd_pohto, pd_stock, 1001);
-			}
+		}
+		}else {
+			System.out.println("상품 저장이 됨");
+			ss.store_insert0(pd_name, pd_price, pd_category, pd_content, pd_pohto, pd_stock, 1001);
 		}
 		mf.transferTo(new File(imagePath + pd_pohto)); // 상품 대표사진파일저장
 		System.out.println("저장됨");
