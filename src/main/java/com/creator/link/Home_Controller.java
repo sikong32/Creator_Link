@@ -34,10 +34,12 @@ public class Home_Controller {
 		
 		Home_Service sv = sqlSession.getMapper(Home_Service.class);
 		ArrayList<Member_DTO> creator = sv.search_creator(value);
-		ArrayList<Store_DTO> item = sv.search_item(value);
+		ArrayList<Search_DTO> item = sv.search_item(value);
+		ArrayList<String> seller = sv.search_seller(value);
 		
 		mo.addAttribute("creator", creator);
 		mo.addAttribute("item", item);
+		mo.addAttribute("seller", seller);
 		
 		return "search";
 	}

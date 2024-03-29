@@ -7,8 +7,10 @@ import com.creator.link.Store.Store_DTO;
 
 public interface Home_Service {
 
-	ArrayList<Store_DTO> search_item(String value);
+	ArrayList<Search_DTO> search_item(String value);
 
 	ArrayList<Member_DTO> search_creator(String value);
+
+	ArrayList<String> search_seller(String value);
 
 }

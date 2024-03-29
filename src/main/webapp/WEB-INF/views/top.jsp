@@ -1,33 +1,35 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script type="text/javascript">
-function sendPostRequest(url, data) {
-	var form = document.createElement("form");
-	form.method = "post";
-	form.action = "mypage";
+	$(document).ready(function() {
+		$("#myPageLink").click(function(event) {
+			event.preventDefault();
+			
+			var memberId = "${member.mb_id}";
+			var exId = memberId.trim();
+			sendPostRequest("mypage", {"exId":exId});
+		}); //#myPageLink
+	}); //document
 	
-	var input = document.createElement("input");
-	input.type = "hidden";
-	input.name = Object.keys(data)[0];
-	input.value = data[Object.keys(data)[0]];
-	form.appendChild(input);
-	
-	document.body.appendChild(form);
-	form.submit();
-}
-
-$(document).ready(function() {
-	$("#myPageLink").click(function(event) {
-		event.preventDefault();
+	function sendPostRequest(url, data) {
+		var form = document.createElement("form");
+		form.method = "post";
+		form.action = "mypage";
 		
-		var memberId = "${member.mb_id}";
-		var exId = memberId.trim();
-		sendPostRequest("mypage", {"exId":exId});
-	}); //#myPageLink
-}); //document
+		var input = document.createElement("input");
+		input.type = "hidden";
+		input.name = Object.keys(data)[0];
+		input.value = data[Object.keys(data)[0]];
+		form.appendChild(input);
+		
+		document.body.appendChild(form);
+		form.submit();
+	}
+
+
 </script>
 <head>
 	<meta charset="UTF-8">
