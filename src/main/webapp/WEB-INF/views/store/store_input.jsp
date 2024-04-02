@@ -4,7 +4,7 @@
 <html>
 <head>
 <script src="https://cdn.ckeditor.com/ckeditor5/34.2.0/super-build/ckeditor.js"></script>
-<script type="text/javascript" src="resources/js/stooe_option.js"></script>
+<script type="text/javascript" src="resources/js/store_option.js"></script>
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
@@ -14,19 +14,22 @@
 		<div>
 			<ul>
 				<li>상품카테고리</li>
-				<li><input type="text" name="pd_category" required="required"></li>
+				<li><input type="text" name="pd_category" required="required" placeholder="카테고리 검색" maxlength="100"></li>
 				<li>상품명</li>
-				<li><input type="text" name="pd_name" required="required"></li>
+				<li><input type="text" name="pd_name" required="required" placeholder="최대 100자" maxlength="100"></li>
 				<li>상품가격</li>
-				<li><input type="number" name="pd_price" min="1"
-					required="required"></li>
+				<li><input type="number" name="pd_price" min="1" max="9999999999" required="required" placeholder="최소 1원"></li>
 				<li>상품대표 이미지</li>
 				<li><input type="file" name="pd_pohto" required="required"></li>
-				<li><div id="optionCategories">
-						<!-- 여기에 옵션 카테고리 추가됨 -->
-					</div> <input type="button" onclick="addOptionCategory()" value="옵션 카테고리 추가"></li>
+				<li>
+					<input type="radio" name="os_radio" id="os_apply" value="Y" onclick="os_Category_create()">옵션 사용
+					<input type="radio" name="os_radio" id="os_Unapplied" value="N" onclick="os_Category_delete()" checked>옵션 사용안함
+					<div id="os_Categories" class="os_Categories"><!-- 여기에 옵션 카테고리 추가됨 --></div>
+					<div id="os_print" class="os_print"><!-- 여기에 옵션 카테고리 추가됨 --></div>
+					<div id="os_out" class="os_out"><!-- 여기에 옵션 카테고리 추가됨 --></div>
+				</li>
 				<li>상품 모든 재고</li>
-				<li><input type="number" min="0" id="pd_stock" name="pd_stock" required="required"></li>
+				<li><input type="number" min="0" max="9999999999" id="pd_stock" name="pd_stock" required="required" placeholder="0개 입력시 품절"></li>
 				<li>상세페이지</li>
 				<li><textarea id="editor" name="pd_content" cols="20" rows="5"></textarea></li>
 				<li><input type="button" value="전송" onclick="text1()"></li>

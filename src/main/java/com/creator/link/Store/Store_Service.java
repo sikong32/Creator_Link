@@ -11,9 +11,15 @@ public interface Store_Service {
 
 	Store_DTO store_detail(String pd_number);
 
-	void os1_insert(String os_name, String os_price, String os_photo, String os_stock, int max_index);
-
 	int store_max_index();
+
+	void os3_insert(int max_index, String os_1name, String os_2name, String os_3name, int os_price, String os_photo,
+			int os_stock);
+
+	void os2_insert(int max_index, String os_1name, String os_2name, int os_price, String os_photo, int os_stock);
+
+	void os1_insert(int max_index, String os_1name, int os_price, String os_photo, int os_stock);
+
 
 
 }

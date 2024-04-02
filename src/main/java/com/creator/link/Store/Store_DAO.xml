@@ -10,12 +10,20 @@
 </insert>
 <insert id="os1_insert">
 	INSERT INTO product_opstion_tbl(OS_NUMBER,PD_NUMBER,OS_1NAME,OS_PRICE,OS_PHOTO,OS_STOCK) 
-	VALUES (OS_NUMBER_SQL.nextval,#{param5},#{param1},#{param2},#{param3},#{param4})
+	VALUES (OS_NUMBER_SQL.nextval,#{param1},#{param2},#{param3},#{param4},#{param5})
+</insert>
+<insert id="os2_insert">
+	INSERT INTO product_opstion_tbl(OS_NUMBER,PD_NUMBER,OS_1NAME,OS_2NAME,OS_PRICE,OS_PHOTO,OS_STOCK) 
+	VALUES (OS_NUMBER_SQL.nextval,#{param1},#{param2},#{param3},#{param4},#{param5},#{param6})
+</insert>
+<insert id="os3_insert">
+	INSERT INTO product_opstion_tbl(OS_NUMBER,PD_NUMBER,OS_1NAME,OS_2NAME,OS_3NAME,OS_PRICE,OS_PHOTO,OS_STOCK) 
+	VALUES (OS_NUMBER_SQL.nextval,#{param1},#{param2},#{param3},#{param4},#{param5},#{param6},#{param7})
 </insert>
 <select id="store_detail" resultType="com.creator.link.Store.Store_DTO">
 	select * from PRODUCT_TBL where PD_NUMBER = #{param1}
 </select>
 <select id="store_max_index" resultType="int">
-	SELECT max(pc_number) FROM product_tbl
+	SELECT max(PD_NUMBER) FROM product_tbl
 </select>
 </mapper>

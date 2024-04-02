@@ -93,12 +93,14 @@ public class Store_Controller {
 		return "store_input";
 	}
 	@RequestMapping(value = "store_save", method = RequestMethod.POST)
-	public String store_save(MultipartHttpServletRequest mul,HttpServletRequest request) throws IllegalStateException, IOException {
-		Store_Service  ss = sqlSession.getMapper(Store_Service.class);
+	public String store_save2(MultipartHttpServletRequest mul,HttpServletRequest request) throws IllegalStateException, IOException {
+		Store_Service ss = sqlSession.getMapper(Store_Service.class);
 		// 회원 번호 가져오기
-		HttpSession hs = request.getSession();
-		Member_DTO dto = (Member_DTO)hs.getAttribute("member");
-//		int mb_number = Integer.parseInt(dto.getMb_number());
+//		HttpSession hs = request.getSession();
+//		Member_DTO dto = (Member_DTO)hs.getAttribute("member");
+//		System.out.println("맨버 번호"+dto.toString());
+		int mb_number = 1002;
+//				Integer.parseInt(dto.getMb_number());
 		// 대표 상품 정보 가져오기
 		String pd_category = mul.getParameter("pd_category");
 		String pd_name = mul.getParameter("pd_name");
@@ -107,38 +109,63 @@ public class Store_Controller {
 		int pd_stock = Integer.parseInt(mul.getParameter("pd_stock"));
 		MultipartFile mf = mul.getFile("pd_pohto");
 		String pd_pohto = filesave(mf.getOriginalFilename());
-		if(request.getParameterValues("os1_su")!=null) {
-			int os1_su = request.getParameterValues("os1_su").length; //1번 옵션 카테고리 옵션수 체크
-			//옵션이 1개라도 있는지 여부 체크
-			if(os1_su>0) {
-				ss.store_insert0(pd_name, pd_price, pd_category, pd_content, pd_pohto, pd_stock, 1001);
-				int max_index = ss.store_max_index();
-				System.out.println(max_index);
-				for (int i = 1; i < os1_su+1; i++) {
-					String os_name = request.getParameter("os_1"+i+"name");
-					String os_price = request.getParameter("os_1"+i+"price");
-					String os_stock = request.getParameter("os_1"+i+"stock");
-					MultipartFile mf1;
-					String os_photo;
-					if(mul.getFile("os_1"+i+"pohto")==null){
-						os_photo = pd_pohto;
-					}else {
-						mf1 = mul.getFile("os_1"+i+"pohto");
-						os_photo = filesave(mf1.getOriginalFilename());
-						mf1.transferTo(new File(imagePath + os_photo)); // 옵션사진파일저장
-					}
-					System.out.println("옵션 저장이 됨");
-					ss.os1_insert(os_name,os_price,os_photo,os_stock,max_index);
+//		System.out.println("상품 카테고리"+pd_category);
+//		System.out.println("상품 이름"+pd_name);
+//		System.out.println("상품 가격"+pd_price);
+//		System.out.println("상품 상세내용"+pd_content);
+//		System.out.println("상품 재고"+pd_stock);
+		if(request.getParameter("os_radio").equals("Y")) {
+			int os_print_su = Integer.parseInt(request.getParameter("os_print_su"));
+//			System.out.println("옵션개수 "+os_print_su);// 옵션 개수 표시
+			ss.store_insert0(pd_name, pd_price, pd_category, pd_content, pd_pohto, pd_stock, mb_number);
+			int max_index = ss.store_max_index();
+			System.out.println("상품의 최근 생성 시퀀스 수"+max_index);
+			for (int i = 1; i <= os_print_su; i++) {
+				int os_price;
+				if(request.getParameter("os_"+i+"price").equals("")){
+					os_price = pd_price;
+				}else {
+					os_price = Integer.parseInt(request.getParameter("os_"+i+"price"));
 				}
-		}
+				int os_stock;
+				if(request.getParameter("os_"+i+"stock").equals("")) {
+					os_stock = 0;
+				}else {
+					os_stock = Integer.parseInt(request.getParameter("os_"+i+"stock"));
+				}
+				String os_photo;
+				MultipartFile mf1;
+				if(mul.getFile("os_"+i+"pohto")==null){
+					os_photo = pd_pohto;
+				}else {
+					mf1 = mul.getFile("os_"+i+"pohto");
+					os_photo = filesave(mf1.getOriginalFilename());
+					mf1.transferTo(new File(imagePath + os_photo)); // 옵션사진파일저장
+				}
+			if(request.getParameter("os_1_1")!=null && request.getParameter("os_2_1")!=null && request.getParameter("os_3_1")!=null) {
+				String os_1name = request.getParameter("os_1_"+i);
+				String os_2name = request.getParameter("os_2_"+i);
+				String os_3name = request.getParameter("os_3_"+i);
+				ss.os3_insert(max_index,os_1name,os_2name,os_3name,os_price,os_photo,os_stock);
+//				System.out.println("옵션 3 저장");
+				}else if(request.getParameter("os_1_1")!=null && request.getParameter("os_2_1")!=null){
+					String os_1name = request.getParameter("os_1_"+i);
+					String os_2name = request.getParameter("os_2_"+i);
+					ss.os2_insert(max_index,os_1name,os_2name,os_price,os_photo,os_stock);
+//					System.out.println("옵션 2 저장");
+				}else if(request.getParameter("os_1_1")!=null) {
+					String os_1name = request.getParameter("os_1_"+i);
+					System.out.println("옵션 이름"+os_1name);
+					ss.os1_insert(max_index,os_1name,os_price,os_photo,os_stock);
+//					System.out.println("옵션 1 저장");
+				}
+			}
 		}else {
-			System.out.println("상품 저장이 됨");
-			ss.store_insert0(pd_name, pd_price, pd_category, pd_content, pd_pohto, pd_stock, 1001);
+//			System.out.println("옵션 없이 저장 시도");
+			ss.store_insert0(pd_name, pd_price, pd_category, pd_content, pd_pohto, pd_stock, mb_number);
 		}
-		mf.transferTo(new File(imagePath + pd_pohto)); // 상품 대표사진파일저장
-		System.out.println("저장됨");
+//		System.out.println("상품 저장 완료");
 		return "redirect:store_main";
-
 	}
 	private String filesave(String fname) throws IOException {
 		UUID uuid = UUID.randomUUID();
