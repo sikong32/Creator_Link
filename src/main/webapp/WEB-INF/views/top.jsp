@@ -37,6 +37,8 @@
 	<link href="${pageContext.request.contextPath}/resources/css/top.css" rel="stylesheet" type="text/css">
 	<!-- 아이콘 적용 설정  -->
 	<script src="https://kit.fontawesome.com/5c1c1e3491.js" crossorigin="anonymous"></script>
+	<!-- JS 경로 -->
+	<script src="${pageContext.request.contextPath}/resources/js/top.js" defer></script>
 	<title>CreatorLink_</title>
 </head>
 
@@ -45,7 +47,7 @@
 	<nav class="navbar">
 		<section class="navbar_container">
 		<!-- 로고 -->
-		<div class="navbar_logo"><a href="index">Crering</a></div>
+		<div class="navbar_logo"><a href="index">CreatorLink</a></div>
 		
 		<!-- 기본 메뉴 -->
 		<ul class="navbar_menu">
@@ -69,13 +71,14 @@
 				<c:when test="${loginState == true }">		
 					<ul class="navbar_icon">
 						<li class="navbar_ment">${member.mb_nick_name}님 환영합니다!</li>
-						<li><a href="#" id="myPageLink" ><i class="fa-regular fa-user"></i></a>
-						<!-- <ul class="navbar_submenu">
-							<li><a href="#"><i class="fa-regular fa-star"></i></a></li>
-							<li><a href="#"><i class="fa-regular fa-heart"></i></a></li>
-							<li><a href="#"><i class="fa-solid fa-cart-shopping"></i></a></li>
-							<li><a href="#" id="myPageLink" ><i class="fa-regular fa-user"></i></a></li>
-						</ul></li>-->
+						<li class="mavbar_mypage"><a href="#"><i class="fa-regular fa-user"></i></a>
+							<ul class="navbar_submenu">
+								<li id="myPageLink"><a href="#"><i class="fa-regular fa-user"></i></a></li>
+								<li><a href="#"><i class="fa-regular fa-star"></i></a></li>
+								<li><a href="#"><i class="fa-regular fa-heart"></i></a></li>
+								<li><a href="#"><i class="fa-solid fa-cart-shopping"></i></a></li>
+							</ul>
+						</li>
 						<li><a href="logout"><i class="fa-solid fa-door-open"></i></a></li>
 					</ul>
 				</c:when>

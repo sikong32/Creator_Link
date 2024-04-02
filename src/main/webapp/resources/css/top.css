@@ -18,25 +18,23 @@
 }
 
 .navbar_container {
-	height: 3vh;
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
 	background-color: #2A2F4F;
 	white-space: nowrap;
-	padding: 15px 40px;
+	padding: 0 20px;
 }
 
 .navbar a {
 	text-decoration: none;
 	color: white;
-	white-space: nowrap;
-	margin-right: 50px;
+	margin-right: 15px;
 }
 
 .navbar_logo {
 	font-family: 'Logo';
-	font-size: 30px;
+	font-size: 25px;
 }
 
 .navbar_logo a {
@@ -53,8 +51,8 @@
 }
 
 .navbar_menu li a, .navbar_login li a {
+/*     margin: 15px; */
     padding: 6px;
-    margin-right: 10px;
 }
 
 .navbar_menu li a:hover, .navbar_login li a:hover {
@@ -62,13 +60,36 @@
     border-radius: 50px;
     padding: 6px;
     background-color: white;
-    widht: 100px;
-    height: 50px;
 }
 
+/* 마이페이지 토글 부분 */
 .navbar_icon li:hover .navbar_submenu {
-    display: block;
+	display:block;
 }
+
+.navbar_mypage {
+	position: relative;
+}
+
+.navbar_submenu {
+    display: none;
+    position: absolute;
+    list-style: none;
+    background-color: #2A2F4F;
+    border-radius: 30px;
+    padding: 0 2px;
+}
+
+.navbar_submenu li a {
+	display:flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+    color: white;
+    padding: 6px;
+    margin: 5px 0;
+}
+/**/
 
 .navbar_ment {
 	font-size: 14px;
@@ -80,15 +101,16 @@
 .search_box {
 	padding-left: 0;
 	padding: 10;
-	height: 30px;
-	width: 350px;
+	height: 30px;;
 	background: white;
 	border-radius: 10px;
 	border: 3px solid #917FB3;
 	display: flex;
 	align-items: center;
 	position: inline-block;
-    margin-right: 50px;
+    margin-right: 15px;
+    min-width: 185px;
+    max-width: 355px;
 }
 
 .search_txt {
@@ -121,23 +143,26 @@
 	right: 32px;
 	font-size: 24px;
 	color: white;
+	padding-top: 5px;
+	
 }
 
 /* 반응형 웹 기능 */
 @media screen and (max-width: 768px) {
-	.navbar {
+
+	.navbar_container { 
 	flex-direction: column;
 	align-items: flex-start;
 	}
 	
-	.navbar_menu {
+	.navbar_menu, .navbar_login {
 	display: none;
 	flex-direction: column;
 	align-items: center;
 	width: 100%;
 	}
 	
-	.navbar_menu li{
+	.navbar_menu li .navbar_login li{
 	width: 100%;
 	text-align: center;
 	}
@@ -146,22 +171,14 @@
 	display: none;
 	}
 	
-	.navbar_login {
-	display: none;
-	flex-direction: column;
-	align-items: center;
-	width: 100%;
-	}
-	
-	.navbar_login li{
-	width: 100%;
-	text-align: center;
-	}
-	
 	.navbar_icon {
 	display: none;
 	width: 100%;
 	justify-content: center;
+	}
+	
+	.navbar_ment {
+	display: none;
 	}
 	
 	.navbar_toggleBtn {
