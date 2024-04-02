@@ -6,17 +6,21 @@
 <meta charset="UTF-8">
 <title><t:insertAttribute name="title" /></title>
 <style type="text/css">
-body {
+::-webkit-scrollbar {
+	display: none;
+}
+
+html,body {
+	width: 100vw;
+	height: 100vh;
 	margin : 0;
 	padding: 0;
 	border: 0;
-	width: 100%;
-	height: 90%;
-	font-size: 100%;
-	font: inherit;
-	vertical-align: baseline;
-	font-family:'Pretendard-Regular';
+	
+	-ms-overflow-style: none;
+  	scrollbar-width: none;
 }
+
 </style>
 </head>
 <body>

@@ -7,84 +7,99 @@
     font-style: normal;
 }
 
-body {
-	margin : 0;
-	padding: 0;
-	border: 0;
-	font-size: 100%;
-	font: inherit;
-	vertical-align: baseline;
-	font-family:'Pretendard-Regular';
-}
-
 .regist_container {
-    margin-top: 50px;
-    width: 100vw;
-    height: 100vh;
-}
-
-.regist_form {
+	width:100%;
+	height: 90vh;
     display: flex;
     flex-direction: column;
+    justify-content: center;
     align-items: center;
 }
 
+.regist_tot {
+	box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+	padding: 30px 20px;
+	border-radius: 5px;
+}
+
+.regist_tot h3{
+	margin-top: 0px;
+	margin-bottom: 15px;
+}
+
 .regist_menu {
-	height:100px;
-	width: 450px;
-    display: flex;
-    flex-direction: column;
+	display: flex;
+    flex-direction : column;
+    margin: 0;
+    padding-bottom: 10;
+}
+
+label {
+	margin-top: 10px;
+	font-size: 14px;
+	font-family:'Pretendard-Regular';
 }
 
 .regist_menu input {
-	height: 50px;
-	width: 400px;
+	width: 350px;
+	height: 40px;
 	background: none;
 	border-radius: 5px;
 	border: 1px solid #DDE2E6;
     color: #797979;
-	font-size: 16px;
-    padding: 0 15px;
-    line-height: 50%;,
-    box-sizing: border-box;
-    font-family:'Pretendard-Regular'
+    padding: 0 14px;
+    margin: 5px 0;
+    font-family:'Pretendard-Regular';
 }
 
-label {
-	display: block;
-	margin-bottom: 5px;
+#id{
+	width: 234px;
 }
 
-#id {
-	width: 310px;
+.regist_phone {
+	display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#idCheck {
+	width: 110px;
+	background-color: #2A2F4F;
+	color: white;
+}
+
+#idCheck:hover {
+	background-color:#917FB3;
 }
 
 #phone1, #phone2, #phone3 {
-	width: 100px;
-	margin-right: 2px;
+	width: 86px;
 }
 
-#idCheck{
-    border: none;
-    border-radius: 5px;
-    background-color: #2A2F4F;
+#phone1 {
+	margin-right: 5px;
+}
+
+#phone2 {
+	margin: 0 5px;
+}
+
+#phone3 {
+	margin-left: 5px;
+}
+
+.regist_signup input{
+	width: 380px;
+	height: 50px;
+	background: #2A2F4F;
+	border-radius: 5px;
+	border: 1px solid #DDE2E6;
     color: white;
-    width: 80px;
-    height: 50px;
-    line-height: 50px;
-    font-size: 16px;
-    display: inline-block;
+    padding: 0;
+    margin: 20px 0;
     font-family:'Pretendard-Regular';
 }
 
-#registBtn{
-    border: none;
-    border-radius: 5px;
-    background-color: #2A2F4F;
-    color: white;
-    width: 160px;
-    height: 60px;
-    font-size: 18px;
-    margin: auto;
-    font-family:'Pretendard-Regular';
+.regist_signup input:hover {
+	background-color:#917FB3;
 }
