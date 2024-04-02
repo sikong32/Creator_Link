@@ -20,6 +20,14 @@ public interface Store_Service {
 
 	void os1_insert(int max_index, String os_1name, int os_price, String os_photo, int os_stock);
 
+	ArrayList<Store_OS_DTO> store_os_detail(String pd_number);
+
+	ArrayList<String> os_1name_search(String pd_number);
+
+	ArrayList<String> os_2name_search(String pd_number);
+
+	ArrayList<String> os_3name_search(String pd_number);
+
 
 
 }

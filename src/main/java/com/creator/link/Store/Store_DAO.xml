@@ -23,6 +23,18 @@
 <select id="store_detail" resultType="com.creator.link.Store.Store_DTO">
 	select * from PRODUCT_TBL where PD_NUMBER = #{param1}
 </select>
+<select id="store_os_detail" resultType="com.creator.link.Store.Store_OS_DTO">
+	select * from PRODUCT_OPSTION_TBL where PD_NUMBER = #{param1}
+</select>
+<select id="os_1name_search" resultType="String">
+	select os_1name from PRODUCT_OPSTION_TBL where PD_NUMBER = #{param1} GROUP BY os_1name
+</select>
+<select id="os_2name_search" resultType="String">
+	select os_2name from PRODUCT_OPSTION_TBL where PD_NUMBER = #{param1} GROUP BY os_2name
+</select>
+<select id="os_3name_search" resultType="String">
+	select os_3name from PRODUCT_OPSTION_TBL where PD_NUMBER = #{param1} GROUP BY os_3name
+</select>
 <select id="store_max_index" resultType="int">
 	SELECT max(PD_NUMBER) FROM product_tbl
 </select>

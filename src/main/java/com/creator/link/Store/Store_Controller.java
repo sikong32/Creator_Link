@@ -63,8 +63,16 @@ public class Store_Controller {
 		String pd_number = request.getParameter("pd_number");
 		Store_Service ss = sqlSession.getMapper(Store_Service.class);
 		Store_DTO dto = ss.store_detail(pd_number);
+		ArrayList<Store_OS_DTO> list = ss.store_os_detail(pd_number);
+		ArrayList<String> os_1name = ss.os_1name_search(pd_number);
+		ArrayList<String> os_2name = ss.os_2name_search(pd_number);
+		ArrayList<String> os_3name = ss.os_3name_search(pd_number);
 		LocalDate today = LocalDate.now();
 		model.addAttribute("dto",dto);
+		model.addAttribute("list",list);
+		model.addAttribute("os1name",os_1name);
+		model.addAttribute("os2name",os_2name);
+		model.addAttribute("os3name",os_3name);
 		model.addAttribute("today",today.plusDays(3));
 		return "store_detail";
 	}
