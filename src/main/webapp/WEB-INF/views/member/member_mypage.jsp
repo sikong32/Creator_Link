@@ -121,148 +121,153 @@ $(document).ready(function() {
 }); //document
 </script>
 <meta charset="UTF-8">
+<link href="${pageContext.request.contextPath}/resources/css/member/member_mypage.css" rel="stylesheet" type="text/css">
 <title>Mypage : Creator Link</title>
 </head>
 <body>
-<form action="mypage_do" name="member_mypage_form" method="post" enctype="multipart/form-data">
-	<table border="1" align="center">
-		<tr>
-			<th>아이디</th>
-			<td>${dto.mb_id }</td>
-		</tr>
-		<tr>
-			<th>비밀번호</th>
-			<td>
-				<input type="text" name="exPwVr" id="exPw" placeholder="기존 비밀번호">*기존 비밀번호 확인부터 해주세요.<br>
-				<input type="text" name="mdPw" id="mdPw" readonly placeholder="새 비밀번호">*기존 비밀번호 확인 후 입력해주세요.<br>
-				<input type="text" name="mdPwVr" id="mdPwVr" readonly placeholder="새 비밀번호 확인">
-				<input type="button" value="확인하기" id="psCheckBtn">
-			</td>
-		</tr>
-		<tr>
-			<th>프로필사진</th>
-			<c:choose>
-				<c:when test="${dto.mb_photo eq 'basic_photo.png' }">
-					<td>
-						<a href="">
-						<img alt="프로필 사진" src="resources/member/basic_photo/${dto.mb_photo }" width="80px" height="80px">
-						</a>
-					</td>
-				</c:when>
-				<c:otherwise>
-					<td>
-						<img alt="프로필 사진" src="resources/member/member_profile/${dto.mb_photo }" width="80px" height="80px">
-					</td>
-				</c:otherwise>
-			</c:choose>
-		</tr>
-		<tr>
-			<th>닉네임</th>
-			<td>
-				<input type="text" name="nickName" value="${dto.mb_nick_name }">
-				<input type="button" name="nickNameVrBtn" value="중복확인" onclick="nickNameVr()">
-			</td>
-		</tr>
-		<tr>
-			<th>이름</th>
-			<td>
-				${dto.mb_name }
-				<input type="button" value="개명하셨다면? 이름변경>">
-			</td>
-		</tr>
-		<tr>
-			<th>생일</th>
-			<td>
-				<input type="date" value=${dto.mb_birth_date }>
-			</td>			
-		</tr>
-		<tr>
-			<th>연락처</th>
-			<td>
-				<input type="text" name="phone" value="${dto.mb_phone }">
-			</td>
-		</tr>
-		<tr>
-			<th>이메일</th>
-			<td>
-				<input type="text" name="email" value="${dto.mb_email }">
-			</td>
-		</tr>
-		<tr>
-			<th>주소</th>
-			<td>
+	<section class="mypage_container">
+		<div class="mypage_tot">
+			<h3>정보 수정</h3>
+			<form class="mypage_form" action="mypage_do" name="member_mypage_form" method="post" enctype="multipart/form-data">
+				<div class="info_row">
+					<div class="mypage_info">
+						<label for="id">아이디</label>
+						<input type="text" id="id" value="${dto.mb_id }" readonly>
+					</div>
+					<div class="mypage_info">
+						<label for="nickname">닉네임</label>
+						<div class="info_row">
+							<input type="text" id="nickname" name="nickName" value="${dto.mb_nick_name }">
+							<input type="button" id="button" name="nickNameVrBtn" value="중복확인" onclick="nickNameVr()">
+						</div>
+					</div>
+				</div>
+					<div class="mypage_info">
+						<label for="pw">비밀번호</label>
+						<input type="text" name="exPwVr" id="exPw" placeholder="기존 비밀번호">
+					</div>	
+					<div class="info_row">
+						<input type="text" name="mdPw" id="mdPw" readonly placeholder="새 비밀번호">
+						<input type="text" name="mdPwVr" id="mdPwVr" readonly placeholder="새 비밀번호 확인">
+						<input type="button" value="확인" id="psCheckBtn">
+					</div>
+					<div class="pw_notice">* 기존 비밀번호 확인 후 신규 비밀번호 입력</div>
+				<div class="info_row">
+					<div class="mypage_info">
+						<label for="profile">프로필 사진</label>
+						<c:choose>
+							<c:when test="${dto.mb_photo eq 'basic_photo.png' }">
+								<div class="mypage_profile">
+									<a href="">
+									<img alt="프로필 사진" src="resources/member/basic_photo/${dto.mb_photo }">
+									</a>
+								</div>
+							</c:when>
+							<c:otherwise>
+								<div class="mypage_profile">
+									<img alt="프로필 사진" src="resources/member/member_profile/${dto.mb_photo }">
+								</div>
+							</c:otherwise>
+						</c:choose>
+					</div>
+					<div class="mypage_info" id="attribute">
+						<label for="attribute">회원유형</label>
+						<input type="text" name="attribute" value="${dto.mb_attribute }" readonly>
+					</div>
+				</div>
+				<div class="info_row">
+					<div class="mypage_info">
+						<label for="name">이름</label>
+						<div class="info_row">
+							<input type="text" id="name" value="${dto.mb_name }" readonly>
+							<input type="button" id="button" value="변경">
+						</div>
+					</div>
+					<div class="mypage_info">
+						<label for="birthday">생년월일</label>
+						<input type="date" value=${dto.mb_birth_date }>
+					</div>
+				</div>
+				<div class="info_row">
+					<div class="mypage_info">
+						<label for="phone">연락처</label>
+						<input type="text" name="phone" value="${dto.mb_phone }">
+					</div>
+					<div class="mypage_info">
+						<label for="email">이메일 주소</label>
+						<input type="text" name="email" value="${dto.mb_email }">
+					</div>
+				</div>
+				<div class="mypage_info">
+					<label for="address">주소</label>
+					<c:choose>
+						<c:when test="${dto.mb_addr == 0 }">		
+							<div class="address_number">
+								<input type="text" id="sample4_postcode" placeholder="우편번호">
+								<input type="button" id="find_address" onclick="sample4_execDaumPostcode()" value="우편번호 찾기">
+							</div>
+								<div><input type="text" id="sample4_roadAddress" placeholder="도로명주소">
+								<input type="text" id="sample4_jibunAddress" placeholder="지번주소">
+								<span id="guide" style="color:#999;display:none"></span></div>
+								<input type="text" id="sample4_detailAddress" placeholder="상세주소">
+						</c:when>
+						<c:otherwise>
+							<div class="address_number">
+								<input type="text" id="sample4_postcode" placeholder="우편번호">
+								<input type="button" id="find_address" onclick="sample4_execDaumPostcode()" value="우편번호 찾기">
+							</div>
+								<div><input type="text" id="sample4_roadAddress" placeholder="도로명주소">
+								<input type="text" id="sample4_jibunAddress" placeholder="지번주소">
+								<span id="guide" style="color:#999;display:none"></span></div>
+								<input type="text" id="sample4_detailAddress" placeholder="상세주소">
+						</c:otherwise>
+					</c:choose>
+				</div>
+			<!-- <div class="mypage_info">
+				<label for="signup_day">가입일</label>
+				<input type="text" value="${dto.mb_signup_date }" readonly>
+			</div> -->
+			<!-- <div class="mypage_info">
+				<label for="coupon">보유쿠폰</label>
 				<c:choose>
-					<c:when test="${dto.mb_addr == 0 }">		
-						<input type="text" id="sample4_postcode" placeholder="우편번호">
-						<input type="button" onclick="sample4_execDaumPostcode()" value="우편번호 찾기"><br>
-						<input type="text" id="sample4_roadAddress" placeholder="도로명주소">
-						<input type="text" id="sample4_jibunAddress" placeholder="지번주소">
-						<span id="guide" style="color:#999;display:none"></span>
-						<input type="text" id="sample4_detailAddress" placeholder="상세주소"><br>
+					<c:when test="${dto.mb_coupon == 0 }">
+						<div class="mypage_coupon">
+							보유 쿠폰이 없어요.. (っ °Д °;)っ
+						</div>
 					</c:when>
 					<c:otherwise>
-						<input type="text" id="sample4_postcode" placeholder="우편번호">
-						<input type="button" onclick="sample4_execDaumPostcode()" value="우편번호 찾기"><br>
-						<input type="text" id="sample4_roadAddress" placeholder="도로명주소">
-						<input type="text" id="sample4_jibunAddress" placeholder="지번주소">
-						<span id="guide" style="color:#999;display:none"></span>
-						<input type="text" id="sample4_detailAddress" placeholder="상세주소"><br>
+						<c:forEach items="${dto.mb_coupon }" var="coupon">				
+							<div class="mypage_coupon">
+								${coupon }
+							</div>
+						</c:forEach>
 					</c:otherwise>
 				</c:choose>
-			</td>
-		</tr>
-		<tr>
-			<th>가입일</th>
-			<td>${dto.mb_signup_date }</td>
-		</tr>
-		<tr>
-			<th>보유 쿠폰</th>
-			<c:choose>
-				<c:when test="${dto.mb_coupon == 0 }">
-					<td>
-						보유 쿠폰이 없어요.. (っ °Д °;)っ
-					</td>
-				</c:when>
-				<c:otherwise>
-					<c:forEach items="${dto.mb_coupon }" var="coupon">				
-						<td>
-							${coupon }
-						</td>
-					</c:forEach>
-				</c:otherwise>
-			</c:choose>
-		</tr>
-		<tr>
-			<th>주문목록</th>
-			<c:choose>
-				<c:when test="${dto.mb_order_list == 0 }">
-					<td>
-						주문하신 상품이 없네요! 좋아하는 크리에이터 있으세요?ㄟ(≧◇≦)ㄏ<br>
-						<input type="button" value="구경하기" onclick="location.href='./'">
-					</td>
-				</c:when>
-				<c:otherwise>
-					<c:forEach items="${dto.mb_order_list }" var="order">
-						<td>
-							${order }
-						</td>
-					</c:forEach>
-				</c:otherwise>
-			</c:choose>
-		</tr>
-		<tr>
-			<th>회원 유형</th>
-			<td>
-				${dto.mb_attribute }
-			</td>
-		</tr>
-		<tr>
-			<td colspan="2" align="center">
-				<input type="submit" value="확인">
-				<input type="button" value="취소" onclick="location.href='index'">
-			</td>
-		</tr>
-	</table>
-</form>
+			</div>
+			<div class="mypage_info">
+				<label for="order_list">주문목록</label>
+				<c:choose>
+					<c:when test="${dto.mb_order_list == 0 }">
+						<div class="mypage_order_list">
+							주문하신 상품이 없네요! 좋아하는 크리에이터 있으세요?ㄟ(≧◇≦)ㄏ
+							<input type="button" value="구경하기" onclick="location.href='./'">
+						</div>
+					</c:when>
+					<c:otherwise>
+						<c:forEach items="${dto.mb_order_list }" var="order">
+							<div class="mypage_order_list">
+								${order }
+							</div>
+						</c:forEach>
+					</c:otherwise>
+				</c:choose>
+			</div>-->
+			<div class="mypage_button">
+				<input type="submit" id="button" value="확인">
+				<input type="button" id="button" value="취소" onclick="location.href='index'">
+			</div>
+		</form>
+	</div>
+</section>
 </body>
 </html>

@@ -10,7 +10,7 @@
 </head>
 
 <body>
-<div class="main_container">
+<section class="main_container">
 	<!-- 방송 카테고리 (사이드바) -->
 	<aside class="streamcate_bar">
         <ul class="streamcate_detail">
@@ -21,93 +21,50 @@
             <li><a href="#">수다</a></li>
         </ul>
 	</aside>
+	<!-- LIVE 목록 -->
+	<div class="live_container">
+		<div class="live_creator_list">
+			<h3>추천 크리에이터</h3>
+			<div class="live_creator_tot">
+				<div class="live_creator">
+					<div class="creator_background">
+					<div class="creator_img"><img src="./resources/cssimage/happy.jpg"></div></div>
+					<div class="creator_nickname">해피</div>
+				</div>
+				<div class="live_creator">
+					<div class="creator_background">
+					<div class="creator_img"><img src="./resources/cssimage/happy.jpg"></div></div>
+					<div class="creator_nickname">해피</div>
+				</div>
+				<div class="live_creator">
+					<div class="creator_background">
+					<div class="creator_img"><img src="./resources/cssimage/happy.jpg"></div></div>
+					<div class="creator_nickname">해피</div>
+				</div>
+				<div class="live_creator">
+					<div class="creator_background">
+					<div class="creator_img"><img src="./resources/cssimage/happy.jpg"></div></div>
+					<div class="creator_nickname">해피</div>
+				</div>
+			</div>
+		</div>
 
-	<!-- LIVE 목록 -->	
-	<section class="live_container">
-		<h2>LIVE</h2>
-		<div class="live_infoarea">
-			<div class="live_infotot">
-				<ul class="live_screen">
-					<li class="live_icon">LIVE</li>
-					<li class="live_viewer">시청자수</li>
-				</ul>
-				<ul class="live_profile">
-	            	<li class="live_pickture"><img src="./resources/cssimage/happy.jpg"></li>
-	            	<li class="live_nickname">해피</li>
-	        	</ul>
-        	</div>
-        	<div class="live_infotot">
-				<ul class="live_screen">
-					<li class="live_icon">LIVE</li>
-					<li class="live_viewer">시청자수</li>
-				</ul>
-				<ul class="live_profile">
-	            	<li class="live_pickture"><img src="./resources/cssimage/happy.jpg"></li>
-	            	<li class="live_nickname">해피</li>
-	        	</ul>
-        	</div>
-        	<div class="live_infotot">
-				<ul class="live_screen">
-					<li class="live_icon">LIVE</li>
-					<li class="live_viewer">시청자수</li>
-				</ul>
-				<ul class="live_profile">
-	            	<li class="live_pickture"><img src="./resources/cssimage/happy.jpg"></li>
-	            	<li class="live_nickname">해피</li>
-	        	</ul>
-        	</div>
-        	<div class="live_infotot">
-				<ul class="live_screen">
-					<li class="live_icon">LIVE</li>
-					<li class="live_viewer">시청자수</li>
-				</ul>
-				<ul class="live_profile">
-	            	<li class="live_pickture"><img src="./resources/cssimage/happy.jpg"></li>
-	            	<li class="live_nickname">해피</li>
-	        	</ul>
-        	</div>
-        	<div class="live_infotot">
-				<ul class="live_screen">
-					<li class="live_icon">LIVE</li>
-					<li class="live_viewer">시청자수</li>
-				</ul>
-				<ul class="live_profile">
-	            	<li class="live_pickture"><img src="./resources/cssimage/happy.jpg"></li>
-	            	<li class="live_nickname">해피</li>
-	        	</ul>
-        	</div>
-        	<div class="live_infotot">
-				<ul class="live_screen">
-					<li class="live_icon">LIVE</li>
-					<li class="live_viewer">시청자수</li>
-				</ul>
-				<ul class="live_profile">
-	            	<li class="live_pickture"><img src="./resources/cssimage/happy.jpg"></li>
-	            	<li class="live_nickname">해피</li>
-	        	</ul>
-        	</div>
-        	<div class="live_infotot">
-				<ul class="live_screen">
-					<li class="live_icon">LIVE</li>
-					<li class="live_viewer">시청자수</li>
-				</ul>
-				<ul class="live_profile">
-	            	<li class="live_pickture"><img src="./resources/cssimage/happy.jpg"></li>
-	            	<li class="live_nickname">해피</li>
-	        	</ul>
-        	</div>
-        	<div class="live_infotot">
-				<ul class="live_screen">
-					<li class="live_icon">LIVE</li>
-					<li class="live_viewer">시청자수</li>
-				</ul>
-				<ul class="live_profile">
-	            	<li class="live_pickture"><img src="./resources/cssimage/happy.jpg"></li>
-	            	<li class="live_nickname">해피</li>
-	        	</ul>
-        	</div>
-        </div>
-	</section>
-</div>
+		<div class="live_info_area">
+			<h3>LIVE</h3>
+			<div class="live_info_list">
+				<div class="live_info_tot">
+					<div class="live_screen">
+						<div class="live_icon">LIVE</div>
+						<div class="live_viewer">시청자수</div>
+					</div>
+					<div class="live_profile">
+			            <div class="live_pickture"><img src="./resources/cssimage/happy.jpg"></div>
+			            <div class="live_nickname">해피</div>
+			        </div>
+		        </div>
+			</div>
+		</div>
+	</div>
+</section>
 </body>
 </html>

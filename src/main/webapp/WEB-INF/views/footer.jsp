@@ -10,6 +10,8 @@
 </head>
 
 <body>
-<footer>경기도 수원시 팔달구 영덕대로 899번지 3층 이젠디지탈(031-1234-1234)</footer>
+	<section class="footer_container">
+		<div class="footer_contents">경기도 수원시 팔달구 영덕대로 899번지 3층 이젠디지탈(031-1234-1234)</div>
+	</section>
 </body>
 </html>
