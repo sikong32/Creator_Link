@@ -117,6 +117,7 @@ public class Store_Controller {
 		int pd_stock = Integer.parseInt(mul.getParameter("pd_stock"));
 		MultipartFile mf = mul.getFile("pd_pohto");
 		String pd_pohto = filesave(mf.getOriginalFilename());
+		mf.transferTo(new File(imagePath + pd_pohto));
 //		System.out.println("상품 카테고리"+pd_category);
 //		System.out.println("상품 이름"+pd_name);
 //		System.out.println("상품 가격"+pd_price);

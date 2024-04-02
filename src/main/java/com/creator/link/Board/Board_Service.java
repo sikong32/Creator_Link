@@ -22,8 +22,12 @@ public interface Board_Service {
 
 	void board_modify(String bct_title, String bct_content, String bct_content_number);
 
-	void comment_save(String cm_content, String bct_content_number, String mb_number, String cm_inheritance, String mb_nick_name);
+	void comment_save(String cm_content, String bct_content_number, String mb_id, String cm_inheritance, String mb_nick_name, String cm_indent);
 
 	ArrayList<Comment_DTO> comment_list(String bct_content_number);
+
+	void comment_delete(String cm_number);
+
+	void comment_deleteall(String cm_number);
 
 }

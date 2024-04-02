@@ -143,19 +143,33 @@ public class Board_Controller {
 	public String comment_save(HttpServletRequest request, Model mo) {
 		String cm_content = request.getParameter("cm_content");
 		String bct_content_number = request.getParameter("bct_content_number");
-		String cm_inheritance = request.getParameter("Inheritance");
+		String cm_inheritance = request.getParameter("cm_inheritance");
+		String cm_indent = request.getParameter("cm_indent");
 		if (cm_inheritance == null) cm_inheritance = "0";
 		
 		HttpSession hs = request.getSession();
 		Member_DTO member = (Member_DTO)hs.getAttribute("member");
-		String mb_number = member.getMb_number();
+		String mb_id = member.getMb_id();
 		String mb_nick_name = member.getMb_nick_name();
 		
 		Board_Service sv = sqlSession.getMapper(Board_Service.class);
-		sv.comment_save(cm_content, bct_content_number, mb_number, cm_inheritance, mb_nick_name);
+		sv.comment_save(cm_content, bct_content_number, mb_id, cm_inheritance, mb_nick_name, cm_indent);
 		
 		mo.addAttribute("bct_content_number", bct_content_number);
 		
 		return "redirect:board_view";
+	}
+	@RequestMapping(value = "comment_delete")
+	public String comment_delete(HttpServletRequest request, Model mo) {
+		String cm_number = request.getParameter("cm_number");
+		String cm_indent = request.getParameter("cm_indent");
+		
+		String url = request.getHeader("referer");
+		Board_Service sv = sqlSession.getMapper(Board_Service.class);
+		if (Integer.parseInt(cm_indent) == 0) sv.comment_deleteall(cm_number);
+		sv.comment_delete(cm_number);
+		
+		
+		return "redirect:"+url;
 	}
 }
