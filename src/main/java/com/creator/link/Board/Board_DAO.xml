@@ -66,9 +66,19 @@
 		update board_content_tbl set bct_title = #{param1}, bct_content = #{param2} where bct_content_number = #{param3}
 	</update>
 	<insert id="comment_save">
-		insert into comment_tbl values(cm_number_seq.nextval, #{param1}, sysdate, ${param2}, ${param3}, ${param4}, #{param5})
+		insert into comment_tbl values(cm_number_seq.nextval, #{param1}, sysdate, ${param2}, #{param3}, ${param4}, #{param5}, #{param6})
 	</insert>
 	<select id="comment_list" resultType="com.creator.link.Board.Comment_DTO">
-		select * from comment_tbl where bct_content_number = #{param1}
+		select * 
+		from comment_tbl 
+		start with cm_indent=0 and bct_content_number=#{param1}
+		connect by prior cm_number=cm_inheritance
+		order siblings by cm_number
 	</select>
+	<delete id="comment_delete">
+		delete from comment_tbl where cm_number = #{param1}
+	</delete>
+	<delete id="comment_deleteall">
+		delete from comment_tbl where cm_inheritance = #{param1}
+	</delete>
 </mapper>

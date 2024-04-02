@@ -5,19 +5,21 @@ public class Comment_DTO {
 	String cm_content;
 	String cm_write_date;
 	int bct_content_number;
-	int mb_number;
+	String mb_id;
 	int cm_inheritance;
 	String mb_nick_name;
+	int cm_indent;
 	public Comment_DTO() {
 	}
-	public Comment_DTO(int cm_number, String cm_content, String cm_write_date, int bct_content_number, int mb_number, int cm_inheritance, String mb_nick_name) {
+	public Comment_DTO(int cm_number, String cm_content, String cm_write_date, int bct_content_number, String mb_id, int cm_inheritance, String mb_nick_name, int cm_indent) {
 		this.cm_number = cm_number;
 		this.cm_content = cm_content;
 		this.cm_write_date = cm_write_date;
 		this.bct_content_number = bct_content_number;
-		this.mb_number = mb_number;
+		this.mb_id = mb_id;
 		this.cm_inheritance = cm_inheritance;
 		this.mb_nick_name = mb_nick_name;
+		this.cm_indent = cm_indent;
 	}
 	public int getCm_number() {
 		return cm_number;
@@ -43,12 +45,6 @@ public class Comment_DTO {
 	public void setBct_content_number(int bct_content_number) {
 		this.bct_content_number = bct_content_number;
 	}
-	public int getMb_number() {
-		return mb_number;
-	}
-	public void setMb_number(int mb_number) {
-		this.mb_number = mb_number;
-	}
 	public int getCm_inheritance() {
 		return cm_inheritance;
 	}
@@ -60,5 +56,17 @@ public class Comment_DTO {
 	}
 	public void setMb_nick_name(String mb_nick_name) {
 		this.mb_nick_name = mb_nick_name;
+	}
+	public int getCm_indent() {
+		return cm_indent;
+	}
+	public void setCm_indent(int cm_indent) {
+		this.cm_indent = cm_indent;
+	}
+	public String getMb_id() {
+		return mb_id;
+	}
+	public void setMb_id(String mb_id) {
+		this.mb_id = mb_id;
 	}
 }
