@@ -29,21 +29,37 @@
 				<div class="live_creator">
 					<div class="creator_background">
 					<div class="creator_img"><img src="./resources/cssimage/happy.jpg"></div></div>
+					<h2 id="small_live_icon">LIVE</h2>
 					<div class="creator_nickname">해피</div>
 				</div>
 				<div class="live_creator">
 					<div class="creator_background">
 					<div class="creator_img"><img src="./resources/cssimage/happy.jpg"></div></div>
+					<h2 id="small_live_icon">LIVE</h2>
 					<div class="creator_nickname">해피</div>
 				</div>
 				<div class="live_creator">
 					<div class="creator_background">
 					<div class="creator_img"><img src="./resources/cssimage/happy.jpg"></div></div>
+					<h2 id="small_live_icon">LIVE</h2>
 					<div class="creator_nickname">해피</div>
 				</div>
 				<div class="live_creator">
 					<div class="creator_background">
 					<div class="creator_img"><img src="./resources/cssimage/happy.jpg"></div></div>
+					<h2 id="small_live_icon">LIVE</h2>
+					<div class="creator_nickname">해피</div>
+				</div>
+				<div class="live_creator">
+					<div class="creator_background">
+					<div class="creator_img"><img src="./resources/cssimage/happy.jpg"></div></div>
+					<h2 id="small_live_icon">LIVE</h2>
+					<div class="creator_nickname">해피</div>
+				</div>
+				<div class="live_creator">
+					<div class="creator_background">
+					<div class="creator_img"><img src="./resources/cssimage/happy.jpg"></div></div>
+					<h2 id="small_live_icon">LIVE</h2>
 					<div class="creator_nickname">해피</div>
 				</div>
 			</div>
@@ -54,13 +70,13 @@
 			<div class="live_info_list">
 				<div class="live_info_tot">
 					<div class="live_screen">
-						<div class="live_icon">LIVE</div>
+						<h2 id="live_icon">LIVE</h2>
 						<div class="live_viewer">시청자수</div>
 					</div>
 					<div class="live_profile">
-			            <div class="live_pickture"><img src="./resources/cssimage/happy.jpg"></div>
-			            <div class="live_nickname">해피</div>
-			        </div>
+		            	<div class="live_pickture"><img src="./resources/cssimage/happy.jpg"></div>
+		            	<div class="live_nickname">해피</div>
+		            </div>
 		        </div>
 			</div>
 		</div>
