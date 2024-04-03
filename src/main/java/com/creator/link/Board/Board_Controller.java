@@ -92,8 +92,6 @@ public class Board_Controller {
 	public String board_view(HttpServletRequest request, Model mo) {
 		String bct_content_number = request.getParameter("bct_content_number");
 		
-		HttpSession hs = request.getSession();
-		Member_DTO member = (Member_DTO)hs.getAttribute("member");
 		
 		Board_Service sv = sqlSession.getMapper(Board_Service.class);
 		sv.board_view_cntup(bct_content_number);
@@ -101,7 +99,6 @@ public class Board_Controller {
 		ArrayList<Comment_DTO> comment = sv.comment_list(bct_content_number);
 		
 		mo.addAttribute("post", post);
-		mo.addAttribute("member", member);
 		mo.addAttribute("comment", comment);
 		
 		return "board_view";
@@ -146,6 +143,7 @@ public class Board_Controller {
 		String cm_inheritance = request.getParameter("cm_inheritance");
 		String cm_indent = request.getParameter("cm_indent");
 		if (cm_inheritance == null) cm_inheritance = "0";
+		if (cm_indent == null) cm_indent = "0";
 		
 		HttpSession hs = request.getSession();
 		Member_DTO member = (Member_DTO)hs.getAttribute("member");

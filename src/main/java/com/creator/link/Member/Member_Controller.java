@@ -79,7 +79,7 @@ public class Member_Controller {
 		} else {
 			response.setContentType("text/html;charset=utf-8");
 			PrintWriter pw = response.getWriter();
-			pw.print("<script> alert('아이디가 존재하지 않거나 잘못 입력했습니다.'); window.location.href='member_login'; </script>");
+			pw.print("<script> alert('아이디가 존재하지 않거나 잘못 입력했습니다.'); window.location.href='login'; </script>");
 			return null;
 		}
 		

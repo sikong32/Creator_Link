@@ -3,6 +3,68 @@
 <!DOCTYPE html>
 <html>
 <head>
+	<script src="https://code.jquery.com/jquery-latest.min.js"></script>
+	<script type="text/javascript">
+		$(document).ready(function() {
+			var write_id = "${post.bct_writer}";
+	    	var login_id = "${member.mb_id}";
+	    	var state = "${loginState}";
+            var bct_content_number = "${post.bct_content_number}";
+	    	$("#submitButton").click(function() {
+	    		if (state == "true"){
+		    		var cm_content = document.getElementById("cm_content").value;
+		    		$.ajax({
+		    			type:"post",
+		    			async:true,
+		    			url:"comment_save",
+		    			data:{
+		    				"cm_content":cm_content,
+		    				"bct_content_number":bct_content_number
+		    			},
+		    			success:function(result) {
+		    				location.reload();
+		    			},
+		    			error:function() {
+		    				alert("등록실패");
+		    			}
+		    		});
+	    		}
+	    		else{
+	    			alert("회원만 작성 가능합니다");
+	    		}
+			});
+	    	$("[id^=re_submitButton_]").each(function() {
+	    		$(this).click(function() {
+		    		if (state == "true"){
+		    			var index = this.id.split('_')[2];
+		    			var cm_number = $(this).data('cm_number');
+			    		var re_content = $("#re_content_" + index).val();
+			    		$.ajax({
+			    			type:"post",
+			    			async:true,
+			    			url:"comment_save",
+			    			data:{
+			    				"cm_content":re_content,
+			    				"bct_content_number":bct_content_number,
+			    				"cm_inheritance":cm_number,
+			    				"cm_indent":"1"
+			    			},
+			    			success:function(result) {
+			    				location.reload();
+			    			},
+			    			error:function() {
+			    				alert("등록실패");
+			    			}
+			    		});
+		    		}
+		    		else{
+		    			alert("회원만 작성 가능합니다");
+		    		}
+					
+				});
+			});
+		});
+	</script>
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
@@ -27,7 +89,7 @@
 					<c:if test="${c.cm_inheritance == 0}">
 						<tr>
 							<td>${c.mb_nick_name} &emsp;&emsp;
-							<a id="comment_${status.index}" href="#" style="color: black; text-decoration-line: none;">
+							<a id="comment_${status.index}" style="color: black; text-decoration-line: none; cursor: pointer;">
 								${c.cm_content}
 							</a>
 							<span style="float: right;">
@@ -36,7 +98,7 @@
 							</span>
 					    	<div id="re_comment_div_${status.index}" style="display: none; width: 95%; background-color: rgb(0,0,0,0.1); border: 1px solid white; float: right; text-align: center;">
 					            <textarea id="re_content_${status.index}" name="re_content_${status.index}" style="width: 99%; height: 50px;" placeholder="댓글을 입력해주십시오"></textarea>
-					            <span style="float: right;"><button id="re_submitButton_${status.index}" type="button" onclick="re_submitComment(${status.index}, ${c.cm_number})">작성</button></span>
+					            <span style="float: right;"><button id="re_submitButton_${status.index}" type="button" data-cm_number="${c.cm_number}">작성</button></span>
 					        </div>
 					        <c:forEach items="${comment}" var="rc">
 					        	<c:if test="${rc.cm_inheritance == c.cm_number}">
@@ -60,7 +122,7 @@
 		<tr>
 		    <td align="center" style="position: relative;">
 		        <textarea id="cm_content" name="cm_content" style="width: 99%; height: 50px;" placeholder="댓글을 입력해주십시오" onclick="toggleButtonVisibility()"></textarea>
-		        <button id="submitButton" type="button" onclick="submitComment()" style="position: absolute; right: 10px; bottom: 10px; display: none;">작성</button>
+		        <button id="submitButton" type="button" style="position: absolute; right: 10px; bottom: 10px; display: none;">작성</button>
 		    </td>
 		</tr>
 		<tr>
@@ -72,6 +134,7 @@
 	<script type="text/javascript">
 		var write_id = "${post.bct_writer}";
     	var login_id = "${member.mb_id}";
+    	var state = "${loginState}";
     	
     	// comment 클릭 시 버튼 활성화
     	<c:forEach items="${comment}" var="c" varStatus="status">
@@ -124,28 +187,6 @@
                 button.style.display = "block"; // 버튼을 보이게 함
             } else {
                 button.style.display = "none"; // 버튼을 숨김
-            }
-        }
-
-        function submitComment() {
-            var cm_content = document.getElementById("cm_content").value;
-            var bct_content_number = "${post.bct_content_number}";
-            if("${member.mb_id}" != ""){
-            	window.location = "comment_save?cm_content="+cm_content+"&bct_content_number="+bct_content_number+"&cm_indent=0";
-            }
-            else{
-            	alert("회원만 작성 가능합니다")
-            }
-        }
-    	
-        function re_submitComment(index, number) {
-            var cm_content = document.getElementById("re_content_" + index).value;
-            var bct_content_number = "${post.bct_content_number}";
-            if("${member.mb_id}" != ""){
-            	window.location = "comment_save?cm_content="+cm_content+"&bct_content_number="+bct_content_number+"&cm_inheritance="+number+"&cm_indent=1";
-            }
-            else{
-            	alert("회원만 작성 가능합니다")
             }
         }
         
