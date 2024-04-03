@@ -60,7 +60,7 @@ public class Store_Controller {
 	}
 	@RequestMapping(value = "store_detail")
 	public String store_detail(HttpServletRequest request,Model model) {
-		String pd_number = request.getParameter("pd_number");
+		int pd_number = Integer.parseInt(request.getParameter("pd_number"));
 		Store_Service ss = sqlSession.getMapper(Store_Service.class);
 		Store_DTO dto = ss.store_detail(pd_number);
 		ArrayList<Store_OS_DTO> list = ss.store_os_detail(pd_number);
@@ -76,12 +76,56 @@ public class Store_Controller {
 		model.addAttribute("today",today.plusDays(3));
 		return "store_detail";
 	}
-	@RequestMapping(value = "shoping_buy")
-	public String shoping_buy() {
+	@RequestMapping(value = "shoping_buy", method= RequestMethod.POST)
+	public String shoping_buy(HttpServletRequest request,Model mo) {
+		Store_Service ss = sqlSession.getMapper(Store_Service.class);
+		HttpSession hs = request.getSession();
+		Member_DTO member = (Member_DTO)hs.getAttribute("member");
+		int pd_number = Integer.parseInt(request.getParameter("pd_number"));
+		int os_number = 0;
+		if(request.getParameter("os_1")!=null&&request.getParameter("os_2")!=null&&request.getParameter("os_1")!=null) {
+			String os_1 = request.getParameter("os_1");
+			String os_2 = request.getParameter("os_2");
+			String os_3 = request.getParameter("os_3");
+			os_number = ss.select_os_1number(pd_number,os_1,os_2,os_3);
+		}else if(request.getParameter("os_1")!=null&&request.getParameter("os_2")!=null) {
+			String os_1 = request.getParameter("os_1");
+			String os_2 = request.getParameter("os_2");
+			os_number = ss.select_os_2number(pd_number,os_1,os_2);
+		}else if(request.getParameter("os_1")!=null){
+			String os_1 = request.getParameter("os_1");
+			os_number = ss.select_os_3number(pd_number,os_1);
+		}
+		int buy_su = Integer.parseInt(request.getParameter("buy_quantity"));
+		Store_DTO pddto = ss.store_detail(pd_number);
+		if(os_number!=0) {
+			Store_OS_DTO osdto = ss.select_os(os_number);
+			String os_f_name = osdto.getOs_1name()+""+osdto.getOs_2name()+""+osdto.getOs_3name();
+			String os_full_name = os_f_name.replace("null","");
+			mo.addAttribute("osdto",osdto);
+			mo.addAttribute("os_full_name",os_full_name);
+		}
+		mo.addAttribute("pddto",pddto);
+		mo.addAttribute("buy_su",buy_su);
+		mo.addAttribute("member",member);
 		return "shoping_buy";
 	}
 	@RequestMapping(value = "shoping_buy_fix")
-	public String shoping_buy_fix() {
+	public String shoping_buy_fix(HttpServletRequest request) {
+//		구매번호:	배송주소:	결제금액:
+		Store_Service ss = sqlSession.getMapper(Store_Service.class);
+		HttpSession hs = request.getSession();
+		Member_DTO member = (Member_DTO)hs.getAttribute("member");
+		request.getParameter("");
+		int od_number;
+		String od_id = member.getMb_id();
+		String od_date;
+		String od_pd_name = request.getParameter("");
+		int od_pd_qnt;
+		int od_price;
+		String od_cp_code;
+		int mb_number;
+		
 		return "shoping_buy_fix";
 	}
 	@RequestMapping(value = "gifthub")
@@ -91,8 +135,6 @@ public class Store_Controller {
 	@RequestMapping(value = "editor", method = RequestMethod.POST)
 	public String editor(HttpServletRequest request,Model model) {
 		String editor = request.getParameter("editor");
-		System.out.println("에디터에서 받은 값"+editor);
-		System.out.println("안되나...  내 5시간...");
 		model.addAttribute("editor",editor);
 		return "editorout";
 	}
@@ -104,11 +146,9 @@ public class Store_Controller {
 	public String store_save2(MultipartHttpServletRequest mul,HttpServletRequest request) throws IllegalStateException, IOException {
 		Store_Service ss = sqlSession.getMapper(Store_Service.class);
 		// 회원 번호 가져오기
-//		HttpSession hs = request.getSession();
-//		Member_DTO dto = (Member_DTO)hs.getAttribute("member");
-//		System.out.println("맨버 번호"+dto.toString());
-		int mb_number = 1002;
-//				Integer.parseInt(dto.getMb_number());
+		HttpSession hs = request.getSession();
+		Member_DTO dto = (Member_DTO)hs.getAttribute("member");
+		int mb_number = Integer.parseInt(dto.getMb_number());
 		// 대표 상품 정보 가져오기
 		String pd_category = mul.getParameter("pd_category");
 		String pd_name = mul.getParameter("pd_name");
@@ -118,17 +158,10 @@ public class Store_Controller {
 		MultipartFile mf = mul.getFile("pd_pohto");
 		String pd_pohto = filesave(mf.getOriginalFilename());
 		mf.transferTo(new File(imagePath + pd_pohto));
-//		System.out.println("상품 카테고리"+pd_category);
-//		System.out.println("상품 이름"+pd_name);
-//		System.out.println("상품 가격"+pd_price);
-//		System.out.println("상품 상세내용"+pd_content);
-//		System.out.println("상품 재고"+pd_stock);
-		if(request.getParameter("os_radio").equals("Y")) {
+		if(request.getParameter("os_radio").equals("Y")&&request.getParameter("os_print_su")!=null) {
 			int os_print_su = Integer.parseInt(request.getParameter("os_print_su"));
-//			System.out.println("옵션개수 "+os_print_su);// 옵션 개수 표시
 			ss.store_insert0(pd_name, pd_price, pd_category, pd_content, pd_pohto, pd_stock, mb_number);
 			int max_index = ss.store_max_index();
-			System.out.println("상품의 최근 생성 시퀀스 수"+max_index);
 			for (int i = 1; i <= os_print_su; i++) {
 				int os_price;
 				if(request.getParameter("os_"+i+"price").equals("")){
@@ -156,24 +189,18 @@ public class Store_Controller {
 				String os_2name = request.getParameter("os_2_"+i);
 				String os_3name = request.getParameter("os_3_"+i);
 				ss.os3_insert(max_index,os_1name,os_2name,os_3name,os_price,os_photo,os_stock);
-//				System.out.println("옵션 3 저장");
 				}else if(request.getParameter("os_1_1")!=null && request.getParameter("os_2_1")!=null){
 					String os_1name = request.getParameter("os_1_"+i);
 					String os_2name = request.getParameter("os_2_"+i);
 					ss.os2_insert(max_index,os_1name,os_2name,os_price,os_photo,os_stock);
-//					System.out.println("옵션 2 저장");
 				}else if(request.getParameter("os_1_1")!=null) {
 					String os_1name = request.getParameter("os_1_"+i);
-					System.out.println("옵션 이름"+os_1name);
 					ss.os1_insert(max_index,os_1name,os_price,os_photo,os_stock);
-//					System.out.println("옵션 1 저장");
 				}
 			}
 		}else {
-//			System.out.println("옵션 없이 저장 시도");
 			ss.store_insert0(pd_name, pd_price, pd_category, pd_content, pd_pohto, pd_stock, mb_number);
 		}
-//		System.out.println("상품 저장 완료");
 		return "redirect:store_main";
 	}
 	private String filesave(String fname) throws IOException {

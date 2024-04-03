@@ -1,7 +1,3 @@
-<%@page import="com.creator.link.Store.Store_OS_DTO"%>
-<%@page import="java.util.ArrayList"%>
-<%@page import="java.util.HashSet"%>
-<%@page import="java.util.Set"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
@@ -18,11 +14,13 @@
 			</tr>
 		</table>
 	</form>
-	<form action="">
+	<form action="shoping_buy" method="post" name="shoping_buy_form">
 		<table border="1">
 			<tr>
 				<th>상품명</th>
-				<td>${dto.pd_name}</td>
+				<td>${dto.pd_name}
+				<input type="hidden" name="pd_number" value="${dto.pd_number}">
+				</td>
 			</tr>
 			<tr>
 				<th>가격</th>
@@ -41,7 +39,7 @@
 			        <tr>
 			            <th>옵션1</th>
 			            <td>
-			                <select name="os_1">
+			                <select name="os_1" id="os_1">
 			                    <c:forEach items="${os1name}" var="s">
 			                        <option value="${s}">${s}</option>
 			                    </c:forEach>
@@ -55,7 +53,7 @@
 			        <tr>
 			            <th>옵션2</th>
 			            <td>
-			                <select name="os_2">
+			                <select name="os_2" id="os_2">
 			                    <c:forEach items="${os2name}" var="s">
 			                        <option value="${s}">${s}</option>
 			                    </c:forEach>
@@ -69,7 +67,7 @@
 			        <tr>
 			            <th>옵션3</th>
 			            <td>
-			                <select name="os_3">
+			                <select name="os_3" id="os_3">
 			                    <c:forEach items="${os3name}" var="s">
 			                        <option value="${s}">${s}</option>
 			                    </c:forEach>
@@ -99,8 +97,7 @@
 				<td><input type="button" value="장바구니" 
 					onclick="" 
 					<c:if test="${dto.pd_stock < 1}">disabled</c:if>></td>
-				<td><input type="button" value="구매"
-					onclick="location.href='shoping_buy'"
+				<td><input type="button" value="구매" onclick="login_check()"
 					<c:if test="${dto.pd_stock < 1}">disabled</c:if>></td>
 			</tr>
 		</table>
@@ -115,8 +112,19 @@
 				<th>리뷰</th>
 				<td>내용</td>
 			</tr>
-
 		</table>
 	</form>
 </body>
+<script type="text/javascript">
+function login_check() {
+	var login = "${loginState}";
+	if(login == "true"){
+		var f = document.shoping_buy_form;
+		f.submit();
+	}else{
+		alert("로그인이 필요합니다.");
+		window.location.href="login";
+	}
+}
+</script>
 </html>

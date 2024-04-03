@@ -1,12 +1,16 @@
+var is_os_category = false;
 function os_Category_create() {
-	var Categorie = document.getElementById('os_Categories');
-	var div = document.createElement('div');
-	div.id = "os_Category"; // 태그 id 설정
-	// 만들 태그에 들어갈 내용
-	div.innerHTML = '<select name="os_su" id="os_su" onchange="os_Category(this)"><option value="1">옵션 카테고리1</option><option value="2">옵션 카테고리2</option><option value="3">옵션 카테고리3</option></select>' +
-		'<input type="button" onclick="os_list()" value="옵션 카테고리 적용">';
-	Categorie.appendChild(div);
-	os_Category(document.getElementById('os_su'));
+	if(!is_os_category){
+		var Categorie = document.getElementById('os_Categories');
+		var div = document.createElement('div');
+		div.id = "os_Category"; // 태그 id 설정
+		// 만들 태그에 들어갈 내용
+		div.innerHTML = '<select name="os_su" id="os_su" onchange="os_Category(this)"><option value="1">옵션 카테고리1</option><option value="2">옵션 카테고리2</option><option value="3">옵션 카테고리3</option></select>' +
+			'<input type="button" onclick="os_list()" value="옵션 카테고리 적용">';
+		Categorie.appendChild(div);
+		os_Category(document.getElementById('os_su'));
+		is_os_category = true;
+	}
 }
 // 옵션 카테고리 추가
 function os_Category(os_su) {
@@ -167,4 +171,5 @@ function os_Category_delete() { // 옵션 카테고리 삭제 함수
 			option_list.removeChild(option_list.firstChild);
 		}
 	}
+	is_os_category = false;
 }

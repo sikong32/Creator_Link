@@ -22,8 +22,8 @@
 				<li>상품대표 이미지</li>
 				<li><input type="file" name="pd_pohto" required="required"></li>
 				<li>
-					<input type="radio" name="os_radio" id="os_apply" value="Y" onclick="os_Category_create()">옵션 사용
-					<input type="radio" name="os_radio" id="os_Unapplied" value="N" onclick="os_Category_delete()" checked>옵션 사용안함
+					<input type="radio" name="os_radio" id="os_apply" value="Y" onchange="os_Category_create()">옵션 사용
+					<input type="radio" name="os_radio" id="os_Unapplied" value="N" onchange="os_Category_delete()" checked>옵션 사용안함
 					<div id="os_Categories" class="os_Categories"><!-- 여기에 옵션 카테고리 추가됨 --></div>
 					<div id="os_print" class="os_print"><!-- 여기에 옵션 카테고리 추가됨 --></div>
 					<div id="os_out" class="os_out"><!-- 여기에 옵션 카테고리 추가됨 --></div>
@@ -32,14 +32,14 @@
 				<li><input type="number" min="0" max="9999999999" id="pd_stock" name="pd_stock" required="required" placeholder="0개 입력시 품절"></li>
 				<li>상세페이지</li>
 				<li><textarea id="editor" name="pd_content" cols="20" rows="5"></textarea></li>
-				<li><input type="button" value="전송" onclick="text1()"></li>
+				<li><input type="button" value="전송" onclick="val_check()"></li>
 			</ul>
 		</div>
 	</form>
 </body>
 <script type="text/javascript" src="resources/js/input_editor.js"></script>
 <script type="text/javascript">
-	function text1() {
+	function val_check() {
 		var editorData = editor.getData();
 		var f = document.getElementById('form_input');
 		// 폼의 유효성 검사

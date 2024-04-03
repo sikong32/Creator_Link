@@ -65,12 +65,5 @@ public class Store_OS_DTO {
 	public void setOs_stock(String os_stock) {
 		this.os_stock = os_stock;
 	}
-	@Override
-	public String toString() {
-		return "Store_OS_DTO [os_number=" + os_number + ", os_1name=" + os_1name + ", os_2name=" + os_2name
-				+ ", os_3name=" + os_3name + ", os_price=" + os_price + ", os_photo=" + os_photo + ", os_stock="
-				+ os_stock + "]";
-	}
-	
 	
 }

@@ -27,15 +27,27 @@
 	select * from PRODUCT_OPSTION_TBL where PD_NUMBER = #{param1}
 </select>
 <select id="os_1name_search" resultType="String">
-	select os_1name from PRODUCT_OPSTION_TBL where PD_NUMBER = #{param1} GROUP BY os_1name
+	select os_1name from PRODUCT_OPSTION_TBL where PD_NUMBER = #{param1} GROUP BY os_1name ORDER BY os_1name
 </select>
 <select id="os_2name_search" resultType="String">
-	select os_2name from PRODUCT_OPSTION_TBL where PD_NUMBER = #{param1} GROUP BY os_2name
+	select os_2name from PRODUCT_OPSTION_TBL where PD_NUMBER = #{param1} GROUP BY os_2name ORDER BY os_2name
 </select>
 <select id="os_3name_search" resultType="String">
-	select os_3name from PRODUCT_OPSTION_TBL where PD_NUMBER = #{param1} GROUP BY os_3name
+	select os_3name from PRODUCT_OPSTION_TBL where PD_NUMBER = #{param1} GROUP BY os_3name ORDER BY os_3name
 </select>
 <select id="store_max_index" resultType="int">
 	SELECT max(PD_NUMBER) FROM product_tbl
+</select>
+<select id="select_os_1number" resultType="int">
+	select os_number from PRODUCT_OPSTION_TBL where PD_NUMBER = #{param1} and os_1name = #{param2} and os_2name = #{param3} and os_3name = #{param4}
+</select>
+<select id="select_os_2number" resultType="int">
+	select os_number from PRODUCT_OPSTION_TBL where PD_NUMBER = #{param1} and os_1name = #{param2} and os_2name = #{param3}
+</select>
+<select id="select_os_3number" resultType="int">
+	select os_number from PRODUCT_OPSTION_TBL where PD_NUMBER = #{param1} and os_1name = #{param2}
+</select>
+<select id="select_os" resultType="com.creator.link.Store.Store_OS_DTO">
+	select * from PRODUCT_OPSTION_TBL where os_number = #{param1}
 </select>
 </mapper>
