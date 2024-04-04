@@ -36,4 +36,17 @@ public interface Store_Service {
 
 	Store_OS_DTO select_os(int os_number);
 
+	void od_updata_os(int pd_number, int od_pd_qnt, int os_number);
+
+	void od_updata_pd(int pd_number, int od_pd_qnt);
+
+	int od_select_number(String od_id, String od_pd_name, int mb_number);
+
+	void od_insert_os(String od_id, String od_pd_name, int od_pd_qnt, int od_price, String od_cp_code, int mb_number,
+			int os_number, int zip_code, String dlvy_address, String dlvy_address_dong, String dlvy_detail,
+			String dlvy_comment);
+
+	void od_insert(String od_id, String od_pd_name, int od_pd_qnt, int od_price, String od_cp_code, int mb_number,
+			int zip_code, String dlvy_address, String dlvy_address_dong, String dlvy_detail, String dlvy_comment);
+
 }

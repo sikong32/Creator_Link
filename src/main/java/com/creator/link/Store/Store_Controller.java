@@ -96,7 +96,7 @@ public class Store_Controller {
 			String os_1 = request.getParameter("os_1");
 			os_number = ss.select_os_3number(pd_number,os_1);
 		}
-		int buy_su = Integer.parseInt(request.getParameter("buy_quantity"));
+		int buy_quantity = Integer.parseInt(request.getParameter("buy_quantity"));
 		Store_DTO pddto = ss.store_detail(pd_number);
 		if(os_number!=0) {
 			Store_OS_DTO osdto = ss.select_os(os_number);
@@ -106,26 +106,44 @@ public class Store_Controller {
 			mo.addAttribute("os_full_name",os_full_name);
 		}
 		mo.addAttribute("pddto",pddto);
-		mo.addAttribute("buy_su",buy_su);
+		mo.addAttribute("buy_quantity",buy_quantity);
 		mo.addAttribute("member",member);
 		return "shoping_buy";
 	}
 	@RequestMapping(value = "shoping_buy_fix")
-	public String shoping_buy_fix(HttpServletRequest request) {
+	public String shoping_buy_fix(HttpServletRequest request,Model mo) {
 //		구매번호:	배송주소:	결제금액:
 		Store_Service ss = sqlSession.getMapper(Store_Service.class);
 		HttpSession hs = request.getSession();
 		Member_DTO member = (Member_DTO)hs.getAttribute("member");
-		request.getParameter("");
-		int od_number;
+		//배송 주소 저장
+		int zip_code = Integer.parseInt(request.getParameter("zip_code"));
+		String dlvy_address = request.getParameter("dlvy_address");
+		String dlvy_address_dong = request.getParameter("dlvy_address");
+		String dlvy_detail = request.getParameter("dlvy_detail");
+		String dlvy_comment = request.getParameter("dlvy_comment");
+		int pd_number = Integer.parseInt(request.getParameter("pd_number"));
 		String od_id = member.getMb_id();
-		String od_date;
-		String od_pd_name = request.getParameter("");
-		int od_pd_qnt;
-		int od_price;
-		String od_cp_code;
-		int mb_number;
-		
+		String od_pd_name = request.getParameter("pd_name");
+		int od_pd_qnt = Integer.parseInt(request.getParameter("buy_quantity"));
+		int od_price = Integer.parseInt(request.getParameter("price"));
+		String od_cp_code = "0";
+		int mb_number = Integer.parseInt(member.getMb_number());
+		if(request.getParameter("od_cp_code")!=null) {
+			od_cp_code = request.getParameter("od_cp_code");
+		}
+		if(request.getParameter("os_number")!=null) {
+			int os_number = Integer.parseInt(request.getParameter("os_number"));
+			ss.od_insert_os(od_id,od_pd_name,od_pd_qnt,od_price,od_cp_code,mb_number,os_number,zip_code,dlvy_address,dlvy_address_dong,dlvy_detail,dlvy_comment);
+			ss.od_updata_os(pd_number,od_pd_qnt,os_number);
+		}else {
+			ss.od_insert(od_id,od_pd_name,od_pd_qnt,od_price,od_cp_code,mb_number,zip_code,dlvy_address,dlvy_address_dong,dlvy_detail,dlvy_comment);
+		}
+		ss.od_updata_pd(pd_number,od_pd_qnt);
+		int od_number = ss.od_select_number(od_id,od_pd_name,mb_number);
+		mo.addAttribute("od_number",od_number);
+		mo.addAttribute("od_address",dlvy_address+""+dlvy_detail+""+dlvy_comment);
+		mo.addAttribute("od_price",od_price);
 		return "shoping_buy_fix";
 	}
 	@RequestMapping(value = "gifthub")

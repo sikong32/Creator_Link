@@ -20,12 +20,14 @@
 				<th>아이템 리스트</th>
 			</tr>
 			<tr>
-				<td>아이템 이름: <input type="hidden" name="pd_name" value="${pddto.pd_name}">${pddto.pd_name}</td>
+				<td>아이템 이름: <input type="hidden" name="pd_number" value="${pddto.pd_number}">
+				<input type="hidden" name="pd_name" value="${pddto.pd_name}">${pddto.pd_name}</td>
 			</tr>
 			<c:choose>
 			<c:when test="${os_full_name!=null}">
 			<tr>
-				<td>옵션 이름: <input type="hidden" name="pd_name" value="${os_full_name}">${os_full_name}</td>
+				<td>옵션 이름: <input type="hidden" name="os_number" value="${osdto.os_number}">
+				<input type="hidden" name="pd_name" value="${pddto.pd_name},${os_full_name}">${os_full_name}</td>
 			</tr>
 			</c:when>
 			</c:choose>
@@ -42,14 +44,19 @@
 				</c:choose>
 			</tr>
 			<tr>
+				<td>구매 수량: <input type="number" name="buy_quantity" value="${buy_quantity}" min="1" max="${pddto.pd_stock}">
+				</td>
+			</tr>
+			<tr>
 				<td>배송정보</td>
-				<td><input type="text" id="sample4_postcode" placeholder="우편번호">
+				<td><input type="text" name="zip_code" id="sample4_postcode" placeholder="우편번호">
 					<input type="button" onclick="sample4_execDaumPostcode()"
-					value="우편번호 찾기"><br> <input type="text"
-					id="sample4_roadAddress" placeholder="도로명주소" required> <input
-					type="text" id="sample4_jibunAddress" placeholder="지번주소" required> <span
-					id="guide" style="color: #999; display: none"></span> 
-					<input type="text" id="sample4_detailAddress" placeholder="상세주소" required>
+					value="우편번호 찾기"><br> 
+					<input type="text" name="dlvy_address" id="sample4_roadAddress" placeholder="도로명주소" required>
+					<input type="text" name="dlvy_address_dong" id="sample4_jibunAddress" placeholder="지번주소" required>
+					<span id="guide" style="color: #999; display: none"></span> 
+					<input type="text" name="dlvy_detail" id="sample4_detailAddress" placeholder="상세주소" required maxlength="50">
+					<input type="text" name="dlvy_comment" placeholder="배송 메시지" maxlength="20">
 				</td>
 			</tr>
 			<tr>
@@ -62,10 +69,10 @@
 				<td>쿠폰</td>
 				<td>보유 쿠폰 0
 				<td>
-				<td><select name="쿠폰" id="쿠폰">
-						<option value="쿠폰1">쿠폰1</option>
-						<option value="쿠폰2">쿠폰2</option>
-						<option value="쿠폰3">쿠폰3</option>
+				<td><select name="od_cp_code" id="od_cp_code">
+						<option value="co_code1">쿠폰1</option>
+						<option value="co_code2">쿠폰2</option>
+						<option value="co_code3">쿠폰3</option>
 				</select></td>
 				<td><input type="button" value="적용" onclick=""></td>
 			</tr>
