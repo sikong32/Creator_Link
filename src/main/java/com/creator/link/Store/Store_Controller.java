@@ -146,10 +146,6 @@ public class Store_Controller {
 		mo.addAttribute("od_price",od_price);
 		return "shoping_buy_fix";
 	}
-	@RequestMapping(value = "gifthub")
-	public String gifthub() {
-		return "gifthub";
-	}
 	@RequestMapping(value = "editor", method = RequestMethod.POST)
 	public String editor(HttpServletRequest request,Model model) {
 		String editor = request.getParameter("editor");

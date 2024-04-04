@@ -38,21 +38,5 @@
 	</form>
 </body>
 <script type="text/javascript" src="resources/js/input_editor.js"></script>
-<script type="text/javascript">
-	function val_check() {
-		var editorData = editor.getData();
-		var f = document.getElementById('form_input');
-		// 폼의 유효성 검사
-		if (f.checkValidity()) {
-			if (editorData == "") {
-				alert("상세페이지는 비우면 안됩니다.");
-			} else {
-				f.submit();
-			}
-		} else {
-			// 유효하지 않은 경우 폼을 제출하지 않고 에러 메시지 표시
-			f.reportValidity();
-		}
-	}
-</script>
+<script type="text/javascript" src="resources/js/editor_check.js"></script>
 </html>
