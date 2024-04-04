@@ -1,0 +1,11 @@
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.creator.link.GiftHub.GiftHub_Service">
+	<select id="creator_list" resultType="com.creator.link.GiftHub.GiftHub_Creator_DTO">
+		select mb_photo, mb_nick_name, mb_addr from member_tbl where mb_attribute = '크리에이터'
+	</select>
+	<insert id="gifthub_insert">
+		insert into gift_hub_tbl values
+		(GH_NUMBER_SEQ.nextval,#{param1},#{param2},#{param3},#{param4},#{param5},#{param6},MB_NUMBER_SEQ.c)
+	</insert>
+</mapper>
