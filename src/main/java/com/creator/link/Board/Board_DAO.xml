@@ -76,9 +76,6 @@
 		order siblings by cm_number
 	</select>
 	<delete id="comment_delete">
-		delete from comment_tbl where cm_number = #{param1}
-	</delete>
-	<delete id="comment_deleteall">
-		delete from comment_tbl where cm_inheritance = #{param1}
+		delete from comment_tbl where cm_number = #{param1} or cm_inheritance = #{param1}
 	</delete>
 </mapper>

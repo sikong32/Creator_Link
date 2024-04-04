@@ -10,7 +10,7 @@ CKEDITOR.ClassicEditor.create(document.getElementById("editor"), {
             'outdent', 'indent', '|',
             'undo', 'redo',
             '-',
-            'link', 'insertImage', 'blockQuote', 'insertTable', 'mediaEmbed', 'codeBlock', '|',
+            'link', 'insertImage', 'blockQuote', 'insertTable', 'codeBlock', '|',
             'specialCharacters', 'horizontalLine', '|',
             //'textPartLanguage', '|',
             //'sourceEditing'

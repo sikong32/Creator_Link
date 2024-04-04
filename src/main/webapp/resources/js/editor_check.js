@@ -4,7 +4,7 @@ async function val_check() {
 	// 에디터의 유효성 검사
 	if (f.checkValidity()) {
 		if (editorData == "") {
-			alert("상세페이지는 비우면 안됩니다.");
+			alert("내용은 비우면 안됩니다.");
 		} else {
 			// 데이터를 파일로 변환
 			editorData = await processImages(editorData);
