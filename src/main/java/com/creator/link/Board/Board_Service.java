@@ -28,6 +28,4 @@ public interface Board_Service {
 
 	void comment_delete(String cm_number);
 
-	void comment_deleteall(String cm_number);
-
 }

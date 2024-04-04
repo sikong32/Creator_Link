@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.creator.link.Paging;
 import com.creator.link.Member.Member_DTO;
@@ -136,6 +137,7 @@ public class Board_Controller {
 		
 		return "redirect:board_main";
 	}
+	@ResponseBody
 	@RequestMapping(value = "comment_save")
 	public String comment_save(HttpServletRequest request, Model mo) {
 		String cm_content = request.getParameter("cm_content");
@@ -153,21 +155,16 @@ public class Board_Controller {
 		Board_Service sv = sqlSession.getMapper(Board_Service.class);
 		sv.comment_save(cm_content, bct_content_number, mb_id, cm_inheritance, mb_nick_name, cm_indent);
 		
-		mo.addAttribute("bct_content_number", bct_content_number);
-		
-		return "redirect:board_view";
+		return "등록완료";
 	}
+	@ResponseBody
 	@RequestMapping(value = "comment_delete")
 	public String comment_delete(HttpServletRequest request, Model mo) {
 		String cm_number = request.getParameter("cm_number");
-		String cm_indent = request.getParameter("cm_indent");
 		
-		String url = request.getHeader("referer");
 		Board_Service sv = sqlSession.getMapper(Board_Service.class);
-		if (Integer.parseInt(cm_indent) == 0) sv.comment_deleteall(cm_number);
 		sv.comment_delete(cm_number);
 		
-		
-		return "redirect:"+url;
+		return "삭제완료";
 	}
 }
