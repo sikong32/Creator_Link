@@ -8,7 +8,9 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.creator.link.Member.Member_DTO;
 
@@ -16,6 +18,13 @@ import com.creator.link.Member.Member_DTO;
 public class GiftHub_Controller {
 	@Autowired
 	SqlSession sqlSession;
+	
+	/*@RequestMapping(value= "get_creator")
+	@ResponseBody
+	public ArrayList<GiftHub_Creator_DTO> get_creator(){
+	GiftHub_Service gs = sqlSession.getMapper(GiftHub_Service.class);
+		return gs.creator_list();
+	}*/
 	
 	@RequestMapping(value = "gifthub")
 	public String gifthub(Model mo) {
@@ -26,7 +35,7 @@ public class GiftHub_Controller {
 	}
 	
 	@RequestMapping(value = "gifthub_out")
-	public String gifthub(HttpServletRequest request, Model mo) {
+	public String gifthub_out(HttpServletRequest request, Model mo) {
 		String box_size = request.getParameter("box_size");
 		String big_category = request.getParameter("big_category");
 		String mid_category = request.getParameter("mid_category");
