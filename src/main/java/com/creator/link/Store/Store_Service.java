@@ -49,4 +49,8 @@ public interface Store_Service {
 	void od_insert(String od_id, String od_pd_name, int od_pd_qnt, int od_price, String od_cp_code, int mb_number,
 			int zip_code, String dlvy_address, String dlvy_address_dong, String dlvy_detail, String dlvy_comment);
 
+	ArrayList<Store_DTO> select_pd_all(int pd_number);
+
+	ArrayList<Store_OS_DTO> select_os_all(int pd_number, int parseInt);
+
 }

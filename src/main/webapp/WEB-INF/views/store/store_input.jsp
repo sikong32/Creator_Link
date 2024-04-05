@@ -20,7 +20,7 @@
 				<li>상품가격</li>
 				<li><input type="number" name="pd_price" min="1" max="9999999999" required="required" placeholder="최소 1원"></li>
 				<li>상품대표 이미지</li>
-				<li><input type="file" name="pd_pohto" required="required"></li>
+				<li><input type="file" name="pd_photo" required="required"></li>
 				<li>
 					<input type="radio" name="os_radio" id="os_apply" value="Y" onchange="os_Category_create()">옵션 사용
 					<input type="radio" name="os_radio" id="os_Unapplied" value="N" onchange="os_Category_delete()" checked>옵션 사용안함

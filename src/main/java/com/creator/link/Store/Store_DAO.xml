@@ -61,6 +61,12 @@
 <select id="od_select_number" resultType="int">
 	SELECT max(od_number) FROM order_tbl WHERE od_id = #{param1} and od_pd_name = #{param2} and mb_number= #{param3}
 </select>
+<select id="select_os_all" resultType="com.creator.link.Store.Store_OS_DTO">
+	SELECT * FROM PRODUCT_OPSTION_TBL where PD_NUMBER = #{param1} and os_1name = #{param2}
+</select>
+<select id="select_pd_all" resultType="com.creator.link.Store.Store_DTO">
+	SELECT * FROM PRODUCT_TBL where PD_NUMBER = #{param1}
+</select>
 <update id="od_updata_pd">
 	UPDATE PRODUCT_TBL SET pd_stock = pd_stock-#{param2} WHERE pd_number=#{param1}
 </update>

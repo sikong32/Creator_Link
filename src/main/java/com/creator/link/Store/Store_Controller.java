@@ -19,6 +19,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
@@ -55,8 +56,36 @@ public class Store_Controller {
 		return "store_main";
 	}
 	@RequestMapping(value = "shopping_cart")
-	public String shopping_cart() {
+	public String shopping_cart(HttpServletRequest request, Model mo) {
+//		int pd_number = Integer.parseInt(request.getParameter("pd_number"));
+		Store_Service ss = sqlSession.getMapper(Store_Service.class);
+//		ArrayList<Store_DTO> pd_list = ss.select_pd_all(pd_number);
+//		ArrayList<Store_OS_DTO> os_list;
+//		if(request.getParameter("os_number")!=null) {
+//			String[] os_numbers = request.getParameterValues("os_number");
+//			for (int i = 0; i < os_numbers.length; i++) {
+//				os_list = ss.select_os_all(pd_number,Integer.parseInt(os_numbers[i]));
+//			}
+//		}
+//		mo.addAttribute("pd_list",pd_list);
+//		mo.addAttribute("os_list",os_list);
 		return "shopping_cart";
+	}
+	@ResponseBody
+	@RequestMapping(value = "os_number_get",method = RequestMethod.POST)
+	public String os_number_get(HttpServletRequest request) {
+		int pd_number = Integer.parseInt(request.getParameter("pd_number"));
+		Store_Service ss = sqlSession.getMapper(Store_Service.class);
+		String[] os_names = request.getParameter("os_names").split(",");
+		int os_number = 0;
+		if(os_names.length == 1) {
+			os_number = ss.select_os_3number(pd_number,os_names[0]);
+		}else if(os_names.length == 2) {
+			os_number = ss.select_os_2number(pd_number,os_names[0],os_names[1]);
+		}else if(os_names.length == 3) {
+			os_number = ss.select_os_1number(pd_number,os_names[0],os_names[1],os_names[2]);
+		}
+		return String.valueOf(os_number);
 	}
 	@RequestMapping(value = "store_detail")
 	public String store_detail(HttpServletRequest request,Model model) {
@@ -169,12 +198,12 @@ public class Store_Controller {
 		int pd_price = Integer.parseInt(mul.getParameter("pd_price"));
 		String pd_content = request.getParameter("pd_content");
 		int pd_stock = Integer.parseInt(mul.getParameter("pd_stock"));
-		MultipartFile mf = mul.getFile("pd_pohto");
-		String pd_pohto = filesave(mf.getOriginalFilename());
-		mf.transferTo(new File(imagePath + pd_pohto));
+		MultipartFile mf = mul.getFile("pd_photo");
+		String pd_photo = filesave(mf.getOriginalFilename());
+		mf.transferTo(new File(imagePath + pd_photo));
 		if(request.getParameter("os_radio").equals("Y")&&request.getParameter("os_print_su")!=null) {
 			int os_print_su = Integer.parseInt(request.getParameter("os_print_su"));
-			ss.store_insert0(pd_name, pd_price, pd_category, pd_content, pd_pohto, pd_stock, mb_number);
+			ss.store_insert0(pd_name, pd_price, pd_category, pd_content, pd_photo, pd_stock, mb_number);
 			int max_index = ss.store_max_index();
 			for (int i = 1; i <= os_print_su; i++) {
 				int os_price;
@@ -189,31 +218,28 @@ public class Store_Controller {
 				}else {
 					os_stock = Integer.parseInt(request.getParameter("os_"+i+"stock"));
 				}
-				String os_photo;
-				MultipartFile mf1;
-				if(mul.getFile("os_"+i+"pohto")==null){
-					os_photo = pd_pohto;
-				}else {
-					mf1 = mul.getFile("os_"+i+"pohto");
+				String os_photo = pd_photo;
+				MultipartFile mf1 = mul.getFile("os_"+i+"photo");
+				if(mf1 != null && !mf1.isEmpty()){
 					os_photo = filesave(mf1.getOriginalFilename());
 					mf1.transferTo(new File(imagePath + os_photo)); // 옵션사진파일저장
 				}
-			if(request.getParameter("os_1_1")!=null && request.getParameter("os_2_1")!=null && request.getParameter("os_3_1")!=null) {
-				String os_1name = request.getParameter("os_1_"+i);
-				String os_2name = request.getParameter("os_2_"+i);
-				String os_3name = request.getParameter("os_3_"+i);
-				ss.os3_insert(max_index,os_1name,os_2name,os_3name,os_price,os_photo,os_stock);
-				}else if(request.getParameter("os_1_1")!=null && request.getParameter("os_2_1")!=null){
+				if(request.getParameter("os_1_1")!=null && request.getParameter("os_2_1")!=null && request.getParameter("os_3_1")!=null) {
 					String os_1name = request.getParameter("os_1_"+i);
 					String os_2name = request.getParameter("os_2_"+i);
-					ss.os2_insert(max_index,os_1name,os_2name,os_price,os_photo,os_stock);
-				}else if(request.getParameter("os_1_1")!=null) {
-					String os_1name = request.getParameter("os_1_"+i);
-					ss.os1_insert(max_index,os_1name,os_price,os_photo,os_stock);
-				}
+					String os_3name = request.getParameter("os_3_"+i);
+					ss.os3_insert(max_index,os_1name,os_2name,os_3name,os_price,os_photo,os_stock);
+					}else if(request.getParameter("os_1_1")!=null && request.getParameter("os_2_1")!=null){
+						String os_1name = request.getParameter("os_1_"+i);
+						String os_2name = request.getParameter("os_2_"+i);
+						ss.os2_insert(max_index,os_1name,os_2name,os_price,os_photo,os_stock);
+					}else if(request.getParameter("os_1_1")!=null) {
+						String os_1name = request.getParameter("os_1_"+i);
+						ss.os1_insert(max_index,os_1name,os_price,os_photo,os_stock);
+					}
 			}
 		}else {
-			ss.store_insert0(pd_name, pd_price, pd_category, pd_content, pd_pohto, pd_stock, mb_number);
+			ss.store_insert0(pd_name, pd_price, pd_category, pd_content, pd_photo, pd_stock, mb_number);
 		}
 		return "redirect:store_main";
 	}
