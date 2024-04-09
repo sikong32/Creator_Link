@@ -3,6 +3,7 @@ package com.creator.link.Store;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Properties;
@@ -11,6 +12,7 @@ import java.util.UUID;
 import javax.annotation.PostConstruct;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.ibatis.session.SqlSession;
@@ -55,24 +57,49 @@ public class Store_Controller {
 		model.addAttribute("list",list);
 		return "store_main";
 	}
-	@RequestMapping(value = "shopping_cart")
-	public String shopping_cart(HttpServletRequest request, Model mo) {
-//		int pd_number = Integer.parseInt(request.getParameter("pd_number"));
+	@ResponseBody
+	@RequestMapping(value = "shopping_cart_save",method = RequestMethod.POST)
+	public String shopping_cart(HttpServletRequest request,HttpServletResponse response) {
+		response.setContentType("text/html;charset=utf-8");
+		HttpSession hs = request.getSession();
+		Member_DTO member = (Member_DTO)hs.getAttribute("member");
 		Store_Service ss = sqlSession.getMapper(Store_Service.class);
-//		ArrayList<Store_DTO> pd_list = ss.select_pd_all(pd_number);
-//		ArrayList<Store_OS_DTO> os_list;
-//		if(request.getParameter("os_number")!=null) {
-//			String[] os_numbers = request.getParameterValues("os_number");
-//			for (int i = 0; i < os_numbers.length; i++) {
-//				os_list = ss.select_os_all(pd_number,Integer.parseInt(os_numbers[i]));
-//			}
-//		}
-//		mo.addAttribute("pd_list",pd_list);
-//		mo.addAttribute("os_list",os_list);
-		return "shopping_cart";
+		int pd_number = Integer.parseInt(request.getParameter("pd_number"));
+		if(request.getParameter("os_number")!=null) { //옵션 선택 이 있을 경우
+			String[] os_numbers = request.getParameterValues("os_number");
+			for (int i = 0; i < os_numbers.length; i++) {
+				ss.cart_save_os(pd_number,member.getMb_number(),os_numbers[i]);
+				System.out.println("os_number"+os_numbers[i]);
+			}
+		}else {
+			ss.cart_save_noos(pd_number,member.getMb_number());
+		}
+		return 	"저장성공";
+	}
+	@RequestMapping(value = "shopping_cart_view")
+	public String shopping_cart_view(HttpServletRequest request, Model mo) {
+		HttpSession hs = request.getSession();
+		Member_DTO member = (Member_DTO)hs.getAttribute("member");
+		Store_Service ss = sqlSession.getMapper(Store_Service.class);
+		ArrayList<Store_Cart_DTO> cart_list = ss.cart_select(member.getMb_number());
+		ArrayList<Store_OS_DTO> os_list = new ArrayList<Store_OS_DTO>(); // 옵션 정보 초기화
+		ArrayList<Store_DTO> pd_list = new ArrayList<Store_DTO>(); // 상품 정보 초기화
+		
+		for (int i = 0; i < cart_list.size(); i++) {
+			if(cart_list.get(i).getOs_number()!=0) {
+				Store_OS_DTO os_number = ss.select_os(cart_list.get(i).getOs_number());
+				os_list.add(os_number);
+			}else {
+				Store_DTO pd_number = ss.select_pd(cart_list.get(i).getPd_number());
+				pd_list.add(pd_number);
+			}
+		}
+		mo.addAttribute("os_list",os_list);
+		mo.addAttribute("pd_list",pd_list);
+		return "shopping_cart_view";
 	}
 	@ResponseBody
-	@RequestMapping(value = "os_number_get",method = RequestMethod.POST)
+	@RequestMapping(value = "os_number_get",method = RequestMethod.GET)
 	public String os_number_get(HttpServletRequest request) {
 		int pd_number = Integer.parseInt(request.getParameter("pd_number"));
 		Store_Service ss = sqlSession.getMapper(Store_Service.class);
@@ -111,6 +138,17 @@ public class Store_Controller {
 		HttpSession hs = request.getSession();
 		Member_DTO member = (Member_DTO)hs.getAttribute("member");
 		int pd_number = Integer.parseInt(request.getParameter("pd_number"));
+		
+		ArrayList<Store_DTO> pd_list = ss.select_pd_all(pd_number);
+		ArrayList<Store_OS_DTO> os_list = null;
+		if(request.getParameter("os_number")!=null) {
+			String[] os_numbers = request.getParameterValues("os_number");
+			for (int i = 0; i < os_numbers.length; i++) {
+				os_list = ss.select_os_all(pd_number,Integer.parseInt(os_numbers[i]));
+			}
+			mo.addAttribute("pd_list",pd_list);
+			mo.addAttribute("os_list",os_list);
+		}
 		int os_number = 0;
 		if(request.getParameter("os_1")!=null&&request.getParameter("os_2")!=null&&request.getParameter("os_1")!=null) {
 			String os_1 = request.getParameter("os_1");

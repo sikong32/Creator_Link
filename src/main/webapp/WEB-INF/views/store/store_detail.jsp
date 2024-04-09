@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style type="text/css">
@@ -133,7 +133,7 @@
 			</tr>
 		</table>
 	</form>
-	<form action="shopping_cart" name="cart_form">
+	<form action="shopping_cart_save" name="cart_form">
 	<div>선택된 옵션</div>
 			<div id="os_items"></div>
 			<input type="hidden" name="pd_number" id="pd_number" value="${dto.pd_number}">
@@ -152,6 +152,7 @@
 		</table>
 	</form>
 </body>
+
 <script type="text/javascript">
 function login_check() {
 	var login = "${loginState}";
@@ -169,32 +170,39 @@ function os_1check() {
 	var os_2 = document.getElementById('os_2')? document.getElementById('os_2').value : '';
 	var os_3 = document.getElementById('os_3')? document.getElementById('os_3').value : '';
 	var os_items = document.getElementById('os_items');
-	var pd_number = document.getElementById('pd_number').value;
+	
+	if(os_items.querySelectorAll('li').length>=10){
+		alert("옵션은 10개까지 선택할 수 있습니다.");
+		return false;
+	}
+	const pd_number = document.getElementById('pd_number').value;
 	
 	const os_div = document.createElement('div');
-	var currentid = "os_choice_"+os_check;
+	const currentid = "os_choice_"+os_check;
 	os_div.id = currentid;
-	os_div.innerHTML = 	'<ul><li name="os_choice" value="'+os_1+os_2+os_3+'">'+os_1+os_2+os_3+''+
+	os_div.innerHTML = 	'<ul id="os_lists"><li name="os_choice" value="'+os_1+os_2+os_3+'">'+os_1+os_2+os_3+''+
 						'<input type="button" onclick="os_choice_delete('+os_check+')" value="X">'+
 						'<input type="hidden" name="os_number" id="os_number'+os_check+'" ></li></ul>';
 	os_items.appendChild(os_div);
-	var os_names = os_1+","+os_2+","+os_3;
-	os_number_select(os_names,os_check,pd_number);
+	const os_names = os_1+","+os_2+","+os_3;
+	os_number_select(os_names,pd_number);
 	os_check++; //삭제하기 위한 함수 증가
 }
-function os_number_select(os_names,os_check,pd_number) {
+function os_number_select(os_names,pd_number) {
 	$.ajax({
-		type:"post",
-		async:true,
+		type:"get",
+		async:false,
 		url:"os_number_get",
 		dataType:"text",
-		data:{"os_names":os_names,"pd_number":pd_number},
+		data:{"os_names":os_names , "pd_number":pd_number},
 		success:function(check) {
 			if (check != null) {
 				document.getElementById("os_number" + os_check).value = check; // 여기에서 값을 설정합니다.
 			}else {
 				alert("옵션 추가 실패");
 			}
+		},error:function(){
+			alert("옵션 추가 실패");
 		}
 	});
 }
@@ -207,10 +215,44 @@ function os_choice_delete(check) {
 function cart() {
 	var login = "${loginState}";
 	if(login == "true"){
-		var f = document.cart_form;
-		if(f.os_number!=null){
-			f.submit();
-		};
+		if(document.getElementById("os_lists")!=null){
+			var f = document.cart_form;
+			var formData = new FormData(f);
+			$.ajax({
+				type:"post",
+				async:false,
+				url:"shopping_cart_save",
+				processData:false,
+				contentType:false,
+				data:formData,
+				success:function(){
+					if(confirm("장바구니에 상품이 저장되었습니다.\n아니요를 눌러 장바구니로 이동")){
+					}else{
+						window.location.href="shopping_cart_view";
+					}
+				},error:function(){
+					alert("오류발생");
+				}
+			});
+		}else{
+			const pd_number = document.getElementById('pd_number').value;
+			alert(pd_number);
+			$.ajax({
+				type:"post",
+				async:false,
+				url:"shopping_cart_save",
+				dataType:"text",
+				data:{"pd_number":pd_number},
+				success:function(){
+					if(confirm("장바구니에 상품이 저장되었습니다.\n아니요를 눌러 장바구니로 이동")){
+					}else{
+						window.location.href="shopping_cart_view";
+					}
+				},error:function(){
+					alert("오류발생");
+				}
+			});
+		}
 	}else{
 		alert("로그인이 필요합니다.");
 		window.location.href="login";

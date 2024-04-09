@@ -53,4 +53,12 @@ public interface Store_Service {
 
 	ArrayList<Store_OS_DTO> select_os_all(int pd_number, int parseInt);
 
+	void cart_save_os(int pd_number, String mb_number, String string);
+
+	void cart_save_noos(int pd_number, String mb_number);
+
+	ArrayList<Store_Cart_DTO> cart_select(String mb_number);
+
+	Store_DTO select_pd(int pd_number);
+
 }

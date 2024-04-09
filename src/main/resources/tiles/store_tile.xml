@@ -35,8 +35,8 @@
 		<put-attribute name="title" value="메인화면" />
 		<put-attribute name="body" value="/WEB-INF/views/store/store_input.jsp" />
 	</definition>
-	<definition name="shopping_cart" extends="baseLayout">
+	<definition name="shopping_cart_view" extends="baseLayout">
 		<put-attribute name="title" value="메인화면" />
-		<put-attribute name="body" value="/WEB-INF/views/store/shopping_cart.jsp" />
+		<put-attribute name="body" value="/WEB-INF/views/store/shopping_cart_view.jsp" />
 	</definition>
 </tiles-definitions>
