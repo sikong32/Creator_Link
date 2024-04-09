@@ -3,9 +3,11 @@
 <mapper namespace="com.creator.link.Member.Member_Service">
 
 <insert id="regist">
-	insert into crering.member_tbl values (mb_number_seq.nextval,#{param1},#{param2},
-									'basic_photo.png',#{param1},#{param3},#{param4},#{param5},'0',
-									'0',sysdate,'0','0','0','일반 회원')
+	insert into crering.member_tbl values (mb_number_seq.nextval,#{param1},#{param2},'basic_photo.png',
+										   #{param1},#{param3},#{param4},#{param5},
+										   '0','','','',
+										   '',sysdate,'0','0',
+										   '0','일반 회원')
 </insert>
 
 <select id="memberLogin" resultType="com.creator.link.Member.Member_DTO">
@@ -23,5 +25,16 @@
 <select id="passwordModify">
 	update crering.member_tbl set mb_password=#{param3} where mb_id=#{param1} and mb_password=#{param2}
 </select>
+
+<select id="checkNickName" resultType="int">
+	select count(*) from crering.member_tbl where mb_nick_name=#{param1}
+</select>
+
+<update id="mdMyInfo">
+	update member_tbl set mb_photo=#{param3},mb_nick_name=#{param4},mb_birth_date=#{param5},mb_phone=#{param6},
+						  mb_email=#{param7},mb_addr_post=#{param8},mb_addr_road=#{param9},mb_addr_local=#{param10},
+						  mb_addr_detail=#{param11} where mb_number=#{param1} and mb_id=#{param2}
+</update>
+
 
 </mapper>
