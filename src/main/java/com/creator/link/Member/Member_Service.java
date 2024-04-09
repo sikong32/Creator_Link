@@ -12,4 +12,9 @@ public interface Member_Service {
 
 	void passwordModify(String exId, String exPw, String mdPw);
 
+	int checkNickName(String vrNickName);
+
+	void mdMyInfo(int myNumber, String myId, String myPhoto, String myNickName, String myBirthDate, String myPhone,
+			String myEmail, String myAddrPost, String myAddrRoad, String myAddrLocal, String myAddrDetail);
+	
 }
