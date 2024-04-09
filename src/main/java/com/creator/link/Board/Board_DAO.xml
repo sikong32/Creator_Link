@@ -2,7 +2,7 @@
 
 <mapper namespace="com.creator.link.Board.Board_Service">
 	<insert id="board_save">
-		insert into board_content_tbl values(bct_content_number_seq.nextval, #{param1}, #{param2}, #{param3}, sysdate, 0, 0, #{param4}, #{param5})
+		insert into board_content_tbl values(bct_content_number_seq.nextval, #{param1}, #{param2}, #{param3}, sysdate, 0, 0, #{param4}, #{param5}, #{param6})
 	</insert>
 	<select id="value_of_total" resultType="int">
 		<if test="param2 == null">
@@ -62,8 +62,11 @@
 	<delete id="board_delete">
 		delete from board_content_tbl where bct_content_number = #{param1}
 	</delete>
+	<delete id="board_comment_delete">
+		delete from comment_tbl where bct_content_number = #{param1}
+	</delete>
 	<update id="board_modify">
-		update board_content_tbl set bct_title = #{param1}, bct_content = #{param2} where bct_content_number = #{param3}
+		update board_content_tbl set bct_title = #{param1}, bct_content = #{param2}, bat_number = #{param3} where bct_content_number = #{param4}
 	</update>
 	<insert id="comment_save">
 		insert into comment_tbl values(cm_number_seq.nextval, #{param1}, sysdate, ${param2}, #{param3}, ${param4}, #{param5}, #{param6})
@@ -78,4 +81,8 @@
 	<delete id="comment_delete">
 		delete from comment_tbl where cm_number = #{param1} or cm_inheritance = #{param1}
 	</delete>
+	<select id="comment_number" resultType="com.creator.link.Board.Comment_number">
+		select bct_content_number,count(*) as comment_number from comment_tbl
+		group by bct_content_number
+	</select>
 </mapper>

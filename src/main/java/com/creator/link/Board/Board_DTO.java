@@ -10,9 +10,10 @@ public class Board_DTO {
 	int bct_like_cnt;
 	int bat_number;
 	int mb_number;
+	String bct_writer_id;
 	public Board_DTO() {
 	}
-	public Board_DTO(int bct_content_number, String bct_writer, String bct_title, String bct_content, String bct_write_date, int bct_view_cnt, int bct_like_cnt, int bat_number, int mb_number) {
+	public Board_DTO(int bct_content_number, String bct_writer, String bct_title, String bct_content, String bct_write_date, int bct_view_cnt, int bct_like_cnt, int bat_number, int mb_number, String bct_writer_id) {
 		this.bct_content_number = bct_content_number;
 		this.bct_writer = bct_writer;
 		this.bct_title = bct_title;
@@ -22,6 +23,7 @@ public class Board_DTO {
 		this.bct_like_cnt = bct_like_cnt;
 		this.bat_number = bat_number;
 		this.mb_number = mb_number;
+		this.bct_writer_id = bct_writer_id;
 	}
 	public int getBct_content_number() {
 		return bct_content_number;
@@ -76,5 +78,11 @@ public class Board_DTO {
 	}
 	public void setMb_number(int mb_number) {
 		this.mb_number = mb_number;
+	}
+	public String getBct_writer_id() {
+		return bct_writer_id;
+	}
+	public void setBct_writer_id(String bct_writer_id) {
+		this.bct_writer_id = bct_writer_id;
 	}
 }

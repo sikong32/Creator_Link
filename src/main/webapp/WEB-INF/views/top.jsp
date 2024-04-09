@@ -76,7 +76,7 @@
 								<li id="myPageLink"><a href="#"><i class="fa-regular fa-user"></i></a></li>
 								<li><a href="#"><i class="fa-regular fa-star"></i></a></li>
 								<li><a href="#"><i class="fa-regular fa-heart"></i></a></li>
-								<li><a href="#"><i class="fa-solid fa-cart-shopping"></i></a></li>
+								<li><a href="shopping_cart_view"><i class="fa-solid fa-cart-shopping"></i></a></li>
 							</ul>
 						</li>
 						<li><a href="logout"><i class="fa-solid fa-door-open"></i></a></li>

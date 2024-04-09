@@ -7,11 +7,8 @@
 	</configSuffixes>
 	<enableImports><![CDATA[true]]></enableImports>
 	<configs>
-		<config>src/main/java/com/creator/link/Board/Board_DAO.xml</config>
 		<config>src/main/java/com/creator/link/Member/Member_DAO.xml</config>
 		<config>src/main/java/com/creator/link/Store/Store_DAO.xml</config>
-		<config>src/main/java/com/creator/link/Home_DAO.xml</config>
-		<config>src/main/resources/tiles/board_tile.xml</config>
 		<config>src/main/resources/tiles/member_tile.xml</config>
 		<config>src/main/resources/tiles/store_tile.xml</config>
 	</configs>
