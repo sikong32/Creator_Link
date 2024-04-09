@@ -21,12 +21,12 @@
 }
 #image_container {
     display: flex;
-    overflow-x: hidden;
+    overflow-x: scroll;
     width: 250px; /* 예시 너비, 필요에 따라 조절 */
 }
-.sub_image {
-    flex: 0 0 auto; /* 이미지가 컨테이너 너비를 넘어가면 스크롤되지 않고 나란히 배열됨 */
-}
+/* .sub_image { */
+/*     flex: 0 0 auto; /* 이미지가 컨테이너 너비를 넘어가면 스크롤되지 않고 나란히 배열됨 */ 
+/* } */
 </style>
 </head>
 <body>
@@ -35,15 +35,16 @@
 			<tr>
 				<th><img id="main_image" src="./resources/store/item_cover/${dto.pd_photo}"	width="500"></th>
 				<td>
-				<div id="image_slider">
-				<button type="button" id="prev">◀</button>
-				<div id="image_container">
-				<c:forEach items="${list}" var="s" varStatus="status">
-				<img id="sub_image" class="sub_image" src="./resources/store/item_cover/${s.os_photo}" width="100" onmouseover="chang_image(this.src)" onmouseout="reset_image()">
-				</c:forEach>
-				</div>
-				<button type="button" id="next">▶</button>
-				</div>
+					<div id="image_slider">
+				        <button type="button" id="prev">◀</button>
+				        <div id="image_container">
+				            <c:forEach items="${list}" var="s" varStatus="status">
+				                <!-- 클래스 사용, ID 제거 -->
+				                <img class="sub_image" src="./resources/store/item_cover/${s.os_photo}" width="100" onmouseover="change_image(this.src)" onmouseout="reset_image()">
+				            </c:forEach>
+				        </div>
+				        <button type="button" id="next">▶</button>
+				    </div>
 				</td>
 			</tr>
 		</table>
@@ -73,7 +74,7 @@
 			        <tr>
 			            <th>옵션1</th>
 			            <td>
-			                <select name="os_1" id="os_1" onchange="os_1check()">
+			                <select name="os_1" id="os_1" onchange="os_check()">
 			                    <c:forEach items="${os1name}" var="s">
 			                        <option value="${s}">${s}</option>
 			                    </c:forEach>
@@ -87,7 +88,7 @@
 			        <tr>
 			            <th>옵션2</th>
 			            <td>
-			                <select name="os_2" id="os_2" onchange="os_1check()">
+			                <select name="os_2" id="os_2" onchange="os_check()">
 			                    <c:forEach items="${os2name}" var="s">
 			                        <option value="${s}">${s}</option>
 			                    </c:forEach>
@@ -101,7 +102,7 @@
 			        <tr>
 			            <th>옵션3</th>
 			            <td>
-			                <select name="os_3" id="os_3" onchange="os_1check()">
+			                <select name="os_3" id="os_3" onchange="os_check()">
 			                    <c:forEach items="${os3name}" var="s">
 			                        <option value="${s}">${s}</option>
 			                    </c:forEach>
@@ -133,11 +134,13 @@
 			</tr>
 		</table>
 	</form>
-	<form action="shopping_cart_save" name="cart_form">
-	<div>선택된 옵션</div>
-			<div id="os_items"></div>
+	<form action="shopping_cart_save" name="cart_form" id="cart_form">
+		<div>선택된 옵션</div>
+			<div id="os_items">
+				<ul id="os_lists"></ul>
+			</div>
 			<input type="hidden" name="pd_number" id="pd_number" value="${dto.pd_number}">
-			<input type="button" value="장바구니" 	onclick="cart()" <c:if test="${dto.pd_stock < 1}">disabled</c:if>>
+			<input type="button" id="cart_button" value="장바구니" onclick="cart()" <c:if test="${dto.pd_stock < 1}">disabled</c:if>>
 	</form>
 	<form action="">
 		<table border="1">
@@ -164,29 +167,46 @@ function login_check() {
 		window.location.href="login";
 	}
 }
-let os_check = 1;
-function os_1check() {
+let os_check_count = 1;
+function os_check() {
+	var os_items = document.getElementById("os_lists");
+    var cart_button = document.getElementById("cart_button");
+
 	var os_1 = document.getElementById('os_1')? document.getElementById('os_1').value : '';
 	var os_2 = document.getElementById('os_2')? document.getElementById('os_2').value : '';
 	var os_3 = document.getElementById('os_3')? document.getElementById('os_3').value : '';
-	var os_items = document.getElementById('os_items');
+// 	var os_items = document.getElementById('os_items');
 	
 	if(os_items.querySelectorAll('li').length>=10){
 		alert("옵션은 10개까지 선택할 수 있습니다.");
 		return false;
 	}
+	
 	const pd_number = document.getElementById('pd_number').value;
 	
-	const os_div = document.createElement('div');
-	const currentid = "os_choice_"+os_check;
-	os_div.id = currentid;
-	os_div.innerHTML = 	'<ul id="os_lists"><li name="os_choice" value="'+os_1+os_2+os_3+'">'+os_1+os_2+os_3+''+
-						'<input type="button" onclick="os_choice_delete('+os_check+')" value="X">'+
-						'<input type="hidden" name="os_number" id="os_number'+os_check+'" ></li></ul>';
-	os_items.appendChild(os_div);
+	const os_li = document.createElement('li');
+// 	const currentid = "os_choice_"+os_check_count;
+	os_li.setAttribute("name","os_choice");
+	os_li.setAttribute("value",os_1+os_2+os_3);
+// 	os_li.id = currentid;
+	os_li.innerHTML = 	os_1+os_2+os_3+
+						'<input type="button" onclick="os_choice_delete('+os_check_count+')" value="X">'+
+						'<input type="hidden" name="os_number" id="os_number'+os_check_count+'" ></li></ul>';
+	os_items.appendChild(os_li);
+	
+    // div#os_items 안에 내용이 있는지 확인합니다.
+    if (os_items.querySelectorAll("li").length === 0) {
+        // 내용이 없으면 버튼을 비활성화합니다.
+        cart_button.disabled = true;
+    } else {
+        // 내용이 있으면 버튼을 활성화합니다.
+        cart_button.disabled = false;
+    }
+	
 	const os_names = os_1+","+os_2+","+os_3;
 	os_number_select(os_names,pd_number);
-	os_check++; //삭제하기 위한 함수 증가
+	os_check_count++; //삭제하기 위한 함수 증가
+	
 }
 function os_number_select(os_names,pd_number) {
 	$.ajax({
@@ -197,7 +217,7 @@ function os_number_select(os_names,pd_number) {
 		data:{"os_names":os_names , "pd_number":pd_number},
 		success:function(check) {
 			if (check != null) {
-				document.getElementById("os_number" + os_check).value = check; // 여기에서 값을 설정합니다.
+				document.getElementById("os_number" + os_check_count).value = check; // 여기에서 값을 설정합니다.
 			}else {
 				alert("옵션 추가 실패");
 			}
@@ -206,18 +226,37 @@ function os_number_select(os_names,pd_number) {
 		}
 	});
 }
-function os_choice_delete(check) {
-    var os_choice_div = document.getElementById("os_choice_"+check);
-    if (os_choice_div) {
-        os_choice_div.parentNode.removeChild(os_choice_div);
+function os_choice_delete(os_check_count) {
+    var os_choice_li = document.getElementById("os_number"+os_check_count).parentNode;
+    if (os_choice_li) {
+        os_choice_li.parentNode.removeChild(os_choice_li);
+    }
+    
+	var os_items = document.getElementById("os_lists");
+    var cart_button = document.getElementById("cart_button");
+    // div#os_items 안에 내용이 있는지 확인합니다.
+    if (os_items.querySelectorAll("li").length === 0) {
+        // 내용이 없으면 버튼을 비활성화합니다.
+        cart_button.disabled = true;
+    } else {
+        // 내용이 있으면 버튼을 활성화합니다.
+        cart_button.disabled = false;
     }
 }
 function cart() {
 	var login = "${loginState}";
 	if(login == "true"){
-		if(document.getElementById("os_lists")!=null){
-			var f = document.cart_form;
-			var formData = new FormData(f);
+		const os_1 = document.getElementById("os_1");
+		const items = document.getElementById("os_lists");
+		const os_items = items.getElementsByTagName("li");
+	    // 옵션이 있는 상품인지 체크
+		if(os_1 && os_items.length===0){
+			alert("옵션을 선택하세요");
+			return;
+		}
+	    if(os_1){
+		var f = document.cart_form;
+		var formData = new FormData(f);
 			$.ajax({
 				type:"post",
 				async:false,
@@ -234,25 +273,24 @@ function cart() {
 					alert("오류발생");
 				}
 			});
-		}else{
-			const pd_number = document.getElementById('pd_number').value;
-			alert(pd_number);
-			$.ajax({
-				type:"post",
-				async:false,
-				url:"shopping_cart_save",
-				dataType:"text",
-				data:{"pd_number":pd_number},
-				success:function(){
-					if(confirm("장바구니에 상품이 저장되었습니다.\n아니요를 눌러 장바구니로 이동")){
-					}else{
-						window.location.href="shopping_cart_view";
+			}else{
+				const pd_number = document.getElementById('pd_number').value;
+				$.ajax({
+					type:"post",
+					async:false,
+					url:"shopping_cart_save",
+					dataType:"text",
+					data:{"pd_number":pd_number},
+					success:function(){
+						if(confirm("장바구니에 상품이 저장되었습니다.\n아니요를 눌러 장바구니로 이동")){
+						}else{
+							window.location.href="shopping_cart_view";
+						}
+					},error:function(){
+						alert("오류발생");
 					}
-				},error:function(){
-					alert("오류발생");
-				}
-			});
-		}
+				});
+	  		 }
 	}else{
 		alert("로그인이 필요합니다.");
 		window.location.href="login";
@@ -260,12 +298,13 @@ function cart() {
 }
 </script>
 <script type="text/javascript">
-function chang_image(src) {
+let original_image = "./resources/store/item_cover/${dto.pd_photo}";
+function change_image(src) {
     document.getElementById('main_image').src = src;
 }
 function reset_image() {
     // 원래 큰 이미지의 소스로 변경. 원래의 큰 이미지 소스를 변수에 저장하거나 다른 방법을 사용해 관리해야 합니다.
-    document.getElementById('main_image').src = './resources/store/item_cover/${dto.pd_photo}';
+    document.getElementById('main_image').src = original_image;
 }
 document.getElementById('next').addEventListener('click', function() {
     // 오른쪽으로 슬라이드
