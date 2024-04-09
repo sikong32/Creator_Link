@@ -152,19 +152,19 @@ $(document).ready(function() {
         }
     }
     
-	function post_modify() {
-		if (write_id == login_id){
-			window.location="board_modify?bct_content_number=${post.bct_content_number}"
-		}
-		else{
-			alert("권한이 없습니다");
-		}
-	}
-	function post_del() {
-		if (write_id == login_id){
+	$("#modify_button").click(function() {
+        if (writer_id == login_id){
+            window.location="board_modify?bct_content_number=" + bct_content_number;
+        } else {
+            alert("권한이 없습니다");
+        }
+    });
+    
+    $("#delete_button").click(function() {
+        if (writer_id == login_id){
 			var result = confirm("삭제하시겠습니까?");
 			if (result == true){
-				window.location="board_delete?bct_content_number=${post.bct_content_number}"
+				window.location="board_delete?bct_content_number=" + bct_content_number;
 			}
 			else{
 			}
@@ -172,5 +172,5 @@ $(document).ready(function() {
 		else{
 			alert("권한이 없습니다");
 		}
-	}
+    });
 });

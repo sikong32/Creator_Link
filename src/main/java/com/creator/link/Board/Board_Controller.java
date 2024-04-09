@@ -1,6 +1,7 @@
 package com.creator.link.Board;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 import javax.servlet.http.HttpServletRequest;
@@ -20,14 +21,13 @@ import com.creator.link.Member.Member_DTO;
 public class Board_Controller {
 	@Autowired
 	SqlSession sqlSession;
-	String path = "C:\\이젠디지탈12\\spring\\Creator_Link\\src\\main\\webapp\\resources\\board\\";
 	
 	@RequestMapping(value = "board_main")
 	public String board_main(HttpServletRequest request, Model mo) {
 		String now_page = request.getParameter("now_page");
 		if (now_page == null) now_page = "1";
 		String view_per_page = request.getParameter("view_per_page");
-		if (view_per_page == null) view_per_page = "5";
+		if (view_per_page == null) view_per_page = "30";
 		String mb_number = request.getParameter("mb_number");
 		if (mb_number == null) mb_number = "1";
 		String bat_number = request.getParameter("bat_number");
@@ -35,12 +35,14 @@ public class Board_Controller {
 		String value = request.getParameter("value");
 		int value_of_total = 0;
 		
-		ArrayList<Attribute_DTO> attribute_list = new ArrayList<Attribute_DTO>();
 		Board_Service sv = sqlSession.getMapper(Board_Service.class);
-		attribute_list = sv.attribute_list(mb_number);
 		value_of_total = sv.value_of_total(mb_number, bat_number, search, value);
 		Paging paging = new Paging(Integer.parseInt(now_page), Integer.parseInt(view_per_page), value_of_total);
+		ArrayList<Attribute_DTO> attribute_list = sv.attribute_list(mb_number);
 		ArrayList<Board_DTO> board_list = sv.board_list(mb_number, paging, bat_number, search, value);
+		ArrayList<Comment_number> comment_number = sv.comment_number();
+		
+		LocalDateTime ldt = LocalDateTime.now();
 		
 		mo.addAttribute("board_list", board_list);
 		mo.addAttribute("attribute_list", attribute_list);
@@ -48,6 +50,8 @@ public class Board_Controller {
 		mo.addAttribute("bat_number", bat_number);
 		mo.addAttribute("search", search);
 		mo.addAttribute("value", value);
+		mo.addAttribute("now_date", ldt.toLocalDate());
+		mo.addAttribute("comment_number", comment_number);
 		
 		return "board_main";
 	}
@@ -78,29 +82,33 @@ public class Board_Controller {
 		String bct_title = request.getParameter("title");
 		String bct_content = request.getParameter("content");
 		String bat_number = request.getParameter("attribute");
-		String mb_number = "1";
 		
 		HttpSession hs = request.getSession();
 		Member_DTO dto = (Member_DTO)hs.getAttribute("member");
 		String bct_writer = dto.getMb_nick_name();
+		String bct_writer_id = dto.getMb_id();
+		String mb_number = "1";
 		
 		Board_Service sv = sqlSession.getMapper(Board_Service.class);
-		sv.board_save(bct_writer, bct_title, bct_content, bat_number, mb_number);
+		sv.board_save(bct_writer, bct_title, bct_content, bat_number, mb_number, bct_writer_id);
 		
 		return "redirect:board_main";
 	}
 	@RequestMapping(value = "board_view")
 	public String board_view(HttpServletRequest request, Model mo) {
 		String bct_content_number = request.getParameter("bct_content_number");
-		
+		String mb_number = request.getParameter("mb_number");
+		if (mb_number == null) mb_number = "1";
 		
 		Board_Service sv = sqlSession.getMapper(Board_Service.class);
 		sv.board_view_cntup(bct_content_number);
 		Board_DTO post = sv.board_view(bct_content_number);
 		ArrayList<Comment_DTO> comment = sv.comment_list(bct_content_number);
+		ArrayList<Attribute_DTO> attribute_list = sv.attribute_list(mb_number);
 		
 		mo.addAttribute("post", post);
 		mo.addAttribute("comment", comment);
+		mo.addAttribute("attribute_list", attribute_list);
 		
 		return "board_view";
 	}
@@ -110,6 +118,7 @@ public class Board_Controller {
 		
 		Board_Service sv = sqlSession.getMapper(Board_Service.class);
 		sv.board_delete(bct_content_number);
+		sv.board_comment_delete(bct_content_number);
 		
 		return "redirect:board_main";
 	}
@@ -131,9 +140,10 @@ public class Board_Controller {
 		String bct_content_number = request.getParameter("bct_content_number");
 		String bct_title = request.getParameter("title");
 		String bct_content = request.getParameter("content");
+		String attribute = request.getParameter("attribute");
 		
 		Board_Service sv = sqlSession.getMapper(Board_Service.class);
-		sv.board_modify(bct_title, bct_content, bct_content_number);
+		sv.board_modify(bct_title, bct_content, attribute, bct_content_number);
 		
 		return "redirect:board_main";
 	}
