@@ -52,6 +52,23 @@
 			}); //ajax
 		} //{if}
 	} //function nickNameVr
+	
+	function phoneVr() {
+	    var vrPhone = /^(010|011|016|017|018|019)\d{7,8}$/;
+	    var exPhone = document.getElementById("phone").value;
+	    if (exPhone == "") {
+	        alert("핸드폰 번호 입력은 필수입니다.");
+	        return false;
+	    }
+	    if (vrPhone.test(exPhone)) {
+	        alert("회원정보가 수정되었습니다.");
+	        return true;
+	    } else {
+	        alert("전화번호가 정확한지 확인해 주세요.");
+	        return false;
+	    }
+	};
+	
 	exPhoto.addEventListener("click", () => {
 		mdPhoto.click();
 	});
@@ -66,11 +83,18 @@
 	    };
 	    reader.readAsDataURL(file);
 	}
+	
+	function vrCheck() {
+		if (phoneVr()) {
+			return true;
+		} else {
+			
+			return false;
+		}
+	}
 </script>
 <script>
 $(document).ready(function() {
-	
-	
 	
 	$("#psCheckBtn").click(function() {
 		//비밀번호 체크 정규식 및 변수
@@ -152,7 +176,7 @@ $(document).ready(function() {
 	<section class="mypage_container">
 		<div class="mypage_tot">
 			<h3>정보 수정</h3>
-			<form class="mypage_form" action="mypage_do" name="member_mypage_form" method="post" enctype="multipart/form-data">
+			<form class="mypage_form" action="mypage_do" name="member_mypage_form" method="post" enctype="multipart/form-data" onsubmit="return vrCheck()">
 				<div class="info_row">
 					<div class="mypage_info">
 						<label for="id">아이디</label>
@@ -164,7 +188,7 @@ $(document).ready(function() {
 						<div class="info_row">
 							<input type="text" id="nickName" name="vrNickName" value="${dto.mb_nick_name }">
 							<input type="hidden" name="exNickName" value="${dto.mb_nick_name }">
-							<input type="button" id="button" name="nickNameVrBtn" value="중복확인" onclick="nickNameVr()">
+							<input type="button" id="button" class="myPageButton" name="nickNameVrBtn" value="중복확인" onclick="nickNameVr()">
 						</div>
 					</div>
 				</div>
@@ -221,7 +245,7 @@ $(document).ready(function() {
 				</div>
 					<div class="mypage_info">
 						<label for="phone">연락처</label>
-						<input type="text" name="phone" value="${dto.mb_phone }">
+						<input type="text" name="phone" id="phone" value="${dto.mb_phone }">
 					</div>
 				<div class="mypage_info">
 					<label for="email">이메일 주소</label>
@@ -281,8 +305,8 @@ $(document).ready(function() {
 				</c:choose>
 			</div>-->
 			<div class="mypage_button">
-				<input type="submit" id="button" value="확인">
-				<input type="button" id="button" value="취소" onclick="location.href='index'">
+				<input type="submit" id="submitBtn" class="myPageButton" value="확인">
+				<input type="button" id="resetBtn" class="myPageButton" value="취소" onclick="location.href='index'">
 			</div>
 		</form>
 	</div>
