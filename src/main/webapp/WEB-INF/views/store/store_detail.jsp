@@ -9,9 +9,8 @@
 <title>Insert title here</title>
 <style type="text/css">
 .sub_image {
-    transition: transform 0.2s; /* Animation */
+    transition: transform 0.2s; /* 애이메이션 */
 }
-
 .sub_image:hover {
     transform: scale(1.1); /* 이미지를 약간 확대 */
 }
@@ -22,11 +21,10 @@
 #image_container {
     display: flex;
     overflow-x: scroll;
-    width: 250px; /* 예시 너비, 필요에 따라 조절 */
+    width: 250px; /* 이동 너비, 필요에 따라 조절 */
+    scroll-behavior: smooth; /* 이동이 좀 부트럽게 */
 }
-/* .sub_image { */
-/*     flex: 0 0 auto; /* 이미지가 컨테이너 너비를 넘어가면 스크롤되지 않고 나란히 배열됨 */ 
-/* } */
+
 </style>
 </head>
 <body>
@@ -59,11 +57,11 @@
 			</tr>
 			<tr>
 				<th>가격</th>
-				<td>${dto.pd_price}원</td>
+				<td><input type="hidden" name="pd_price" id="pd_price" value="${dto.pd_price}">${dto.pd_price}원</td>
 			</tr>
 			<tr>
 				<th>재고</th>
-				<td>${dto.pd_stock}</td>
+				<td><input type="hidden" name="pd_stock" id="pd_stock" value="${dto.pd_stock}">${dto.pd_stock}</td>
 			</tr>
 			<tr>
 				<th>배송 예상일</th>
@@ -119,7 +117,7 @@
 						품절
 					</c:when>
 					<c:otherwise>
-						<select name="buy_quantity">
+						<select name="buy_quantity" id="buy_quantity">
 							<c:forEach begin="1" end="${dto.pd_stock}" var="i">
 								<option value="${i}">${i}</option>
 							</c:forEach>
@@ -139,6 +137,7 @@
 			<div id="os_items">
 				<ul id="os_lists"></ul>
 			</div>
+			<input type="hidden" name="buy_quantity" value="0">
 			<input type="hidden" name="pd_number" id="pd_number" value="${dto.pd_number}">
 			<input type="button" id="cart_button" value="장바구니" onclick="cart()" <c:if test="${dto.pd_stock < 1}">disabled</c:if>>
 	</form>
@@ -175,7 +174,7 @@ function os_check() {
 	var os_1 = document.getElementById('os_1')? document.getElementById('os_1').value : '';
 	var os_2 = document.getElementById('os_2')? document.getElementById('os_2').value : '';
 	var os_3 = document.getElementById('os_3')? document.getElementById('os_3').value : '';
-// 	var os_items = document.getElementById('os_items');
+	const os_stock = document.getElementById('pd_stock').value;
 	
 	if(os_items.querySelectorAll('li').length>=10){
 		alert("옵션은 10개까지 선택할 수 있습니다.");
@@ -185,11 +184,9 @@ function os_check() {
 	const pd_number = document.getElementById('pd_number').value;
 	
 	const os_li = document.createElement('li');
-// 	const currentid = "os_choice_"+os_check_count;
 	os_li.setAttribute("name","os_choice");
 	os_li.setAttribute("value",os_1+os_2+os_3);
-// 	os_li.id = currentid;
-	os_li.innerHTML = 	os_1+os_2+os_3+
+	os_li.innerHTML = 	'상품명: '+os_1+' '+os_2+' '+os_3+' '+
 						'<input type="button" onclick="os_choice_delete('+os_check_count+')" value="X">'+
 						'<input type="hidden" name="os_number" id="os_number'+os_check_count+'" ></li></ul>';
 	os_items.appendChild(os_li);
@@ -208,7 +205,7 @@ function os_check() {
 	os_check_count++; //삭제하기 위한 함수 증가
 	
 }
-function os_number_select(os_names,pd_number) {
+function os_number_select(os_names,pd_number,) {
 	$.ajax({
 		type:"get",
 		async:false,
@@ -249,6 +246,7 @@ function cart() {
 		const os_1 = document.getElementById("os_1");
 		const items = document.getElementById("os_lists");
 		const os_items = items.getElementsByTagName("li");
+		const buy_quantity = document.getElementById('buy_quantity').value;
 	    // 옵션이 있는 상품인지 체크
 		if(os_1 && os_items.length===0){
 			alert("옵션을 선택하세요");
@@ -265,7 +263,7 @@ function cart() {
 				contentType:false,
 				data:formData,
 				success:function(){
-					if(confirm("장바구니에 상품이 저장되었습니다.\n아니요를 눌러 장바구니로 이동")){
+					if(confirm("장바구니에 상품이 저장되었습니다.\n 취소를 누르면 장바구니로 이동")){
 					}else{
 						window.location.href="shopping_cart_view";
 					}
@@ -280,7 +278,7 @@ function cart() {
 					async:false,
 					url:"shopping_cart_save",
 					dataType:"text",
-					data:{"pd_number":pd_number},
+					data:{"pd_number":pd_number,"buy_quantity":buy_quantity},
 					success:function(){
 						if(confirm("장바구니에 상품이 저장되었습니다.\n아니요를 눌러 장바구니로 이동")){
 						}else{

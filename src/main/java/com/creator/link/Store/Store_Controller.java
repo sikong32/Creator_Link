@@ -65,14 +65,19 @@ public class Store_Controller {
 		Member_DTO member = (Member_DTO)hs.getAttribute("member");
 		Store_Service ss = sqlSession.getMapper(Store_Service.class);
 		int pd_number = Integer.parseInt(request.getParameter("pd_number"));
+		int buy_quantity = Integer.parseInt(request.getParameter("buy_quantity"));
 		if(request.getParameter("os_number")!=null) { //옵션 선택 이 있을 경우
 			String[] os_numbers = request.getParameterValues("os_number");
 			for (int i = 0; i < os_numbers.length; i++) {
-				ss.cart_save_os(pd_number,member.getMb_number(),os_numbers[i]);
-				System.out.println("os_number"+os_numbers[i]);
+				ss.cart_save_os(pd_number,member.getMb_number(),os_numbers[i],buy_quantity);
 			}
-		}else {
-			ss.cart_save_noos(pd_number,member.getMb_number());
+		}else{
+			int pd_duplication = ss.cart_select_pd(pd_number,member.getMb_number());
+			if(pd_duplication >0) {
+				ss.cart_up_stock(pd_number,member.getMb_number(),buy_quantity);
+			}else {
+				ss.cart_save_noos(pd_number,member.getMb_number(),buy_quantity);
+			}
 		}
 		return 	"저장성공";
 	}
@@ -84,18 +89,23 @@ public class Store_Controller {
 		ArrayList<Store_Cart_DTO> cart_list = ss.cart_select(member.getMb_number());
 		ArrayList<Store_OS_DTO> os_list = new ArrayList<Store_OS_DTO>(); // 옵션 정보 초기화
 		ArrayList<Store_DTO> pd_list = new ArrayList<Store_DTO>(); // 상품 정보 초기화
-		
+		ArrayList<Store_DTO> pd_all_list = new ArrayList<Store_DTO>(); // 상품 정보 초기화
+
 		for (int i = 0; i < cart_list.size(); i++) {
 			if(cart_list.get(i).getOs_number()!=0) {
 				Store_OS_DTO os_number = ss.select_os(cart_list.get(i).getOs_number());
 				os_list.add(os_number);
 			}else {
 				Store_DTO pd_number = ss.select_pd(cart_list.get(i).getPd_number());
+				pd_number.setPd_buy_su(cart_list.get(i).getCt_stock());
 				pd_list.add(pd_number);
 			}
+			Store_DTO pd_all_number = ss.select_pd(cart_list.get(i).getPd_number());
+			pd_all_list.add(pd_all_number);
 		}
 		mo.addAttribute("os_list",os_list);
 		mo.addAttribute("pd_list",pd_list);
+		mo.addAttribute("pd_all_list",pd_all_list);
 		return "shopping_cart_view";
 	}
 	@ResponseBody
@@ -176,6 +186,40 @@ public class Store_Controller {
 		mo.addAttribute("buy_quantity",buy_quantity);
 		mo.addAttribute("member",member);
 		return "shoping_buy";
+	}
+	@RequestMapping(value = "shoping_cart_buy", method= RequestMethod.POST)
+	public String shoping_cart_buy(HttpServletRequest request,Model mo) {
+		Store_Service ss = sqlSession.getMapper(Store_Service.class);
+		HttpSession hs = request.getSession();
+		Member_DTO member = (Member_DTO)hs.getAttribute("member");
+		ArrayList<Store_OS_DTO> os_list = new ArrayList<Store_OS_DTO>(); // 옵션 정보 초기화
+		ArrayList<Store_DTO> pd_list = new ArrayList<Store_DTO>(); // 상품 정보 초기화
+		if(request.getParameterValues("selectedPd")!=null) {
+			String[] pd_numbers = request.getParameterValues("selectedPd");
+			for (int i = 0; i < pd_numbers.length; i++) {
+				Store_DTO pd_number = ss.select_pd(Integer.parseInt(pd_numbers[i]));
+				pd_number.setPd_buy_su(Integer.parseInt(request.getParameter("buy_pd_stock_"+pd_numbers[i]))); //구매수량
+				System.out.println("구매할 제품 수"+request.getParameter("buy_pd_stock_"+1126)); //구매수량
+				System.out.println("pd_number"+pd_numbers[i]); //구매수량
+				pd_list.add(pd_number);
+			}
+		}
+		if(request.getParameterValues("selectedOs")!= null) {
+			String[] os_numbers = request.getParameterValues("selectedOs");
+			for (int i = 0; i < os_numbers.length; i++) {
+				Store_OS_DTO os_number = ss.select_os(Integer.parseInt(os_numbers[i]));
+				os_number.setOs_buy_su(Integer.parseInt(request.getParameter("buy_os_stock_"+os_numbers[i])));
+				os_list.add(os_number);
+				Store_DTO pd_all_number = ss.select_pd(os_list.get(i).getPd_number());
+				if(os_list.get(i).getPd_number()==pd_all_number.getPd_number()) {
+					os_list.get(i).setPd_name(pd_all_number.getPd_name());
+				}
+			}
+		}
+		mo.addAttribute("member",member);
+		mo.addAttribute("os_list",os_list);
+		mo.addAttribute("pd_list",pd_list);
+		return "shoping_cart_buy";
 	}
 	@RequestMapping(value = "shoping_buy_fix")
 	public String shoping_buy_fix(HttpServletRequest request,Model mo) {
