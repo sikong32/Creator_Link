@@ -52,6 +52,7 @@ public class Board_Controller {
 		mo.addAttribute("value", value);
 		mo.addAttribute("now_date", ldt.toLocalDate());
 		mo.addAttribute("comment_number", comment_number);
+		mo.addAttribute("mb_number", mb_number);
 		
 		return "board_main";
 	}
