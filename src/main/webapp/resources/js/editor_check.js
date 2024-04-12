@@ -6,7 +6,7 @@ async function val_check() {
 		if (editorData == "") {
 			alert("내용은 비우면 안됩니다.");
 		} else {
-			// 데이터를 파일로 변환
+			//데이터를 파일로 변환
 			editorData = await processImages(editorData);
 			editor.setData(editorData);
 			f.submit();

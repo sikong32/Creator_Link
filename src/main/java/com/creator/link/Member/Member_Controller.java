@@ -115,7 +115,7 @@ public class Member_Controller {
 		if (myId == null || myId == "") {
 			response.setContentType("text/html;charset=utf-8");
 			PrintWriter pw = response.getWriter();
-			pw.print("<script> alert('정상적인 접근이 아닙니다. 다시 로그인해주세요.'); window.location.href='login'; </script>");
+			pw.print("<script> alert('로그인이 만료됐습니다. 다시 로그인해주세요.'); window.location.href='login'; </script>");
 		} else {
 		System.out.println("아이디 도착 : "+myId);
 		Member_Service mService = sqlSession.getMapper(Member_Service.class);

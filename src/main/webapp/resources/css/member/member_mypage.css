@@ -80,7 +80,7 @@ input {
 	width: 145px;
 }
 
-#button, #psCheckBtn  {
+.myPageButton, #psCheckBtn {
 	width: 85px;
 	height: 40px;
 	color: white;
