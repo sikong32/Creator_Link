@@ -59,7 +59,6 @@ public class Member_Controller {
 	@RequestMapping(value = "regist_do")
 	public String regist_do(HttpServletRequest request) throws IOException {
 		Member_Service mService = sqlSession.getMapper(Member_Service.class);
-		String rgPhoto = "";
 		String rgId = request.getParameter("id");
 		String rgPw = request.getParameter("pw");
 		String rgPwVr = request.getParameter("pw_verify");
@@ -72,6 +71,24 @@ public class Member_Controller {
 		
 		return "redirect:index";
 	}
+	
+	@ResponseBody
+	@RequestMapping(value = "idCheck", method = RequestMethod.POST)
+	public String idCheck(HttpServletRequest request) {
+		Member_Service mService = sqlSession.getMapper(Member_Service.class);
+		String vrId = request.getParameter("id");
+		System.out.println("검증할 ID : "+vrId);
+		int idCnt = mService.idCheck(vrId);
+		System.out.println("idCnt 값 : "+idCnt);
+		if (idCnt == 1) {
+			return "fail";
+		} else if (idCnt == 0){
+			return "pass";
+		}
+		return "fail";
+	}
+	
+	
 
 	@RequestMapping(value = "login")
 	public String login() {
