@@ -158,9 +158,12 @@ $(document).ready(function() {
 							$("input[id='mdPwVr']").prop("readonly",true);
 							alert("비밀번호가 변경됐습니다.");
 						} else if (result == "fail") {
-							alert("서버 통신 중 오류가 발생했습니다.");
+							alert("다시 시도해주세요.");
 							return false;
-						} //else
+						}, //else
+						error: function() {
+							alert("서버 통신 중 오류가 발생했습니다.");
+						} //error
 					} //success
 				}); //ajax
 			} //{if}
@@ -251,7 +254,7 @@ $(document).ready(function() {
 					<label for="email">이메일 주소</label>
 					<div class="info_row">
 						<input type="text" name="email" value="${dto.mb_email }">
-						<input type="button" id="button" value="인증">
+						<input type="button" class="myPageButton" id="emailBtn" value="인증">
 					</div>
 				</div>
 				<div class="mypage_info">

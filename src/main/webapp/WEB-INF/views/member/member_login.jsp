@@ -35,7 +35,7 @@
 				alert("비밀번호를 입력해주세요.");
 				return false;
 			} else if (!vrPw.test(logPw)) {
-				alert("비밀번호는 특수문자(!@#_),영 대/소문자와 숫자를 포함한 8~20자 이내로 작성해야 합니다.");
+				alert("비밀번호는 특수문자(!@#_),영 대/소문자와 숫자를 포함한 8~20자 이내로 만들어야 합니다.");
 				return false;
 			} else if (vrPw.test(logPw)) {
 				logPwCnt = 1;
