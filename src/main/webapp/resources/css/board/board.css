@@ -2,12 +2,16 @@
     font-family: 'Bubble';
     src: url('../../font/Bubblegum.ttf') format('truetype');
 }
+.background{
+	background-color: #483f3f;
+}
 .container{
-	width: 100%;
-	min-height: 800px;
+	width: 1300px;
+	min-height: 900px;
 	display: flex;
 	justify-content: center;
 	background-color: rgb(241,240,254);
+	margin: auto;
 }
 a{
 	color: black;
@@ -24,15 +28,29 @@ a{
 	width: 200px;
 	border-radius: 10px;
 	box-shadow: 2px 2px 5px rgb(0,0,0,0.5);
-	padding-top: 10px;
 	padding-bottom: 10px;
 	background-color: #2A2F4F;
 }
+.category_title{
+	display: flex;
+	padding-left: 10px;
+	padding-right: 10px;
+	color: white;
+	font-size: 20px;
+	font-weight: bold;
+	justify-content: space-between;
+	align-items: center;
+}
 .category{
+	display: flex;
 	margin-bottom: 2px;
 	margin-top: 2px;
 	background-color: white;
 	padding-left: 10px;
+	padding-right: 10px;
+	cursor: pointer;
+	justify-content: space-between;
+	align-items: center;
 }
 .store{
 	width: 200px;
@@ -44,9 +62,10 @@ a{
 	margin-top: 10px;
 	box-shadow: 2px 2px 5px rgb(0,0,0,0.5);
 	color: rgb(50,50,50);
+	cursor: pointer;
 }
 .board{
-	width: 1200px;
+	width: 1000px;
 	border-radius: 10px;
 	margin: 10px;
 	box-shadow: 2px 2px 5px rgb(0,0,0,0.5);
