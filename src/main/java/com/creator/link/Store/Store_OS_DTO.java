@@ -11,6 +11,7 @@ public class Store_OS_DTO {
 	String os_stock;
 	int os_buy_su;
 	String pd_name;
+	int ct_pd_qnt;
 	public Store_OS_DTO() {
 		super();
 		// TODO Auto-generated constructor stub
@@ -28,6 +29,12 @@ public class Store_OS_DTO {
 		this.os_stock = os_stock;
 	}
 	
+	public int getCt_pd_qnt() {
+		return ct_pd_qnt;
+	}
+	public void setCt_pd_qnt(int ct_pd_qnt) {
+		this.ct_pd_qnt = ct_pd_qnt;
+	}
 	public String getPd_name() {
 		return pd_name;
 	}

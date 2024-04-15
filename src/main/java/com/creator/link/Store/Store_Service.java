@@ -66,5 +66,6 @@ public interface Store_Service {
 
 	void cart_save_noos(int pd_number, String mb_number, int buy_quantity);
 
+	void cart_delete(int products, String mb_number);
 
 }

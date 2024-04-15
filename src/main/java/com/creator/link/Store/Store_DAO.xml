@@ -93,4 +93,7 @@
 <update id="od_updata_os">
 	UPDATE PRODUCT_OPSTION_TBL SET os_stock = os_stock-#{param2} WHERE pd_number=#{param1} and OS_NUMBER = #{param3}
 </update>
+<delete id="cart_delete">
+	DELETE FROM CART_TBL WHERE ct_pd_qnt = #{param1} and mb_number = #{param2}
+</delete>
 </mapper>

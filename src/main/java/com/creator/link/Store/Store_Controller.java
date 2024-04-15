@@ -81,6 +81,17 @@ public class Store_Controller {
 		}
 		return 	"저장성공";
 	}
+	@ResponseBody
+	@RequestMapping(value = "cart_delete",method = RequestMethod.POST)
+	public String cart_delete(HttpServletRequest request,HttpServletResponse response) {
+		response.setContentType("text/html;charset=utf-8");
+		HttpSession hs = request.getSession();
+		Member_DTO member = (Member_DTO)hs.getAttribute("member");
+		Store_Service ss = sqlSession.getMapper(Store_Service.class);
+		int products = Integer.parseInt(request.getParameter("cartQuantity"));
+		ss.cart_delete(products,member.getMb_number());
+		return 	"저장성공";
+	}
 	@RequestMapping(value = "shopping_cart_view")
 	public String shopping_cart_view(HttpServletRequest request, Model mo) {
 		HttpSession hs = request.getSession();
@@ -94,15 +105,18 @@ public class Store_Controller {
 		for (int i = 0; i < cart_list.size(); i++) {
 			if(cart_list.get(i).getOs_number()!=0) {
 				Store_OS_DTO os_number = ss.select_os(cart_list.get(i).getOs_number());
+				os_number.setCt_pd_qnt(cart_list.get(i).getCt_pd_qnt());
 				os_list.add(os_number);
 			}else {
 				Store_DTO pd_number = ss.select_pd(cart_list.get(i).getPd_number());
 				pd_number.setPd_buy_su(cart_list.get(i).getCt_stock());
+				pd_number.setCt_pd_qnt(cart_list.get(i).getCt_pd_qnt());
 				pd_list.add(pd_number);
 			}
 			Store_DTO pd_all_number = ss.select_pd(cart_list.get(i).getPd_number());
 			pd_all_list.add(pd_all_number);
 		}
+		mo.addAttribute("cart_list",cart_list);
 		mo.addAttribute("os_list",os_list);
 		mo.addAttribute("pd_list",pd_list);
 		mo.addAttribute("pd_all_list",pd_all_list);
@@ -199,8 +213,6 @@ public class Store_Controller {
 			for (int i = 0; i < pd_numbers.length; i++) {
 				Store_DTO pd_number = ss.select_pd(Integer.parseInt(pd_numbers[i]));
 				pd_number.setPd_buy_su(Integer.parseInt(request.getParameter("buy_pd_stock_"+pd_numbers[i]))); //구매수량
-				System.out.println("구매할 제품 수"+request.getParameter("buy_pd_stock_"+1126)); //구매수량
-				System.out.println("pd_number"+pd_numbers[i]); //구매수량
 				pd_list.add(pd_number);
 			}
 		}
@@ -220,6 +232,63 @@ public class Store_Controller {
 		mo.addAttribute("os_list",os_list);
 		mo.addAttribute("pd_list",pd_list);
 		return "shoping_cart_buy";
+	}
+	@RequestMapping(value = "shoping_cart_buy_fix", method= RequestMethod.POST)
+	public String shoping_cart_buy_fix(HttpServletRequest request,Model mo) {
+//		구매번호:	배송주소:	결제금액:
+		Store_Service ss = sqlSession.getMapper(Store_Service.class);
+		//맨버 정보
+		HttpSession hs = request.getSession();
+		Member_DTO member = (Member_DTO)hs.getAttribute("member");
+		String od_id = member.getMb_id();
+		int mb_number = Integer.parseInt(member.getMb_number());
+		//배송 주소 저장
+		int zip_code = Integer.parseInt(request.getParameter("zip_code"));
+		String dlvy_address = request.getParameter("dlvy_address");
+		String dlvy_address_dong = request.getParameter("dlvy_address");
+		String dlvy_detail = request.getParameter("dlvy_detail");
+		String dlvy_comment = request.getParameter("dlvy_comment");
+		// 제품 정보 자겨오기
+		String od_cp_code = "0";
+		if(request.getParameter("od_cp_code")!=null) {
+			od_cp_code = request.getParameter("od_cp_code");
+		}
+		// 옵션 없는 제품
+		String[] pd_numbers = null;
+		int od_su = 0;
+		if(request.getParameterValues("pd_number")!=null) {
+			pd_numbers = (request.getParameterValues("pd_number"));
+			for (int i = 0; i < pd_numbers.length; i++) {
+				int pd_number = Integer.parseInt(pd_numbers[i]);
+				int od_pd_qnt = Integer.parseInt(request.getParameterValues("pd_buy_quantity")[i]);
+				int od_price = Integer.parseInt(request.getParameterValues("pdtot_price")[i]);
+				String od_pd_name = request.getParameterValues("pd_name")[i];
+				ss.od_insert(od_id,od_pd_name,od_pd_qnt,od_price,od_cp_code,mb_number,zip_code,dlvy_address,dlvy_address_dong,dlvy_detail,dlvy_comment);
+				ss.od_updata_pd(pd_number,od_pd_qnt);
+			}
+			od_su = pd_numbers.length;
+		}
+		// 옵션 있는 제품
+		String[] os_numbers = null;
+		if(request.getParameter("os_number")!=null) {
+			os_numbers = (request.getParameterValues("os_number"));
+			for (int i = 0; i < os_numbers.length; i++) {
+				int os_number = Integer.parseInt(os_numbers[i]);
+				int od_pd_qnt = Integer.parseInt(request.getParameterValues("os_buy_quantity")[i]);
+				int od_price = Integer.parseInt(request.getParameterValues("ostot_price")[i]);
+				int pd_number = Integer.parseInt(request.getParameterValues("os_pd_number")[i]);
+				String od_pd_name = request.getParameterValues("os_pd_name")[i];
+				String od_os_name = request.getParameterValues("os_name")[i];
+				ss.od_insert_os(od_id,od_pd_name,od_pd_qnt,od_price,od_cp_code,mb_number,os_number,zip_code,dlvy_address,dlvy_address_dong,dlvy_detail,dlvy_comment);
+				ss.od_updata_os(pd_number,od_pd_qnt,os_number);
+			}
+			od_su += os_numbers.length;
+		}
+		int od_price = Integer.parseInt(request.getParameter("all_tot_price"));
+		mo.addAttribute("od_su",od_su);
+		mo.addAttribute("od_address",dlvy_address+""+dlvy_detail+""+dlvy_comment);
+		mo.addAttribute("od_price",od_price);
+		return "shoping_cart_buy_fix";
 	}
 	@RequestMapping(value = "shoping_buy_fix")
 	public String shoping_buy_fix(HttpServletRequest request,Model mo) {

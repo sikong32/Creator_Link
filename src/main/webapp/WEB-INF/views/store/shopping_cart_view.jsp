@@ -23,18 +23,21 @@
 </style>
 </head>
 <body>
+	<input type="button" value="품절 삭제" onclick="cart_del_0stock()">
+	<input type="button" value="선택 삭제" onclick="cart_checked_del()">
 	<form action="shoping_cart_buy" method="post">
 		<c:choose>
 		<c:when test="${not empty os_list or not empty pd_list}">
 		<c:forEach items="${os_list}" var="os">
 		<div class="product-row">
-				<c:set var="nameDisplayed" value="false" />  <!-- 이름 출력 여부를 추적하는 플래그 변수 설정 -->
+		<input type="hidden" id="cart_qnt" name="cart_qnt" value="${os.ct_pd_qnt}">
+				<c:set var="nameDisplayed" value="false" />  <!-- 이름 출력 여부를 추적하는 불리안 변수 설정 -->
 				<input type="checkbox" name="selectedOs" value="${os.os_number}" ${os.os_stock < 1 ? 'disabled' : ''}>
 				<img alt="" src="./resources/store/item_cover/${os.os_photo}" width="100">
 			<c:forEach items="${pd_all_list}" var="pd_all">
 				<c:if test="${pd_all.pd_number==os.pd_number and not nameDisplayed}">
 				상품명 : ${pd_all.pd_name}<br>
-				<c:set var="nameDisplayed" value="true" />  <!-- 이름 출력 후 플래그를 true로 설정 -->
+				<c:set var="nameDisplayed" value="true" />  <!-- 이름을 1번만 출력 후 불리안를 true로 설정하여 다시 출력 방지 -->
 				</c:if>
 			</c:forEach>
 				옵션명 : ${os.os_1name}${os.os_2name}${os.os_3name}<br> 가격${os.os_price}<br>구매수량
@@ -54,6 +57,7 @@
 		</c:forEach>
 		<c:forEach items="${pd_list}" var="pd">
 		<div class="product-row">
+		<input type="hidden" id="cart_qnt" name="cart_qnt" value="${pd.ct_pd_qnt}">
 			<input type="checkbox" name="selectedPd" value="${pd.pd_number}">
 			<img alt="" src="./resources/store/item_cover/${pd.pd_photo}" width="100">
 			상품명 : ${pd.pd_name}<br> 가격 : ${pd.pd_price} <br>구매수량
@@ -67,10 +71,10 @@
 				</c:choose>
 		</div>
 		</c:forEach>
-		<br>
-		가격 합계 : <input id="tot_price" type="number" value="0">
-		<br>
-		<input type="submit" value="결제하기">
+<!-- 		<br> -->
+<!-- 		가격 합계 : <input id="tot_price" type="number" value="0"> -->
+<!-- 		<br> -->
+		<input type="submit" id="cart_submit" value="결제하기">
 		</c:when>
 		<c:otherwise>
 		<hr>
@@ -82,6 +86,7 @@
 	</form>
 </body>
 <script>
+	// 상품이 품절이면 체크박스 비활 성화
     function toggleCheck(div) {
         var checkbox = div.querySelector('input[type="checkbox"]');
         if (!checkbox.disabled) {  // 체크박스가 비활성화 상태가 아닐 때만 토글
@@ -89,7 +94,7 @@
             updateBackground(div);
         }
     }
-
+	// 상품을 선택하여 체크 할 수 있게 처리
     function updateBackground(div) {
         var checkbox = div.querySelector('input[type="checkbox"]');
         if (checkbox.checked) {
@@ -97,8 +102,55 @@
         } else {
             div.classList.remove('checked');
         }
+        check_cart_submit_bt(); // 체크된 내용이 없으면 결제 버튼 비활성화
     }
-
+    // 상품이 선택 되지 않으면 결제 하기 버튼 비활성화
+	function check_cart_submit_bt() {
+		var checkboxes = document.querySelectorAll('.product-row input[type="checkbox"]');
+	    var isAnyChecked = Array.from(checkboxes).some(checkbox => checkbox.checked);
+	    var submitButton = document.getElementById('cart_submit');
+	    submitButton.disabled = !isAnyChecked;  // 제출 버튼을 비활성화합니다.
+	}
+    // 카트에서 품절 된 제품 삭제
+	function cart_del_0stock() {
+		var productRows = document.querySelectorAll('.product-row');
+        productRows.forEach(function(row) {
+            var checkbox = row.querySelector('input[type="checkbox"]');
+            if (checkbox.disabled) { // 체크박스가 비활성화된 경우 품절로 간주
+                var cartQuantity = row.querySelector('input[type="hidden"][name="cart_qnt"]').value;
+                console.log('품절된 제품의 구매수량: ' + cartQuantity);
+                cart_del(cartQuantity);
+            }
+        });
+	}
+    function cart_checked_del() {
+    	var productRows = document.querySelectorAll('.product-row');
+        productRows.forEach(function(row) {
+            var checkbox = row.querySelector('input[type="checkbox"]');
+            if (checkbox.checked) { // 체크된 경우 데이터 처리
+                var cartQuantity = row.querySelector('input[type="hidden"][name="cart_qnt"]').value;
+                cart_del(cartQuantity);
+            }
+        });
+	}
+    // 카트에서 삭제 할때 처리 ajax
+	function cart_del(cartQuantity) {
+		$.ajax({
+            type: "POST",
+            url: "cart_delete",
+            data: {"cartQuantity": cartQuantity},
+            dataType: "text",
+            success: function(response) {
+                location.reload();
+            	console.log("삭제 성공: ", response);
+            },
+            error: function(xhr, status, error) {
+                alert("삭제중 오류발생");
+            	console.error("삭제 실패: ", error);
+            }
+	});
+	}
+    // 페이지가 로드될 때 처리
     window.onload = function() {
         var rows = document.querySelectorAll('.product-row');
         rows.forEach(row => {
@@ -111,6 +163,7 @@
                 }
             };
         });
+        check_cart_submit_bt(); // 체크된 내용이 없으면 결제 버튼 비활성화
     };
 </script>
 </html>

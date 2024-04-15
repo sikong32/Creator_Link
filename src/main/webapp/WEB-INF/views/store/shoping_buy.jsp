@@ -47,13 +47,13 @@
 			</tr>
 			<tr>
 				<td>배송정보</td>
-				<td><input type="text" name="zip_code" id="sample4_postcode" placeholder="우편번호">
+				<td><input type="text" name="zip_code" id="sample4_postcode" placeholder="우편번호" value="${member.mb_addr_post}">
 					<input type="button" onclick="sample4_execDaumPostcode()"
 					value="우편번호 찾기"><br> 
-					<input type="text" name="dlvy_address" id="sample4_roadAddress" placeholder="도로명주소" required>
-					<input type="text" name="dlvy_address_dong" id="sample4_jibunAddress" placeholder="지번주소" required>
+					<input type="text" name="dlvy_address" id="sample4_roadAddress" placeholder="도로명주소" value="${member.mb_addr_road}" required>
+					<input type="text" name="dlvy_address_dong" id="sample4_jibunAddress" placeholder="지번주소" value="${member.mb_addr_local}" required>
 					<span id="guide" style="color: #999; display: none"></span> 
-					<input type="text" name="dlvy_detail" id="sample4_detailAddress" placeholder="상세주소" required maxlength="50">
+					<input type="text" name="dlvy_detail" id="sample4_detailAddress" placeholder="상세주소" value="${member.mb_addr_detail}" required maxlength="50">
 					<input type="text" name="dlvy_comment" placeholder="배송 메시지" maxlength="20">
 				</td>
 			</tr>
