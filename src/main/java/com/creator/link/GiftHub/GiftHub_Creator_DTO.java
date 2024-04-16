@@ -8,13 +8,6 @@ public class GiftHub_Creator_DTO {
 	
 	public GiftHub_Creator_DTO() {	}
 
-	public GiftHub_Creator_DTO(String mb_photo, String mb_nick_name, String mb_addr) {
-		super();
-		this.mb_photo = mb_photo;
-		this.mb_nick_name = mb_nick_name;
-		this.mb_addr = mb_addr;
-	}
-
 	public String getMb_photo() {
 		return mb_photo;
 	}
