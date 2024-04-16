@@ -25,7 +25,10 @@
 		<result property="mb_birth_date" column="mb_birth_date"/>
 		<result property="mb_phone" column="mb_phone"/>
 		<result property="mb_email" column="mb_email"/>
-		<result property="mb_addr" column="mb_addr"/>
+		<result property="mb_addr_post" column="mb_addr_post"/>
+		<result property="mb_addr_road" column="mb_addr_road"/>
+		<result property="mb_addr_local" column="mb_addr_local"/>
+		<result property="mb_addr_detail" column="mb_addr_detail"/>
 		<result property="mb_signup_date" column="mb_signup_date"/>
 		<result property="mb_coupon" column="mb_coupon"/>
 		<result property="mb_follow" column="mb_follow"/>

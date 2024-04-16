@@ -82,6 +82,27 @@ $(document).ready(function() {
 			}
 		});
 	});
+	$("#noties_bt").click(function() {
+		var value = "false";
+		if (noties == 'false'){
+			value = "true"
+		}
+		$.ajax({
+			type:"post",
+			async:true,
+			url:"board_set_noties",
+			data:{
+				"noties":value,
+				"bct_content_number":bct_content_number
+			},
+			success:function(result) {
+				location.reload();
+			},
+			error:function() {
+				alert("변경실패");
+			}
+		});
+	});
 	
 	//기능영역
 	document.querySelectorAll('[id^=comment_]').forEach(function(select) {

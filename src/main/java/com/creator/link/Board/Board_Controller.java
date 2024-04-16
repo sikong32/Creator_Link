@@ -40,12 +40,14 @@ public class Board_Controller {
 		Paging paging = new Paging(Integer.parseInt(now_page), Integer.parseInt(view_per_page), value_of_total);
 		ArrayList<Attribute_DTO> attribute_list = sv.attribute_list(mb_number);
 		ArrayList<Board_DTO> board_list = sv.board_list(mb_number, paging, bat_number, search, value);
+		ArrayList<Board_DTO> noties_list = sv.board_noties_list(mb_number);
 		ArrayList<Comment_number> comment_number = sv.comment_number();
 		
 		LocalDateTime ldt = LocalDateTime.now();
 		
 		mo.addAttribute("board_list", board_list);
 		mo.addAttribute("attribute_list", attribute_list);
+		mo.addAttribute("noties_list", noties_list);
 		mo.addAttribute("page", paging);
 		mo.addAttribute("bat_number", bat_number);
 		mo.addAttribute("search", search);
@@ -177,5 +179,62 @@ public class Board_Controller {
 		sv.comment_delete(cm_number);
 		
 		return "삭제완료";
+	}
+	@ResponseBody
+	@RequestMapping(value = "board_list_add")
+	public String board_list_add(HttpServletRequest request) {
+		String mb_number = request.getParameter("mb_number");
+		if (mb_number == null) mb_number = "1";
+		
+		Board_Service sv = sqlSession.getMapper(Board_Service.class);
+		sv.board_list_add(mb_number);
+		
+		return "분류 추가완료";
+	}
+	@ResponseBody
+	@RequestMapping(value = "board_list_del")
+	public String board_list_del(HttpServletRequest request) {
+		String bat_number = request.getParameter("bat_number");
+		
+		Board_Service sv = sqlSession.getMapper(Board_Service.class);
+		sv.board_list_del(bat_number);
+		
+		return "분류 삭제완료";
+	}
+	@ResponseBody
+	@RequestMapping(value = "board_list_modi")
+	public String board_list_modi(HttpServletRequest request) {
+		String bat_number = request.getParameter("bat_number");
+		String bat_cls = request.getParameter("bat_cls");
+		
+		Board_Service sv = sqlSession.getMapper(Board_Service.class);
+		sv.board_list_modi(bat_cls, bat_number);
+		
+		return "분류 수정완료";
+	}
+	@ResponseBody
+	@RequestMapping(value = "board_list_delete")
+	public String board_del_test(HttpServletRequest request) {
+		String [] bct_content_number = request.getParameterValues("bct_content_number");
+		
+		Board_Service sv = sqlSession.getMapper(Board_Service.class);
+		
+		for (String number:bct_content_number) {
+			sv.board_delete(number);
+			sv.board_comment_delete(number);
+		}
+		
+		return "분류 수정완료";
+	}
+	@ResponseBody
+	@RequestMapping(value = "board_set_noties")
+	public String board_set_noties(HttpServletRequest request) {
+		String bct_content_number = request.getParameter("bct_content_number");
+		String noties = request.getParameter("noties");
+		
+		Board_Service sv = sqlSession.getMapper(Board_Service.class);
+		sv.board_set_noties(noties, bct_content_number);
+		
+		return "공지 설정완료";
 	}
 }

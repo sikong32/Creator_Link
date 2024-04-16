@@ -2,7 +2,7 @@
 
 <mapper namespace="com.creator.link.Board.Board_Service">
 	<insert id="board_save">
-		insert into board_content_tbl values(bct_content_number_seq.nextval, #{param1}, #{param2}, #{param3}, sysdate, 0, 0, #{param4}, #{param5}, #{param6})
+		insert into board_content_tbl values(bct_content_number_seq.nextval, #{param1}, #{param2}, #{param3}, sysdate, 0, 0, #{param4}, #{param5}, #{param6}, 'false')
 	</insert>
 	<select id="value_of_total" resultType="int">
 		<if test="param2 == null">
@@ -53,6 +53,9 @@
 	<select id="attribute_list" resultType="com.creator.link.Board.Attribute_DTO">
 		select * from board_attribute_tbl where mb_number = #{param1}
 	</select>
+	<select id="board_noties_list" resultType="com.creator.link.Board.Board_DTO">
+		select * from board_content_tbl where mb_number = #{param1} and noties = 'true'
+	</select>
 	<update id="board_view_cntup">
 		update board_content_tbl set bct_view_cnt = bct_view_cnt+1 where bct_content_number = #{param1}
 	</update>
@@ -85,4 +88,16 @@
 		select bct_content_number,count(*) as comment_number from comment_tbl
 		group by bct_content_number
 	</select>
+	<insert id="board_list_add">
+		insert into board_attribute_tbl values(bat_number_seq.nextval,'새 게시판',#{param1})
+	</insert>
+	<delete id="board_list_del">
+		delete from board_attribute_tbl where bat_number = #{param1}
+	</delete>
+	<update id="board_list_modi">
+		update board_attribute_tbl set bat_cls = #{param1} where bat_number = #{param2}
+	</update>
+	<update id="board_set_noties">
+		update board_content_tbl set noties = #{param1} where bct_content_number = #{param2}
+	</update>
 </mapper>

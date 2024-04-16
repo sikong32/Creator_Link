@@ -28,50 +28,90 @@
 				<aside class="category_list">
 					<div class="category_title">
 						<span>CreatorLink</span>
-						<span id="list_add" onclick="list_add()" style="font-size: 15px; display: none; cursor: pointer;">➕</span>
+						<span id="list_add" style="font-size: 15px; display: none; cursor: pointer;">➕</span>
 					</div>
-					<div onclick="location.href='board_main'" class="category" style="cursor: pointer;">전체글</div>
+					<div onclick="location.href='board_main'" class="category">전체글</div>
 					<c:forEach items="${attribute_list}" var="atli" varStatus="state">
 						<div class="category" onclick="location.href='board_main?bat_number=${atli.bat_number}'">
-							<span>${atli.bat_cls}</span>
-							<span id="list_del_${state.index}" onclick="list_del(event)" style="font-size: 15px; display: none; cursor: pointer;">➖</span>
+							<input type="text" id="input_${state.index}" value="${atli.bat_cls}" onclick="modi_name(event)" data-bat_number="${atli.bat_number}" style="display: none; width: 150px; border: none; outline: none; font-size: 16px;">
+							<span id="text_${state.index}">${atli.bat_cls}</span>
+							<span id="list_del_${state.index}" onclick="list_del(event)" data-bat_number="${atli.bat_number}" style="font-size: 15px; display: none; cursor: pointer;">➖</span>
 						</div>
 					</c:forEach>
 				</aside>
-				<div class="store" onclick="location.href='store_main'">
-					STORE
-				</div>
+				<div class="store" onclick="location.href='store_main'">STORE</div>
 				<div class="setting">
 					<a id="modi_button" onclick="page_modify()" style="display: block; cursor: pointer;">⚙게시판설정</a>
-					<span id="setting_button" style="display: none;">
-						<a id="submit_button" onclick="submit_do()" style="cursor: pointer;">✔수정</a>&emsp;
-						<a id="reset_button" onclick="reset_do()" style="cursor: pointer;">❌취소</a>
-					</span>
+					<a id="submit_button" onclick="submit_do()" style="display: none; cursor: pointer;">✔수정완료</a>
 				</div>
 			</div>
 			
 			<div class="board">
 				<div class="history">
-					방문한 크리에이터 게시판 기록 (누르면 이동)
-					<span style="float: right;">
-							<select name="view_per_page" id="view_per_page" onchange="change_vpp(this)">
-								<option value="10" <c:if test="${page.view_per_page == 10}">selected</c:if>>10개</option>
-								<option value="20" <c:if test="${page.view_per_page == 20}">selected</c:if>>20개</option>
-								<option value="30" <c:if test="${page.view_per_page == 30}">selected</c:if>>30개</option>
-							</select>
+					<span style="font-weight: bold; padding-left: 10px;">History</span>
+				</div>
+				
+				<div class="noties">
+					<table class="noties_table">
+						<c:forEach items="${noties_list}" var="noli" varStatus="state">
+							<tr>
+								<td style="width: 70%; padding-left: 10px;">
+									<div style="display: flex; align-items: center;">
+										<a href="board_view?bct_content_number=${noli.bct_content_number}">
+											${noli.bct_title}
+											<c:forEach items="${comment_number}" var="cn">
+												<c:if test="${noli.bct_content_number == cn.bct_content_number}">
+													<span style="color:gray;">(${cn.comment_number})</span>
+												</c:if>
+											</c:forEach>
+										</a>
+									</div>
+								</td>
+								<td style="width: 10%; text-align: center;">${noli.bct_writer}</td>
+								<td style="width: 10%; text-align: center;">
+									<c:choose>
+										<c:when test="${noli.bct_write_date.substring(0, 10) == now_date}">
+											${noli.bct_write_date.substring(11,16)}
+										</c:when>
+										<c:otherwise>
+											${noli.bct_write_date.substring(0, 10)}
+										</c:otherwise>
+									</c:choose>
+								</td>
+								<td style="width: 10%; text-align: center;">${noli.bct_view_cnt}</td>
+							</tr>
+						</c:forEach>
+					</table>
+				</div>
+				
+				<div class="tools">
+					<span style="padding-left: 10px; position: relative; height: 100%; width: 150px;">
+						<a id="post_check_all" onclick="post_check_all()" style="display: none; cursor: pointer; position: absolute;">전체선택</a>
+						<a id="post_del" style="display: none; cursor: pointer; position: absolute; left: 100px;">❌삭제</a>
+					</span>
+					<span style="padding-right: 10px;">
+						<select name="view_per_page" id="view_per_page" onchange="change_vpp(this)">
+							<option value="10" <c:if test="${page.view_per_page == 10}">selected</c:if>>10개</option>
+							<option value="20" <c:if test="${page.view_per_page == 20}">selected</c:if>>20개</option>
+							<option value="30" <c:if test="${page.view_per_page == 30}">selected</c:if>>30개</option>
+						</select>
 					</span>
 				</div>
+				
 				<div class="post">
+					<c:if test="${board_list.size() == 0}">
+						<div class="empty_board"></div>
+					</c:if>
 					<table class="post_table">
 						<c:forEach items="${board_list}" var="boli" varStatus="state">
 						<tr>
-							<td style="width: 70%;">
+							<td style="width: 70%; padding-left: 10px;">
 								<div style="display: flex; align-items: center;">
-									<span><input type="checkbox" id="post_del_${state.index}" style="display: none;"></input></span>
+									<span><input type="checkbox" class="post_check" id="post_check_${state.index}" data-bct_content_number="${boli.bct_content_number}" style="display: none;"></input></span>
 									<c:if test="${empty bat_number}">
 										<c:forEach items="${attribute_list}" var="atli">
 											<c:if test="${boli.bat_number == atli.bat_number}">
-												<span style="color:gray;">[${atli.bat_cls}]</span>
+												<span style="color:gray;">[${atli.bat_cls}]&ensp;</span>
 											</c:if>
 										</c:forEach>
 									</c:if>
@@ -100,6 +140,7 @@
 						</tr>
 						</c:forEach>
 					</table>
+					
 					<div class="paging">
 						<c:if test="${page.start_page != page.end_page}">
 							<c:if test="${page.start_page != 1}">
@@ -121,6 +162,7 @@
 						</c:if>
 					</div>
 				</div>
+				
 				<div class="functions">
 					<span style="float: left;"><button type="button" name="hitpost" id="hitpost" onclick="">인기글</button></span>
 					<select name="search" id="search">
@@ -136,88 +178,16 @@
 			</div>
 		</div>
 	</div>
-</body>
+	<script type="text/javascript" src="resources/js/board_main.js"></script>
+	<script src="https://code.jquery.com/jquery-latest.min.js"></script>
 	<script type="text/javascript">
 		var state = "${loginState}";
-		function change_vpp(selval) {
-			var view_per_page = selval.value;
-			window.location = "board_main?view_per_page="+view_per_page+"${batParams}${searchParams}";
-		}
-		function search_do() {
-			var search = document.getElementById('search').value;
-		    var value = document.getElementById('value').value;
-		    if (value != ""){
-				window.location.href="board_main?search="+search+"&value="+value+"&view_per_page=${page.view_per_page}${batParams}";
-		    }
-		}
-		function board_write() {
-			if (state == "true"){
-				window.location.href="board_write";
-			}
-			else{
-				alert("로그인후 작성해주십시오");
-			}
-		}
-		function toggle_list_del(show) {
-			for (var i = 0; i < ${attribute_list.size()}; i++) {
-				var list_del_num = document.getElementById('list_del_' + i);
-				if (list_del_num) {
-					list_del_num.style.display = show ? 'block' : 'none';
-				}
-			}
-		}
-		function toggle_post_del(show) {
-			for (var i = 0; i < ${board_list.size()}; i++){
-				var post_del_num = document.getElementById('post_del_' + i);
-				if (post_del_num) {
-					post_del_num.style.display = show ? 'block' : 'none';
-				}
-			}
-		}
-		function page_modify() {
-			var modibt = document.getElementById('modi_button');
-			var settingbt = document.getElementById('setting_button');
-			var addbt = document.getElementById('list_add');
-			modibt.style.display = "none";
-			settingbt.style.display = "block";
-			addbt.style.display = "block";
-			toggle_list_del(true);
-			toggle_post_del(true);
-		}
-		function submit_do() {
-			var modibt = document.getElementById('modi_button');
-			var settingbt = document.getElementById('setting_button');
-			var addbt = document.getElementById('list_add');
-			modibt.style.display = "block";
-			settingbt.style.display = "none";
-			addbt.style.display = "none";
-			toggle_list_del(false);
-			toggle_post_del(false);
-		}
-		function reset_do() {
-			var modibt = document.getElementById('modi_button');
-			var settingbt = document.getElementById('setting_button');
-			var addbt = document.getElementById('list_add');
-			modibt.style.display = "block";
-			settingbt.style.display = "none";
-			addbt.style.display = "none";
-			toggle_list_del(false);
-			toggle_post_del(false);
-		}
-		function list_add() {
-		    var categoryList = document.querySelector('.category_list');
-		    var newBatNumber = Math.floor(Math.random() * 100);
-		    var newCategory = document.createElement('div');
-		    newCategory.className = 'category';
-		    newCategory.innerHTML = `
-		        <span><input type="text" name="category_name_${newBatNumber}"></span>
-		        <span id="list_del_${newBatNumber}" onclick="list_del(event)" style="font-size: 15px; display: none; cursor: pointer;">➖</span>
-		    `;
-		    categoryList.appendChild(newCategory);
-		}
-		function list_del(event) {
-			event.stopPropagation();
-			alert("삭제");
-		}
+		var attribute_list_size = "${attribute_list.size()}";
+		var board_list_size = "${board_list.size()}";
+		var batParams = "${batParams}";
+		var searchParams = "${searchParams}";
+		var batParams = "${batParams}";
+		var view_per_page = "${page.view_per_page}";
 	</script>
+</body>
 </html>
