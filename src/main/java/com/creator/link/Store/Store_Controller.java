@@ -333,7 +333,10 @@ public class Store_Controller {
 		return "editorout";
 	}
 	@RequestMapping(value = "store_input")
-	public String store_input() {
+	public String store_input(Model mo) {
+		Store_Service ss = sqlSession.getMapper(Store_Service.class);
+		ArrayList<Category_DTO> category = ss.category_all();
+		mo.addAttribute("category",category);
 		return "store_input";
 	}
 	@RequestMapping(value = "store_save", method = RequestMethod.POST)

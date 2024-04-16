@@ -84,6 +84,9 @@
 <select id="cart_select_pd" resultType="int">
 	SELECT COUNT(pd_number) FROM cart_tbl WHERE pd_number = #{param1} and mb_number = #{param2}
 </select>
+<select id="category_all" resultType="com.creator.link.Store.Category_DTO">
+	SELECT * FROM PRDT_CLS_TBL
+</select>
 <update id="cart_up_stock">
 	UPDATE cart_tbl SET ct_stock = ct_stock + #{param3} WHERE pd_number = #{param1} and mb_number = #{param2}
 </update>

@@ -68,4 +68,7 @@ public interface Store_Service {
 
 	void cart_delete(int products, String mb_number);
 
+	ArrayList<Category_DTO> category_all();
+
+
 }
