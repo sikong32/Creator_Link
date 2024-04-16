@@ -2,10 +2,14 @@
 
 <mapper namespace="com.creator.link.GiftHub.GiftHub_Service">
 	<select id="creator_list" resultType="com.creator.link.GiftHub.GiftHub_Creator_DTO">
-		select mb_photo, mb_nick_name, mb_addr from member_tbl where mb_attribute = '크리에이터'
+		SELECT mb_photo,mb_nick_name,mb_addr from member_tbl where mb_attribute = '크리에이터'
+	</select>
+	<select id="search_creator_list" parameterType="string" resultType="com.creator.link.GiftHub.GiftHub_Creator_DTO">
+		SELECT mb_photo,mb_nick_name,mb_addr from member_tbl 
+		WHERE mb_attribute = '크리에이터' AND mb_nick_name LIKE '%' || #{param1} || '%'
 	</select>
 	<insert id="gifthub_insert">
-		insert into gift_hub_tbl values
+		INSERT into gift_hub_tbl values
 		(GH_NUMBER_SEQ.nextval,#{param1},#{param2},#{param3},#{param4},#{param5},#{param6},MB_NUMBER_SEQ.c)
 	</insert>
 </mapper>

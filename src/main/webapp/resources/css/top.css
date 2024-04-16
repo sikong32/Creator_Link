@@ -17,19 +17,10 @@
     src: url('../font/Bubblegum.ttf') format('truetype');
 }
 
-.navbar_container {
-	display: flex;
-	align-items: center;
-	justify-content: space-between;
-	background-color: #2A2F4F;
-	white-space: nowrap;
-	padding: 0 20px;
-}
-
 .navbar a {
 	text-decoration: none;
 	color: white;
-	margin-right: 15px;
+	margin: 0 20px;
 }
 
 .navbar_logo {
@@ -51,7 +42,7 @@
 }
 
 .navbar_menu li a, .navbar_login li a {
-	margin: 15px;
+	margin: 20px;
     padding: 6px;
 }
 
