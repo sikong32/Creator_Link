@@ -4,14 +4,6 @@
 <html>
 <head>
 	<link href="${pageContext.request.contextPath}/resources/css/board/board.css" rel="stylesheet" type="text/css">
-	<script src="https://code.jquery.com/jquery-latest.min.js"></script>
-	<script type="text/javascript" src="resources/js/board_view.js"></script>
-	<script type="text/javascript">
-		var writer_id = "${post.bct_writer_id}";
-		var login_id = "${member.mb_id}";
-		var state = "${loginState}";
-	    var bct_content_number = "${post.bct_content_number}";
-	</script>
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
@@ -23,72 +15,92 @@
 					<div class="category_title">
 						<span>CreatorLink</span>
 					</div>
-					<a href="board_main" style="color: black;"><div class="category">전체글</div></a>
+					<div onclick="location.href='board_main'" class="category">전체글</div>
 					<c:forEach items="${attribute_list}" var="atli">
-					<a href="board_main?bat_number=${atli.bat_number}" style="color: black;"><div class="category">${atli.bat_cls}</div></a>
+					<div class="category" onclick="location.href='board_main?bat_number=${atli.bat_number}'">${atli.bat_cls}</div>
 					</c:forEach>
 				</aside>
-				<a href="store_main" style="color: black; display: block;">
-					<div class="store">
-						STORE
-					</div>
-				</a>
+				<div class="store" onclick="location.href='store_main'">STORE</div>
 			</div>
 			
 			<div class="board">
 				<div class="post">
 					<table class="post_view">
 						<tr>
-							<th align="left">${post.bct_title}</th>
+							<td>
+								<div style="display: flex; align-items: center; justify-content: space-between;">
+									<div style="font-weight: bold; padding-left: 10px;">${post.bct_title}</div>
+									<div style="padding-right: 10px; display: flex; align-items: center;">
+										<c:if test="${post.noties == 'false'}">
+											<span id="noties_bt" class="noties_passive"></span>
+										</c:if>
+										<c:if test="${post.noties == 'true'}">
+											<span id="noties_bt" class="noties_active"></span>
+										</c:if>
+										공지설정
+									</div>
+								</div>
+								<div style="display: flex; align-items: center; justify-content: space-between;">
+									<span style="padding-left: 10px;">
+										${post.bct_writer} │
+										${post.bct_write_date}
+									</span> 
+									<span style="padding-right: 10px;">
+										조회수 ${post.bct_view_cnt}
+									</span>
+								</div>
+							</td>
 						</tr>
 						<tr>
-							<td>${post.bct_writer}<br>
-											${post.bct_write_date} &emsp; 
-											${post.bct_view_cnt}</td>
+							<td><div class="div_pd10">${post.bct_content}</div></td>
 						</tr>
 						<tr>
-							<td>${post.bct_content}</td>
-						</tr>
-						<tr>
-							<td>댓글</td>
+							<td><div class="div_pd10">댓글</div></td>
 						</tr>
 							<c:if test="${comment.size() != 0}">
 								<c:forEach items="${comment}" var="c" varStatus="status">
 									<c:if test="${c.cm_inheritance == 0}">
 										<tr>
 											<td>
-											<div id="comment_area_${status.index}">
-												${c.mb_nick_name} &emsp;&emsp;
-												<a id="comment_${status.index}" style="color: black; text-decoration-line: none; cursor: pointer;">
-													${c.cm_content}
-												</a>
-												<span style="float: right;">
-													<a id="comment_del_${status.index}" data-mb_id="${c.mb_id}" data-cm_number="${c.cm_number}" style="cursor: pointer; font-size: small; display: none;">삭제</a>&emsp;
-													${c.cm_write_date}
-												</span>
-											</div>
-									    	<div id="re_comment_div_${status.index}" style="display: none; width: 95%; background-color: rgb(0,0,0,0.1); border: 1px solid white; float: right; text-align: center;">
-									            <textarea id="re_content_${status.index}" name="re_content_${status.index}" style="width: 99%; height: 50px;" placeholder="댓글을 입력해주십시오"></textarea>
-									            <span style="float: right;"><button id="re_submitButton_${status.index}" type="button" data-cm_number="${c.cm_number}">작성</button></span>
-									        </div>
-									        <c:forEach items="${comment}" var="rc">
-									        	<c:if test="${rc.cm_inheritance == c.cm_number}">
-											    	<div id="comment_area_${status.index}" style="width: 95%; background-color: rgb(0,0,0,0.1); border: 1px solid white; text-align: left; float: right;">
-											    		${rc.mb_nick_name} &emsp;&emsp; ${rc.cm_content} 
-											    		<span style="float: right;">
-											    			<a id="comment_del_${status.index}" data-mb_id="${rc.mb_id}" data-cm_number="${rc.cm_number}" style="cursor: pointer; font-size: small; display: none;">삭제</a>&emsp;
-											    			${rc.cm_write_date}
-											    		</span>
-											    	</div>
-										    	</c:if>
-									    	</c:forEach></td>
+												<div class="div_pd10">
+													<div id="comment_area_${status.index}">
+														${c.mb_nick_name} &emsp;&emsp;
+														<a id="comment_${status.index}" style="color: black; text-decoration-line: none; cursor: pointer;">
+															${c.cm_content}
+														</a>
+														<span style="float: right;">
+															<a id="comment_del_${status.index}" data-mb_id="${c.mb_id}" data-cm_number="${c.cm_number}" style="cursor: pointer; font-size: small; display: none;">삭제</a>&emsp;
+															${c.cm_write_date}
+														</span>
+													</div>
+											    	<div id="re_comment_div_${status.index}" style="display: none; width: 95%; background-color: rgb(0,0,0,0.1); border: 1px solid white; float: right; text-align: center;">
+											            <textarea id="re_content_${status.index}" name="re_content_${status.index}" style="width: 99%; height: 50px;" placeholder="댓글을 입력해주십시오"></textarea>
+											            <span style="float: right;"><button id="re_submitButton_${status.index}" type="button" data-cm_number="${c.cm_number}">작성</button></span>
+											        </div>
+											        <c:forEach items="${comment}" var="rc">
+											        	<c:if test="${rc.cm_inheritance == c.cm_number}">
+													    	<div id="comment_area_${status.index}" style="width: 95%; background-color: rgb(0,0,0,0.1); border: 1px solid white; text-align: left; float: right;">
+													    		${rc.mb_nick_name} &emsp;&emsp; ${rc.cm_content} 
+													    		<span style="float: right;">
+													    			<a id="comment_del_${status.index}" data-mb_id="${rc.mb_id}" data-cm_number="${rc.cm_number}" style="cursor: pointer; font-size: small; display: none;">삭제</a>&emsp;
+													    			${rc.cm_write_date}
+													    		</span>
+													    	</div>
+												    	</c:if>
+											    	</c:forEach>
+										    	</div>
+									    	</td>
 										</tr>
 									</c:if>
 								</c:forEach>
 							</c:if>
 						<tr>
-							<td><span style="font-weight: bold;">댓글작성</span> &emsp;
-							${member.mb_nick_name}</td>
+							<td>
+								<div class="div_pd10">
+									<span style="font-weight: bold;">댓글작성</span> &emsp;
+									${member.mb_nick_name}
+								</div>
+							</td>
 						</tr>
 						<tr class="textbox">
 						    <td align="center" style="position: relative;">
@@ -107,5 +119,14 @@
 			</div>
 		</div>
 	</div>
+	<script src="https://code.jquery.com/jquery-latest.min.js"></script>
+	<script type="text/javascript" src="resources/js/board_view.js"></script>
+	<script type="text/javascript">
+		var writer_id = "${post.bct_writer_id}";
+		var login_id = "${member.mb_id}";
+		var state = "${loginState}";
+	    var bct_content_number = "${post.bct_content_number}";
+	    var noties = "${post.noties}"
+	</script>
 </body>
 </html>

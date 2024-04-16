@@ -32,4 +32,13 @@ public interface Board_Service {
 
 	void board_comment_delete(String bct_content_number);
 
+	void board_list_add(String mb_number);
+
+	void board_list_del(String bat_number);
+
+	void board_list_modi(String bat_cls, String bat_number);
+
+	void board_set_noties(String noties, String bct_content_number);
+
+	ArrayList<Board_DTO> board_noties_list(String mb_number);
 }
