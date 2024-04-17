@@ -60,4 +60,7 @@
 		where pt.mb_number = mt.mb_number and (mt.mb_id like '%'||#{param1}||'%' or pt.pd_name like '%'||#{param1}||'%')
 		order BY mt.mb_nick_name
 	</select>
+	<select id="bc_select" resultType="com.creator.link.BC_DTO">
+		select * from BROADCAST_TBL
+	</select>
 </mapper>

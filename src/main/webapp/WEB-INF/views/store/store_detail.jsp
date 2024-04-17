@@ -144,7 +144,6 @@
 	<form action="">
 		<table border="1">
 			<tr>
-				<th>상세정보</th>
 				<td><div>${dto.pd_content}</div></td>
 			</tr>
 			<tr>

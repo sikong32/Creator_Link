@@ -80,86 +80,29 @@
 		<div class="live_info_area">
 			<h3>LIVE</h3>
 			<div class="live_info_list">
+			<c:forEach items="${bc_list}" var="bc">
 				<div class="live_info_tot">
 					<div class="live_screen">
+						<img alt="" src="${bc.bc_imglink}" width="300" height="160">
 						<div class="live_icon">LIVE</div>
-						<div class="live_viewer">시청자수</div>
+						<div class="live_viewer">${bc.bc_sichengjasu}</div>
 					</div>
 					<div class="live_profile">
-		            	<div class="live_pickture"><img src="./resources/cssimage/happy.jpg"></div>
-		            	<div class="live_nickname">해피</div>
+		            	<div class="live_pickture"><a href="${bc.bc_hreflink}"><img src="${bc.bc_profilimglink}"></a></div>
+		            	<div class="live_nickname">${bc.bc_profilname}</div>
 		            </div>
 		       </div>
-		       <div class="live_info_tot">
-					<div class="live_screen">
-						<div class="live_icon">LIVE</div>
-						<div class="live_viewer">시청자수</div>
-					</div>
-					<div class="live_profile">
-		            	<div class="live_pickture"><img src="./resources/cssimage/happy.jpg"></div>
-		            	<div class="live_nickname">해피</div>
-		            </div>
-		       </div>
-		       <div class="live_info_tot">
-					<div class="live_screen">
-						<div class="live_icon">LIVE</div>
-						<div class="live_viewer">시청자수</div>
-					</div>
-					<div class="live_profile">
-		            	<div class="live_pickture"><img src="./resources/cssimage/happy.jpg"></div>
-		            	<div class="live_nickname">해피</div>
-		            </div>
-		       </div>
-		       <div class="live_info_tot">
-					<div class="live_screen">
-						<div class="live_icon">LIVE</div>
-						<div class="live_viewer">시청자수</div>
-					</div>
-					<div class="live_profile">
-		            	<div class="live_pickture"><img src="./resources/cssimage/happy.jpg"></div>
-		            	<div class="live_nickname">해피</div>
-		            </div>
-		       </div>
-		       <div class="live_info_tot">
-					<div class="live_screen">
-						<div class="live_icon">LIVE</div>
-						<div class="live_viewer">시청자수</div>
-					</div>
-					<div class="live_profile">
-		            	<div class="live_pickture"><img src="./resources/cssimage/happy.jpg"></div>
-		            	<div class="live_nickname">해피</div>
-		            </div>
-		       </div>
-		       <div class="live_info_tot">
-					<div class="live_screen">
-						<div class="live_icon">LIVE</div>
-						<div class="live_viewer">시청자수</div>
-					</div>
-					<div class="live_profile">
-		            	<div class="live_pickture"><img src="./resources/cssimage/happy.jpg"></div>
-		            	<div class="live_nickname">해피</div>
-		            </div>
-		       </div>
-		       <div class="live_info_tot">
-					<div class="live_screen">
-						<div class="live_icon">LIVE</div>
-						<div class="live_viewer">시청자수</div>
-					</div>
-					<div class="live_profile">
-		            	<div class="live_pickture"><img src="./resources/cssimage/happy.jpg"></div>
-		            	<div class="live_nickname">해피</div>
-		            </div>
-		       </div>
-		       <div class="live_info_tot">
-					<div class="live_screen">
-						<div class="live_icon">LIVE</div>
-						<div class="live_viewer">시청자수</div>
-					</div>
-					<div class="live_profile">
-		            	<div class="live_pickture"><img src="./resources/cssimage/happy.jpg"></div>
-		            	<div class="live_nickname">해피</div>
-		            </div>
-		       </div>
+			</c:forEach>
+<!-- 		       <div class="live_info_tot"> -->
+<!-- 					<div class="live_screen"> -->
+<!-- 						<div class="live_icon">LIVE</div> -->
+<!-- 						<div class="live_viewer">시청자수</div> -->
+<!-- 					</div> -->
+<!-- 					<div class="live_profile"> -->
+<!-- 		            	<div class="live_pickture"><img src="./resources/cssimage/happy.jpg"></div> -->
+<!-- 		            	<div class="live_nickname">해피</div> -->
+<!-- 		            </div> -->
+<!-- 		       </div> -->
 			</div>
 		</div>
 	</div>

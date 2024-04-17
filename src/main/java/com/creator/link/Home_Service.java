@@ -13,4 +13,6 @@ public interface Home_Service {
 
 	ArrayList<String> search_seller(String value);
 
+	ArrayList<BC_DTO> bc_select();
+
 }
