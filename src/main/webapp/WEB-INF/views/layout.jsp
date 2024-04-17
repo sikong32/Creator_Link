@@ -6,18 +6,14 @@
 <meta charset="UTF-8">
 <title><t:insertAttribute name="title" /></title>
 <style type="text/css">
-::-webkit-scrollbar {
-	display: none;
-}
 
 html,body {
-	width: 100vw;
+	width: calc(100vw - 17px); /* 스크롤 바 너비만큼 빼기 */
 	height: 100vh;
 	margin : 0;
 	padding: 0;
 	border: 0;
-	-ms-overflow-style: none;
-  	scrollbar-width: none; /* 가로 스크롤 숨김 */
+	box-sizing: border-box;
 }
 
 .navbar_container {
