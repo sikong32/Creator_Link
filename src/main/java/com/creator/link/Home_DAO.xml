@@ -41,6 +41,7 @@
 		<result property="pd_price" column="pd_price"/>
 		<result property="pd_photo" column="pd_photo"/>
 		<result property="pd_stock" column="pd_stock"/>
+		<result property="pd_number" column="pd_number"/>
 		<collection property="store_dto" ofType="com.creator.link.Store.Store_DTO" resultMap="store_dto"></collection>
 		<collection property="member_dto" ofType="com.creator.link.Member.Member_DTO" resultMap="member_dto"></collection>
 	</resultMap>
@@ -52,7 +53,7 @@
 	</select>
 	<select id="search_creator" resultType="com.creator.link.Member.Member_DTO">
 		SELECT *
-		from member_tbl where mb_attribute = 'creator' and mb_id like '%'||#{param1}||'%'
+		from member_tbl where mb_attribute = '크리에이터' and mb_id like '%'||#{param1}||'%'
 	</select>
 	<select id="search_seller" resultType="string">
 		select distinct mt.mb_nick_name

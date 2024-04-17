@@ -100,4 +100,19 @@
 	<update id="board_set_noties">
 		update board_content_tbl set noties = #{param1} where bct_content_number = #{param2}
 	</update>
+	<select id="board_liked_list" resultType="int">
+		select mb_number from post_like_tbl where bct_content_number = #{param1}
+	</select>
+	<insert id="post_like_add">
+		insert into post_like_tbl values(#{param1}, #{param2})
+	</insert>
+	<delete id="post_like_del">
+		delete from post_like_tbl where mb_number = #{param1} and bct_content_number = #{param2}
+	</delete>
+	<update id="board_like_up">
+		update board_content_tbl set bct_like_cnt = bct_like_cnt+1 where bct_content_number = #{param1}
+	</update>
+	<update id="board_like_down">
+		update board_content_tbl set bct_like_cnt = bct_like_cnt-1 where bct_content_number = #{param1}
+	</update>
 </mapper>

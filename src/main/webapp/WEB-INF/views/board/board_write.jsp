@@ -35,6 +35,7 @@
 			</div>
 			<div class="board">
 				<form id="form_input" action="board_save" method="post">
+					<input type="hidden" name="mb_number" value="${mb_number}">
 					<div class="post_write">
 						<div style="display: flex; align-items: center; justify-content: space-between;">
 							<div style="width: 19%; display: flex; align-items: center;">

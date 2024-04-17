@@ -3,27 +3,13 @@ $(document).ready(function() {
 		page_modify();
 	}
 	$("#list_add").click(function() {
-		$.ajax({
-			type : "post",
-			async : true,
-			url : "board_list_add",
-			success : function(result) {
-				location.reload();
-			},
-			error : function() {
-				alert("실패");
-			}
-		});
-	});
-	$("[id^=list_del_]").each(function() {
-		$(this).click(function() {
-			var bat_number = $(this).data('bat_number');
+		if (login_number == mb_number || mb_attribute == '관리자'){
 			$.ajax({
 				type : "post",
 				async : true,
-				url : "board_list_del",
+				url : "board_list_add",
 				data : {
-					"bat_number":bat_number
+					"mb_number":mb_number
 				},
 				success : function(result) {
 					location.reload();
@@ -32,7 +18,32 @@ $(document).ready(function() {
 					alert("실패");
 				}
 			});
-		});
+		}
+		else{
+		}
+	});
+	$("[id^=list_del_]").each(function() {
+		if (login_number == mb_number || mb_attribute == '관리자'){
+			$(this).click(function() {
+				var bat_number = $(this).data('bat_number');
+				$.ajax({
+					type : "post",
+					async : true,
+					url : "board_list_del",
+					data : {
+						"bat_number":bat_number
+					},
+					success : function(result) {
+						location.reload();
+					},
+					error : function() {
+						alert("실패");
+					}
+				});
+			});
+		}
+		else{
+		}
 	});
 	$("[id^=input_]").each(function() {
 		$(this).blur(function() {
@@ -56,28 +67,32 @@ $(document).ready(function() {
 		});
 	});
 	$("#post_del").click(function() {
-		var checked_post = $('.post_check:checked').map(function() {
-			return $(this).data('bct_content_number');
-		}).get();
-		if (checked_post.length > 0) {
-			$.ajax({
-				type : "post",
-				url : "board_list_delete",
-				async : true,
-				data : {
-					"bct_content_number":checked_post
-				},
-				traditional : true,
-				success : function(result) {
-					location.reload();
-				},
-				error : function() {
-					alert("실패");
-				}
-			});
+		if (login_number == mb_number || mb_attribute == '관리자'){
+			var checked_post = $('.post_check:checked').map(function() {
+				return $(this).val();
+			}).get();
+			if (checked_post.length > 0) {
+				$.ajax({
+					type : "post",
+					url : "board_list_delete",
+					async : true,
+					data : {
+						"bct_content_number":checked_post
+					},
+					traditional : true,
+					success : function(result) {
+						location.reload();
+					},
+					error : function() {
+						alert("실패");
+					}
+				});
+			}
+			else{
+				alert("삭제할 항목을 선택해주십시오");
+			}
 		}
 		else{
-			alert("삭제할 항목을 선택해주십시오");
 		}
 	});
 });
@@ -95,7 +110,7 @@ function search_do() {
 }
 function board_write() {
 	if (state == "true"){
-		window.location.href="board_write";
+		window.location.href="board_write?mb_number="+mb_number;
 	}
 	else{
 		alert("로그인후 작성해주십시오");
@@ -120,21 +135,31 @@ function toggle_list_del(show) {
 	}
 }
 function page_modify() {
-	localStorage.setItem('modifyState', 'active');
-    toggleSettings(true);
-	$('.category').each(function(index) {
-		$('#text_' + index).hide();
-		$('#input_' + index).show();
-	});
+	if (login_number == mb_number || mb_attribute == '관리자'){
+		localStorage.setItem('modifyState', 'active');
+		toggleSettings(true);
+		$('.category').each(function(index) {
+			$('#text_' + index).hide();
+			$('#input_' + index).show();
+		});
+	}
+	else{
+		localStorage.removeItem('modifyState');
+	}
 }
 function submit_do() {
-    localStorage.removeItem('modifyState');
-    toggleSettings(false);
-	$('.category').each(function(index) {
-		var inputVal = $('#input_' + index).val();
-		$('#text_' + index).text(inputVal).show();
-		$('#input_' + index).hide();
-	});
+	if (login_number == mb_number || mb_attribute == '관리자'){
+		localStorage.removeItem('modifyState');
+		toggleSettings(false);
+		$('.category').each(function(index) {
+			var inputVal = $('#input_' + index).val();
+			$('#text_' + index).text(inputVal).show();
+			$('#input_' + index).hide();
+		});
+	}
+	else{
+		alert("권한없음");
+	}
 }
 function toggle_post_del(show) {
 	var post_check_all = document.getElementById('post_check_all');

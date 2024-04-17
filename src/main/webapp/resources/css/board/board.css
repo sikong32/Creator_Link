@@ -124,12 +124,36 @@ span.noties_active{
 	display: inline-block;
 	cursor: pointer;
 }
+span.noties_active:hover{
+	width: 21px;
+	height: 21px;
+	border-radius: 21px;
+	background-color: red;
+	background-image: url(../../noties_black.png);
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: 18px;
+	display: inline-block;
+	cursor: pointer;
+}
 span.noties_passive{
 	width: 21px;
 	height: 21px;
 	border-radius: 21px;
 	background-color: #bdbdbd;
 	background-image: url(../../noties_black.png);
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: 18px;
+	display: inline-block;
+	cursor: pointer;
+}
+span.noties_passive:hover{
+	width: 21px;
+	height: 21px;
+	border-radius: 21px;
+	background-color: #bdbdbd;
+	background-image: url(../../noties_white.png);
 	background-repeat: no-repeat;
 	background-position: center;
 	background-size: 18px;
@@ -190,6 +214,38 @@ span.noties_passive{
 			min-height: 600px;
 		    margin: auto;
 	}
+}
+.like_button{
+	cursor: pointer;
+}
+.like_box{
+	height: 21px;
+	border: 2px solid;
+	border-radius: 21px;
+	padding-left: 10px;
+	padding-right: 10px;
+	border-color: red;
+	cursor: pointer;
+	background-color: white;
+}
+.liked_box{
+	height: 21px;
+	border: 2px solid;
+	border-radius: 21px;
+	padding-left: 10px;
+	padding-right: 10px;
+	border-color: red;
+	cursor: pointer;
+	background-color: red;
+}
+.comment_box{
+	margin-left: 10px;
+	height: 21px;
+	border: 2px solid;
+	border-radius: 21px;
+	padding-left: 10px;
+	padding-right: 10px;
+	border-color: #2A2F4F;
 }
 table.post_table {   
 	width: 100%;

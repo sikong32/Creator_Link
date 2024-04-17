@@ -41,4 +41,14 @@ public interface Board_Service {
 	void board_set_noties(String noties, String bct_content_number);
 
 	ArrayList<Board_DTO> board_noties_list(String mb_number);
+
+	ArrayList<Integer> board_liked_list(String bct_content_number);
+
+	void post_like_add(String mb_number, String bct_content_number);
+
+	void post_like_del(String mb_number, String bct_content_number);
+
+	void board_like_up(String bct_content_number);
+
+	void board_like_down(String bct_content_number);
 }

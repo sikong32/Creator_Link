@@ -10,6 +10,7 @@ public class Search_DTO {
 	int pd_price;
 	String pd_photo;
 	int pd_stock;
+	int pd_number;
 	Store_DTO store_dto;
 	Member_DTO member_dto;
 	public String getMb_id() {
@@ -59,5 +60,11 @@ public class Search_DTO {
 	}
 	public void setMember_dto(Member_DTO member_dto) {
 		this.member_dto = member_dto;
+	}
+	public int getPd_number() {
+		return pd_number;
+	}
+	public void setPd_number(int pd_number) {
+		this.pd_number = pd_number;
 	}
 }
