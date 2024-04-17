@@ -13,13 +13,15 @@
 			<span>검색결과가 없습니다</span>
 		</c:when>
 		<c:otherwise>
-			<c:forEach begin="0" end="${creator.size()-1}" var="i">
-				<img src="./resources/member/
-				<c:if test="${creator.get(i).getMb_photo() == 'basic_photo.png'}">basic_photo</c:if>
-				<c:if test="${creator.get(i).getMb_photo() != 'basic_photo.png'}">profile</c:if>
-				/${creator.get(i).getMb_photo()}">
-				${creator.get(i).getMb_nick_name()}
-				<c:if test="${i != creator.size()-1}"><br></c:if>
+			<c:forEach items="${creator}" var="ct" varStatus="state">
+				<a href="board_main?mb_number=${ct.mb_number}">
+					<img src="./resources/member/
+					<c:if test="${ct.mb_photo == 'basic_photo.png'}">basic_photo</c:if>
+					<c:if test="${ct.mb_photo != 'basic_photo.png'}">profile</c:if>
+					/${ct.mb_photo}">
+				</a>
+				${ct.mb_nick_name}
+				<c:if test="${state.index != creator.size()-1}"><br></c:if>
 			</c:forEach>
 		</c:otherwise>
 	</c:choose><br>
@@ -32,16 +34,15 @@
 			검색결과가 없습니다
 		</c:when>
 		<c:otherwise>
-			<c:forEach begin="0" end="${seller.size()-1}" var="i">
-				판매자 : ${seller.get(i)}<br>
+			<c:forEach items="${seller}" var="sl">
+				판매자 : ${sl}<br>
 				<div style="width: 30%; height: 1px; background-color: black;"></div><br>
-				<c:forEach items="${item}" var="t">
-					<c:if test="${seller.get(i) == t.mb_nick_name}">
-						<img src="./resources/store/item_cover/${t.pd_photo}" width="100px;" height="100px">
-						상품명 : ${t.pd_name} &emsp;
-						가격 : ${t.pd_price} &emsp;
-						재고 : ${t.pd_stock} &emsp;
-						판매자 : ${t.mb_nick_name} &emsp;
+				<c:forEach items="${item}" var="it">
+					<c:if test="${sl == it.mb_nick_name}">
+						<a href="store_detail?pd_number=${it.pd_number}"><img src="./resources/store/item_cover/${it.pd_photo}" width="100px;" height="100px"></a>
+						상품명 : ${it.pd_name} &emsp;
+						가격 : ${it.pd_price} &emsp;
+						재고 : ${it.pd_stock} &emsp;
 						<br>
 					</c:if>
 				</c:forEach><br>

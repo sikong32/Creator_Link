@@ -59,7 +59,7 @@
 		<div class="navbar_search">
 			<form class="search_box" action="search" method="get">
 				<input class="search_txt" type="text" name="value" placeholder="검색어를 입력하세요">
-				<button class="search_btn" type="submit">
+				<button class="search_btn" type="submit" style="cursor: pointer;">
 					<i class="fa-solid fa-magnifying-glass"></i>
 				</button>
 			</form>

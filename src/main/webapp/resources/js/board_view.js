@@ -1,5 +1,8 @@
 $(document).ready(function() {
-    
+    if (like == "true"){
+		$(".like_box").toggleClass("liked_box");
+		$("#like_none, #like_active").toggle();
+	}
     //작동영역
 	$("#submitButton").click(function() {
 		if (state == "true"){
@@ -83,25 +86,53 @@ $(document).ready(function() {
 		});
 	});
 	$("#noties_bt").click(function() {
-		var value = "false";
-		if (noties == 'false'){
-			value = "true"
-		}
-		$.ajax({
-			type:"post",
-			async:true,
-			url:"board_set_noties",
-			data:{
-				"noties":value,
-				"bct_content_number":bct_content_number
-			},
-			success:function(result) {
-				location.reload();
-			},
-			error:function() {
-				alert("변경실패");
+		if (mb_number == login_number) {
+			var value = "false";
+			if (noties == 'false'){
+				value = "true"
 			}
-		});
+			$.ajax({
+				type:"post",
+				async:true,
+				url:"board_set_noties",
+				data:{
+					"noties":value,
+					"bct_content_number":bct_content_number
+				},
+				success:function(result) {
+					location.reload();
+				},
+				error:function() {
+					alert("변경실패");
+				}
+			});
+		}
+		else{
+		}
+	});
+	$(".like_box").click(function() {
+		if (state == 'true'){
+			$("#like_none, #like_active").toggle();
+		    $(".like_box").toggleClass("liked_box");
+		    $.ajax({
+		    	type : "post",
+		    	url : "post_like",
+		    	async : true,
+		    	data : {
+		    		"like":like,
+		    		"bct_content_number":bct_content_number
+		    	},
+		    	success : function (result) {
+					location.reload();
+				},
+				error : function() {
+					alert("실패");
+				}
+		    });
+		}
+		else {
+			alert("로그인후 이용해주십시오");
+		}
 	});
 	
 	//기능영역
@@ -185,7 +216,7 @@ $(document).ready(function() {
         if (writer_id == login_id){
 			var result = confirm("삭제하시겠습니까?");
 			if (result == true){
-				window.location="board_delete?bct_content_number=" + bct_content_number;
+				window.location="board_delete?bct_content_number=" + bct_content_number + "&mb_number=" + mb_number;
 			}
 			else{
 			}

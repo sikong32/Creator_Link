@@ -15,9 +15,9 @@
 					<div class="category_title">
 						<span>CreatorLink</span>
 					</div>
-					<div onclick="location.href='board_main'" class="category">전체글</div>
+					<div onclick="location.href='board_main?mb_number=${mb_number}'" class="category">전체글</div>
 					<c:forEach items="${attribute_list}" var="atli">
-					<div class="category" onclick="location.href='board_main?bat_number=${atli.bat_number}'">${atli.bat_cls}</div>
+					<div class="category" onclick="location.href='board_main?mb_number=${mb_number}&board_main?bat_number=${atli.bat_number}'">${atli.bat_cls}</div>
 					</c:forEach>
 				</aside>
 				<div class="store" onclick="location.href='store_main'">STORE</div>
@@ -30,15 +30,17 @@
 							<td>
 								<div style="display: flex; align-items: center; justify-content: space-between;">
 									<div style="font-weight: bold; padding-left: 10px;">${post.bct_title}</div>
-									<div style="padding-right: 10px; display: flex; align-items: center;">
-										<c:if test="${post.noties == 'false'}">
-											<span id="noties_bt" class="noties_passive"></span>
-										</c:if>
-										<c:if test="${post.noties == 'true'}">
-											<span id="noties_bt" class="noties_active"></span>
-										</c:if>
-										공지설정
-									</div>
+									<c:if test="${mb_number == member.mb_number}">
+										<div style="padding-right: 10px; display: flex; align-items: center;">
+											<c:if test="${post.noties == 'false'}">
+												<span id="noties_bt" class="noties_passive"></span>
+											</c:if>
+											<c:if test="${post.noties == 'true'}">
+												<span id="noties_bt" class="noties_active"></span>
+											</c:if>
+											공지설정
+										</div>
+									</c:if>
 								</div>
 								<div style="display: flex; align-items: center; justify-content: space-between;">
 									<span style="padding-left: 10px;">
@@ -55,7 +57,19 @@
 							<td><div class="div_pd10">${post.bct_content}</div></td>
 						</tr>
 						<tr>
-							<td><div class="div_pd10">댓글</div></td>
+							<td>
+								<div class="div_pd10" style="display: flex;">
+									<div class="like_box">
+										<a id="like_none" class="like_button" style="display: inline;"><i class="fa-regular fa-heart"></i></a>
+										<a id="like_active" class="like_button" style="display: none;"><i class="fa-solid fa-heart"></i></a>
+										<span style="font-weight: bold;">${post.bct_like_cnt}</span>
+									</div>
+									<div class="comment_box">
+										<i class="fa-regular fa-comment-dots"></i>
+										<span style="font-weight: bold;">${comment.size()}</span>
+									</div>
+								</div>
+							</td>
 						</tr>
 							<c:if test="${comment.size() != 0}">
 								<c:forEach items="${comment}" var="c" varStatus="status">
@@ -127,6 +141,9 @@
 		var state = "${loginState}";
 	    var bct_content_number = "${post.bct_content_number}";
 	    var noties = "${post.noties}"
+		var like = "${like}";
+		var mb_number = "${mb_number}";
+		var login_number = "${member.mb_number}";
 	</script>
 </body>
 </html>

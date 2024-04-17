@@ -30,9 +30,9 @@
 						<span>CreatorLink</span>
 						<span id="list_add" style="font-size: 15px; display: none; cursor: pointer;">➕</span>
 					</div>
-					<div onclick="location.href='board_main'" class="category">전체글</div>
+					<div onclick="location.href='board_main?mb_number=${mb_number}'" class="category">전체글</div>
 					<c:forEach items="${attribute_list}" var="atli" varStatus="state">
-						<div class="category" onclick="location.href='board_main?bat_number=${atli.bat_number}'">
+						<div class="category" onclick="location.href='board_main?mb_number=${mb_number}&bat_number=${atli.bat_number}'">
 							<input type="text" id="input_${state.index}" value="${atli.bat_cls}" onclick="modi_name(event)" data-bat_number="${atli.bat_number}" style="display: none; width: 150px; border: none; outline: none; font-size: 16px;">
 							<span id="text_${state.index}">${atli.bat_cls}</span>
 							<span id="list_del_${state.index}" onclick="list_del(event)" data-bat_number="${atli.bat_number}" style="font-size: 15px; display: none; cursor: pointer;">➖</span>
@@ -40,10 +40,12 @@
 					</c:forEach>
 				</aside>
 				<div class="store" onclick="location.href='store_main'">STORE</div>
-				<div class="setting">
-					<a id="modi_button" onclick="page_modify()" style="display: block; cursor: pointer;">⚙게시판설정</a>
-					<a id="submit_button" onclick="submit_do()" style="display: none; cursor: pointer;">✔수정완료</a>
-				</div>
+				<c:if test="${mb_number == member.mb_number || member.mb_attribute == '관리자'}">
+					<div class="setting">
+						<a id="modi_button" onclick="page_modify()" style="display: block; cursor: pointer;">⚙게시판설정</a>
+						<a id="submit_button" onclick="submit_do()" style="display: none; cursor: pointer;">💱돌아가기</a>
+					</div>
+				</c:if>
 			</div>
 			
 			<div class="board">
@@ -107,7 +109,7 @@
 						<tr>
 							<td style="width: 70%; padding-left: 10px;">
 								<div style="display: flex; align-items: center;">
-									<span><input type="checkbox" class="post_check" id="post_check_${state.index}" data-bct_content_number="${boli.bct_content_number}" style="display: none;"></input></span>
+									<span><input type="checkbox" class="post_check" id="post_check_${state.index}" value="${boli.bct_content_number}" style="display: none;"></input></span>
 									<c:if test="${empty bat_number}">
 										<c:forEach items="${attribute_list}" var="atli">
 											<c:if test="${boli.bat_number == atli.bat_number}">
@@ -115,11 +117,11 @@
 											</c:if>
 										</c:forEach>
 									</c:if>
-									<a href="board_view?bct_content_number=${boli.bct_content_number}">
+									<a href="board_view?mb_number=${mb_number}&bct_content_number=${boli.bct_content_number}">
 										${boli.bct_title}
 										<c:forEach items="${comment_number}" var="cn">
 											<c:if test="${boli.bct_content_number == cn.bct_content_number}">
-												<span style="color:gray;">(${cn.comment_number})</span>
+												<span style="color:red;">(${cn.comment_number})</span>
 											</c:if>
 										</c:forEach>
 									</a>
@@ -188,6 +190,9 @@
 		var searchParams = "${searchParams}";
 		var batParams = "${batParams}";
 		var view_per_page = "${page.view_per_page}";
+		var mb_number = "${mb_number}";
+		var login_number = "${member.mb_number}";
+		var mb_attribute = "${member.mb_attribute}";
 	</script>
 </body>
 </html>

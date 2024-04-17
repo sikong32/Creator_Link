@@ -77,23 +77,27 @@ public class Board_Controller {
 		}
 		
 		mo.addAttribute("attribute_list", attribute_list);
+		mo.addAttribute("mb_number", mb_number);
 		
 		return "board_write";
 	}
 	@RequestMapping(value = "board_save")
-	public String board_save(HttpServletRequest request) throws IllegalStateException, IOException {
+	public String board_save(HttpServletRequest request, Model mo) throws IllegalStateException, IOException {
 		String bct_title = request.getParameter("title");
 		String bct_content = request.getParameter("content");
 		String bat_number = request.getParameter("attribute");
+		String mb_number = request.getParameter("mb_number");
+		if (mb_number == null) mb_number = "1";
 		
 		HttpSession hs = request.getSession();
 		Member_DTO dto = (Member_DTO)hs.getAttribute("member");
 		String bct_writer = dto.getMb_nick_name();
 		String bct_writer_id = dto.getMb_id();
-		String mb_number = "1";
 		
 		Board_Service sv = sqlSession.getMapper(Board_Service.class);
 		sv.board_save(bct_writer, bct_title, bct_content, bat_number, mb_number, bct_writer_id);
+		
+		mo.addAttribute("mb_number", mb_number);
 		
 		return "redirect:board_main";
 	}
@@ -102,26 +106,46 @@ public class Board_Controller {
 		String bct_content_number = request.getParameter("bct_content_number");
 		String mb_number = request.getParameter("mb_number");
 		if (mb_number == null) mb_number = "1";
+		String like = "false";
+		int login_number = 0;
+		
+		HttpSession hs = request.getSession();
+		Member_DTO login = (Member_DTO)hs.getAttribute("member");
+		if (login != null) {
+			login_number = Integer.parseInt(login.getMb_number());
+		}
 		
 		Board_Service sv = sqlSession.getMapper(Board_Service.class);
 		sv.board_view_cntup(bct_content_number);
 		Board_DTO post = sv.board_view(bct_content_number);
 		ArrayList<Comment_DTO> comment = sv.comment_list(bct_content_number);
 		ArrayList<Attribute_DTO> attribute_list = sv.attribute_list(mb_number);
+		ArrayList<Integer> liked_list = sv.board_liked_list(bct_content_number);
+		
+		for (int list:liked_list) {
+			if (list == login_number) like = "true";
+		}
 		
 		mo.addAttribute("post", post);
 		mo.addAttribute("comment", comment);
 		mo.addAttribute("attribute_list", attribute_list);
+		mo.addAttribute("like", like);
+		mo.addAttribute("mb_number", mb_number);
 		
 		return "board_view";
 	}
 	@RequestMapping(value = "board_delete")
-	public String board_delete(HttpServletRequest request) {
+	public String board_delete(HttpServletRequest request, Model mo) {
 		String bct_content_number = request.getParameter("bct_content_number");
+		String mb_number = request.getParameter("mb_number");
+		
+		System.out.println(mb_number);
 		
 		Board_Service sv = sqlSession.getMapper(Board_Service.class);
 		sv.board_delete(bct_content_number);
 		sv.board_comment_delete(bct_content_number);
+		
+		mo.addAttribute("mb_number", mb_number);
 		
 		return "redirect:board_main";
 	}
@@ -236,5 +260,26 @@ public class Board_Controller {
 		sv.board_set_noties(noties, bct_content_number);
 		
 		return "공지 설정완료";
+	}
+	@ResponseBody
+	@RequestMapping(value = "post_like")
+	public String post_like_add(HttpServletRequest request) {
+		HttpSession hs = request.getSession();
+		Member_DTO login = (Member_DTO)hs.getAttribute("member");
+		String bct_content_number = request.getParameter("bct_content_number");
+		String mb_number = login.getMb_number();
+		String like = request.getParameter("like");
+		
+		Board_Service sv = sqlSession.getMapper(Board_Service.class);
+		if (like.equals("false")) {
+			sv.post_like_add(mb_number, bct_content_number);
+			sv.board_like_up(bct_content_number);
+		}
+		if (like.equals("true")) {
+			sv.post_like_del(mb_number, bct_content_number);
+			sv.board_like_down(bct_content_number);
+		}
+		
+		return "좋아요 완료";
 	}
 }
