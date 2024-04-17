@@ -52,40 +52,17 @@ label {
     font-family:'Pretendard-Regular';
 }
 
-#id{
-	width: 234px;
-}
-
-.regist_phone {
-	display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-#idCheck {
-	width: 110px;
-	background-color: #2A2F4F;
-	color: white;
-}
-
 #idCheck:hover {
 	background-color:#917FB3;
 }
 
-#phone1, #phone2, #phone3 {
-	width: 86px;
+.pw1_notice {
+	color:#ff0000;
+	font-size: 13px;
+	font-family:'Pretendard-Regular';
 }
-
-#phone1 {
-	margin-right: 5px;
-}
-
-#phone2 {
-	margin: 0 5px;
-}
-
-#phone3 {
-	margin-left: 5px;
+.pw1_notice p{
+	margin: 0px;
 }
 
 .regist_signup input{

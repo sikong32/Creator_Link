@@ -64,8 +64,7 @@ public class Member_Controller {
 		String rgPwVr = request.getParameter("pw_verify");
 		String rgName = request.getParameter("name");
 		String rgBirthDate = request.getParameter("birthDate");
-
-		String rgPhone = request.getParameter("phone1") + request.getParameter("phone2") + request.getParameter("phone3");
+		String rgPhone = request.getParameter("phone");
 
 		mService.regist(rgId,rgPw,rgName,rgBirthDate,rgPhone);
 		
@@ -113,7 +112,6 @@ public class Member_Controller {
 			pw.print("<script> alert('아이디가 존재하지 않거나 잘못 입력했습니다.'); window.location.href='login'; </script>");
 			return null;
 		}
-		
 	}
 	
 	@RequestMapping(value = "logout")
@@ -151,15 +149,28 @@ public class Member_Controller {
 		String exId = request.getParameter("exId");
 		String exPw = request.getParameter("exPw");
 		String mdPw = request.getParameter("mdPw");
-		int pass = mService.passwordCheck(exId,exPw);
+		int pass = mService.infoCheck(exId,exPw);
 		if (pass == 1) {
-			
 			mService.passwordModify(exId,exPw,mdPw);
 			return "pass";
 		} else {
-			pass = 0;
 			return "fail";
 		}
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "mypage_password_check", method = RequestMethod.POST)
+	public String mypage_password_check(HttpServletRequest request) {
+		Member_Service mService = sqlSession.getMapper(Member_Service.class);
+		String exId = request.getParameter("exId");
+		String exPwVr = request.getParameter("exPw");
+		int pwCnt = mService.password_check(exId,exPwVr);
+		if (pwCnt == 1) {
+			return "pass";
+		} else {
+			return "notPass";
+		}
+		
 	}
 	
 	@ResponseBody
@@ -190,11 +201,12 @@ public class Member_Controller {
 		Member_Service mService = sqlSession.getMapper(Member_Service.class);
 		int myNumber = Integer.parseInt(mul.getParameter("number")); //회원번호
 		String myId = mul.getParameter("id"); //아이디
-		String myNickName = mul.getParameter("nickName"); // 변경할 닉네임이 기존과 같거나 공란일시 기존 닉네임으로 치환
+		String myNickName = mul.getParameter("vrNickName"); // 변경할 닉네임이 기존과 같거나 공란일시 기존 닉네임으로 치환
 		String exNickName = mul.getParameter("exNickName"); //기존닉네임
 		String myBirthDate = mul.getParameter("birthDate"); //생년월일
 		String myPhone = mul.getParameter("phone"); //연락처
 		String myEmail = mul.getParameter("email"); //이메일
+		String myAttribute = mul.getParameter("attribute");
 		String myAddrPost = mul.getParameter("sample4_postcode"); //우편번호
 		String myAddrRoad = mul.getParameter("sample4_roadAddress"); //도로명주소
 		String myAddrLocal = mul.getParameter("sample4_jibunAddress"); //지번주소
@@ -234,7 +246,7 @@ public class Member_Controller {
 			myPhoto = filesave(myPhoto, mf.getBytes());
 			mf.transferTo(new File(imagePath+"//"+myPhoto));
 		}
-		mService.mdMyInfo(myNumber,myId,myPhoto,myNickName,myBirthDate,myPhone,myEmail,myAddrPost,myAddrRoad,myAddrLocal,myAddrDetail);
+		mService.mdMyInfo(myNumber,myId,myPhoto,myNickName,myBirthDate,myPhone,myEmail,myAddrPost,myAddrRoad,myAddrLocal,myAddrDetail,myAttribute);
 		return "redirect:index";
 	}
 	
