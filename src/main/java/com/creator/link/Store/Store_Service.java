@@ -72,5 +72,9 @@ public interface Store_Service {
 
 	ArrayList<Order_DTO> order_list(String member_number);
 
+	void review_save(int pd_number, String review_text, String re_star, String mb_number);
+
+	ArrayList<Review_DTO> review_search(int pd_number);
+
 
 }

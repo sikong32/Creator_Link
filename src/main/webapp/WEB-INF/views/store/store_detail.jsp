@@ -147,14 +147,30 @@
 				<td><div>${dto.pd_content}</div></td>
 			</tr>
 			<tr>
-				<th>리뷰</th>
-				<td>내용</td>
+				<td>리뷰</td>
+				<c:choose>
+					<c:when test="${review=='OK'}">
+					<td><a href="review_input?pd_number=${dto.pd_number}" onclick="popup(event)">리뷰 등록</a></td>
+				</c:when>
+				</c:choose>
+					<c:forEach items="${re_list}" var="re">
+						<tr>
+						<td>${re.re_content}</td>
+						<td>${re.re_star}</td>
+						<td>${re.re_day}</td>
+						</tr>
+					</c:forEach>
 			</tr>
 		</table>
 	</form>
 </body>
 
 <script type="text/javascript">
+function popup(event) {
+    event.preventDefault(); // 기본 링크 동작을 중지합니다.
+    const url = event.target.href; // 링크의 주소를 가져옵니다.
+    window.open(url, "_blank", "width=600,height=400"); // 팝업 창을 엽니다.
+}
 function login_check() {
 	var login = "${loginState}";
 	if(login == "true"){

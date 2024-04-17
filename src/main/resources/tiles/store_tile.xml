@@ -55,4 +55,8 @@
 		<put-attribute name="title" value="메인화면" />
 		<put-attribute name="body" value="/WEB-INF/views/store/order_list.jsp" />
 	</definition>
+	<definition name="review_input" extends="baseLayout">
+		<put-attribute name="title" value="메인화면" />
+		<put-attribute name="body" value="/WEB-INF/views/store/review_input.jsp" />
+	</definition>
 </tiles-definitions>

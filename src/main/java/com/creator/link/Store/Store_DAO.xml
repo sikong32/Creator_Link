@@ -36,6 +36,10 @@
 	INSERT INTO CART_TBL(CT_PD_QNT,PD_NUMBER,MB_NUMBER,OS_NUMBER,CT_STOCK)
 	VALUES (CT_PD_QNT_SQL.nextval,#{param1},#{param2},#{param3},#{param4})
 </insert>
+<insert id="review_save">
+	INSERT INTO review_tbl(REVIEW_NUMBER, PD_NUMBER, RE_CONTENT, RE_STAR, MB_NUMBER) 
+	VALUES (REVIEW_NUMBER_SQL.nextval,#{param1},#{param2},#{param3},#{param4})
+</insert>
 <select id="store_detail" resultType="com.creator.link.Store.Store_DTO">
 	select * from PRODUCT_TBL where PD_NUMBER = #{param1}
 </select>
@@ -89,6 +93,9 @@
 </select>
 <select id="order_list" resultType="com.creator.link.Store.Order_DTO">
 	SELECT * FROM ORDER_TBL WHERE MB_NUMBER = #{param1}
+</select>
+<select id="review_search" resultType="com.creator.link.Store.Review_DTO">
+	SELECT * FROM REVIEW_TBL WHERE PD_NUMBER = #{param1}
 </select>
 <update id="cart_up_stock">
 	UPDATE cart_tbl SET ct_stock = ct_stock + #{param3} WHERE pd_number = #{param1} and mb_number = #{param2}
