@@ -8,9 +8,10 @@
 }
 
 .main_container {
-	width: 100vw;
+	width: 100%;
 	height: 230vh;
     display: flex;
+    position: relative;
 }
 
 /*  방송 카테고리(사이드바) */
