@@ -22,7 +22,7 @@
 	select * from crering.member_tbl where mb_id=#{param1}
 </select>
 
-<select id="passwordCheck" resultType="int">
+<select id="infoCheck" resultType="int">
 	select count(*) from crering.member_tbl where mb_id=#{param1} and mb_password=#{param2}
 </select>
 
@@ -37,8 +37,11 @@
 <update id="mdMyInfo">
 	update member_tbl set mb_photo=#{param3},mb_nick_name=#{param4},mb_birth_date=#{param5},mb_phone=#{param6},
 						  mb_email=#{param7},mb_addr_post=#{param8},mb_addr_road=#{param9},mb_addr_local=#{param10},
-						  mb_addr_detail=#{param11} where mb_number=#{param1} and mb_id=#{param2}
+						  mb_addr_detail=#{param11},mb_attribute=#{param12} where mb_number=#{param1} and mb_id=#{param2}
 </update>
 
+<select id="password_check" resultType="int">
+	select count(*) from crering.member_tbl where mb_id=#{param1} and mb_password=#{param2}
+</select>
 
 </mapper>

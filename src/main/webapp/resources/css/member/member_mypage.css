@@ -98,6 +98,11 @@ input {
 	width: 495px;
 	margin: 0;
 }
+input[type="button"] {
+	cursor: pointer;
+}
+      
+
 
 #attribute {
 	position: relative;
