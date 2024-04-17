@@ -47,4 +47,8 @@
 		<put-attribute name="title" value="메인화면" />
 		<put-attribute name="body" value="/WEB-INF/views/store/shoping_cart_buy_fix.jsp" />
 	</definition>
+	<definition name="order_list" extends="baseLayout">
+		<put-attribute name="title" value="메인화면" />
+		<put-attribute name="body" value="/WEB-INF/views/store/order_list.jsp" />
+	</definition>
 </tiles-definitions>

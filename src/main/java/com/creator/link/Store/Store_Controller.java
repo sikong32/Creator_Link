@@ -57,6 +57,32 @@ public class Store_Controller {
 		model.addAttribute("list",list);
 		return "store_main";
 	}
+	@RequestMapping(value = "order_list")
+	public String order_list(HttpServletRequest request,Model model) {
+		HttpSession hs = request.getSession();
+		Member_DTO member = (Member_DTO)hs.getAttribute("member");
+		Store_Service ss = sqlSession.getMapper(Store_Service.class);
+		if(member!=null) {
+			String member_number = member.getMb_number();
+			ArrayList<Order_DTO> od_list = ss.order_list(member_number);
+			for (int i = 0; i < od_list.size(); i++) {
+				String image = null;
+				if(od_list.get(i).getOs_number()!=0) {
+					Store_OS_DTO os_list = ss.select_os(od_list.get(i).getOs_number());
+					String os_name = os_list.getOs_1name()+os_list.getOs_2name()+os_list.getOs_3name();
+					image = os_list.getOs_photo();
+					od_list.get(i).setOs_name(os_name.replace("null", ""));
+					od_list.get(i).setImage(image);
+				}else {
+					Store_DTO pd_list = ss.select_pd(od_list.get(i).getOd_pd_number());
+					image = pd_list.getPd_photo();
+					od_list.get(i).setImage(image);
+				}
+			}
+			model.addAttribute("order_list",od_list);
+		}
+		return "order_list";
+	}
 	@ResponseBody
 	@RequestMapping(value = "shopping_cart_save",method = RequestMethod.POST)
 	public String shopping_cart(HttpServletRequest request,HttpServletResponse response) {
@@ -263,7 +289,7 @@ public class Store_Controller {
 				int od_pd_qnt = Integer.parseInt(request.getParameterValues("pd_buy_quantity")[i]);
 				int od_price = Integer.parseInt(request.getParameterValues("pdtot_price")[i]);
 				String od_pd_name = request.getParameterValues("pd_name")[i];
-				ss.od_insert(od_id,od_pd_name,od_pd_qnt,od_price,od_cp_code,mb_number,zip_code,dlvy_address,dlvy_address_dong,dlvy_detail,dlvy_comment);
+				ss.od_insert(od_id,od_pd_name,od_pd_qnt,od_price,od_cp_code,mb_number,zip_code,dlvy_address,dlvy_address_dong,dlvy_detail,dlvy_comment,pd_number);
 				ss.od_updata_pd(pd_number,od_pd_qnt);
 			}
 			od_su = pd_numbers.length;
@@ -279,7 +305,7 @@ public class Store_Controller {
 				int pd_number = Integer.parseInt(request.getParameterValues("os_pd_number")[i]);
 				String od_pd_name = request.getParameterValues("os_pd_name")[i];
 				String od_os_name = request.getParameterValues("os_name")[i];
-				ss.od_insert_os(od_id,od_pd_name,od_pd_qnt,od_price,od_cp_code,mb_number,os_number,zip_code,dlvy_address,dlvy_address_dong,dlvy_detail,dlvy_comment);
+				ss.od_insert_os(od_id,od_pd_name,od_pd_qnt,od_price,od_cp_code,mb_number,os_number,zip_code,dlvy_address,dlvy_address_dong,dlvy_detail,dlvy_comment,pd_number);
 				ss.od_updata_os(pd_number,od_pd_qnt,os_number);
 			}
 			od_su += os_numbers.length;
@@ -314,10 +340,10 @@ public class Store_Controller {
 		}
 		if(request.getParameter("os_number")!=null) {
 			int os_number = Integer.parseInt(request.getParameter("os_number"));
-			ss.od_insert_os(od_id,od_pd_name,od_pd_qnt,od_price,od_cp_code,mb_number,os_number,zip_code,dlvy_address,dlvy_address_dong,dlvy_detail,dlvy_comment);
+			ss.od_insert_os(od_id,od_pd_name,od_pd_qnt,od_price,od_cp_code,mb_number,os_number,zip_code,dlvy_address,dlvy_address_dong,dlvy_detail,dlvy_comment,pd_number);
 			ss.od_updata_os(pd_number,od_pd_qnt,os_number);
 		}else {
-			ss.od_insert(od_id,od_pd_name,od_pd_qnt,od_price,od_cp_code,mb_number,zip_code,dlvy_address,dlvy_address_dong,dlvy_detail,dlvy_comment);
+			ss.od_insert(od_id,od_pd_name,od_pd_qnt,od_price,od_cp_code,mb_number,zip_code,dlvy_address,dlvy_address_dong,dlvy_detail,dlvy_comment,pd_number);
 		}
 		ss.od_updata_pd(pd_number,od_pd_qnt);
 		int od_number = ss.od_select_number(od_id,od_pd_name,mb_number);
