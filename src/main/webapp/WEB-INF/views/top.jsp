@@ -4,25 +4,18 @@
 <html>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script type="text/javascript">
-	$(document).ready(function() {
-		$("#myPageLink").click(function(event) {
-			event.preventDefault();
-			
-			var memberId = "${member.mb_id}";
-			var exId = memberId.trim();
-			sendPostRequest("mypage", {"exId":exId});
-		}); //#myPageLink
-	}); //document
-	
-	function sendPostRequest(url, data) {
+
+	function sendPostRequestMyPage() {
+		var memberId = "${member.mb_id}";
+		var exId = memberId.trim();
 		var form = document.createElement("form");
 		form.method = "post";
-		form.action = "mypage";
+		form.action = "totalPage";
 		
 		var input = document.createElement("input");
 		input.type = "hidden";
-		input.name = Object.keys(data)[0];
-		input.value = data[Object.keys(data)[0]];
+		input.name = "exId";
+		input.value = exId;
 		form.appendChild(input);
 		
 		document.body.appendChild(form);
@@ -73,7 +66,7 @@
 						<li class="navbar_ment">${member.mb_nick_name}님 환영합니다!</li>
 						<li class="mavbar_mypage"><a href="#"><i class="fa-regular fa-user"></i></a>
 							<ul class="navbar_submenu">
-								<li id="myPageLink"><a href="#"><i class="fa-regular fa-user"></i>마이페이지</a></li>
+								<li id="totalPage"><a onclick="sendPostRequestMyPage()"><i class="fa-regular fa-user"></i>마이페이지</a></li>
 								<li><a href="#"><i class="fa-regular fa-star"></i>별</a></li>
 								<li><a href="#"><i class="fa-regular fa-heart"></i>하트</a></li>
 								<li><a href="order_list"><i class="fa-solid fa-list"></i>주문 목록</a></li>
