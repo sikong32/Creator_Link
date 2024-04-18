@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.text.DecimalFormat;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Properties;
@@ -185,7 +186,14 @@ public class Store_Controller {
 				}
 			}
 		}
+		int star = 0;
+		for (int i = 0; i < re_list.size(); i++) {
+			star += re_list.get(i).getRe_star().length();
+		}
+		DecimalFormat df = new DecimalFormat("##0.00");
+		double staravg = (double)star / re_list.size();
 		LocalDate today = LocalDate.now();
+		model.addAttribute("staravg",df.format(staravg));
 		model.addAttribute("re_list",re_list);
 		model.addAttribute("dto",dto);
 		model.addAttribute("list",list);

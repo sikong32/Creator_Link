@@ -147,7 +147,7 @@
 				<td><div>${dto.pd_content}</div></td>
 			</tr>
 			<tr>
-				<td>리뷰</td>
+				<td>리뷰평점 <b>${staravg}</b>/5</td>
 				<c:choose>
 					<c:when test="${review=='OK'}">
 					<td><a href="review_input?pd_number=${dto.pd_number}" onclick="popup(event)">리뷰 등록</a></td>
