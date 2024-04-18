@@ -97,6 +97,9 @@
 <select id="review_search" resultType="com.creator.link.Store.Review_DTO">
 	SELECT * FROM REVIEW_TBL WHERE PD_NUMBER = #{param1}
 </select>
+<select id="review_modify" resultType="com.creator.link.Store.Review_DTO">
+	SELECT * FROM REVIEW_TBL WHERE REVIEW_NUMBER = #{param1}
+</select>
 <update id="cart_up_stock">
 	UPDATE cart_tbl SET ct_stock = ct_stock + #{param3} WHERE pd_number = #{param1} and mb_number = #{param2}
 </update>
@@ -106,7 +109,13 @@
 <update id="od_updata_os">
 	UPDATE PRODUCT_OPSTION_TBL SET os_stock = os_stock-#{param2} WHERE pd_number=#{param1} and OS_NUMBER = #{param3}
 </update>
+<update id="review_update">
+	UPDATE REVIEW_TBL SET RE_CONTENT = #{param2} , RE_STAR = #{param3} WHERE REVIEW_NUMBER = #{param1} and MB_NUMBER = #{param4}
+</update>
 <delete id="cart_delete">
 	DELETE FROM CART_TBL WHERE ct_pd_qnt = #{param1} and mb_number = #{param2}
+</delete>
+<delete id="review_delete">
+	DELETE FROM REVIEW_TBL WHERE REVIEW_NUMBER = #{param1} and MB_NUMBER = #{param2}
 </delete>
 </mapper>

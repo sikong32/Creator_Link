@@ -178,11 +178,18 @@ public class Store_Controller {
 		ArrayList<String> os_3name = ss.os_3name_search(pd_number);
 		ArrayList<Review_DTO> re_list = ss.review_search(pd_number);
 		if(member!=null) {
+			String review = null;
 			ArrayList<Order_DTO> od_list = ss.order_list(member.getMb_number());
 			for (int i = 0; i < od_list.size(); i++) {
 				if(od_list.get(i).getOd_pd_number()==pd_number) {
-					String review = "OK";
+					review = "OK";
 					model.addAttribute("review",review);
+				}
+				for (int j = 0; j < re_list.size(); j++) {
+					if(od_list.get(i).getOd_pd_number()==pd_number && re_list.get(j).getMb_number()==Integer.parseInt(member.getMb_number())) {
+						review = "modify";
+						model.addAttribute("review",review);
+					}
 				}
 			}
 		}
@@ -190,10 +197,12 @@ public class Store_Controller {
 		for (int i = 0; i < re_list.size(); i++) {
 			star += re_list.get(i).getRe_star().length();
 		}
-		DecimalFormat df = new DecimalFormat("##0.00");
-		double staravg = (double)star / re_list.size();
+		if(star!=0) {
+			DecimalFormat df = new DecimalFormat("##0.00");
+			double staravg = (double)star / re_list.size();
+			model.addAttribute("staravg",df.format(staravg));
+		}
 		LocalDate today = LocalDate.now();
-		model.addAttribute("staravg",df.format(staravg));
 		model.addAttribute("re_list",re_list);
 		model.addAttribute("dto",dto);
 		model.addAttribute("list",list);
@@ -205,31 +214,22 @@ public class Store_Controller {
 	}
 	@RequestMapping(value = "review_input")
 	public String review_input(HttpServletRequest request,Model model) {
-		HttpSession hs = request.getSession();
-		Member_DTO member = (Member_DTO)hs.getAttribute("member");
 		int pd_number = Integer.parseInt(request.getParameter("pd_number"));
 		Store_Service ss = sqlSession.getMapper(Store_Service.class);
 		Store_DTO dto = ss.store_detail(pd_number);
-		ArrayList<Store_OS_DTO> list = ss.store_os_detail(pd_number);
-		String os_name = null; 
-		for (int i = 0; i < list.size(); i++) {
-			os_name = list.get(i).getOs_1name()+list.get(i).getOs_2name()+list.get(i).getOs_3name();
-		}
-		if(member!=null) {
-			ArrayList<Order_DTO> od_list = ss.order_list(member.getMb_number());
-			for (int i = 0; i < od_list.size(); i++) {
-				if(od_list.get(i).getOd_pd_number()==pd_number) {
-					String review = "OK";
-					model.addAttribute("review",review);
-				}
-			}
-		}
-		LocalDate today = LocalDate.now();
 		model.addAttribute("dto",dto);
-		model.addAttribute("list",list);
-		model.addAttribute("os_name",os_name.replace("null", ""));
-		model.addAttribute("today",today.plusDays(3));
 		return "review_input";
+	}
+	@RequestMapping(value = "review_modify")
+	public String review_modify(HttpServletRequest request,Model model) {
+		int pd_number = Integer.parseInt(request.getParameter("pd_number"));
+		int re_number = Integer.parseInt(request.getParameter("re_number"));
+		Store_Service ss = sqlSession.getMapper(Store_Service.class);
+		Store_DTO dto = ss.store_detail(pd_number);
+		Review_DTO re_dto = ss.review_modify(re_number);
+		model.addAttribute("dto",dto);
+		model.addAttribute("re_dto",re_dto);
+		return "review_modify";
 	}
 	@ResponseBody
 	@RequestMapping(value = "review_save")
@@ -241,7 +241,29 @@ public class Store_Controller {
 		String review_text = request.getParameter("review_text");
 		String re_star = request.getParameter("review_star");
 		ss.review_save(pd_number,review_text,re_star,member.getMb_number());
-		return "<script>window.close();</script>";
+		return "<script>window.close();window.opener.location.reload();</script>";
+	}
+	@ResponseBody
+	@RequestMapping(value = "review_modify_save")
+	public String review_modify_save(HttpServletRequest request,Model model) {
+		HttpSession hs = request.getSession();
+		Member_DTO member = (Member_DTO)hs.getAttribute("member");
+		Store_Service ss = sqlSession.getMapper(Store_Service.class);
+		int re_number = Integer.parseInt(request.getParameter("re_number"));
+		String review_text = request.getParameter("review_text");
+		String re_star = request.getParameter("review_star");
+		ss.review_update(re_number, review_text,re_star,member.getMb_number());
+		return "<script>window.close();window.opener.location.reload();</script>";
+	}
+	@ResponseBody
+	@RequestMapping(value = "review_delete", produces = "text/html; charset=UTF-8")
+	public String review_delete(HttpServletRequest request,Model model) {
+		HttpSession hs = request.getSession();
+		Member_DTO member = (Member_DTO)hs.getAttribute("member");
+		Store_Service ss = sqlSession.getMapper(Store_Service.class);
+		int re_number = Integer.parseInt(request.getParameter("re_number"));
+		ss.review_delete(re_number, member.getMb_number());
+		return "<script>alert('삭제 완료'); window.location.href = document.referrer;</script>";
 	}
 	@RequestMapping(value = "shoping_buy", method= RequestMethod.POST)
 	public String shoping_buy(HttpServletRequest request,Model mo) {

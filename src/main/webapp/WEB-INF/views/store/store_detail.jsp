@@ -147,17 +147,16 @@
 				<td><div>${dto.pd_content}</div></td>
 			</tr>
 			<tr>
-				<td>리뷰평점 <b>${staravg}</b>/5</td>
-				<c:choose>
-					<c:when test="${review=='OK'}">
-					<td><a href="review_input?pd_number=${dto.pd_number}" onclick="popup(event)">리뷰 등록</a></td>
-				</c:when>
-				</c:choose>
+				<td>리뷰평점 <c:if test="${not empty staravg}"><b>${staravg}</b>/5 리뷰 개수 <b>${re_list.size()}</b></c:if></td>
+					<c:if test="${review=='OK'}"><td><a href="review_input?pd_number=${dto.pd_number}" onclick="popup(event)">리뷰 등록</a></td></c:if>
 					<c:forEach items="${re_list}" var="re">
 						<tr>
 						<td>${re.re_content}</td>
 						<td>${re.re_star}</td>
 						<td>${re.re_day}</td>
+						<c:if test="${re.mb_number==member.mb_number}"><td><a href="review_modify?pd_number=${dto.pd_number}&re_number=${re.review_number}" onclick="popup(event)">리뷰 수정</a>
+						<a href="review_delete?pd_number=${dto.pd_number}&re_number=${re.review_number}">리뷰 삭제</a>
+						</td></c:if>
 						</tr>
 					</c:forEach>
 			</tr>

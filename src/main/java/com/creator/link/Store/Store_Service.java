@@ -76,5 +76,11 @@ public interface Store_Service {
 
 	ArrayList<Review_DTO> review_search(int pd_number);
 
+	Review_DTO review_modify(int re_number);
+
+	void review_update(int re_number, String review_text, String re_star, String mb_number);
+
+	void review_delete(int re_number, String mb_number);
+
 
 }

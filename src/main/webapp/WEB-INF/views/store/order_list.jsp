@@ -12,7 +12,7 @@
 <ul>
 <c:forEach items="${order_list}" var="od">
 <li>
-<img alt="" src="./resources/store/item_cover/${od.image}" width="100px">
+<a href="store_detail?pd_number=${od.od_pd_number}"><img alt="" src="./resources/store/item_cover/${od.image}" width="100px"></a>
 상품명: ${od.od_pd_name}<br>
 주문 개수: ${od.od_pd_qnt}<br>
 주문 가격: ${od.od_price}<br>
