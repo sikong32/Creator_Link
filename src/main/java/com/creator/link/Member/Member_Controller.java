@@ -18,6 +18,7 @@ import javax.servlet.http.HttpSession;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -121,6 +122,18 @@ public class Member_Controller {
 		hs.setAttribute("loginState", false);
 		
 		return "redirect:index";
+	}
+	
+	@RequestMapping(value = "totalPage", method = RequestMethod.POST)
+	public ModelAndView total(HttpServletRequest request, ModelAndView mav) {
+		Member_Service mService = sqlSession.getMapper(Member_Service.class);
+		Member_DTO mDto = new Member_DTO();
+		String exId = request.getParameter("exId");
+		mDto = mService.totalPage(exId);
+		mav.addObject("dto", mDto);
+		mav.setViewName("member_total");
+		
+		return mav;
 	}
 	
 	@RequestMapping(value = "mypage", method = RequestMethod.POST)

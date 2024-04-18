@@ -18,6 +18,10 @@
 	select * from crering.member_tbl where mb_id=#{param1} and mb_password=#{param2}
 </select>
 
+<select id="totalPage" resultType="com.creator.link.Member.Member_DTO">
+	select mb_number, mb_id, mb_photo, mb_nick_name, mb_attribute from crering.member_tbl where mb_id=#{param1}
+</select>
+
 <select id="myPage" resultType="com.creator.link.Member.Member_DTO">
 	select * from crering.member_tbl where mb_id=#{param1}
 </select>
