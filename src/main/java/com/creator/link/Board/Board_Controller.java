@@ -34,15 +34,27 @@ public class Board_Controller {
 		String search = request.getParameter("search");
 		String value = request.getParameter("value");
 		int value_of_total = 0;
+		String mode = request.getParameter("mode");
 		
 		Board_Service sv = sqlSession.getMapper(Board_Service.class);
+		String mb_nick_name = sv.call_mb_nick_name(mb_number);
 		value_of_total = sv.value_of_total(mb_number, bat_number, search, value);
 		Paging paging = new Paging(Integer.parseInt(now_page), Integer.parseInt(view_per_page), value_of_total);
 		ArrayList<Attribute_DTO> attribute_list = sv.attribute_list(mb_number);
-		ArrayList<Board_DTO> board_list = sv.board_list(mb_number, paging, bat_number, search, value);
+		ArrayList<Board_DTO> board_list = sv.board_list(mb_number, paging, bat_number, search, value, mode);
 		ArrayList<Board_DTO> noties_list = sv.board_noties_list(mb_number);
 		ArrayList<Comment_number> comment_number = sv.comment_number();
-		
+		HttpSession hs = request.getSession();
+		Member_DTO login = (Member_DTO)hs.getAttribute("member");
+		ArrayList<Visit_history_DTO> history_list = new ArrayList<Visit_history_DTO>();
+		if (login != null) {
+			try {
+				if (mb_number != "1") {
+					sv.visit_history_add(login.getMb_number(), mb_number,  mb_nick_name);
+				}
+			} catch (Exception e) {}
+			history_list = sv.visit_history_list(login.getMb_number());
+		}
 		LocalDateTime ldt = LocalDateTime.now();
 		
 		mo.addAttribute("board_list", board_list);
@@ -55,6 +67,8 @@ public class Board_Controller {
 		mo.addAttribute("now_date", ldt.toLocalDate());
 		mo.addAttribute("comment_number", comment_number);
 		mo.addAttribute("mb_number", mb_number);
+		mo.addAttribute("mb_nick_name", mb_nick_name);
+		mo.addAttribute("history_list", history_list);
 		
 		return "board_main";
 	}
@@ -139,8 +153,6 @@ public class Board_Controller {
 		String bct_content_number = request.getParameter("bct_content_number");
 		String mb_number = request.getParameter("mb_number");
 		
-		System.out.println(mb_number);
-		
 		Board_Service sv = sqlSession.getMapper(Board_Service.class);
 		sv.board_delete(bct_content_number);
 		sv.board_comment_delete(bct_content_number);
@@ -152,6 +164,7 @@ public class Board_Controller {
 	@RequestMapping(value = "board_modify")
 	public String board_modify(HttpServletRequest request, Model mo) {
 		String bct_content_number = request.getParameter("bct_content_number");
+		String mb_number = request.getParameter("mb_number");
 		
 		Board_Service sv = sqlSession.getMapper(Board_Service.class);
 		Board_DTO post = sv.board_view(bct_content_number);
@@ -159,6 +172,7 @@ public class Board_Controller {
 		
 		mo.addAttribute("post", post);
 		mo.addAttribute("attribute_list", attribute_list);
+		mo.addAttribute("mb_number", mb_number);
 		
 		return "board_modify";
 	}
@@ -168,11 +182,15 @@ public class Board_Controller {
 		String bct_title = request.getParameter("title");
 		String bct_content = request.getParameter("content");
 		String attribute = request.getParameter("attribute");
+		String mb_number = request.getParameter("mb_number");
 		
 		Board_Service sv = sqlSession.getMapper(Board_Service.class);
 		sv.board_modify(bct_title, bct_content, attribute, bct_content_number);
 		
-		return "redirect:board_main";
+		mo.addAttribute("mb_number", mb_number);
+		mo.addAttribute("bct_content_number", bct_content_number);
+		
+		return "redirect:board_view";
 	}
 	@ResponseBody
 	@RequestMapping(value = "comment_save")
@@ -281,5 +299,19 @@ public class Board_Controller {
 		}
 		
 		return "좋아요 완료";
+	}
+	@ResponseBody
+	@RequestMapping(value = "history_del")
+	public String history_del(HttpServletRequest request) {
+		String mb_number = request.getParameter("mb_number");
+		
+		HttpSession hs = request.getSession();
+		Member_DTO member = (Member_DTO)hs.getAttribute("member");
+		String login_number = member.getMb_number();
+		
+		Board_Service sv = sqlSession.getMapper(Board_Service.class);
+		sv.history_delete(mb_number, login_number);
+		
+		return "기록 삭제완료";
 	}
 }

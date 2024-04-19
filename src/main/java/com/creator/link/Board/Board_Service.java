@@ -12,7 +12,7 @@ public interface Board_Service {
 	
 	int value_of_total(String mb_number, String bat_number, String search, String value);
 	
-	ArrayList<Board_DTO> board_list(String mb_number, Paging paging, String bat_number, String search, String value);
+	ArrayList<Board_DTO> board_list(String mb_number, Paging paging, String bat_number, String search, String value, String mode);
 	
 	Board_DTO board_view(String bct_content_number);
 	
@@ -51,4 +51,12 @@ public interface Board_Service {
 	void board_like_up(String bct_content_number);
 
 	void board_like_down(String bct_content_number);
+
+	ArrayList<Visit_history_DTO> visit_history_list(String mb_number);
+
+	void visit_history_add(String login_number, String mb_number, String mb_nick_name);
+
+	void history_delete(String mb_number, String login_number);
+
+	String call_mb_nick_name(String mb_number);
 }

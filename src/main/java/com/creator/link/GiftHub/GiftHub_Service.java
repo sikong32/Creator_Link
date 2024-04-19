@@ -2,9 +2,11 @@ package com.creator.link.GiftHub;
 
 import java.util.ArrayList;
 
+import com.creator.link.Member.Member_DTO;
+
 public interface GiftHub_Service {
 	
-	ArrayList<GiftHub_Creator_DTO> basic_creator_list();
+	ArrayList<Member_DTO> basic_creator_list();
 
 	ArrayList<GiftHub_Creator_DTO> search_creator_list(String keyword);
 	

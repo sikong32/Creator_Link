@@ -21,13 +21,28 @@
 	<c:if test="${not empty search}">
 		<c:set var="searchParams" value="&search=${search}&value=${value}"/>
 	</c:if>
+	<c:set var="mb_numberParams" value=""/>
+	<c:if test="${not empty mb_number && mb_number != '1'}">
+		<c:set var="mb_numberParams" value="&mb_number=${mb_number}"/>
+	</c:if>
+	<c:set var="bat_numberParams" value=""/>
+	<c:if test="${not empty bat_number}">
+		<c:set var="bat_numberParams" value="&bat_number=${bat_number}"/>
+	</c:if>
 	
 	<div class="background">
 		<div class="container">
 			<div class="sidebar">
 				<aside class="category_list">
 					<div class="category_title">
-						<span>CreatorLink</span>
+						<c:choose>
+							<c:when test="${mb_number == '1' || mb_number == null}">
+								<span>CreatorLink</span>
+							</c:when>
+							<c:otherwise>
+								<span>${mb_nick_name}</span>
+							</c:otherwise>
+						</c:choose>
 						<span id="list_add" style="font-size: 15px; display: none; cursor: pointer;">➕</span>
 					</div>
 					<div onclick="location.href='board_main?mb_number=${mb_number}'" class="category">전체글</div>
@@ -50,7 +65,17 @@
 			
 			<div class="board">
 				<div class="history">
-					<span style="font-weight: bold; padding-left: 10px;">History</span>
+					<span style="font-weight: bold; padding-left: 10px; margin-right: 10px;">History</span>
+					<c:forEach items="${history_list}" var="hl" varStatus="state">
+						<c:if test="${mb_number != hl.mb_number }">
+							<c:if test="${state.index <= 10}">
+								<div style="margin-left: 10px; margin-right: 10px;">
+									<a href="board_main?mb_number=${hl.mb_number}">${hl.mb_nick_name}</a>
+									<a id="history_del_${state.index}" data-mb_number="${hl.mb_number}" style="cursor: pointer;">x</a>
+								</div>
+							</c:if>
+						</c:if>
+					</c:forEach>
 				</div>
 				
 				<div class="noties">
@@ -166,7 +191,7 @@
 				</div>
 				
 				<div class="functions">
-					<span style="float: left;"><button type="button" name="hitpost" id="hitpost" onclick="">인기글</button></span>
+					<span style="float: left;"><button type="button" onclick="location.href='board_main?mode=best${mb_numberParams}${bat_numberParams}'">인기글</button></span>
 					<select name="search" id="search">
 						<option value="bct_title">제목</option>
 						<option value="bct_content">내용</option>

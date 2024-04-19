@@ -53,18 +53,20 @@ function selectCreator() {
         button.addEventListener('click', function() {
             var nick_name = this.getAttribute('data-nick');
             var photo = this.getAttribute('data-photo');
-            var address = {
-                post: this.getAttribute('data-post'),
-                road: this.getAttribute('data-road'),
-                local: this.getAttribute('data-local'),
-                detail: this.getAttribute('data-detail')
-            };
+            var post = this.getAttribute('data-post');
+            var road = this.getAttribute('data-road');
+            var local = this.getAttribute('data-local');
+            var detail = this.getAttribute('data-detail');
+            
 
             // 부모 창에 데이터 전달 //
             window.opener.selectCreatorInfo({
                 nick_name: nick_name,
                 photo: photo,
-                address: address
+                post : post,
+                road : road,
+                local : local,
+                detail : detail
             });
             
             window.close();
