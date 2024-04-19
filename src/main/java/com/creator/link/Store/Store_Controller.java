@@ -448,6 +448,104 @@ public class Store_Controller {
 		mo.addAttribute("category",category);
 		return "store_input";
 	}
+	@RequestMapping(value = "store_management")
+	public String store_management(HttpServletRequest request,Model mo) {
+		Store_Service ss = sqlSession.getMapper(Store_Service.class);
+		// 회원 번호 가져오기
+		HttpSession hs = request.getSession();
+		Member_DTO dto = (Member_DTO)hs.getAttribute("member");
+		int mb_number = Integer.parseInt(dto.getMb_number());
+		ArrayList<Store_DTO> ma_list = ss.store_mana(mb_number);
+		mo.addAttribute("ma_list",ma_list);
+		return "store_management";
+	}
+	@RequestMapping(value = "store_product_modify")
+	public String updateProduct(HttpServletRequest request,Model mo) {
+		Store_Service ss = sqlSession.getMapper(Store_Service.class);
+		//카테고리 가져오기
+		ArrayList<Category_DTO> category = ss.category_all();
+		mo.addAttribute("category",category);
+		// 로그인 여부 확인
+		HttpSession hs = request.getSession();
+		if(hs.getAttribute("member")!=null) {
+			int pd_number = Integer.parseInt(request.getParameter("pd_number"));
+			Store_DTO pd_dto = ss.store_detail(pd_number);
+			ArrayList<Store_OS_DTO> os_list = ss.store_os_detail(pd_number);
+			mo.addAttribute("os_list",os_list);
+			mo.addAttribute("pd_dto",pd_dto);
+			return "store_product_modify";
+		}else {
+			return "login";
+		}
+	}
+	@RequestMapping(value = "store_product_modify_save", method = RequestMethod.POST)
+	public String store_product_modify_save(MultipartHttpServletRequest mul,HttpServletRequest request) throws IllegalStateException, IOException {
+		Store_Service ss = sqlSession.getMapper(Store_Service.class);
+		// 회원 번호 가져오기
+		HttpSession hs = request.getSession();
+		if(hs.getAttribute("member")!=null) {
+			Member_DTO dto = (Member_DTO)hs.getAttribute("member");
+			int mb_number = Integer.parseInt(dto.getMb_number());
+		
+			// 대표 상품 정보 가져와서 저장
+			int pd_number = Integer.parseInt(request.getParameter("pd_number"));
+			String pd_category = mul.getParameter("pd_category");
+			String pd_name = mul.getParameter("pd_name");
+			int pd_price = Integer.parseInt(mul.getParameter("pd_price"));
+			String pd_content = request.getParameter("pd_content");
+			int pd_stock = Integer.parseInt(mul.getParameter("pd_stock"));
+			
+			
+			MultipartFile mf = mul.getFile("pd_photo");
+			String org_mf = request.getParameter("pd_org_photo");
+			String pd_photo = null;
+			if(mf == null || mf.isEmpty()) {
+				pd_photo = org_mf;
+			}else {
+				pd_photo = filesave(mf.getOriginalFilename());
+				mf.transferTo(new File(imagePath + pd_photo));
+				
+				// 기존 파일 삭제
+				File delPhoto = new File(imagePath+org_mf);
+				delPhoto.delete();
+			}
+			
+			
+			//옵션 정보 가져와서 저장
+			if(request.getParameter("os_number")!=null) {
+				for (int i = 0; i < request.getParameterValues("os_number").length; i++) {
+					int os_number = Integer.parseInt(request.getParameterValues("os_number")[i]);
+					int os_price = Integer.parseInt(request.getParameter("os_price_"+os_number));
+					int os_stock = Integer.parseInt(request.getParameter("os_stock_"+os_number));
+					String os_photo = pd_photo;
+					MultipartFile mf1 = mul.getFile("os_photo_"+os_number);
+					if(mf1 != null && !mf1.isEmpty()){
+						os_photo = filesave(mf1.getOriginalFilename());
+						mf1.transferTo(new File(imagePath + os_photo)); // 옵션사진파일저장
+					}
+					if(request.getParameter("os_1name"+os_number)!=null && request.getParameter("os_2name"+os_number)!=null && request.getParameter("os_3name"+os_number)!=null) {
+						String os_1name = request.getParameter("os_1name"+os_number);
+						String os_2name = request.getParameter("os_2name"+os_number);
+						String os_3name = request.getParameter("os_3name"+os_number);
+						ss.os3_up(os_number,os_1name,os_2name,os_3name,os_price,os_photo,os_stock);
+					}else if(request.getParameter("os_1name"+os_number)!=null && request.getParameter("os_2name"+os_number)!=null){
+						String os_1name = request.getParameter("os_1name"+os_number);
+						String os_2name = request.getParameter("os_2name"+os_number);
+						ss.os2_up(os_number,os_1name,os_2name,os_price,os_photo,os_stock);
+					}else if(request.getParameter("os_1name"+os_number)!=null) {
+						String os_1name = request.getParameter("os_1name"+os_number);
+						ss.os1_up(os_number,os_1name,os_price,os_photo,os_stock);
+					}
+				}
+				ss.store_pd_up(pd_number,pd_name, pd_price, pd_category, pd_content, pd_photo, pd_stock, mb_number);
+			}else {
+				ss.store_pd_up(pd_number,pd_name, pd_price, pd_category, pd_content, pd_photo, pd_stock, mb_number);
+			}
+		}else {
+			return "login";
+		}
+		return "store_management";
+	}
 	@RequestMapping(value = "store_save", method = RequestMethod.POST)
 	public String store_save2(MultipartHttpServletRequest mul,HttpServletRequest request) throws IllegalStateException, IOException {
 		Store_Service ss = sqlSession.getMapper(Store_Service.class);
@@ -464,6 +562,7 @@ public class Store_Controller {
 		MultipartFile mf = mul.getFile("pd_photo");
 		String pd_photo = filesave(mf.getOriginalFilename());
 		mf.transferTo(new File(imagePath + pd_photo));
+		//옵션
 		if(request.getParameter("os_radio").equals("Y")&&request.getParameter("os_print_su")!=null) {
 			int os_print_su = Integer.parseInt(request.getParameter("os_print_su"));
 			ss.store_insert0(pd_name, pd_price, pd_category, pd_content, pd_photo, pd_stock, mb_number);

@@ -49,7 +49,7 @@
 				</c:forEach>
 			</div>
 		<c:choose>
-			<c:when test="${loginState == true}">
+			<c:when test="${loginState == true and member.mb_attribute == '크리에이터'}">
 				<input type="button" value="상품 등록" onclick="location.href='store_input'">
 			</c:when>
 			<c:otherwise>

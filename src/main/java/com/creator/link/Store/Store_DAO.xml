@@ -100,6 +100,9 @@
 <select id="review_modify" resultType="com.creator.link.Store.Review_DTO">
 	SELECT * FROM REVIEW_TBL WHERE REVIEW_NUMBER = #{param1}
 </select>
+<select id="store_mana" resultType="com.creator.link.Store.Store_DTO">
+	SELECT * FROM PRODUCT_TBL where MB_NUMBER = #{param1}
+</select>
 <update id="cart_up_stock">
 	UPDATE cart_tbl SET ct_stock = ct_stock + #{param3} WHERE pd_number = #{param1} and mb_number = #{param2}
 </update>
@@ -111,6 +114,18 @@
 </update>
 <update id="review_update">
 	UPDATE REVIEW_TBL SET RE_CONTENT = #{param2} , RE_STAR = #{param3} WHERE REVIEW_NUMBER = #{param1} and MB_NUMBER = #{param4}
+</update>
+<update id="store_pd_up">
+	UPDATE product_tbl SET pd_name = #{param2}, pd_price = #{param3} , pd_category = #{param4} , pd_content = #{param5} , pd_photo = #{param6}, pd_stock = #{param7} WHERE pd_number = #{param1} and mb_number = #{param8}
+</update>
+<update id="os3_up">
+	UPDATE product_opstion_tbl SET os_1name = #{param2}, os_2name = #{param3} , os_3name = #{param4} ,os_price = #{param5}, os_photo = #{param6}, os_stock = #{param7} WHERE os_number = #{param1}
+</update>
+<update id="os2_up">
+	UPDATE product_opstion_tbl SET os_1name = #{param2}, os_2name = #{param3} ,os_price = #{param5}, os_photo = #{param6}, os_stock = #{param7} WHERE os_number = #{param1}
+</update>
+<update id="os1_up">
+	UPDATE product_opstion_tbl SET os_1name = #{param2}, os_price = #{param5}, os_photo = #{param6}, os_stock = #{param7} WHERE os_number = #{param1}
 </update>
 <delete id="cart_delete">
 	DELETE FROM CART_TBL WHERE ct_pd_qnt = #{param1} and mb_number = #{param2}

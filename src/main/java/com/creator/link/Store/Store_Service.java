@@ -82,5 +82,17 @@ public interface Store_Service {
 
 	void review_delete(int re_number, String mb_number);
 
+	ArrayList<Store_DTO> store_mana(int mb_number);
+
+	void store_pd_up(int pd_number, String pd_name, int pd_price, String pd_category, String pd_content,
+			String pd_photo, int pd_stock, int mb_number);
+
+	void os3_up(int os_number, String os_1name, String os_2name, String os_3name, int os_price, String os_photo,
+			int os_stock);
+
+	void os2_up(int os_number, String os_1name, String os_2name, int os_price, String os_photo, int os_stock);
+
+	void os1_up(int os_number, String os_1name, int os_price, String os_photo, int os_stock);
+
 
 }
