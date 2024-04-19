@@ -6,6 +6,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.apache.ibatis.session.SqlSession;
+import org.apache.tiles.template.AddAttributeModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -30,18 +31,13 @@ public class GiftHub_Controller {
 		return "gifthub";
 	}
 	
-	/*@RequestMapping(value = "basicCreators", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE) // produces : json 형식으로 반환하겠다 선언
-    @ResponseBody // 반환 객체를 JSON 형태로 HTTP 응답 본문에 직접 작성
-    public String getCreators() throws JsonProcessingException {
-        GiftHub_Service gs = sqlSession.getMapper(GiftHub_Service.class);
-        ArrayList<GiftHub_Creator_DTO> list = gs.creator_list();
-        
-        // ObjectMapper를 사용하여 ArrayList를 JSON 문자열로 변환
-        ObjectMapper mapper = new ObjectMapper();
-        String creators = mapper.writeValueAsString(list);
-        
-        return creators; // JSON 응답 반환
-    }*/
+	@RequestMapping(value = "creatorSelect")
+	public String creatorSelect(Model mo) {
+		GiftHub_Service gs = sqlSession.getMapper(GiftHub_Service.class);
+		ArrayList<GiftHub_Creator_DTO> list = gs.basic_creator_list();
+		mo.addAttribute("list",list);
+		return "gifthub_creator_select";
+	}
 	
 	@RequestMapping(value = "searChcreator", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
@@ -58,7 +54,7 @@ public class GiftHub_Controller {
     }
 	
 	@RequestMapping(value = "gifthub_out")
-	public String gifthub_out(HttpServletRequest request, Model mo) {
+	public String gifthub_out(HttpServletRequest request) {
 		GiftHub_Service gs = sqlSession.getMapper(GiftHub_Service.class);
 		String [] box_size = request.getParameterValues("box_size");
 		String [] big_category = request.getParameterValues("big_category");

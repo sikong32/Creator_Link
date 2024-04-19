@@ -7,6 +7,10 @@
     font-style: normal;
 }
 
+h1 {
+	font-family:'Pretendard-Regular';
+}
+
 .gifthub_container {
 	width: 100%;
 	height: 200vh;
@@ -66,6 +70,10 @@
     font-family:'Pretendard-Regular';
 }
 
+button:hover, .buttons:hover, .search_button:hover, .add_button:hover, .buy_button:hover, .select_creator:hover{
+	background-color:#917FB3;
+}
+
 select {
 	width: 300px;
 	height: 50px;
@@ -106,4 +114,12 @@ img {
 	height:80px;
 	border-radius: 20px;
 	margin-top: 5px;
+}
+
+#select_creator {
+	display: flex;
+	flex-direction: column;
+    justify-content: center;
+    align-items: center;
+	font-family:'Pretendard-Regular';
 }
