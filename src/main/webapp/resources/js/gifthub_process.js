@@ -115,19 +115,42 @@ if (check()) { // if문은 true일 때 실행 됨 (즉, check 함수의 값이 t
 }
 }
 
+// 선물 정보 생성 //
 function giftInfo(value, name, parent){
-var input = document.createElement('input');
-input.setAttribute('name', name);
-input.setAttribute('value', value);
-input.setAttribute('type', 'hidden');
-parent.appendChild(input);
-
-var span = document.createElement('span');
-span.textContent = value;
-parent.appendChild(span); 
+	var input = document.createElement('input');
+	input.setAttribute('name', name);
+	input.setAttribute('value', value);
+	input.setAttribute('type', 'hidden');
+	parent.appendChild(input);
+	
+	var span = document.createElement('span');
+	span.textContent = value;
+	parent.appendChild(span); 
 }
 
+// 최종 금액 업데이트 //
 function updateTotalPrice() {
 var tot_gift_price = document.getElementById('tot_price');
 tot_gift_price.textContent = tot_price;
+}
+
+// 팝업 창 생성 //
+function creatorListPopup(url, name, width, height) {
+    var left = (screen.width - width) / 2; // 팝업을 화면 중앙에 배치하기 위해 추가 //
+    var top = (screen.height - height) / 2; // 팝업을 화면 중앙에 배치하기 위해 추가 //
+    var options = 'width=' + width + ',height=' + height + ',top=' + top + ',left=' + left + ',scrollbars=yes';
+    window.open(url, name, options);
+}
+
+// 팝업창에서 받아온 데이터 처리 //
+function selectCreatorInfo(data) {
+    var select_creator = document.getElementById('select_creator');
+    var list = '<img src="resources/member/basic_photo/' + data.photo + '" alt="Creator Photo">';
+    list += '<span>' + data.nick_name + '</span>';
+    list += '<input type="hidden" name="nick_name" value="' + data.nick_name + '">';
+    list += '<input type="hidden" name="address_post" value="' + data.address.post + '">';
+    list += '<input type="hidden" name="address_road" value="' + data.address.road + '">';
+    list += '<input type="hidden" name="address_local" value="' + data.address.local + '">';
+    list += '<input type="hidden" name="address_detail" value="' + data.address.detail + '">';
+    select_creator.innerHTML = list;
 }

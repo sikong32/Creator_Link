@@ -54,7 +54,7 @@
 			<h3>로그인</h3>
 	       	<form class="login_form" action="login_do" method="post" onsubmit="return check_logInfo()">
 	            <div class="login_idpw">
-	            	<div class=login_input>
+	            	<div class="login_input">
 		                <input type="text" name="logId" id="logId" placeholder="아이디 입력">
 		                <input type="text" name="logPw" id="logPw" placeholder="비밀번호 입력">
 		                <div class="login_find"><a href="#">로그인 정보를 잊으셨나요?</a></div>

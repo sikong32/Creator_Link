@@ -4,12 +4,15 @@
 <!DOCTYPE html>
 <html>
 <head>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-<script type="text/javascript" src="resources/js/address.js"></script>
+<!-- JS -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js" defer></script>
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js" defer></script>
+<script type="text/javascript" src="resources/js/address.js" defer></script>
+<script type="text/javascript" src="resources/js/gifthub_process.js" defer></script>
+<script type="text/javascript" src="resources/js/gifthub_creator_select.js" defer></script>
+<!-- css -->
+<link href="${pageContext.request.contextPath}/resources/css/gifthub/gifthub.css" rel="stylesheet" type="text/css">
 <meta charset="UTF-8">
-<!-- css 경로 -->
-<link href="${pageContext.request.contextPath}/resources/css/store/gifthub.css" rel="stylesheet" type="text/css">
 <title>Insert title here</title>
 </head>
 <body>
@@ -19,7 +22,7 @@
 			<h1>신청서 작성</h1>
 			<div class="gift_info_detail">
 				<div class="creator_info">
-					<button onclick="creatorListPopup()" class="search_button"> 선물 할 크리에디터 검색</button>
+					<button onclick="creatorListPopup('creatorSelect','CreatorList',800,450)" class="search_button"> 선물 보낼 크리에이터 검색</button>
 					<div id="select_creator"></div>
 				</div>
 				<div class="box_size">
@@ -85,8 +88,6 @@
 			</div>
 		</form>
 	</section>
-<script type="text/javascript" src="resources/js/gifthub_category.js"></script>
-<script type="text/javascript" src="resources/js/gifthub_creator_select.js"></script>
 </body>
 
 </html>

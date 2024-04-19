@@ -1,10 +1,8 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.creator.link.GiftHub.GiftHub_Service">
-	<select id="creator_list" resultType="com.creator.link.GiftHub.GiftHub_Creator_DTO">
-		SELECT mb_photo, mb_nick_name, mb_addr_post, mb_addr_road, mb_addr_local, mb_addr_detail
-		FROM member_tbl
-		where mb_attribute = '크리에이터'
+	<select id="basic_creator_list" resultType="com.creator.link.GiftHub.GiftHub_Creator_DTO">
+		SELECT mb_photo, mb_nick_name FROM member_tbl WHERE mb_attribute = '크리에이터'
 	</select>
 	<select id="search_creator_list" parameterType="string" resultType="com.creator.link.GiftHub.GiftHub_Creator_DTO">
 		SELECT mb_photo, mb_nick_name, mb_addr_post, mb_addr_road, mb_addr_local, mb_addr_detail
