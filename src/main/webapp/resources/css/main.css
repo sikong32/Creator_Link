@@ -11,52 +11,66 @@
 	width: 100%;
 	height: 230vh;
     display: flex;
+    justify-content: center;
     position: relative;
+}
+
+h3 {
+	font-family:'Pretendard-Regular';
 }
 
 /*  방송 카테고리(사이드바) */
 .streamcate_bar {
-    position: sticky;
-    top: 0; /* sticky를 적용 할 위치 */
     display: flex;
+    position: fixed;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    border-radius: 5px;
+    text-align: center;
+    border-radius: 0 20px 20px 0;
     background-color: #2A2F4F;
-	min-width: 100px;
-	max-width: 100px;
-	height: 200px;
-	margin: 10px;
-}
-
-.streamcate_bar a{
-    text-decoration: none;
-    color: white;
-    white-space: nowrap;
+    left:0;
+    bottom: 5%;
+	width: 90px;
 }
 
 .streamcate_detail {
+	width: 100%;
     list-style: none;
     padding: 0;
-    font-size: 18px;
-    height: 100%;
     font-family:'Pretendard-Regular';
+    margin: 0;
 }
 
 .streamcate_detail li{
-    padding-bottom: 10px;
+    margin: 10px 0;
+}
+
+.streamcate_detail a{
+    text-decoration: none;
+    color: white;
+    padding: 3px;
+    white-space: nowrap;
+}
+
+.streamcate_detail span {
+    margin-top: 10px;
+}
+
+.streamcate_detail span,
+.streamcate_detail i{
+    display: block;
 }
 
 /* LIVE 목록*/
 .live_container {
-	width: 100%;
+	width: 90%;
+	margin: 90px;
 	height: 100%;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
 	justify-content: center;
-	padding: 0 50px;
 }
 
 /* 추천 크리에이터 */
@@ -122,7 +136,9 @@
 
 /* 실시간 라이브 화면 */
 .live_info_area {
-	width: 100%;
+	width: 90%;
+	margin: 90px;
+	padding-lfet: 10%;
 	heiht: 60%;
 	max-width: 1310px;
 }

@@ -9,7 +9,6 @@
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js" defer></script>
 <script type="text/javascript" src="resources/js/address.js" defer></script>
 <script type="text/javascript" src="resources/js/gifthub_process.js" defer></script>
-<script type="text/javascript" src="resources/js/gifthub_creator_select.js" defer></script>
 <!-- css -->
 <link href="${pageContext.request.contextPath}/resources/css/gifthub/gifthub.css" rel="stylesheet" type="text/css">
 <meta charset="UTF-8">

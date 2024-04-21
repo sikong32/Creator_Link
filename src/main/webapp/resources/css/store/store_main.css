@@ -8,19 +8,149 @@
 }
 
 .store_container {
+	height: 150vh;
+}
+
+.store_notices {
 	width: 100%;
-	height: 200vh;
+	height: 46px;
+	background-color: black;
+}
+
+.notices {
+	color: white;
+	font-family:'Pretendard-Regular';
+	font-size: 18px;
+	margin: 13px 43%;
+}
+
+.notices span {
+	padding: 0 15px;
+}
+
+.banner_item img {
+	width:100%;
+}
+
+.store_body {
+	display: flex;
+	justify-content: center;
+}
+
+.store_sticky {
+	flex-direction: column;
+	align-items : center;
+}
+
+.store_gifthub {
+	margin: 10px;
 	display: flex;
 	flex-direction: column;
-    justify-content: center;
-    align-items: center;
+	position: fixed;
+	bottom: 70px;
+	left: 50px;
+}
+
+.store_gifthub a {
+	padding: 15px;
+	border-radius: 50px;
+	border: none;
+	text-decoration: none;
+	font-family:'Pretendard-Regular';
+	font-size: 35px;
+	background-color: #2A2F4F;
+	text-align: center;
+	color: white;
+}
+
+.store_gifthub a:hover {
+	background-color:#917FB3;
+}
+
+.store_gifthub a i,
+.store_gifthub a span {
+    display: block;
+}
+
+.store_gifthub span{
+	margin-top: 5px;
+	font-size: 15px;
+}
+
+.uplode_bnt {
+	position: fixed;
+	width: 85px;
+	height: 50px;
+	background-color: #2A2F4F;
+	color: white;
+	border: none;
+	border-radius: 5px;
+	bottom: 190px;
+	left: 60px;
+	font-size: 15px;
+	font-family:'Pretendard-Regular';
+}
+
+.uplode_bnt:hover {
+	background-color:#917FB3;
+}
+
+.store_items {
+	width: 80%;
+	margin: 80px 0;
+}
+
+.category_list {
+	display: flex;
+	margin: 25px 0 30px 0;
+}
+
+.category_title{
+	font-size: 25px;
+	font-family:'Pretendard-Regular';
+	margin-left: 5px;
+}
+
+.category {
+	margin: 10px;
+}
+
+.category a:hover{
+	background-color: #2A2F4F;
+	color: white;
+}
+
+.category a {
+	text-decoration: none;
+	padding: 7px 15px;
+	color: #2A2F4F;
+	border-radius: 20px;
+	border: 1px solid #2A2F4F;
+	font-family:'Pretendard-Regular';
 }
 
 .product_list {
-	height: 100vh;
-	display: flex;
+	widht: 90%;
+	display:grid;
+	grid-template-rows: repeat(2, 1fr);
+	grid-template-columns: repeat(6, 1fr);
+	grid-column-gap: 10px;
+	grid-row-gap: 30px;
+	font-family:'Pretendard-Regular';
+}
+
+.product_list a {
+	text-decoration: none;
+	color: gray;
+	font-family:'Pretendard-Regular';
+}
+
+.product_list a span {
+    display: block;
+    text-align: right;
 }
 
 .product_list img {
-    display: block;
+    display: inline-block;
+    width: 100%;
 }
