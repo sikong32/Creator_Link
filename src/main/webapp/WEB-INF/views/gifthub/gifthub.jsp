@@ -22,7 +22,7 @@
 			<h1>신청서 작성</h1>
 			<div class="gift_info_detail">
 				<div class="creator_info">
-					<button onclick="creatorListPopup('creatorSelect','CreatorList',800,450)" class="search_button"> 선물 보낼 크리에이터 검색</button>
+					<button type="button" onclick="creatorListPopup('creatorSelect','CreatorList',800,450)" class="search_button"> 선물 보낼 크리에이터 검색</button>
 					<div id="select_creator"></div>
 				</div>
 				<div class="box_size">

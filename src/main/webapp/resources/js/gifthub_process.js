@@ -148,9 +148,9 @@ function selectCreatorInfo(data) {
     var list = '<img src="resources/member/basic_photo/' + data.photo + '" alt="Creator Photo">';
     list += '<span>' + data.nick_name + '</span>';
     list += '<input type="hidden" name="nick_name" value="' + data.nick_name + '">';
-    list += '<input type="hidden" name="address_post" value="' + data.address.post + '">';
-    list += '<input type="hidden" name="address_road" value="' + data.address.road + '">';
-    list += '<input type="hidden" name="address_local" value="' + data.address.local + '">';
-    list += '<input type="hidden" name="address_detail" value="' + data.address.detail + '">';
+    list += '<input type="hidden" name="address_post" value="' + data.post + '">';
+    list += '<input type="hidden" name="address_road" value="' + data.road + '">';
+    list += '<input type="hidden" name="address_local" value="' + data.local + '">';
+    list += '<input type="hidden" name="address_detail" value="' + data.detail + '">';
     select_creator.innerHTML = list;
 }

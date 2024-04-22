@@ -95,6 +95,25 @@ $(document).ready(function() {
 		else{
 		}
 	});
+	$("[id^=history_del_]").each(function() {
+		$(this).click(function() {
+			var mb_number = $(this).data('mb_number');
+			$.ajax({
+				type : "post",
+				async : true,
+				url : "history_del",
+				data : {
+					"mb_number":mb_number
+				},
+				success : function(result) {
+					location.reload();
+				},
+				error : function() {
+					alert("실패");
+				}
+			});
+		});
+	});
 });
 
 function change_vpp(selval) {

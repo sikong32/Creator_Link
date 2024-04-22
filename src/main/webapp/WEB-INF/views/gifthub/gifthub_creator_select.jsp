@@ -25,7 +25,7 @@
 				<ul class="basic_creator">
 					<li><img src="resources/member/basic_photo/${creator.mb_photo}"></li>
 	            	<li>${creator.mb_nick_name}</li>
-	            	<li><button class="select_creator" onclick="selectCreator()"
+	            	<li><button type="button" class="select_creator" onclick="selectCreator()"
 	            	data-nick="${creator.mb_nick_name}"  data-photo="${creator.mb_photo}" data-post="${creator.mb_addr_post}"
             		data-road="${creator.mb_addr_road}" data-local="${creator.mb_addr_local}" data-detail="${creator.mb_addr_detail}">선택</button></li>
 	        	</ul>

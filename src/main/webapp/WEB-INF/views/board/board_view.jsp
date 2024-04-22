@@ -24,7 +24,7 @@
 			</div>
 			
 			<div class="board">
-				<div class="post">
+				<div class="post" style="margin-top: 20px;">
 					<table class="post_view">
 						<tr>
 							<td>

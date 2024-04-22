@@ -26,11 +26,21 @@
 		<if test="param3 == null">
 			select * from (
 				select rownum rn, list.* from (
-					<if test="param4 == null">
-						select * from board_content_tbl where mb_number = #{param1} order by bct_content_number desc
+					<if test="param6 == null">
+						<if test="param4 == null">
+							select * from board_content_tbl where mb_number = #{param1} order by bct_content_number desc
+						</if>
+						<if test="param4 != null">
+							select * from board_content_tbl where mb_number = #{param1} and ${param4} like '%${param5}%' order by bct_content_number desc
+						</if>
 					</if>
-					<if test="param4 != null">
-						select * from board_content_tbl where mb_number = #{param1} and ${param4} like '%${param5}%' order by bct_content_number desc
+					<if test="param6 != null">
+						<if test="param4 == null">
+							select * from board_content_tbl where mb_number = #{param1} order by bct_like_cnt desc, bct_content_number desc
+						</if>
+						<if test="param4 != null">
+							select * from board_content_tbl where mb_number = #{param1} and ${param4} like '%${param5}%' order by bct_like_cnt desc, bct_content_number desc
+						</if>
 					</if>
 				)list
 			)
@@ -39,11 +49,21 @@
 		<if test="param3 != null">
 			select * from (
 				select rownum rn, list.* from (
-					<if test="param4 == null">
-						select * from board_content_tbl where mb_number = #{param1} and bat_number = ${param3} order by bct_content_number desc
+					<if test="param6 == null">
+						<if test="param4 == null">
+							select * from board_content_tbl where mb_number = #{param1} and bat_number = ${param3} order by bct_content_number desc
+						</if>
+						<if test="param4 != null">
+							select * from board_content_tbl where mb_number = #{param1} and bat_number = ${param3} and ${param4} like '%${param5}%' order by bct_content_number desc
+						</if>
 					</if>
-					<if test="param4 != null">
-						select * from board_content_tbl where mb_number = #{param1} and bat_number = ${param3} and ${param4} like '%${param5}%' order by bct_content_number desc
+					<if test="param6 != null">
+						<if test="param4 == null">
+							select * from board_content_tbl where mb_number = #{param1} and bat_number = ${param3} order by bct_like_cnt desc, bct_content_number desc
+						</if>
+						<if test="param4 != null">
+							select * from board_content_tbl where mb_number = #{param1} and bat_number = ${param3} and ${param4} like '%${param5}%' order by bct_like_cnt desc, bct_content_number desc
+						</if>
 					</if>
 				)list
 			)
@@ -115,4 +135,16 @@
 	<update id="board_like_down">
 		update board_content_tbl set bct_like_cnt = bct_like_cnt-1 where bct_content_number = #{param1}
 	</update>
+	<select id="visit_history_list" resultType="com.creator.link.Board.Visit_history_DTO">
+		select * from visit_history_tbl where login_number = #{param1}
+	</select>
+	<insert id="visit_history_add">
+		insert into visit_history_tbl values(#{param1},#{param2},#{param3})
+	</insert>
+	<delete id="history_delete">
+		delete from visit_history_tbl where mb_number = #{param1} and login_number = #{param2}
+	</delete>
+	<select id="call_mb_nick_name" resultType="String">
+		select mb_nick_name from member_tbl where mb_number = #{param1}
+	</select>
 </mapper>
