@@ -5,11 +5,14 @@ function searchCreator() {
 	var list = document.getElementById('basic_creator_list');
     list.style.display = 'none';
     
+    /* 공백 입력 할 경우 */
     var keyword = document.getElementById('search_keyword').value.trim(); /* trim : 공백 제거 */
 	    if (!keyword) { /* 키워드가 공백이면 */
 		    document.getElementById('creator_list').innerHTML = '<p>검색어를 입력해 주세요.</p>';
 		    return;
 		}
+	
+	/* 검색 값 정상 입력했을 경우 */	
     fetch('searChcreator?keyword=' + encodeURIComponent(keyword), { headers: { 'Accept': 'application/json' } })
     /* encodeURIComponent : url에서 특수문자들은 기능을 가지고 있음. (특수문자 중 %는 아무 기능 없음)
     따라서 keyword에 특수 문자가 포함될 경우 %로 인코딩해서 오류를 방지해주는 기능의 함수 */

@@ -8,7 +8,7 @@
 <style type="text/css">
 
 html,body {
-	width: calc(100vw - 17px); /* 스크롤 바 너비만큼 빼기 */
+	width: calc(100vw - 21px); /* 스크롤 바 너비만큼 빼기 */
 	height: 100vh;
 	margin : 0;
 	padding: 0;

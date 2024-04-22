@@ -14,11 +14,15 @@
 	<!-- 방송 카테고리 (사이드바) -->
 	<aside class="streamcate_bar">
         <ul class="streamcate_detail">
-            <li><a href="#">먹방</a></li>
-            <li><a href="#">게임</a></li>
-            <li><a href="#">코딩</a></li>
-            <li><a href="#">음악</a></li>
-            <li><a href="#">수다</a></li>
+            <li><a href="#"><i class="fa-solid fa-burger"></i><span>먹방</span></a></li>
+            <li><a href="#"><i class="fa-solid fa-gamepad"></i><span>게임</span></a></li>
+            <li><a href="#"><i class="fa-solid fa-music"></i><span>음악</span></a></li>
+            <li><a href="#"><i class="fa-solid fa-microphone-lines"></i><span>노래</span></a></li>
+            <li><a href="#"><i class="fa-solid fa-comments"></i><span>수다</span></a></li>
+            <li><a href="#"><i class="fa-solid fa-book-bookmark"></i><span>공부</span></a></li>
+            <li><a href="#"><i class="fa-solid fa-medal"></i><span>스포츠</span></a></li>
+            <li><a href="#"><i class="fa-solid fa-money-bill-wave"></i><span>금융</span></a></li>
+            <li><a href="#"><i class="fa-solid fa-newspaper"></i><span>시사</span></a></li>
         </ul>
 	</aside>
 	<!-- LIVE 목록 -->
