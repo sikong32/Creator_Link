@@ -206,7 +206,7 @@ $(document).ready(function() {
     
 	$("#modify_button").click(function() {
         if (writer_id == login_id){
-            window.location="board_modify?bct_content_number=" + bct_content_number;
+            window.location="board_modify?bct_content_number=" + bct_content_number + "&mb_number=" + mb_number;
         } else {
             alert("권한이 없습니다");
         }

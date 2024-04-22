@@ -4,17 +4,6 @@
 <html>
 <head>
 	<link href="${pageContext.request.contextPath}/resources/css/board/board.css" rel="stylesheet" type="text/css">
-	<style type="text/css">
-		/* .inputbox{
-			display: flex;
-			justify-content: center;
-			width: auto;
-		}
-		.inputbox .ck-editor__editable {
-		    width: auto; /* CKEditor 너비, 필요에 따라 조정 */
-		    margin: auto; /* 중앙 정렬 */
-		} */
-	</style>
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
@@ -39,11 +28,11 @@
 					<div class="post_write">
 						<div style="display: flex; align-items: center; justify-content: space-between;">
 							<div style="width: 19%; display: flex; align-items: center;">
-							<select name="attribute" style="width: 100%; height: 21px;">
-								<c:forEach items="${attribute_list}" var="atli">
-									<option value="${atli.bat_number}">${atli.bat_cls}</option>
-								</c:forEach>
-							</select>
+								<select name="attribute" style="width: 100%; height: 21px;">
+									<c:forEach items="${attribute_list}" var="atli">
+										<option value="${atli.bat_number}">${atli.bat_cls}</option>
+									</c:forEach>
+								</select>
 							</div>
 							<div style="width: 80%; display: flex; align-items: center;"><input type="text" name="title" placeholder="제목" style="width: 100%;"></div>
 						</div>

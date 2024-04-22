@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.ibatis.session.SqlSession;
@@ -33,7 +34,7 @@ public class GiftHub_Controller {
 	@RequestMapping(value = "creatorSelect")
 	public String creatorSelect(Model mo) {
 		GiftHub_Service gs = sqlSession.getMapper(GiftHub_Service.class);
-		ArrayList<GiftHub_Creator_DTO> list = gs.basic_creator_list();
+		ArrayList<Member_DTO> list = gs.basic_creator_list();
 		mo.addAttribute("list",list);
 		return "gifthub_creator_select";
 	}
@@ -75,7 +76,7 @@ public class GiftHub_Controller {
 			String delivery_local = request.getParameter("address_local");
 			System.out.println("address_local: " + delivery_local);
 			String delivery_detail = request.getParameter("address_detail");
-			System.out.println("address_detail: " + delivery_detail);
+
 			// 보내는 사람 아이디 //
 			HttpSession hs = request.getSession();
 			Member_DTO dto = (Member_DTO)hs.getAttribute("member");
