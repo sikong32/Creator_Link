@@ -27,14 +27,12 @@ html,body {
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
-	background-color: #2A2F4F;
 	white-space: nowrap;
 }
 
 #body {
-    padding-top: 60px; /* 네비게이션 바 높이 + 추가 공간 */
+    margin-top: 60px; /* 네비게이션 바 높이 + 추가 공간 */
 }
-
 </style>
 </head>
 <body>
