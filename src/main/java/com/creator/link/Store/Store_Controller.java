@@ -544,7 +544,7 @@ public class Store_Controller {
 		}else {
 			return "login";
 		}
-		return "store_management";
+		return "redirect:store_management";
 	}
 	@RequestMapping(value = "store_save", method = RequestMethod.POST)
 	public String store_save2(MultipartHttpServletRequest mul,HttpServletRequest request) throws IllegalStateException, IOException {

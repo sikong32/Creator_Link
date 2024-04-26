@@ -43,7 +43,7 @@
 				<li>상품 모든 재고<input type="number" min="0" max="9999999999" id="pd_stock" name="pd_stock" required="required" placeholder="0개 입력시 품절" value="${pd_dto.pd_stock}"></li>
 				<li>상세페이지</li>
 				<li><textarea id="editor" name="pd_content" cols="20" rows="5">${pd_dto.pd_content}</textarea></li>
-				<li><input type="button" value="전송" onclick="val_check()"></li>
+				<li><input type="button" value="수정" onclick="val_check()"></li>
 			</ul>
 		</div>
 	</form>

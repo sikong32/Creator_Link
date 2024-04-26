@@ -64,15 +64,17 @@
 				<c:when test="${loginState == true }">		
 					<ul class="navbar_icon">
 						<li class="navbar_ment">${member.mb_nick_name}님 환영합니다!</li>
-						<li class="mavbar_mypage"><a href="#"><i class="fa-regular fa-user"></i></a>
-							<ul class="navbar_submenu">
-								<li id="totalPage"><a onclick="sendPostRequestMyPage()"><i class="fa-regular fa-user"></i>마이페이지</a></li>
-								<li><a href="#"><i class="fa-regular fa-star"></i>별</a></li>
-								<li><a href="#"><i class="fa-regular fa-heart"></i>하트</a></li>
-								<li><a href="order_list"><i class="fa-solid fa-list"></i>주문 목록</a></li>
-								<li><a href="shopping_cart_view"><i class="fa-solid fa-cart-shopping"></i>장바구니</a></li>
-							</ul>
-						</li>
+						<li class="mavbar_mypage"><a href="#" onclick="sendPostRequestMyPage()"><i class="fa-regular fa-user"></i></a>
+						<a href="shopping_cart_view"><i class="fa-solid fa-cart-shopping"></i></a></li>
+<!-- 							<ul class="navbar_submenu"> -->
+<!-- 								<li id="totalPage"><a onclick="sendPostRequestMyPage()"><i class="fa-regular fa-user"></i>마이페이지</a></li> -->
+<!-- 								<li><a href="#"><i class="fa-regular fa-star"></i>별</a></li> -->
+<!-- 								<li><a href="#"><i class="fa-regular fa-heart"></i>하트</a></li> -->
+<!-- 								<li><a href="order_list"><i class="fa-solid fa-list"></i>주문 목록</a></li> -->
+<!-- 								<li><a href="store_management"><i class="fa-solid fa-list"></i>상품 관리</a></li> -->
+<!-- 								<li><a href="shopping_cart_view"><i class="fa-solid fa-cart-shopping"></i>장바구니</a></li> -->
+<!-- 							</ul> -->
+<!-- 						</li> -->
 						<li><a href="logout"><i class="fa-solid fa-door-open"></i></a></li>
 					</ul>
 				</c:when>

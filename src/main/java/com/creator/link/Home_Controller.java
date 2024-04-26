@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +27,11 @@ public class Home_Controller {
 	SqlSession sqlSession;
 	
 	@RequestMapping(value = "/")
-	public String main(Model mo) throws IOException {
+	public String main(Model mo,HttpServletRequest request) throws IOException {
+		//로그인 정보 없음으로 처리
+		HttpSession hs = request.getSession();
+		hs.setAttribute("loginState", false);
+		//방송 리스트 가져오기
 		Home_Service sv = sqlSession.getMapper(Home_Service.class);
 		ArrayList<BC_DTO> bc_list = sv.bc_select();
 		mo.addAttribute("bc_list",bc_list);

@@ -28,14 +28,15 @@
 </div>
 <pre>
 닉네임 : ${dto.mb_nick_name }
-회원유형 : ${dto.mb_attribute }asdf
+회원유형 : ${dto.mb_attribute }
 <input type="button" id="myPageLink" value="정보변경">
 </pre>
-<img alt="즐겨찾기" src="resources/member/totalPage_icon/Favorite.png">
-<img alt="찜목록" src="resources/member/totalPage_icon/dibs.png"><br>
-<img alt="쿠폰함" src="resources/member/totalPage_icon/coupon.png">
-<img alt="주문목록" src="resources/member/totalPage_icon/order.png">
-<img alt="장바구니" src="resources/member/totalPage_icon/cart.png"><br>
+<img alt="즐겨찾기" src="resources/member/totalPage_icon/Favorite.png" width="100px">
+<img alt="찜목록" src="resources/member/totalPage_icon/dibs.png" width="100px"><br>
+<img alt="쿠폰함" src="resources/member/totalPage_icon/coupon.png" width="100px">
+<a href="order_list"><img alt="주문목록" src="resources/member/totalPage_icon/order.png" width="100px"></a>
+<c:if test="${dto.mb_attribute =='크리에이터'}"><a href="store_management"><img alt="상품관리" src="resources/member/totalPage_icon/pretty_myFace.png" width="100px"></a></c:if>
+<a href="shopping_cart_view"><img alt="장바구니" src="resources/member/totalPage_icon/cart.png" width="100px"></a><br>
 
 <input type="hidden" name="id" value="${dto.mb_id }">
 <input type="hidden" name="mb_number" value="${dto.mb_number }">

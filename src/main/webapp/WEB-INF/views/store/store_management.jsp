@@ -82,7 +82,7 @@
                                     <li>상품 가격: ${ma.pd_price}</li>
                                     <li>상품 카테고리: ${ma.pd_category}</li>
                                 </ul>
-                                <button type="button" onclick="toggleContent('${ma.pd_number}')">상세 정보 토글</button>
+                                <button type="button" onclick="toggleContent('${ma.pd_number}')">상세 정보 보기</button>
                             </div>
                             <div class="product-photo">
                                 <img src="./resources/store/item_cover/${ma.pd_photo}" alt="상품 사진">
@@ -96,7 +96,7 @@
                             <li>상품 재고: ${ma.pd_stock}</li>
                             <li>판매 수량: ${ma.pd_buy_su}</li>
                         </ul>
-                        <button type="submit">변경 사항 저장</button>
+                        <button type="submit">제품 수정</button>
                     </form>
                 </li>
             </c:forEach>
