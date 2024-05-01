@@ -47,3 +47,29 @@ body {
 .search_result h2{
 	font-size: 20px;
 }
+
+.search_top{
+	widows: 100%;
+	background-color: #ccc1c1;
+}
+.search_container{
+	width: 80%;
+	margin: auto;
+	padding: 20px;
+	background-color: white;
+}
+.creator_box{
+	margin: auto;
+	margin-bottom: 20px;
+	background: #5f5dc8;
+	border-radius: 20px;
+	box-shadow: 0px 0px 5px rgb(0,0,0,0.5);
+	padding: 20px;
+}
+.store_box{
+	margin: auto;
+	background-color: #f66c6c;
+	border-radius: 20px;
+	box-shadow: 0px 0px 5px rgb(0,0,0,0.5);
+	padding: 20px;
+}
