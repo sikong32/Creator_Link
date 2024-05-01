@@ -15,7 +15,7 @@ plt.rcParams['font.family'] ='Malgun Gothic'
 plt.rcParams['axes.unicode_minus'] =False
 
 #클라이언트 오라클
-oracledb.init_oracle_client(lib_dir=r"C:\github\Creator_Link\src\main\webapp\resources\python\instantclient_11_2") #여기에 한글 경로면 아됩니다.
+oracledb.init_oracle_client(lib_dir=r"C:\ezen\oracle\instantclient_11_2") #여기에 한글 경로면 아됩니다.
 connect = oracledb.connect(user='crering', password='12345',dsn='localhost')
 c=connect.cursor()#쿼리 저장 할 수 있게 설정
 

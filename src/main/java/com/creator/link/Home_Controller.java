@@ -3,7 +3,10 @@ package com.creator.link;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Properties;
 
+import javax.annotation.PostConstruct;
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -18,6 +21,7 @@ import com.creator.link.Store.Store_DTO;
 
 
 import java.io.BufferedReader;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
@@ -25,6 +29,24 @@ import java.io.InputStreamReader;
 public class Home_Controller {
 	@Autowired
 	SqlSession sqlSession;
+	
+	@Autowired
+	ServletContext servletContext;
+
+	String py_path;
+	
+	@PostConstruct
+	public void init() {
+        Properties properties = new Properties();
+        try {
+        	String Path = servletContext.getRealPath(".");
+            properties.load(new FileInputStream(Path+"/META-INF/maven/com.creator/link/pom.properties"));
+            String projectLocation = properties.getProperty("m2e.projectLocation");
+            py_path = projectLocation + "/src/main/webapp/resources/python/";
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+	}
 	
 	@RequestMapping(value = "/")
 	public String main(Model mo,HttpServletRequest request) throws IOException {
@@ -65,7 +87,7 @@ public class Home_Controller {
 	public String NewFile(Model mo) throws IOException, InterruptedException {
 		ProcessBuilder processBuilder;
         String a1; //실행될 파이선 파일의 경로
-        a1 = "C:\\github\\Creator_Link\\src\\main\\webapp\\resources\\python\\cllo2.py";
+        a1 = py_path + "cllo2.py";
         processBuilder = new ProcessBuilder("python",a1);
         processBuilder.redirectErrorStream(true);
         Process process = processBuilder.start();
