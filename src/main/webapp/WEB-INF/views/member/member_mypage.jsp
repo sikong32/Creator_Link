@@ -152,6 +152,11 @@
 				<input type="submit" id="submitBtn" class="myPageButton" value="확인">
 				<input type="button" id="resetBtn" class="myPageButton" value="취소" onclick="location.href='index'">
 			</div>
+			<div class="exit_button">
+				<a href="#" onclick="exit()">
+					회원탈퇴 >
+				</a>				
+			</div>
 		</form>
 	</div>
 </section>
@@ -225,7 +230,7 @@ exPhoto.addEventListener("click", () => {
 
 function previewImage(event) { //이미지 미리보기 함수
     var input = event.target;
-    var preview = document.getElementById('exPhoto');
+    var preview = document.getElementById("exPhoto");
     var file = input.files[0];
     var reader = new FileReader();
 
@@ -233,6 +238,16 @@ function previewImage(event) { //이미지 미리보기 함수
         preview.src = reader.result;
     };
     reader.readAsDataURL(file);
+}
+
+function exit() {
+	var exitResult = confirm("정말 회원을 탈퇴하시겠습니까?");
+	if (exitResult) {
+		 $.post("member_exit", { "exId" : exId}, function(result) {
+			 
+		 });
+	}
+	
 }
 
 $(document).ready(function () {
