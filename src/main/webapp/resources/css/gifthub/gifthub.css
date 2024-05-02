@@ -13,7 +13,7 @@ h1 {
 
 .gifthub_container {
 	width: 100%;
-	height: 200vh;
+	height: 100%;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -29,7 +29,8 @@ h1 {
 
 .gift_info {
 	background-color: #F6F6F6;
-	padding: 50px 40px;
+	padding: 10px 40px 50px 40px;
+	margin: 80px 0 50px 0;
 	border-radius: 5px;
 }
 
@@ -68,6 +69,11 @@ h1 {
     padding: 10px;
     margin: 10px;
     font-family:'Pretendard-Regular';
+}
+
+.buy_button {
+	margin-top: 40px;
+	margin-bottom: 80px;
 }
 
 button:hover, .buttons:hover, .search_button:hover, .add_button:hover, .buy_button:hover, .select_creator:hover{
@@ -121,5 +127,25 @@ img {
 	flex-direction: column;
     justify-content: center;
     align-items: center;
+	font-family:'Pretendard-Regular';
+}
+
+.gift_price {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	font-family:'Pretendard-Regular';
+	font-size: 18px;
+}
+
+.tot_price {
+	font-size: 30px;
+	font-weight: bold;
+	color: gray;
+}
+
+.gift_orderlist span{
+	margin: 0 10px;
 	font-family:'Pretendard-Regular';
 }

@@ -2,19 +2,17 @@
 
 <mapper namespace="com.creator.link.GiftHub.GiftHub_Service">
 	<select id="basic_creator_list" resultType="com.creator.link.Member.Member_DTO">
-		SELECT * FROM member_tbl WHERE mb_attribute = '크리에이터'
+		SELECT * FROM member_tbl WHERE mb_attribute = '크리에이터' AND mb_addr_post IS NOT NULL
 	</select>
 	<select id="search_creator_list" parameterType="string" resultType="com.creator.link.GiftHub.GiftHub_Creator_DTO">
-		SELECT mb_photo, mb_nick_name, mb_addr_post, mb_addr_road, mb_addr_local, mb_addr_detail
-		FROM member_tbl 
-		WHERE mb_attribute = '크리에이터' AND mb_nick_name LIKE '%' || #{param1} || '%'
+		SELECT mb_photo, mb_nick_name, mb_addr_post, mb_addr_road, mb_addr_local, mb_addr_detail 
+		FROM member_tbl WHERE mb_attribute = '크리에이터' AND mb_nick_name LIKE '%' || #{param1} || '%' AND mb_addr_post IS NOT NULL
 	</select>
 	<select id="getid" resultType="string">
 		SELECT mb_id FROM member_tbl where mb_number = #{param1}
 	</select>
 	<insert id="gifthub_insert">
-		INSERT into gift_hub_tbl VALUES
-		(GH_NUMBER_SEQ.nextval,#{param1},#{param2},#{param3},#{param4},#{param5},#{param6},
-		#{param7},#{param8},#{param9},#{param10},#{param11},#{param12},#{param13},#{param14},#{param15})
+		INSERT into gift_hub_tbl VALUES (GH_NUMBER_SEQ.nextval,#{param1},#{param2},#{param3},#{param4},#{param5},#{param6}, #{param7},
+		#{param8},#{param9},#{param10},#{param11},#{param12},#{param13},#{param14},#{param15},to_char(sysdate, 'YYYY-MM-DD'),#{param16})
 	</insert>
 </mapper>

@@ -13,7 +13,7 @@ function searchCreator() {
 		}
 	
 	/* 검색 값 정상 입력했을 경우 */	
-    fetch('searChcreator?keyword=' + encodeURIComponent(keyword), { headers: { 'Accept': 'application/json' } })
+    fetch('searChcreator?keyword=' + encodeURIComponent(keyword), { headers: { 'Accept': 'application/json', 'Content-Type': 'application/json; charset=UTF-8' } })
     /* encodeURIComponent : url에서 특수문자들은 기능을 가지고 있음. (특수문자 중 %는 아무 기능 없음)
     따라서 keyword에 특수 문자가 포함될 경우 %로 인코딩해서 오류를 방지해주는 기능의 함수 */
     .then(response => response.json())
@@ -31,7 +31,12 @@ function searchCreatorResult(data) {
     var list = '';
     if (data && data.length > 0) { /* data가 존재할 때 검색 결과 표시 */
         data.forEach(function(creator) {
-            list += '<li><img src="resources/member/basic_photo/' + creator.mb_photo + '"></li>';
+        	if (creator.mb_photo === "basic_photo.png") {
+			    photo_src = "basic_photo";
+			} else {
+			    photo_src = "profile";
+			}
+            list += '<li><img src="resources/member/' + photo_src + '/' + creator.mb_photo + '"></li>';
             list += '<li>' + creator.mb_nick_name + '</li>';
             list += '<button class="select_creator" data-nick="' + creator.mb_nick_name + 
             '" data-photo="' + creator.mb_photo + 

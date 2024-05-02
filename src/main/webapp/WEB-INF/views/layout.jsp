@@ -31,7 +31,7 @@ html,body {
 }
 
 #body {
-    margin-top: 60px; /* 네비게이션 바 높이 + 추가 공간 */
+    padding-top: 60px; /* 네비게이션 바 높이 + 추가 공간 */
 }
 </style>
 </head>

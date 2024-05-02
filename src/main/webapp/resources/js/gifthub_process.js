@@ -1,3 +1,29 @@
+// 팝업 창 생성 //
+function creatorListPopup(url, name, width, height) {
+    var left = (screen.width - width) / 2; /* 팝업을 화면 중앙에 배치하기 위해 추가 */
+    var top = (screen.height - height) / 2; /* 팝업을 화면 중앙에 배치하기 위해 추가 */
+    var options = 'width=' + width + ',height=' + height + ',top=' + top + ',left=' + left + ',scrollbars=yes';
+    window.open(url, name, options);
+}
+
+// 팝업창에서 받아온 데이터 처리 //
+function selectCreatorInfo(data) {
+    var select_creator = document.getElementById('select_creator');
+	if (data.photo === "basic_photo.png") {
+	    photo_src = "basic_photo";
+	} else {
+	    photo_src = "profile";
+	}
+    var list = '<img src="resources/member/' + photo_src + '/' + data.photo + '" alt="Creator Photo">';
+    list += '<span>' + data.nick_name + '</span>';
+    list += '<input type="hidden" name="nick_name" value="' + data.nick_name + '">';
+    list += '<input type="hidden" name="address_post" value="' + data.post + '">';
+    list += '<input type="hidden" name="address_road" value="' + data.road + '">';
+    list += '<input type="hidden" name="address_local" value="' + data.local + '">';
+    list += '<input type="hidden" name="address_detail" value="' + data.detail + '">';
+    select_creator.innerHTML = list;
+}
+
 // 카테고리 (대분류, 중분류) //
 var category = {
     "IT/디지털/게임": ['저장장치', '카메라/웹캠/마이크', '케이블/연장선/더블잭', '프린터/공유기/소프트웨어', '게임기/게임팩/컨트롤러', '음향기기/헤드셋/이어폰', '스마트폰/스마트워치', '노트북/데스크탑/태블릿', '키보드/마우스/모니터'],
@@ -17,28 +43,29 @@ var category = {
 
 // 대분류 선택시 중분류 업데이트 //
 function categoryList() {
-var big_category = document.getElementById('big_category').value;
-var mid_category = document.getElementById('mid_category');
-mid_category.innerHTML = '<option value="">선택하세요.</option>'; // 중분류 초기화 옵션 추가
+var big_category = document.getElementById('big_category').value; /* 대분류 */
+var mid_category = document.getElementById('mid_category'); /* 중분류 */
+mid_category.innerHTML = '<option value="">선택하세요.</option>'; /* 중분류 초기화 옵션 */
 
 // 중분류 목록 생성 //
-if (big_category && category[big_category]) { // bigCategory의 변수 값과 category[bigCategory] 값이 존재 할 때 실행
+if (big_category && category[big_category]) { /* bigCategory의 변수 값과 category[bigCategory] 값이 존재 할 때 실행 */
     var mid_categorys = category[big_category];
-    mid_categorys.forEach(function(midcategorys) {
-        var option = document.createElement('option');
-        option.value = midcategorys;
-        option.text = midcategorys;
-        mid_category.appendChild(option);
+    mid_categorys.forEach(function(midcategorys) { /* 중분류의 개수만큼 반복 */
+        var option = document.createElement('option'); /* 중분류를 저장 할 option 생성 */
+        option.value = midcategorys; /* option의 값 = 중분류의 값 */
+        option.text = midcategorys; /* option의 글자 = 중분류의 글자 */
+        mid_category.appendChild(option); /* 생성된 option들을 중분류 변수에 저장 */
     });
 }
 }
 
 // 박스 사이즈, 카테고리 빈칸 체크 //
 function check(){
-var box_size = document.getElementById('box_size').value;
-var big_category = document.getElementById('big_category').value;
-var mid_category = document.getElementById('mid_category').value;
-var detail_category = document.getElementById('detail_category').value;
+var box_size = document.getElementById('box_size').value; /* 박스 사이즈 */
+var big_category = document.getElementById('big_category').value; /* 대분류 */
+var mid_category = document.getElementById('mid_category').value; /* 중분류 */
+var detail_category = document.getElementById('detail_category').value; /* 상세 품목 */
+var detail_cateCh = /^[a-zA-Zㄱ-ㅎ가-힣0-9\s]{1,15}$/;
 if (!box_size) {
     alert('박스 사이즈를 선택해주세요.');
     return false;
@@ -52,15 +79,20 @@ else if (!big_category) {
 } else if (!detail_category) {
     alert('상세 품목을 입력해주세요.');
     return false;
+} else if (!detail_cateCh.test(detail_category)) {
+    alert('상세 품목은 영 대/소문자,한글,숫자,공백 1~15자 이내로 작성해주세요.');
+    console.log("입력 값: ", detail_category); // 입력 값 확인
+	console.log("정규식 검사 결과: ", detail_cateCh.test(detail_category)); // 정규식 검사 결과 확인
+    return false;
 }
 return true;
-};
+}
 
 // 총 합계 //
 var tot_price = 0;
 // 선물 목록 //
 function giftAdd() {
-if (check()) { // if문은 true일 때 실행 됨 (즉, check 함수의 값이 true일 때 실행되는 조건)
+if (check()) { /* if문은 true일 때 실행 됨 (즉, check 함수의 값이 true일 때 실행되는 조건) */
     var big_category = document.getElementById('big_category').value;
     var mid_category = document.getElementById('mid_category').value;
     var box_size = document.getElementById('box_size').value;
@@ -80,37 +112,40 @@ if (check()) { // if문은 true일 때 실행 됨 (즉, check 함수의 값이 t
     }
     
     // 선물 목록 생성 //
-    var gift_orderlist = document.getElementById('gift_orderlist'); // 선물 전체 목록
-    var gift_list = document.createElement('div'); // 선물 항목 (선물 정보 + 삭제 버튼)
+    var gift_orderlist = document.getElementById('gift_orderlist'); /* 선물 전체 목록 */
+    var gift_list = document.createElement('div'); /* 선물 항목 (선물 정보 + 삭제 버튼) */
     
     // 선물 정보에 넣을 요소 추가 (대분류, 중분류, 박스 크기, 상세품목, 상품 금액) //
-    giftInfo(box_size, 'box_size', gift_list);
     giftInfo(big_category, 'big_category', gift_list);
     giftInfo(mid_category, 'mid_category', gift_list);
     giftInfo(detail_category, 'detail_category', gift_list);
+    giftInfo(box_size, 'box_size', gift_list);
     giftInfo(gift_price, 'gift_price', gift_list);
     
     // 삭제 버튼 생성 //
-    var delete_btn = document.createElement('button'); // 선물 취소 (목록에서 삭제) 버튼 생성
-    delete_btn.type = 'button'; // type을 버튼으로 만들어줌 (이렇게 안해주면 모든 클릭 submit으로 인식 -> 취소 클릭 시 오류 발생)
-    gift_list.appendChild(delete_btn) // 선물 항목에 삭제 버튼 추가
+    var delete_btn = document.createElement('button'); /* 선물 취소 (목록에서 삭제) 버튼 생성 */
+    delete_btn.type = 'button'; /* type을 버튼으로 변경 (그냥 button은 모든 클릭을 submit으로 인식 -> 취소 클릭 시 오류 발생) */
+    gift_list.appendChild(delete_btn) /* 선물 항목에 삭제 버튼 추가 */
     delete_btn.textContent = '취소하기';
-    delete_btn.onclick = function() { // 삭제 버튼 클릭 시 확인 창
-        var check_btn = confirm('선택한 항목을 삭제하시겠습니까?'); // 확인 클릭 시 true 반환
+    delete_btn.onclick = function() { /* 삭제 버튼 클릭 시 확인 창 */
+        var check_btn = confirm('선택한 항목을 삭제하시겠습니까?'); /* 확인 클릭 시 true 반환 */
         if(check_btn) {
-            tot_price -= gift_price; // 전체 가격 - 선물 가격
+            tot_price -= gift_price; /* 전체 가격 - 선물 가격 */
             gift_orderlist.removeChild(gift_list);
-            updateTotalPrice(); // 전체 금액 갱신
+            updateTotalPrice(); /* 전체 금액 갱신 */
         }
     };
     
     // 선물 정보 추가 //
-    gift_orderlist.appendChild(gift_list); // 목록에 상품 정보 추가
-    tot_price += gift_price; // 전체 가격 + 선물 가격
-    
-    // 최종 금액 //
-    var tot_gift_price = document.getElementById('tot_price');
-    tot_gift_price.textContent = tot_price;
+    if(gift_orderlist.childElementCount < 2) { /* gift_list의 수가 2미만인 경우에만 추가*/
+    	gift_orderlist.appendChild(gift_list); /* 목록에 상품 정보 추가 */
+    	tot_price += gift_price; // 전체 가격 + 선물 가격
+    	var tot_gift_price = document.getElementById('tot_price');
+   		tot_gift_price.textContent = tot_price.toLocaleString(); /* 천단위마다 쉼표 표시해주기 위해 toLocaleString() 사용 */
+    }
+	else {
+		alert('한 번에 주문 가능한 선물의 개수는 최대 2개 입니다')
+	}
     
 }
 }
@@ -125,32 +160,11 @@ function giftInfo(value, name, parent){
 	
 	var span = document.createElement('span');
 	span.textContent = value;
-	parent.appendChild(span); 
+	parent.appendChild(span);
 }
 
 // 최종 금액 업데이트 //
 function updateTotalPrice() {
 var tot_gift_price = document.getElementById('tot_price');
-tot_gift_price.textContent = tot_price;
-}
-
-// 팝업 창 생성 //
-function creatorListPopup(url, name, width, height) {
-    var left = (screen.width - width) / 2; // 팝업을 화면 중앙에 배치하기 위해 추가 //
-    var top = (screen.height - height) / 2; // 팝업을 화면 중앙에 배치하기 위해 추가 //
-    var options = 'width=' + width + ',height=' + height + ',top=' + top + ',left=' + left + ',scrollbars=yes';
-    window.open(url, name, options);
-}
-
-// 팝업창에서 받아온 데이터 처리 //
-function selectCreatorInfo(data) {
-    var select_creator = document.getElementById('select_creator');
-    var list = '<img src="resources/member/basic_photo/' + data.photo + '" alt="Creator Photo">';
-    list += '<span>' + data.nick_name + '</span>';
-    list += '<input type="hidden" name="nick_name" value="' + data.nick_name + '">';
-    list += '<input type="hidden" name="address_post" value="' + data.post + '">';
-    list += '<input type="hidden" name="address_road" value="' + data.road + '">';
-    list += '<input type="hidden" name="address_local" value="' + data.local + '">';
-    list += '<input type="hidden" name="address_detail" value="' + data.detail + '">';
-    select_creator.innerHTML = list;
+tot_gift_price.textContent = tot_price.toLocaleString();
 }
