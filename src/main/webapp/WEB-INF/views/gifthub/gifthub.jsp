@@ -16,46 +16,48 @@
 </head>
 <body>
 	<section class="gifthub_container">
-		<form action="gifthub_out" class="gift_form" method="post">
+		<form action="buyComplete" class="gift_form" method="post">
 			<div class="gift_info">
-			<h1>신청서 작성</h1>
-			<div class="gift_info_detail">
-				<div class="creator_info">
-					<button type="button" onclick="creatorListPopup('creatorSelect','CreatorList',800,450)" class="search_button"> 선물 보낼 크리에이터 검색</button>
-					<div id="select_creator"></div>
+				<h1>신청서 작성</h1>
+				<div class="gift_info_detail">
+					<div class="creator_info">
+						<button type="button" onclick="creatorListPopup('creatorSelect','CreatorList',800,450)" class="search_button"> 선물 보낼 크리에이터 검색</button>
+						<div id="select_creator"></div>
+					</div>
+					<div class="box_size">
+						<select name="box_size" id="box_size">
+						<option value="">박스사이즈 선택</option>
+						<option value="소형">소형(+5,000)</option>
+						<option value="중형">중형(+7,500)</option>
+						<option value="대형">대형(문의)</option>
+						</select>
+					</div>
+				    <div class="category">
+				    	<select name="big_category" id="big_category" onchange="categoryList()">
+				        <option value="">카테고리 선택</option>
+				        <option value="IT/디지털/게임">IT/디지털/게임</option>
+				        <option value="가전">가전</option>
+				        <option value="식품">식품</option>
+				        <option value="주방용품">주방용품</option>
+				        <option value="생활용품">생활용품</option>
+				        <option value="홈/인테리어/꽃">홈/인테리어/꽃</option>
+				        <option value="패션/잡화/주얼리">패션/잡화/주얼리</option>
+				        <option value="뷰티/케어">뷰티/케어</option>
+				        <option value="완구/취미">완구/취미</option>
+				        <option value="문구/오피스/도서">문구/오피스/도서</option>
+				        <option value="스포츠/레져">스포츠/레져"</option>
+				        <option value="반려동물">반려동물</option>
+				        <option value="기타">기타</option>
+				    	</select>
+				    <div class="category">
+					    <select name="mid_category" id="mid_category">
+					        <option value="">카테고리 상세</option>
+					    </select>
+					</div>
 				</div>
-				<div class="box_size">
-					<select name="box_size" id="box_size">
-					<option value="">박스사이즈 선택</option>
-					<option value="소형">소형(+5,000)</option>
-					<option value="중형">중형(+7,500)</option>
-					<option value="대형">대형(문의)</option>
-					</select>
+				<div>
+					<input type="text" name="detail_category" class="detail_category" id="detail_category" placeholder="상세 품목">
 				</div>
-			    <div class="category">
-			    	<select name="big_category" id="big_category" onchange="categoryList()">
-			        <option value="">카테고리 선택</option>
-			        <option value="IT/디지털/게임">IT/디지털/게임</option>
-			        <option value="가전">가전</option>
-			        <option value="식품">식품</option>
-			        <option value="주방용품">주방용품</option>
-			        <option value="생활용품">생활용품</option>
-			        <option value="홈/인테리어/꽃">홈/인테리어/꽃</option>
-			        <option value="패션/잡화/주얼리">패션/잡화/주얼리</option>
-			        <option value="뷰티/케어">뷰티/케어</option>
-			        <option value="완구/취미">완구/취미</option>
-			        <option value="문구/오피스/도서">문구/오피스/도서</option>
-			        <option value="스포츠/레져">스포츠/레져"</option>
-			        <option value="반려동물">반려동물</option>
-			        <option value="기타">기타</option>
-			    	</select>
-			    <div class="category">
-				    <select name="mid_category" id="mid_category">
-				        <option value="">카테고리 상세</option>
-				    </select>
-				</div>
-				</div>
-					<div><input type="text" name="detail_category" class="detail_category" id="detail_category" placeholder="상세 품목"></div>
 					<input type="button" value="선물 추가" onclick="giftAdd()" class="add_button">
 				</div> 
 				<div class="gift_list">
@@ -76,11 +78,7 @@
 			</div>
 			<div class="gift_price">
 				<h1>최종 금액</h1>
-				<div id="tot_price"></div>
-			</div>
-			<div class="buy">
-				<h1>결제 방법</h1>
-				<div>카드 계좌 기타 등등</div>
+				<div class="tot_price" id="tot_price"></div>
 			</div>
 			<div>
 				<input type="submit" value="구매하기" class="buy_button">

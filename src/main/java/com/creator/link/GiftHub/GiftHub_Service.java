@@ -14,6 +14,6 @@ public interface GiftHub_Service {
 
 	void gifthub_insert(String box_size, String big_category, String mid_category, String detail_category, String creator_nick_name,
 			String delivery_post, String delivery_road, String delivery_local, String delivery_detail, String fan_id,
-			String pickup_post, String pickup_road, String pickup_local, String pickup_detail, int mb_number);
+			String pickup_post, String pickup_road, String pickup_local, String pickup_detail, int gift_price, int mb_number);
 
 }
