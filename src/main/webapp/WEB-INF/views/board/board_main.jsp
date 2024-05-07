@@ -33,6 +33,31 @@
 	<div class="background">
 		<div class="container">
 			<div class="sidebar">
+				<div class="info_block">
+					<div class="info_my">
+						<div class="info_title">
+							<div class="info_photo">
+								<img src="./resources/member/
+								<c:if test="${member.mb_photo == 'basic_photo.png'}">basic_photo</c:if>
+								<c:if test="${member.mb_photo != 'basic_photo.png'}">profile</c:if>
+								/${member.mb_photo}" width="180px">
+							</div>
+						</div>
+						<div class="info_data">
+							<div class="info_name">
+							${member.mb_nick_name}
+							</div>
+							<div class="info_record">
+								<span>내가 쓴 글</span>
+								<span>${write_post}</span>
+							</div>
+							<div class="info_record">
+								<span>내가 쓴 댓글</span>
+								<span>${write_comment}</span>
+							</div>
+						</div>
+					</div>
+				</div>
 				<aside class="category_list">
 					<div class="category_title">
 						<c:choose>
@@ -54,13 +79,13 @@
 						</div>
 					</c:forEach>
 				</aside>
-				<div class="store" onclick="location.href='store_main'">STORE</div>
 				<c:if test="${mb_number == member.mb_number || member.mb_attribute == '관리자'}">
 					<div class="setting">
 						<a id="modi_button" onclick="page_modify()" style="display: block; cursor: pointer;">⚙게시판설정</a>
 						<a id="submit_button" onclick="submit_do()" style="display: none; cursor: pointer;">💱돌아가기</a>
 					</div>
 				</c:if>
+				<div class="store" onclick="location.href='store_main'">STORE</div>
 			</div>
 			
 			<div class="board">

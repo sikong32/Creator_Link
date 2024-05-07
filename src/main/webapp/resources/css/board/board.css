@@ -3,14 +3,14 @@
     src: url('../../font/Bubblegum.ttf') format('truetype');
 }
 .background{
-	background-color: #483f3f;
+	background-color: #f4f6f8;
 }
 .container{
 	width: 1300px;
 	min-height: 900px;
 	display: flex;
 	justify-content: center;
-	background-color: rgb(241,240,254);
+	background-color: #f4f6f8;
 	margin: auto;
 }
 a{
@@ -29,12 +29,41 @@ a{
 	align-items: center;
 	margin: 10px;
 }
+.info_block{
+	width: 100%;
+}
+.info_my{
+	border-radius: 10px;
+	box-shadow: 2px 2px 5px rgb(0,0,0,0.5);
+	padding: 10px;
+	background-color: #ffffff;
+}
+.info_photo{
+	width: 180px;
+	height: 180px;
+	border-radius: 10px;
+	background-color: white;
+	border: 1px solid #eeeeee;
+	margin-right: 10px;
+	margin-bottom: 5px;
+}
+.info_name{
+	font-size: 20px;
+	font-weight: bold;
+}
+.info_record{
+	font-size: 15px;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
 .category_list{
 	width: 200px;
 	border-radius: 10px;
 	box-shadow: 2px 2px 5px rgb(0,0,0,0.5);
 	padding-bottom: 10px;
 	background-color: #2A2F4F;
+	margin-top: 10px;
 }
 .category_title{
 	display: flex;

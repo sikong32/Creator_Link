@@ -22,7 +22,7 @@ public interface Board_Service {
 
 	void board_modify(String bct_title, String bct_content, String attribute, String bct_content_number);
 
-	void comment_save(String cm_content, String bct_content_number, String mb_id, String cm_inheritance, String mb_nick_name, String cm_indent);
+	void comment_save(String cm_content, String bct_content_number, String mb_id, String cm_inheritance, String mb_nick_name, String cm_indent, String mb_number);
 
 	ArrayList<Comment_DTO> comment_list(String bct_content_number);
 
@@ -59,4 +59,8 @@ public interface Board_Service {
 	void history_delete(String mb_number, String login_number);
 
 	String call_mb_nick_name(String mb_number);
+
+	int write_post(String string, String mb_number);
+
+	int write_comment(String string, String mb_number);
 }

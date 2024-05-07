@@ -87,7 +87,7 @@ public class Home_Controller {
 	public String NewFile(Model mo) throws IOException, InterruptedException {
 		ProcessBuilder processBuilder;
         String a1; //실행될 파이선 파일의 경로
-        a1 = py_path + "cllo2.py";
+        a1 = py_path + "cllo2.py"; 
         processBuilder = new ProcessBuilder("python",a1);
         processBuilder.redirectErrorStream(true);
         Process process = processBuilder.start();

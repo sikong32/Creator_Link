@@ -2,6 +2,7 @@ import requests
 import oracledb
 import time
 import re
+import os
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service as ChromeService
 from webdriver_manager.chrome import ChromeDriverManager
@@ -15,7 +16,10 @@ plt.rcParams['font.family'] ='Malgun Gothic'
 plt.rcParams['axes.unicode_minus'] =False
 
 #클라이언트 오라클
-oracledb.init_oracle_client(lib_dir=r"C:\ezen\oracle\instantclient_11_2") #여기에 한글 경로면 아됩니다.
+script_dir = os.path.dirname(os.path.abspath(__file__))
+instantclient_dir = os.path.normpath(os.path.join(script_dir, '..', 'instantclient_11_2'))
+print(instantclient_dir)
+oracledb.init_oracle_client(lib_dir=instantclient_dir) #여기에 한글 경로면 아됩니다.
 connect = oracledb.connect(user='crering', password='12345',dsn='localhost')
 c=connect.cursor()#쿼리 저장 할 수 있게 설정
 
@@ -24,7 +28,7 @@ connect.commit()
 
 # Chrome 드라이버 옵션 설정
 options = webdriver.ChromeOptions()
-options.add_argument("headless")
+#options.add_argument("headless")
 
 # 크롬 드라이버 생성
 driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()),options=options)

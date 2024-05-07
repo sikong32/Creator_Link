@@ -56,6 +56,12 @@ public class Board_Controller {
 			history_list = sv.visit_history_list(login.getMb_number());
 		}
 		LocalDateTime ldt = LocalDateTime.now();
+		int write_post = 0;
+		int write_comment = 0;
+		if (login != null) {
+			write_post = sv.write_post(login.getMb_id(), mb_number);
+			write_comment = sv.write_comment(login.getMb_id(), mb_number);
+		}
 		
 		mo.addAttribute("board_list", board_list);
 		mo.addAttribute("attribute_list", attribute_list);
@@ -69,6 +75,8 @@ public class Board_Controller {
 		mo.addAttribute("mb_number", mb_number);
 		mo.addAttribute("mb_nick_name", mb_nick_name);
 		mo.addAttribute("history_list", history_list);
+		mo.addAttribute("write_post", write_post);
+		mo.addAttribute("write_comment", write_comment);
 		
 		return "board_main";
 	}
@@ -80,6 +88,8 @@ public class Board_Controller {
 	public String board_write(HttpServletRequest request, Model mo) {
 		String mb_number = request.getParameter("mb_number");
 		ArrayList<Attribute_DTO> attribute_list = new ArrayList<Attribute_DTO>();
+		HttpSession hs = request.getSession();
+		Member_DTO login = (Member_DTO)hs.getAttribute("member");
 		
 		Board_Service sv = sqlSession.getMapper(Board_Service.class);
 		if (mb_number == null) {
@@ -89,9 +99,17 @@ public class Board_Controller {
 		else {
 			attribute_list = sv.attribute_list(mb_number);
 		}
+		int write_post = 0;
+		int write_comment = 0;
+		if (login != null) {
+			write_post = sv.write_post(login.getMb_id(), mb_number);
+			write_comment = sv.write_comment(login.getMb_id(), mb_number);
+		}
 		
 		mo.addAttribute("attribute_list", attribute_list);
 		mo.addAttribute("mb_number", mb_number);
+		mo.addAttribute("write_post", write_post);
+		mo.addAttribute("write_comment", write_comment);
 		
 		return "board_write";
 	}
@@ -135,6 +153,12 @@ public class Board_Controller {
 		ArrayList<Comment_DTO> comment = sv.comment_list(bct_content_number);
 		ArrayList<Attribute_DTO> attribute_list = sv.attribute_list(mb_number);
 		ArrayList<Integer> liked_list = sv.board_liked_list(bct_content_number);
+		int write_post = 0;
+		int write_comment = 0;
+		if (login != null) {
+			write_post = sv.write_post(login.getMb_id(), mb_number);
+			write_comment = sv.write_comment(login.getMb_id(), mb_number);
+		}
 		
 		for (int list:liked_list) {
 			if (list == login_number) like = "true";
@@ -145,6 +169,8 @@ public class Board_Controller {
 		mo.addAttribute("attribute_list", attribute_list);
 		mo.addAttribute("like", like);
 		mo.addAttribute("mb_number", mb_number);
+		mo.addAttribute("write_post", write_post);
+		mo.addAttribute("write_comment", write_comment);
 		
 		return "board_view";
 	}
@@ -165,14 +191,24 @@ public class Board_Controller {
 	public String board_modify(HttpServletRequest request, Model mo) {
 		String bct_content_number = request.getParameter("bct_content_number");
 		String mb_number = request.getParameter("mb_number");
+		HttpSession hs = request.getSession();
+		Member_DTO login = (Member_DTO)hs.getAttribute("member");
 		
 		Board_Service sv = sqlSession.getMapper(Board_Service.class);
 		Board_DTO post = sv.board_view(bct_content_number);
 		ArrayList<Attribute_DTO> attribute_list = sv.attribute_list(String.valueOf(post.mb_number));
+		int write_post = 0;
+		int write_comment = 0;
+		if (login != null) {
+			write_post = sv.write_post(login.getMb_id(), mb_number);
+			write_comment = sv.write_comment(login.getMb_id(), mb_number);
+		}
 		
 		mo.addAttribute("post", post);
 		mo.addAttribute("attribute_list", attribute_list);
 		mo.addAttribute("mb_number", mb_number);
+		mo.addAttribute("write_post", write_post);
+		mo.addAttribute("write_comment", write_comment);
 		
 		return "board_modify";
 	}
@@ -199,6 +235,7 @@ public class Board_Controller {
 		String bct_content_number = request.getParameter("bct_content_number");
 		String cm_inheritance = request.getParameter("cm_inheritance");
 		String cm_indent = request.getParameter("cm_indent");
+		String mb_number = request.getParameter("mb_number");
 		if (cm_inheritance == null) cm_inheritance = "0";
 		if (cm_indent == null) cm_indent = "0";
 		
@@ -208,7 +245,7 @@ public class Board_Controller {
 		String mb_nick_name = member.getMb_nick_name();
 		
 		Board_Service sv = sqlSession.getMapper(Board_Service.class);
-		sv.comment_save(cm_content, bct_content_number, mb_id, cm_inheritance, mb_nick_name, cm_indent);
+		sv.comment_save(cm_content, bct_content_number, mb_id, cm_inheritance, mb_nick_name, cm_indent, mb_number);
 		
 		return "등록완료";
 	}
