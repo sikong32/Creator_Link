@@ -98,8 +98,8 @@ public class Member_Controller {
 	@RequestMapping(value = "login_do")
 	public String login_do(HttpServletRequest request,HttpServletResponse response) throws IOException {
 		Member_Service mService = sqlSession.getMapper(Member_Service.class);
-		String loginId = request.getParameter("logId");
-		String loginPw = request.getParameter("logPw");
+		String loginId = request.getParameter("id");
+		String loginPw = request.getParameter("pw");
 		Member_DTO mDto = mService.memberLogin(loginId,loginPw);
 		if (mDto != null) {
 			HttpSession hs = request.getSession();
