@@ -8,55 +8,24 @@
 <link href="${pageContext.request.contextPath}/resources/css/member/member_login.css" rel="stylesheet" type="text/css">
 <title>Login : Creator Link</title>
 </head>
-<script type="text/javascript">
-	var logIdCnt = 0;
-	var logPwCnt = 0;
-	
-	function check_logInfo() {
-		var logId = document.getElementById("logId").value;
-		const vrId = /^[A-Za-z\d]{4,20}$/;
-		if (logIdCnt == 0) {
-			if (logId=="") {
-				alert("아이디를 입력해주세요.");
-				return false;		
-			} else if (!vrId.test(logId)) {
-				alert("아이디는 4~20자의 영어와 숫자만 입력 가능합니다.");
-				return false;
-			} else if (vrId.test(logId)) {
-				logIdCnt = 1;
-			} 
-		}
-		if (logPwCnt == 0) {
-			var logPw = document.getElementById("logPw").value;
-//			var vrPw = /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[!@#_])[A-Za-z\d!@#_]{8,20}$/;
-//			아래 식은 임시식이므로 프로젝트 완성 후 위의 식으로 교체해야됩니다.
-			var vrPw = /^.{3,20}$/;
-			if (logPw=="") {
-				alert("비밀번호를 입력해주세요.");
-				return false;
-			} else if (!vrPw.test(logPw)) {
-				alert("비밀번호는 특수문자(!@#_),영 대/소문자와 숫자를 포함한 8~20자 이내로 만들어야 합니다.");
-				return false;
-			} else if (vrPw.test(logPw)) {
-				logPwCnt = 1;
-			}
-		}
-		if (logIdCnt == 1 && logPwCnt == 1) {
-			return true;
-		} else {
-			return false;
-		}
-	}
-</script>
 <body>
 	<section class="login_container">
 		<div class="login_tot">
 			<h3>로그인</h3>
-	       	<form class="login_form" action="login_do" method="post" onsubmit="return check_logInfo()">
+	       	<form class="login_form" action="login_do" method="post" onsubmit="return logVr()">
 	            <div class="login_idpw">
 	            	<div class="login_input">
-		                <input type="text" name="logId" id="logId" placeholder="아이디 입력">
-		                <input type="text" name="logPw" id="logPw" placeholder="비밀번호 입력">
+		                <input type="text" name="id" id="id" placeholder="아이디 입력">
+		                <div class="notice">
+		                	<p id="id1" hidden="hidden">*아이디 입력은 필수사항 입니다.</p>
+							<p id="id2" hidden="hidden">*아이디는 영어 대/소문자와 숫자를 포함한 4~20자<br> 이내로 만들어야 합니다.</p>
+							<p id="id3" hidden="hidden">*이미 사용중인 아이디입니다.</p>
+		                </div>
+		                <input type="text" name="pw" id="pw" placeholder="비밀번호 입력">
+		                <div class="notice">
+		                	<p id="pw1" hidden="hidden">*비밀번호 입력은 필수사항 입니다.</p>
+							<p id="pw2" hidden="hidden">*비밀번호는 특수문자(!@#_),영 대/소문자와 숫자를 포함한 8~20자<br> 이내로 만들어야 합니다.</p>
+		                </div>
 		                <div class="login_find"><a href="#">로그인 정보를 잊으셨나요?</a></div>
 	                </div>
 	                <div class="login_bnt">
@@ -74,5 +43,87 @@
 	        </div>
         </div>
 	</section>
+<script type="text/javascript">
+$(document).ready(function() {
+	$("#id").blur(function() {
+		idVr();
+	})//id
+	
+	$("#pw").blur(function() {
+		pwVr();
+	})//pw
+	
+	function idVr() {
+		var id = $("#id").val();
+		var idVr = /^[A-Za-z\d]{4,20}$/;
+		if (!id) {
+			$("#id1").show();
+			$("#id2").hide();
+			return false;
+		} else {
+			$("#id1").hide();
+		}
+		if (!idVr.test(id)) {
+			$("#id2").show();
+			return false;
+		} else {
+			$("#id2").hide();
+		}
+		if (idVr.test(id)) {
+			$.post("idCheck", {"id":id}, function(result) {
+				if (result == "pass") {
+					$("#id3").hide();
+					return true;
+				} else {
+					$("#id3").show();
+					return false;
+				}
+			}).fail (function() {
+				alert("서버 통신 중 오류가 발생했습니다.");
+			});
+		}
+	}
+	
+	function pw() {
+		//비밀번호 체크 정규식 및 변수
+		//var vrPw = /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[!@#_])[A-Za-z\d!@#_]{8,20}$/;
+		//아래 식은 임시식이므로 프로젝트 완성 후 위의 식으로 교체해야됩니다.
+		var pwVr = /^.{3,20}$/;
+		var pw = $("#pw").val();
+		if (!pw) {
+			$("#pw1").show();
+			$("#pw2").hide();
+			return false;
+		} else {
+			$("#pw1").hide();
+		}
+		if (!pwVr.test(pw)) {
+			$("#pw2").show();
+			return false;
+		} else {
+			$("#pw2").hide();
+			return true;
+		}
+	}
+	
+	function logVr() {
+		var idPass = idVr();
+		var pwPass = pwVr();
+		
+		if (idPass && pwPass) {
+			return true;
+		} else {
+			if (idPass == false) {
+				$("#id").focus();
+				return false;
+			} else if (pwPass == false) {
+				$("#pw").focus();
+				return false;
+			}
+		}//else
+		
+	}// logVr()
+}); //document
+</script>
 </body>
 </html>

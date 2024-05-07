@@ -56,12 +56,12 @@ label {
 	background-color:#917FB3;
 }
 
-.pw1_notice {
+.notice {
 	color:#ff0000;
 	font-size: 13px;
 	font-family:'Pretendard-Regular';
 }
-.pw1_notice p{
+.notice p{
 	margin: 0px;
 }
 

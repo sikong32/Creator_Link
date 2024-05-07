@@ -18,7 +18,7 @@
 					<label for="id">아이디</label>
 					<div class="regist_id">
 						<input type="text" id="id" name="id" maxlength="20" placeholder="아이디">
-						<div class="pw1_notice">	
+						<div class="notice">
 							<p id="id1" hidden="hidden">*아이디 입력은 필수사항 입니다.</p>
 							<p id="id2" hidden="hidden">*아이디는 영어 대/소문자와 숫자를 포함한 4~20자<br> 이내로 만들어야 합니다.</p>
 							<p id="id3" hidden="hidden">*이미 사용중인 아이디입니다.</p>
@@ -28,7 +28,7 @@
 				<div class="regist_menu">
 					<label for="pw">비밀번호</label>
 					<input type="password" id="pw" name="pw" placeholder="비밀번호">
-				<div class="pw1_notice">	
+				<div class="notice">	
 					<p id="pw1" hidden="hidden">*비밀번호 입력은 필수사항 입니다.</p>
 					<p id="pw2" hidden="hidden">*비밀번호는 특수문자(!@#_),영 대/소문자와 숫자를 포함한 8~20자<br> 이내로 만들어야 합니다.</p>
 				</div>
@@ -36,7 +36,7 @@
 				<div class="regist_menu">
 					<label for="pw_verify">비밀번호 확인</label>
 					<input type="password" id="pwVr" name="pwVr" placeholder="비밀번호 확인">
-				<div class="pw1_notice">	
+				<div class="notice">	
 					<p id="pw3" hidden="hidden">*비밀번호 확인란에 비밀번호를 입력해주세요.</p>
 					<p id="pw4" hidden="hidden">*비밀번호를 같게 만들어주세요.</p>
 				</div>
@@ -44,7 +44,7 @@
 				<div class="regist_menu">
 					<label for="name">이름</label>
 					<input type="text" id="name" name="name" placeholder="이름">
-				<div class="pw1_notice">	
+				<div class="notice">	
 					<p id="name1" hidden="hidden">*이름 입력은 필수사항 입니다.</p>
 					<p id="name2" hidden="hidden">*이름은 한글로 2~30자 이내로 만들어야 합니다.</p>
 				</div>
@@ -52,7 +52,7 @@
 				<div class="regist_menu">
 					<label for="date">생년월일</label>
 					<input type="date" id="birthDate" name="birthDate" max="9999-12-31">
-				<div class="pw1_notice">	
+				<div class="notice">	
 					<p id="birthDate1" hidden="hidden">*생년월일 입력은 필수사항 입니다.</p>
 					<p id="birthDate2" hidden="hidden">*생년월일을 다시 확인해주세요.</p>
 					<p id="birthDate3" hidden="hidden">*YYYY(년)-MM(월)-DD(일) 형식으로 입력해주세요.</p>
@@ -62,7 +62,7 @@
 					<label for="phone">전화번호</label>
 <!-- 				<div class="regist_phone"> -->
 					<input type="text" id="phone" name="phone" placeholder="휴대전화번호">
-				<div class="pw1_notice">	
+				<div class="notice">	
 					<p id="phone1" hidden="hidden">*전화번호 입력은 필수사항 입니다.</p>
 					<p id="phone2" hidden="hidden">*전화번호는 010을 포함한 숫자 10~11자 이내로 입력해주세요.</p>
 				</div>
@@ -249,7 +249,7 @@ $(document).ready(function() {
 		}
 	}
 	
-	window.regiVr = function() {
+	function regiVr() {
 		var idPass = idVr();
 		var pwPass = pw();
 		var pwVrPass = pwVr();
@@ -261,27 +261,21 @@ $(document).ready(function() {
 			return true;
 		} else {
 			if (idPass == false) {
-				alert("idPass "+idPass);
 				$("#id").focus();
 				return false;
 			} else if (pwPass == false) {
-				alert("pwPass "+pwPass);
 				$("#pw").focus();
 				return false;
 			} else if (pwVrPass == false) {
-				alert("pwVrPass "+pwVrPass);
 				$("#pwVr").focus();
 				return false;
 			} else if (namePass == false) {
-				alert("namePass "+namePass);
 				$("#name").focus();
 				return false;
 			} else if (birthDatePass == false) {
-				alert("birthDatePass "+birthDatePass);
 				$("#birthDate").focus();
 				return false;
 			} else if (phonePass == false) {
-				alert("phonePass "+phonePass);
 				$("#phone").focus();
 				return false;
 			}
