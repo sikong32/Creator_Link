@@ -53,6 +53,7 @@
 				<th>상품명</th>
 				<td>${dto.pd_name}
 				<input type="hidden" name="pd_number" id="pd_number" value="${dto.pd_number}">
+				<input type="hidden" name="mb_number" id="mb_number" value="${dto.mb_number}">
 				</td>
 			</tr>
 			<tr>

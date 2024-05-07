@@ -19,6 +19,7 @@
 			</tr>
 			<tr>
 				<td>아이템 이름: <input type="hidden" name="pd_number" value="${pddto.pd_number}">
+				<input type="hidden" name="seller_mb_number" value="${seller_mb_number}">
 				<input type="hidden" name="pd_name" value="${pddto.pd_name}">${pddto.pd_name}</td>
 			</tr>
 			<c:choose>

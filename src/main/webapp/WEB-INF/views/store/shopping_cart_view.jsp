@@ -9,9 +9,25 @@
 <title>Insert title here</title>
 <style>
     .product-row {
+        display: flex;
         padding: 10px;
         border: 1px solid #ddd;
+        border-radius: 1vw;
         margin-bottom: 5px;
+        
+        background-color: white;
+        border-radius: 1vw; /*테두리 부드럽게*/
+        box-shadow: 0 4px 16px rgba(0, 0, 0, .05); /*그림자 설정*/
+        width: 50vw; /* 넓이를 50%로 고정*/
+/*         height: 10vw; /* 높이를 10%로 고정*/ */
+        color: #555555;
+	    align-items: center;
+	    font-size: 1vw; /* 폰트 크기를 뷰포트 너비의 1%로 설정 */
+        overflow: hidden; /* 내용이 div를 넘어가면 숨김 */
+        font-family:'Pretendard-Regular';
+    }
+    .product-row select {
+    	font-size: 1vw; /* 폰트 크기를 뷰포트 너비의 1%로 설정 */
     }
     .product-row.checked {
         background-color: #e0f7fa;
@@ -20,9 +36,14 @@
     transform:scale(2);
     margin: 10px;
     }
+    .cart_view{
+    width: 50vw;
+    margin-left: 25vw;
+    }
 </style>
 </head>
 <body>
+<div class="cart_view">
 	<input type="button" value="품절 삭제" onclick="cart_del_0stock()">
 	<input type="button" value="선택 삭제" onclick="cart_checked_del()">
 	<form action="shoping_cart_buy" method="post">
@@ -84,6 +105,7 @@
 		</c:otherwise>
 		</c:choose>
 	</form>
+</div>
 </body>
 <script>
 	// 상품이 품절이면 체크박스 비활 성화

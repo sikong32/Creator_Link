@@ -3,102 +3,67 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="UTF-8">
-    <title>상품 관리 페이지</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f4f4f4;
-        }
-        .container {
-            max-width: 800px;
-            margin: 20px auto;
-            padding: 20px;
-            background-color: #fff;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-        ul {
-            list-style-type: none;
-            padding: 0;
-        }
-        li {
-            margin-bottom: 10px;
-        }
-        hr {
-            border: 0;
-            border-top: 1px solid #ccc;
-            margin: 20px 0;
-        }
-        form {
-            margin-bottom: 20px;
-        }
-        .product-info {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        .product-photo {
-            flex: 0 0 auto;
-            margin-right: 20px;
-            border-radius: 8px;
-            overflow: hidden;
-        }
-        .product-photo img {
-            max-width: 100px;
-            height: auto;
-            border-radius: 8px;
-            transition: transform 0.3s;
-        }
-        .product-photo img:hover {
-            transform: scale(1.1);
-        }
-        .product-content {
-            display: none;
-            margin-top: 10px;
-            padding: 10px;
-            background-color: #f9f9f9;
-            border-radius: 8px;
-        }
-        .product-content p {
-            margin: 0;
-        }
+<meta charset="UTF-8">
+<title>상품 관리 페이지</title>
+<style>
+ .product-content { 
+     display: none;
+     margin-top: 10px;
+     padding: 10px;
+    background-color: #f9f9f9;
+     border-radius: 8px;
+ }
+ .list_items {
+        display: flex;
+        background-color: white;
+        border-radius: 1vw; /*테두리 부드럽게*/
+        box-shadow: 0 4px 16px rgba(0, 0, 0, .05); /*그림자 설정*/
+        width: 50vw; /* 넓이를 50%로 고정*/
+        height: 10vw; /* 높이를 10%로 고정*/
+        color: #555555;
+        font-size: 1vw; /* 폰트 크기를 뷰포트 너비의 1%로 설정 */
+        overflow: hidden; /* 내용이 div를 넘어가면 숨김 */
+        font-family:'Pretendard-Regular';
+    }
+    .list_items_test {
+        display: flex;
+	    margin-left: auto;
+	    flex-direction: column;
+	    align-items: stretch;
+	    justify-content: space-evenly;
+    }
+    .list_items img {
+        border-radius: 1vw;
+        height: 100%;
+        object-fit: cover;
+}
     </style>
 </head>
 <body>
-    <div class="container">
+    <div style="background-color: #f4f6f8;">
         <ul>
             <c:forEach items="${ma_list}" var="ma">
-                <li>
-                    <hr>
+                <div style="display: flex; margin-left: 25%">
                     <form action="store_product_modify" method="POST">
-                        <div class="product-info">
-                            <div>
-                                <ul>
-                                    <li>상품 번호: ${ma.pd_number}<input type="hidden" name="pd_number" value="${ma.pd_number}"></li>
-                                    <li>상품 이름: ${ma.pd_name}</li>
-                                    <li>상품 가격: ${ma.pd_price}</li>
-                                    <li>상품 카테고리: ${ma.pd_category}</li>
-                                </ul>
-                                <button type="button" onclick="toggleContent('${ma.pd_number}')">상세 정보 보기</button>
-                            </div>
-                            <div class="product-photo">
-                                <img src="./resources/store/item_cover/${ma.pd_photo}" alt="상품 사진">
-                            </div>
+                        <div class="list_items">
+                           	<img src="./resources/store/item_cover/${ma.pd_photo}" alt="상품 사진">
+                            상품 카테고리: ${ma.pd_category}<br>
+                            상품 번호: ${ma.pd_number}<input type="hidden" id="pd_number" name="pd_number" value="${ma.pd_number}"><br>
+                            상품 이름: ${ma.pd_name}<br>
+                            상품 가격: ${ma.pd_price}<br>
+                            상품 재고: ${ma.pd_stock}<br>
+                            판매 수량: ${ma.pd_buy_su}<br>
+                           	<div class="list_items_test">
+                          	<button type="button" onclick="toggleContent('${ma.pd_number}')">상세 정보 보기</button>
+	                        <button type="submit">제품 수정</button>
+							<button type="button" onclick="pd_delete(${ma.pd_number})">제품삭제</button>
+                           	</div>
                         </div>
                         <div class="product-content" id="productContent_${ma.pd_number}">
                             <p>${ma.pd_content}</p>
                         </div>
-                        <ul>
-                            <li>상품 사이즈: ${ma.pd_size}</li>
-                            <li>상품 재고: ${ma.pd_stock}</li>
-                            <li>판매 수량: ${ma.pd_buy_su}</li>
-                        </ul>
-                        <button type="submit">제품 수정</button>
                     </form>
-                </li>
+                </div><br>
             </c:forEach>
         </ul>
     </div>
@@ -107,6 +72,11 @@
             var contentDiv = document.getElementById("productContent_" + productNumber);
             contentDiv.style.display = contentDiv.style.display === "block" ? "none" : "block";
         }
+        function pd_delete(pd_number) {
+        	if(confirm("정발로 삭제하시겠습니까?")){
+        		window.location.href="store_Delete?pd_number="+pd_number;
+        	}
+		}
     </script>
 </body>
 </html>

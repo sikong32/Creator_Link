@@ -94,5 +94,20 @@ public interface Store_Service {
 
 	void os1_up(int os_number, String os_1name, int os_price, String os_photo, int os_stock);
 
+	void delete_pd(int pd_number);
+
+	void delete_os(int pd_number);
+
+	void pd_delete_up(int pd_number);
+
+	void os_delete_up(int pd_number);
+
+	Store_DTO select_order(String mb_number);
+
+	void od_cancel_up(int od_number, String cancel_text);
+
+	ArrayList<Order_DTO> order_list_all();
+
+	void od_dlvyAdd_up(int od_number, String dlvyAdd);
 
 }

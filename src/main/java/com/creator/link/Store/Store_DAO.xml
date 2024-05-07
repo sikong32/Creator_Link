@@ -103,6 +103,12 @@
 <select id="store_mana" resultType="com.creator.link.Store.Store_DTO">
 	SELECT * FROM PRODUCT_TBL where MB_NUMBER = #{param1}
 </select>
+<select id="select_order" resultType="com.creator.link.Store.Store_DTO">
+	SELECT * FROM PRODUCT_TBL where MB_NUMBER = #{param1}
+</select>
+<select id="order_list_all" resultType="com.creator.link.Store.Order_DTO">
+	SELECT * FROM ORDER_TBL
+</select>
 <update id="cart_up_stock">
 	UPDATE cart_tbl SET ct_stock = ct_stock + #{param3} WHERE pd_number = #{param1} and mb_number = #{param2}
 </update>
@@ -127,10 +133,28 @@
 <update id="os1_up">
 	UPDATE product_opstion_tbl SET os_1name = #{param2}, os_price = #{param5}, os_photo = #{param6}, os_stock = #{param7} WHERE os_number = #{param1}
 </update>
+<update id="pd_delete_up">
+	UPDATE product_tbl SET MB_NUMBER = 1, PD_STOCK = 0 WHERE PD_NUMBER = #{param1}
+</update>
+<update id="os_delete_up">
+	UPDATE product_opstion_tbl SET OS_STOCK = 0 WHERE PD_NUMBER = #{param1}
+</update>
+<update id="od_cancel_up">
+	UPDATE ORDER_TBL SET OD_CANCEL_TEXT = #{param2} WHERE OD_NUMBER = #{param1}
+</update>
+<update id="od_dlvyAdd_up">
+	UPDATE ORDER_TBL SET OD_INVOICE = #{param2} WHERE OD_NUMBER = #{param1}
+</update>
 <delete id="cart_delete">
 	DELETE FROM CART_TBL WHERE ct_pd_qnt = #{param1} and mb_number = #{param2}
 </delete>
 <delete id="review_delete">
 	DELETE FROM REVIEW_TBL WHERE REVIEW_NUMBER = #{param1} and MB_NUMBER = #{param2}
+</delete>
+<delete id="delete_pd">
+	DELETE FROM PRODUCT_TBL WHERE PD_NUMBER = #{param1}
+</delete>
+<delete id="delete_os">
+	DELETE FROM PRODUCT_OPSTION_TBL WHERE PD_NUMBER = #{param1}
 </delete>
 </mapper>

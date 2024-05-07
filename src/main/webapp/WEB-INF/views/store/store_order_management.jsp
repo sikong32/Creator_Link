@@ -13,7 +13,7 @@
         border-radius: 1vw; /*테두리 부드럽게*/
         box-shadow: 0 4px 16px rgba(0, 0, 0, .05); /*그림자 설정*/
         width: 50vw; /* 넓이를 50%로 고정*/
-        height: 10vw; /* 높이를 10%로 고정*/
+        height: 11vw; /* 높이를 10%로 고정*/
         color: #555555;
         font-size: 1vw; /* 폰트 크기를 뷰포트 너비의 1%로 설정 */
         overflow: hidden; /* 내용이 div를 넘어가면 숨김 */
@@ -28,6 +28,11 @@
         height: 100%;
         object-fit: cover;
     }
+    .order_cancel{
+        display: flex;
+	    margin-left: 15vw;
+	    align-items: center;
+    }
 </style>
 </head>
 <body>
@@ -39,22 +44,28 @@
 			<c:forEach items="${order_list}" var="od">
 				<li>
 				<div class="list_items">
+					<input type="hidden" value="${od.od_number}" name="od_number">
 					<a href="store_detail?pd_number=${od.od_pd_number}"><img alt="" src="./resources/store/item_cover/${od.image}"></a>
 					<div class="list_items_test">
+					주문 번호: <b>${od.od_number}</b>
 					상품명:    <b>${od.od_pd_name}</b><br>
-					주문 개수:   ${od.od_pd_qnt}<br>
-					주문 가격:   ${od.od_price} 원<br>
+					주문 수량:   ${od.od_pd_qnt}
+					결제 금액:   ${od.od_price} 원<br>
 					주문 일자:   ${od.od_date}<br>
 					<c:choose>
 					<c:when test="${od.os_name!=null}">
 					옵션 이름:   ${od.os_name}<br>
 					</c:when>
 					</c:choose>
+					<c:if test="${od.od_cancel_text==null}">
+					주문자: <b>${od.od_id}</b><br>
 					배송 주소:   ${od.dlvy_address}<br>
 					삭세 주소:   ${od.dlvy_detail}<br>
 					배송 메시지:   ${od.dlvy_comment}<br>
-					송장번호: ${od.od_invoice}<br>
+					송장번호: <input type="text" name="dlvyAddress" id="dlvyAdd_${od.od_number}" maxlength="20" value="${od.od_invoice}"><input type="button" onclick="dlvyAddress(${od.od_number})" value="전송">
+					</c:if>
 					</div>
+				<div class="order_cancel"><input ${od.od_cancel_text==null?"type='button'":"type='hidden'"} onclick="order_cancel(${od.od_number})" value="주문취소"><br></div>
 				</div>
 				</li><br>
 			</c:forEach>
@@ -67,4 +78,23 @@
 	</div>
 </div>
 </body>
+<script type="text/javascript">
+function dlvyAddress(od_number) {
+	const dlvyAddress = document.getElementById("dlvyAdd_"+od_number).value;
+	window.location.href = "dlvyAddress?dlvyAdd="+dlvyAddress+"&&od_number="+od_number;
+}
+function order_cancel(od_number) {
+	// 취소 확인
+    if (confirm("주문을 취소하시겠습니까?")) {
+		var cancel_text = prompt("취소 이유를 입력하세요:");
+	    
+		// 사용자가 입력한 취소 이유가 유효한 경우
+	   	if (cancel_text != null && cancel_text.trim() !== "") {
+            window.location.href = "cancel?cancel_text=" + encodeURIComponent(cancel_text)+"&&od_number="+od_number;
+	   	}else if(cancel_text == null && cancel_text.trim() === ""){
+	   		alert("취소이유를 입력해주세요");
+	   	}
+    }
+}
+</script>
 </html>

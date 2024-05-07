@@ -82,6 +82,7 @@ public class Store_Controller {
 			}
 			model.addAttribute("order_list",od_list);
 		}
+		
 		return "order_list";
 	}
 	@ResponseBody
@@ -271,7 +272,7 @@ public class Store_Controller {
 		HttpSession hs = request.getSession();
 		Member_DTO member = (Member_DTO)hs.getAttribute("member");
 		int pd_number = Integer.parseInt(request.getParameter("pd_number"));
-		
+		String seller_mb_number = request.getParameter("mb_number");
 		ArrayList<Store_DTO> pd_list = ss.select_pd_all(pd_number);
 		ArrayList<Store_OS_DTO> os_list = null;
 		if(request.getParameter("os_number")!=null) {
@@ -283,7 +284,7 @@ public class Store_Controller {
 			mo.addAttribute("os_list",os_list);
 		}
 		int os_number = 0;
-		if(request.getParameter("os_1")!=null&&request.getParameter("os_2")!=null&&request.getParameter("os_1")!=null) {
+		if(request.getParameter("os_1")!=null&&request.getParameter("os_2")!=null&&request.getParameter("os_3")!=null) {
 			String os_1 = request.getParameter("os_1");
 			String os_2 = request.getParameter("os_2");
 			String os_3 = request.getParameter("os_3");
@@ -308,6 +309,7 @@ public class Store_Controller {
 		mo.addAttribute("pddto",pddto);
 		mo.addAttribute("buy_quantity",buy_quantity);
 		mo.addAttribute("member",member);
+		mo.addAttribute("seller_mb_number",seller_mb_number);
 		return "shoping_buy";
 	}
 	@RequestMapping(value = "shoping_cart_buy", method= RequestMethod.POST)
@@ -478,6 +480,44 @@ public class Store_Controller {
 			return "login";
 		}
 	}
+	@RequestMapping(value = "store_order_management")
+	public String shopping_order_management(HttpServletRequest request,Model mo) {
+		HttpSession hs = request.getSession();
+		Member_DTO member = (Member_DTO)hs.getAttribute("member");
+		Store_Service ss = sqlSession.getMapper(Store_Service.class);
+		if(member!=null) {
+			String member_number = member.getMb_number();
+			ArrayList<Store_DTO> pd_list = ss.store_mana(Integer.parseInt(member_number));//내가 등록한 제품 가져오기
+			ArrayList<Order_DTO> all_od_list = ss.order_list_all();//모든 구매 목록 가져오기
+			ArrayList<Order_DTO> od_list = new ArrayList<Order_DTO>();//신규 구매목록
+			//내가 등록한 상품이 있는지확인 후 있으면 모든 주문에서 내가 등록한 제품만 표시
+			if(pd_list.size()!=0) {
+				for (int i = 0; i < all_od_list.size(); i++) {
+					if(pd_list.get(i).getPd_number()== all_od_list.get(i).getOd_pd_number()) {
+						od_list.add(all_od_list.get(i));
+					}
+				}
+			//신규 구매 목록에 사진 넣기
+			for(int i= 0; i< od_list.size(); i++) {
+				String image = null;
+				if(od_list.get(i).getOs_number()!=0) {
+					Store_OS_DTO os_list = ss.select_os(od_list.get(i).getOs_number());
+					String os_name = os_list.getOs_1name()+os_list.getOs_2name()+os_list.getOs_3name();
+					image = os_list.getOs_photo();
+					od_list.get(i).setOs_name(os_name.replace("null", ""));
+					od_list.get(i).setImage(image);
+				}else {
+					Store_DTO pd_list1 = ss.select_pd(od_list.get(i).getOd_pd_number());
+					image = pd_list1.getPd_photo();
+					od_list.get(i).setImage(image);
+				}
+			}
+				mo.addAttribute("order_list",od_list);
+			}
+		}
+		return "store_order_management";
+
+	}
 	@RequestMapping(value = "store_product_modify_save", method = RequestMethod.POST)
 	public String store_product_modify_save(MultipartHttpServletRequest mul,HttpServletRequest request) throws IllegalStateException, IOException {
 		Store_Service ss = sqlSession.getMapper(Store_Service.class);
@@ -610,4 +650,58 @@ public class Store_Controller {
 		String sname = uuid.toString()+"_"+fname;
 		return sname;
 	}
+	
+
+	@RequestMapping(value = "store_Delete", method = RequestMethod.GET)
+	public String store_Delete(HttpServletRequest request) {
+		Store_Service ss =sqlSession.getMapper(Store_Service.class);
+		int pd_number = Integer.parseInt(request.getParameter("pd_number"));
+		// 회원 번호 가져오기
+		HttpSession hs = request.getSession();
+		if(hs.getAttribute("member")!=null) {
+			Member_DTO dto = (Member_DTO)hs.getAttribute("member");
+			int mb_number = Integer.parseInt(dto.getMb_number());
+			ss.pd_delete_up(pd_number);// 주문 내역 업데이트 맴버 넘버를 1로 수정하고 재고 0으로 설정
+			ss.os_delete_up(pd_number);// 옵션 재고 0으로 설정
+		}
+//		Store_DTO dto =  ss.select_pd(pd_number);
+//		String delete_Fname =  dto.getPd_photo();
+//		ArrayList<Store_OS_DTO> osList = ss.store_os_detail(pd_number);
+//		for(Store_OS_DTO Fname : osList) {
+//			File delOsPhoto = new File(imagePath+Fname.getOs_photo());
+//			delOsPhoto.delete();
+//		}
+//		File delPhoto = new File(imagePath+delete_Fname);
+//		delPhoto.delete();	
+//		ss.delete_pd(pd_number);
+//		ss.delete_os(pd_number);
+		return "redirect:/store_management";
+	}
+	//주문 제품 취소 사유
+	@RequestMapping(value = "cancel", method = RequestMethod.GET)
+	public String cancel(HttpServletRequest request) {
+		Store_Service ss =sqlSession.getMapper(Store_Service.class);
+		int od_number = Integer.parseInt(request.getParameter("od_number"));
+		String cancel_text = request.getParameter("cancel_text");
+		// 회원 번호 가져오기
+		HttpSession hs = request.getSession();
+		if(hs.getAttribute("member")!=null) {
+			ss.od_cancel_up(od_number,cancel_text);// 
+		}
+		return "redirect:/store_order_management";
+	}
+	//주문 제품 송장 입력
+		@RequestMapping(value = "dlvyAddress", method = RequestMethod.GET)
+		public String dlvyAdd(HttpServletRequest request) {
+			Store_Service ss =sqlSession.getMapper(Store_Service.class);
+			String dlvyAdd = request.getParameter("dlvyAdd");
+			int od_number = Integer.parseInt(request.getParameter("od_number"));
+			// 회원 번호 가져오기
+			HttpSession hs = request.getSession();
+			if(hs.getAttribute("member")!=null) {
+				ss.od_dlvyAdd_up(od_number,dlvyAdd);
+			}
+			return "redirect:/store_order_management";
+		}
+	
 }
