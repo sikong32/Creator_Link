@@ -92,7 +92,7 @@
 		update board_content_tbl set bct_title = #{param1}, bct_content = #{param2}, bat_number = #{param3} where bct_content_number = #{param4}
 	</update>
 	<insert id="comment_save">
-		insert into comment_tbl values(cm_number_seq.nextval, #{param1}, sysdate, ${param2}, #{param3}, ${param4}, #{param5}, #{param6})
+		insert into comment_tbl values(cm_number_seq.nextval, #{param1}, sysdate, ${param2}, #{param3}, ${param4}, #{param5}, #{param6}, #{param7})
 	</insert>
 	<select id="comment_list" resultType="com.creator.link.Board.Comment_DTO">
 		select * 
@@ -146,5 +146,11 @@
 	</delete>
 	<select id="call_mb_nick_name" resultType="String">
 		select mb_nick_name from member_tbl where mb_number = #{param1}
+	</select>
+	<select id="write_post" resultType="int">
+		select count(bct_writer_id) from board_content_tbl where bct_writer_id = #{param1} and mb_number = #{param2}
+	</select>
+	<select id="write_comment" resultType="int">
+		select count(mb_id) from comment_tbl where mb_id = #{param1} and mb_number = #{param2}
 	</select>
 </mapper>

@@ -13,7 +13,8 @@ $(document).ready(function() {
     			url:"comment_save",
     			data:{
     				"cm_content":cm_content,
-    				"bct_content_number":bct_content_number
+    				"bct_content_number":bct_content_number,
+    				"mb_number":mb_number
     			},
     			success:function(result) {
     				location.reload();
@@ -41,7 +42,8 @@ $(document).ready(function() {
 	    				"cm_content":re_content,
 	    				"bct_content_number":bct_content_number,
 	    				"cm_inheritance":cm_number,
-	    				"cm_indent":"1"
+	    				"cm_indent":"1",
+	    				"mb_number":mb_number
 	    			},
 	    			success:function(result) {
 	    				location.reload();
