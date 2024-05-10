@@ -25,7 +25,7 @@ async function processImages(data) {
 
 	images.forEach(img => {
 		if (img.src.startsWith('data:image/')) { // BASE64 인코딩된 PNG 이미지인 경우
-			const promise = resizeBase64Img(img.src, 800, 800).then(function (resizedImgData) { // 이미지 크기 조정
+			const promise = resizeBase64Img(img.src, 800, "auto").then(function (resizedImgData) { // 이미지 크기 조정
 				img.src = resizedImgData; // 조정된 이미지 데이터로 src 속성 업데이트
 			});
 			resizePromises.push(promise);
