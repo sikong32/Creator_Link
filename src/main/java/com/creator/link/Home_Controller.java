@@ -50,8 +50,10 @@ public class Home_Controller {
 		hs.setAttribute("loginState", false);
 		//방송 리스트 가져오기
 		Home_Service sv = sqlSession.getMapper(Home_Service.class);
+		ArrayList<Member_DTO> mb_list = sv.mb_select();
 		ArrayList<BC_DTO> bc_list = sv.bc_select();
 		mo.addAttribute("bc_list",bc_list);
+		mo.addAttribute("mb_list",mb_list);
 		return "main";
 	}
 	
