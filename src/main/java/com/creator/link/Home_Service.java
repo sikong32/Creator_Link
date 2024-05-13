@@ -14,4 +14,6 @@ public interface Home_Service {
 
 	ArrayList<BC_DTO> bc_select();
 
+	ArrayList<Member_DTO> mb_select();
+
 }

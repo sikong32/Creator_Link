@@ -64,4 +64,7 @@
 	<select id="bc_select" resultType="com.creator.link.BC_DTO">
 		select * from BROADCAST_TBL
 	</select>
+	<select id="mb_select" resultType="com.creator.link.Member.Member_DTO">
+		select * from MEMBER_TBL
+	</select>
 </mapper>
