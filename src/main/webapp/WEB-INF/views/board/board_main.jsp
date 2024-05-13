@@ -33,31 +33,31 @@
 	<div class="background">
 		<div class="container">
 			<div class="sidebar">
-				<div class="info_block">
-					<div class="info_my">
-						<div class="info_title">
+				<c:if test="${member != null}">
+					<div class="info_block">
+						<div class="info_my">
 							<div class="info_photo">
 								<img src="./resources/member/
 								<c:if test="${member.mb_photo == 'basic_photo.png'}">basic_photo</c:if>
 								<c:if test="${member.mb_photo != 'basic_photo.png'}">profile</c:if>
 								/${member.mb_photo}" width="180px">
 							</div>
-						</div>
-						<div class="info_data">
-							<div class="info_name">
-							${member.mb_nick_name}
-							</div>
-							<div class="info_record">
-								<span>내가 쓴 글</span>
-								<span>${write_post}</span>
-							</div>
-							<div class="info_record">
-								<span>내가 쓴 댓글</span>
-								<span>${write_comment}</span>
+							<div class="info_data">
+								<div class="info_name">
+								${member.mb_nick_name}
+								</div>
+								<div class="info_record">
+									<span>내가 쓴 글</span>
+									<span>${write_post}</span>
+								</div>
+								<div class="info_record">
+									<span>내가 쓴 댓글</span>
+									<span>${write_comment}</span>
+								</div>
 							</div>
 						</div>
 					</div>
-				</div>
+				</c:if>
 				<aside class="category_list">
 					<div class="category_title">
 						<c:choose>

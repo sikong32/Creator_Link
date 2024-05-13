@@ -3,7 +3,6 @@ package com.creator.link.Store;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.text.DecimalFormat;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -389,7 +388,7 @@ public class Store_Controller {
 				int od_price = Integer.parseInt(request.getParameterValues("ostot_price")[i]);
 				int pd_number = Integer.parseInt(request.getParameterValues("os_pd_number")[i]);
 				String od_pd_name = request.getParameterValues("os_pd_name")[i];
-				String od_os_name = request.getParameterValues("os_name")[i];
+				//String od_os_name = request.getParameterValues("os_name")[i];
 				ss.od_insert_os(od_id,od_pd_name,od_pd_qnt,od_price,od_cp_code,mb_number,os_number,zip_code,dlvy_address,dlvy_address_dong,dlvy_detail,dlvy_comment,pd_number);
 				ss.od_updata_os(pd_number,od_pd_qnt,os_number);
 			}
@@ -659,8 +658,8 @@ public class Store_Controller {
 		// 회원 번호 가져오기
 		HttpSession hs = request.getSession();
 		if(hs.getAttribute("member")!=null) {
-			Member_DTO dto = (Member_DTO)hs.getAttribute("member");
-			int mb_number = Integer.parseInt(dto.getMb_number());
+			//Member_DTO dto = (Member_DTO)hs.getAttribute("member");
+			//int mb_number = Integer.parseInt(dto.getMb_number());
 			ss.pd_delete_up(pd_number);// 주문 내역 업데이트 맴버 넘버를 1로 수정하고 재고 0으로 설정
 			ss.os_delete_up(pd_number);// 옵션 재고 0으로 설정
 		}

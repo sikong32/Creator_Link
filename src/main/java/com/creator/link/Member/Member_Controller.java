@@ -4,8 +4,6 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.lang.reflect.Method;
-import java.net.http.HttpRequest;
 import java.util.Properties;
 import java.util.UUID;
 
@@ -18,7 +16,6 @@ import javax.servlet.http.HttpSession;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -62,7 +59,7 @@ public class Member_Controller {
 		Member_Service mService = sqlSession.getMapper(Member_Service.class);
 		String rgId = request.getParameter("id");
 		String rgPw = request.getParameter("pw");
-		String rgPwVr = request.getParameter("pw_verify");
+		//String rgPwVr = request.getParameter("pw_verify");
 		String rgName = request.getParameter("name");
 		String rgBirthDate = request.getParameter("birthDate");
 		String rgPhone = request.getParameter("phone");
