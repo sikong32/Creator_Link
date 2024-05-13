@@ -51,7 +51,7 @@ try:
             image_src = i.find_element(By.CLASS_NAME, "video_card_profile__QHbN7").find_element(By.TAG_NAME,"img").get_attribute("src")
             live = int(i.find_element(By.CLASS_NAME, "video_card_badge__w02UD").text.replace('명 시청', '').replace(',', ''))
             name = i.find_element(By.CLASS_NAME, "name_text__yQG50").text
-            c.execute("insert into BROADCAST_TBL values(BC_NUMBER_SQL.nextval,:1,:2,:3,:4,:5,:6)",(link,vido,image_src,name,live,"치지직"))
+            #c.execute("insert into BROADCAST_TBL values(BC_NUMBER_SQL.nextval,:1,:2,:3,:4,:5,:6)",(link,vido,image_src,name,live,"치지직"))
             print(link)
             print(vido)
             print(image_src)
@@ -80,7 +80,7 @@ try:
         vido = items[i].find_element(By.TAG_NAME,"img").get_attribute("src")
         imag = items[i].find_element(By.CSS_SELECTOR,"div.cBox-info > a > img").get_attribute("src")
         name = items[i].text
-        c.execute("insert into BROADCAST_TBL values(BC_NUMBER_SQL.nextval,:1,:2,:3,:4,:5,:6)",(link,vido,imag,name.split('\n', 1)[0],int(saram.replace(',', '')),"아프리카"))
+        #c.execute("insert into BROADCAST_TBL values(BC_NUMBER_SQL.nextval,:1,:2,:3,:4,:5,:6)",(link,vido,imag,name.split('\n', 1)[0],int(saram.replace(',', '')),"아프리카"))
         print(link)
         print(vido)
         print(imag)
@@ -89,8 +89,32 @@ try:
 except Exception as e:
     print("오류 발생:", e)
 
+#치지직 수다
+driver.get("https://chzzk.naver.com/category/ETC/talk")
+time.sleep(2)
+try:
+    # 인기 방송 중인 클래스 하위에 있는 요소를 찾습니다.
+    items = driver.find_elements(By.CLASS_NAME, "component_item__+48tj")
+    # 찾은 모든 요소에 대해 반복합니다.
+    for i in range(1,11):
+        link = items[i].find_element(By.CLASS_NAME,"video_card_thumbnail__QXYT8").get_attribute("href")
+        saram = items[i].find_element(By.CLASS_NAME,"video_card_badge__w02UD").text.replace('명 시청', '').replace(',', '')
+        try:
+            vido = items[i].find_element(By.TAG_NAME,"video_card_thumbnail__QXYT8").find_element(By.TAG_NAME,"img").get_attribute("src")
+        except NoSuchElementException:
+                        vido = "1.jpg"  # 기본 이미지 경로
+        imag = items[i].find_element(By.CLASS_NAME,"video_card_profile__QHbN7").find_element(By.TAG_NAME,"img").get_attribute("src")
+        name = items[i].find_element(By.CLASS_NAME,"name_text__yQG50").text
+        #c.execute("insert into BROADCAST_TBL values(BC_NUMBER_SQL.nextval,:1,:2,:3,:4,:5,:6)",(link,vido,imag,name.split('\n', 1)[0],int(saram.replace(',', '')),"아프리카"))
+        print(link)
+        print(vido)
+        print(imag)
+        print(saram)
+        print(name)
+except Exception as e:
+    print("오류 발생:", e)
 
 connect.commit()
 # 브라우저 종료
 driver.quit()
-print("여기까지는 아프리카 티비")
+print("여기까지는 치지직 수다")
