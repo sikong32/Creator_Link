@@ -19,7 +19,7 @@ plt.rcParams['axes.unicode_minus'] =False
 script_dir = os.path.dirname(os.path.abspath(__file__))
 instantclient_dir = os.path.normpath(os.path.join(script_dir, '..', 'instantclient_11_2'))
 print(instantclient_dir)
-oracledb.init_oracle_client(lib_dir=instantclient_dir) #여기에 한글 경로면 아됩니다.
+oracledb.init_oracle_client(lib_dir=r"../instantclient_11_2") #여기에 한글 경로면 아됩니다.
 connect = oracledb.connect(user='crering', password='12345',dsn='localhost')
 c=connect.cursor()#쿼리 저장 할 수 있게 설정
 

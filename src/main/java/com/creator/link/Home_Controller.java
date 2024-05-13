@@ -2,7 +2,6 @@ package com.creator.link;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Properties;
 
 import javax.annotation.PostConstruct;
@@ -17,13 +16,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.creator.link.Member.Member_DTO;
-import com.creator.link.Store.Store_DTO;
 
 
-import java.io.BufferedReader;
 import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStreamReader;
 
 @Controller
 public class Home_Controller {
