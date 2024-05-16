@@ -9,6 +9,7 @@ import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -61,7 +62,20 @@ public class Home_Controller {
 	public String index(Model mo) {
 		Home_Service sv = sqlSession.getMapper(Home_Service.class);
 		ArrayList<BC_DTO> bc_list = sv.bc_select();
+		ArrayList<Member_DTO> mb_list = sv.mb_select();
 		mo.addAttribute("bc_list",bc_list);
+		mo.addAttribute("mb_list",mb_list);
+		return "main";
+	}
+	
+	@RequestMapping(value = "/live_BC")
+	public String index(HttpServletRequest request,Model mo) {
+		Home_Service sv = sqlSession.getMapper(Home_Service.class);
+		String live_bc = request.getParameter("live_BC");
+		ArrayList<BC_DTO> bc_list = sv.bc_select_live(live_bc);
+		ArrayList<Member_DTO> mb_list = sv.mb_select();
+		mo.addAttribute("bc_list",bc_list);
+		mo.addAttribute("mb_list",mb_list);
 		return "main";
 	}
 	

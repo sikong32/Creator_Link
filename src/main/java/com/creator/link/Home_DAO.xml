@@ -62,7 +62,10 @@
 		order BY mt.mb_nick_name
 	</select>
 	<select id="bc_select" resultType="com.creator.link.BC_DTO">
-		select * from BROADCAST_TBL
+		select * from BROADCAST_TBL WHERE BC_FLAFORM = '치지직_메인' OR BC_FLAFORM = '아프리카_메인'
+	</select>
+	<select id="bc_select_live" resultType="com.creator.link.BC_DTO">
+		select * from BROADCAST_TBL WHERE BC_FLAFORM = #{param1}
 	</select>
 	<select id="mb_select" resultType="com.creator.link.Member.Member_DTO">
 		select * from MEMBER_TBL WHERE MB_ATTRIBUTE = '크리에이터'

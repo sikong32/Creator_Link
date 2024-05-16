@@ -16,4 +16,7 @@ public interface Home_Service {
 
 	ArrayList<Member_DTO> mb_select();
 
+	ArrayList<BC_DTO> bc_select_live(String live_bc);
+
+
 }
