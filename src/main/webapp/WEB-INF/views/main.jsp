@@ -34,28 +34,22 @@
 					<c:if test="${i.index < 8}">
 						<div class="live_creator">
 							<div class="creator_background">
-								<c:if test="${mb.mb_photo==basic_photo.png}">
+								<c:if test="${mb.mb_photo=='basic_photo.png'}">
 									<div class="creator_img">
 										<img src="./resources/member/basic_photo/basic_photo.png">
 									</div>
 								</c:if>
-								<c:if test="${mb.mb_photo!=basic_photo.png}">
+								<c:if test="${mb.mb_photo!='basic_photo.png'}">
 									<div class="creator_img">
 										<img src="./resources/member/profile/${mb.mb_photo}">
 									</div>
 								</c:if>
 							</div>
-							<div class="small_live_icon">LIVE</div>
+<!-- 							<div class="small_live_icon">LIVE</div> -->
 							<div class="creator_nickname">${mb.mb_nick_name}</div>
 						</div>
 					</c:if>
 				</c:forEach>
-				<div class="live_creator">
-					<div class="creator_background">
-					<div class="creator_img"><img src="./resources/cssimage/happy.jpg"></div></div>
-					<div class="small_live_icon">LIVE</div>
-					<div class="creator_nickname">해피</div>
-				</div>
 			</div>
 		</div>
 
