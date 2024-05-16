@@ -30,17 +30,26 @@
 		<div class="live_creator_list">
 			<h3>추천 크리에이터</h3>
 			<div class="live_creator_tot">
-			<c:forEach items="${mb_list}" var="mb">
-				<c:if test="${mb.mb_attribute=='크리에이터'}">
-					<div class="live_creator">
-						<div class="creator_background">
-						<c:if test="${mb.mb_photo==basic_photo.png}"></c:if><div class="creator_img"><img src="./resources/member/basic_photo/basic_photo.png"></div></div>
-						<c:if test="${mb.mb_photo!=basic_photo.png}"></c:if><div class="creator_img"><img src="./resources/member/profile/${mb.mb_photo}"></div></div>
-						<div class="small_live_icon">LIVE</div>
-						<div class="creator_nickname">${mb.mb_nick_name}</div>
-					</div>
-				</c:if>
-			</c:forEach>
+				<c:forEach items="${mb_list}" var="mb" varStatus="i">
+					<c:if test="${i.index < 8}">
+						<div class="live_creator">
+							<div class="creator_background">
+								<c:if test="${mb.mb_photo==basic_photo.png}">
+									<div class="creator_img">
+										<img src="./resources/member/basic_photo/basic_photo.png">
+									</div>
+								</c:if>
+								<c:if test="${mb.mb_photo!=basic_photo.png}">
+									<div class="creator_img">
+										<img src="./resources/member/profile/${mb.mb_photo}">
+									</div>
+								</c:if>
+							</div>
+							<div class="small_live_icon">LIVE</div>
+							<div class="creator_nickname">${mb.mb_nick_name}</div>
+						</div>
+					</c:if>
+				</c:forEach>
 				<div class="live_creator">
 					<div class="creator_background">
 					<div class="creator_img"><img src="./resources/cssimage/happy.jpg"></div></div>
