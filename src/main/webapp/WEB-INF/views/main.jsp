@@ -9,7 +9,6 @@
 <title>Creator Link</title>
 </head>
 <body>
-
 <section class="main_container">
 	<!-- 방송 카테고리 (사이드바) -->
 	<aside class="streamcate_bar">
@@ -54,26 +53,23 @@
 			<c:forEach items="${bc_list}" var="bc">
 				<div class="live_info_tot">
 					<div class="live_screen">
-						<img alt="" src="${bc.bc_imglink}" width="300" height="160">
+					<c:choose>
+						<c:when test="${bc.bc_imglink != '1.jpg'}">
+							<img alt="" src="${bc.bc_imglink}" width="300" height="160">
+						</c:when>
+						<c:otherwise>
+							<img src="./resources/a19.png" width="300px" height="160">
+						</c:otherwise>
+					</c:choose>
 						<div class="live_icon">LIVE</div>
 						<div class="live_viewer">${bc.bc_sichengjasu}</div>
 					</div>
 					<div class="live_profile">
-		            	<div class="live_pickture"><a href="${bc.bc_hreflink}"><img src="${bc.bc_profilimglink}"></a></div>
+			            	<div class="live_pickture"><a href="${bc.bc_hreflink}"><img src="${bc.bc_profilimglink}"></a></div>
 		            	<div class="live_nickname">${bc.bc_profilname}</div>
 		            </div>
 		       </div>
 			</c:forEach>
-<!-- 		       <div class="live_info_tot"> -->
-<!-- 					<div class="live_screen"> -->
-<!-- 						<div class="live_icon">LIVE</div> -->
-<!-- 						<div class="live_viewer">시청자수</div> -->
-<!-- 					</div> -->
-<!-- 					<div class="live_profile"> -->
-<!-- 		            	<div class="live_pickture"><img src="./resources/cssimage/happy.jpg"></div> -->
-<!-- 		            	<div class="live_nickname">해피</div> -->
-<!-- 		            </div> -->
-<!-- 		       </div> -->
 			</div>   
 		</div>
 	</div>
