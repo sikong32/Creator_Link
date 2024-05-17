@@ -36,10 +36,25 @@
 	width: 1vw;
 	height: 2vw;
 }
-.shoping_container input[type="button"],input[type="submit"],input[type="reset"] {
-	font-size: 16px;
-	width: 6vw;
-	height: 2vw;
+.shoping_container input[type="button"],
+.shoping_container input[type="submit"],
+.shoping_container input[type="reset"] {
+	text-align: center;
+	width: 5vw;
+	height: 3vh;
+    background-color: #2A2F4F;
+	color: white;
+	border: none;
+	border-radius: 5px;
+	bottom: 190px;
+	left: 60px;
+	font-size: 15px;
+	font-family:'Pretendard-Regular';
+}
+.shoping_container input[type="button"]:hover,
+.shoping_container input[type="submit"]:hover,
+.shoping_container input[type="reset"]:hover{
+	background-color:#917FB3;
 }
 .shoping_container input[type="text"],input[type="number"]{
 	font-size: 16px;
@@ -104,16 +119,16 @@
 		<tr>
 			<th>수취인</th><td><input type="text" value="${member.mb_name}" required maxlength="10"></td>
 		</tr>
-		<tr>
-			<th>쿠폰</th>
-			<td>보유 쿠폰 0
-			<select name="od_cp_code" id="od_cp_code">
-					<option value="co_code1">쿠폰1</option>
-					<option value="co_code2">쿠폰2</option>
-					<option value="co_code3">쿠폰3</option>
-			</select>
-			<input type="button" value="적용" onclick=""></td>
-		</tr>
+<!-- 		<tr> 쿠폰-->
+<!-- 			<th>쿠폰</th> -->
+<!-- 			<td>보유 쿠폰 0 -->
+<!-- 			<select name="od_cp_code" id="od_cp_code"> -->
+<!-- 					<option value="co_code1">쿠폰1</option> -->
+<!-- 					<option value="co_code2">쿠폰2</option> -->
+<!-- 					<option value="co_code3">쿠폰3</option> -->
+<!-- 			</select> -->
+<!-- 			<input type="button" value="적용" onclick=""></td> -->
+<!-- 		</tr> -->
 		<tr>
 			<th>결제 방법</th>
 			<td><input type="button" name="카드" id="카드" value="카드">

@@ -54,24 +54,20 @@ $( document ).ready( function() {
 				<div class="store_gifthub">
 					<a href="gifthub"><i class="fa-solid fa-gift" class="gifthub_icon"></i><span>GiftHub</span></a>
 				</div>
-				<c:choose>
-					<c:when test="${loginState == true and member.mb_attribute == '크리에이터'}">
+				<c:if test="${loginState == true and (member.mb_attribute == '크리에이터' || member.mb_attribute == '관리자')}">
 						<input type="button" class="uplode_bnt" value="상품 등록" onclick="location.href='store_input'">
-					</c:when>
-					<c:otherwise>
-					</c:otherwise>
-				</c:choose>
+				</c:if>
 			</div>
 			<div class="store_items">
 				<div class="category_title"> 카테고리 별 인기 굿즈</div>
 				<div class="category_list">
-					<div class="category"><a href="#">전체</a></div>
-					<div class="category"><a href="#">굿즈</a></div>
-					<div class="category"><a href="#">포토카드</a></div>
-					<div class="category"><a href="#">키캡</a></div>
-					<div class="category"><a href="#">아크릴 굿즈</a></div>
-					<div class="category"><a href="#">틴케이스</a></div>
-					<div class="category"><a href="#">큐레이션</a></div>
+					<div class="category"><a href="store_main">전체</a></div>
+					<div class="category"><a href="store_main_category?category=굿즈">굿즈</a></div>
+					<div class="category"><a href="store_main_category?category=포토카드">포토카드</a></div>
+					<div class="category"><a href="store_main_category?category=키캡">키캡</a></div>
+					<div class="category"><a href="store_main_category?category=아크릴 굿즈">아크릴 굿즈</a></div>
+					<div class="category"><a href="store_main_category?category=틴케이스">틴케이스</a></div>
+					<div class="category"><a href="store_main_category?category=상의">상의</a></div>
 				</div>
 				<div class="product_list">
 					<c:forEach items="${list}" var="s">

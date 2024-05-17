@@ -33,6 +33,21 @@
 	    margin-left: 15vw;
 	    align-items: center;
     }
+    input[type="button"] {
+	text-align: center;
+	height: 3vh;
+    background-color: #2A2F4F;
+	color: white;
+	border: none;
+	border-radius: 5px;
+	bottom: 190px;
+	left: 60px;
+	font-size: 15px;
+	font-family:'Pretendard-Regular';
+	}
+	input[type="button"]:hover {
+		background-color:#917FB3;
+	}
 </style>
 </head>
 <body>
@@ -52,11 +67,9 @@
 					주문 수량:   ${od.od_pd_qnt}
 					결제 금액:   ${od.od_price} 원<br>
 					주문 일자:   ${od.od_date}<br>
-					<c:choose>
-					<c:when test="${od.os_name!=null}">
+					<c:if test="${od.os_name!=null}">
 					옵션 이름:   ${od.os_name}<br>
-					</c:when>
-					</c:choose>
+					</c:if>
 					<c:if test="${od.od_cancel_text==null}">
 					주문자: <b>${od.od_id}</b><br>
 					배송 주소:   ${od.dlvy_address}<br>

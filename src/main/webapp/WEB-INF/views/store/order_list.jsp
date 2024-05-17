@@ -13,7 +13,7 @@
         border-radius: 1vw; /*테두리 부드럽게*/
         box-shadow: 0 4px 16px rgba(0, 0, 0, .05); /*그림자 설정*/
         width: 50vw; /* 넓이를 50%로 고정*/
-        height: 10vw; /* 높이를 10%로 고정*/
+        height: 11vw; /* 높이를 10%로 고정*/
         color: #555555;
         font-size: 1vw; /* 폰트 크기를 뷰포트 너비의 1%로 설정 */
         overflow: hidden; /* 내용이 div를 넘어가면 숨김 */
@@ -55,6 +55,7 @@
 					배송 메시지:   ${od.dlvy_comment}<br>
 					송장번호: ${od.od_invoice}<br>
 					</div>
+					<div><a href="review_input?pd_number=${od.od_pd_number}" onclick="popup(event)">리뷰 등록</a></div>
 				</div>
 				</li><br>
 			</c:forEach>
@@ -67,4 +68,11 @@
 	</div>
 </div>
 </body>
+<script type="text/javascript">
+function popup(event) {
+    event.preventDefault(); // 기본 링크 동작을 중지합니다.
+    const url = event.target.href; // 링크의 주소를 가져옵니다.
+    window.open(url, "_blank", "width=600,height=400"); // 팝업 창을 엽니다.
+}
+</script>
 </html>

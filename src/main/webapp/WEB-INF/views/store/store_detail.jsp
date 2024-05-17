@@ -14,41 +14,193 @@
 .sub_image:hover {
     transform: scale(1.1); /* 이미지를 약간 확대 */
 }
-#mainImage {
-    opacity: 1; /* 기본적으로 완전히 불투명 */
-    transition: opacity 0.5s ease-in-out; /* 페이드 효과에 대한 전환 효과 설정 */
+#main_image{
+	min-width:300px;
+	max-height:500px;
+}
+#image_slider{
+	overflow-x: scroll;
+	scroll-behavior: smooth; /* 이동이 좀 부트럽게 */
+	white-space: nowrap; /* 자식 요소들이 한 줄에 표시되도록 설정 */
+	width: 500px;
 }
 #image_container {
-    display: flex;
-    overflow-x: scroll;
-    width: 250px; /* 이동 너비, 필요에 따라 조절 */
-    scroll-behavior: smooth; /* 이동이 좀 부트럽게 */
+    width: 50vw; /* 이동 너비, 필요에 따라 조절 */
+}
+.diteil_top{
+	display: flex;
+}
+.item_css {
+    /* 전체 너비 설정 */
+    width: 50vw; /* 예시 너비, 필요에 따라 조정 */
+
+    /* 가운데 정렬 */
+    margin: 0 auto;
+
+    /* 패딩 추가 */
+    padding: 20px;
+}
+.item_css table {
+	width: 400px;
+	text-align: center; /* 가운데 정렬 */
+	border-collapse: collapse; /* 셀의 테두리를 겹치게 함 */
 }
 
+.item_css th {
+	color: #333333; /* 헤더 셀 텍스트 색상 */
+	background-color: #f2f2f2; /* 헤더 셀의 배경색 */
+	width:3vw;
+	height: 3vw;
+}
+.item_css td {
+	background-color: #ffffff; /* 일반 셀의 배경색 */
+	color: #666666; /* 일반 셀 텍스트 색상 */
+	width: 1vw;
+	height: 4vw;
+}
+.item_css select {
+	text-align: center;
+	width: 6vw;
+	height: 2vw;
+    font-size: 16px;
+}
+
+.uplode_bnt {
+	position: fixed;
+	width: 85px;
+	height: 50px;
+	background-color: #2A2F4F;
+	color: white;
+	border: none;
+	border-radius: 5px;
+	bottom: 190px;
+	left: 60px;
+	font-size: 15px;
+	font-family:'Pretendard-Regular';
+}
+
+.uplode_bnt:hover {
+	background-color:#917FB3;
+}
+
+#cart_button,
+.buy_button {
+	text-align: center;
+	width: 85px;
+	height: 50px;
+    background-color: #2A2F4F;
+	color: white;
+	border: none;
+	border-radius: 5px;
+	bottom: 190px;
+	left: 60px;
+	font-size: 15px;
+	font-family:'Pretendard-Regular';
+}
+#cart_button:hover,
+.buy_button:hover {
+	background-color:#917FB3;
+}
+#content_table{
+width: 50vw;
+border: 1px solid;
+}
+#content_table td{
+padding: 1vw;
+}
+.os_form{
+
+}
+.select_os_css{
+	display: flex; /* 유연한 박스 모델 사용 */
+    flex-direction: column; /* 우측 정렬 */
+    align-items: flex-end; /* 우측 정렬 */
+    padding: 1vw;
+}
+.review_css {
+    font-family: Arial, sans-serif;
+    max-width: 50vw;
+    margin: 20px auto;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    background-color: #f9f9f9;
+}
+
+.review_css ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.review_css li {
+    margin-bottom: 10px;
+    line-height: 1.6;
+}
+
+.review_css li a {
+    text-decoration: none;
+    color: #007BFF;
+    font-weight: bold;
+}
+
+.review_css li a:hover {
+    text-decoration: underline;
+}
+
+.review_css li b {
+    color: #333;
+    font-weight: bold;
+}
+
+.review_css .review-rating {
+    font-size: 1.2em;
+    color: #555;
+}
+
+.review_css .review-content {
+    font-size: 1em;
+    color: #333;
+}
+
+.review_css .review-date {
+    font-size: 0.9em;
+    color: #999;
+}
+
+.review_css .review-actions a {
+    margin-right: 10px;
+    color: #d9534f;
+}
+
+.review_css .review-actions a:hover {
+    color: #c9302c;
+}
+
+.review_css .review-header {
+    font-size: 1.4em;
+    margin-bottom: 10px;
+}
+
+.review_css .review-header b {
+    color: #007BFF;
+}
 </style>
 </head>
 <body>
-	<form action="">
+<div class="item_css">
+<div class="diteil_top">
+	<div id="image_container">
+	    <img id="main_image" src="./resources/store/item_cover/${dto.pd_photo}">
+	    <c:if test="${list.size()!=0}">
+	        <div id="image_slider">
+	                <c:forEach items="${list}" var="s" varStatus="status">
+	                    <img class="sub_image" src="./resources/store/item_cover/${s.os_photo}" width="100" onmouseover="change_image(this.src)" onmouseout="reset_image()">
+	                </c:forEach>
+	        </div>
+	    </c:if>
+	</div>
+	<form action="shoping_buy" method="post" name="shoping_buy_form" class="os_form">
 		<table>
-			<tr>
-				<th><img id="main_image" src="./resources/store/item_cover/${dto.pd_photo}"	width="500"></th>
-				<td>
-					<div id="image_slider">
-				        <button type="button" id="prev">◀</button>
-				        <div id="image_container">
-				            <c:forEach items="${list}" var="s" varStatus="status">
-				                <!-- 클래스 사용, ID 제거 -->
-				                <img class="sub_image" src="./resources/store/item_cover/${s.os_photo}" width="100" onmouseover="change_image(this.src)" onmouseout="reset_image()">
-				            </c:forEach>
-				        </div>
-				        <button type="button" id="next">▶</button>
-				    </div>
-				</td>
-			</tr>
-		</table>
-	</form>
-	<form action="shoping_buy" method="post" name="shoping_buy_form">
-		<table border="1">
 			<tr>
 				<th>상품명</th>
 				<td>${dto.pd_name}
@@ -58,7 +210,7 @@
 			</tr>
 			<tr>
 				<th>가격</th>
-				<td><input type="hidden" name="pd_price" id="pd_price" value="${dto.pd_price}">${dto.pd_price}원</td>
+				<td><input type="hidden" name="pd_price" id="pd_price" value="${dto.pd_price}"><b>${dto.pd_price}</b>원</td>
 			</tr>
 			<tr>
 				<th>재고</th>
@@ -128,12 +280,12 @@
 				</td>
 			</tr>
 			<tr>
-				<td><input type="button" value="구매" onclick="login_check()"
-					<c:if test="${dto.pd_stock < 1}">disabled</c:if>></td>
+				<td colspan="2"><input class="buy_button" type="button" value="구매" onclick="login_check()" <c:if test="${dto.pd_stock < 1}">disabled</c:if>></td>
 			</tr>
 		</table>
 	</form>
-	<form action="shopping_cart_save" name="cart_form" id="cart_form">
+</div>
+	<form action="shopping_cart_save" name="cart_form" id="cart_form" class="select_os_css">
 		<div>선택된 옵션</div>
 			<div id="os_items">
 				<ul id="os_lists"></ul>
@@ -143,28 +295,34 @@
 			<input type="button" id="cart_button" value="장바구니" onclick="cart()" <c:if test="${dto.pd_stock < 1}">disabled</c:if>>
 	</form>
 	<form action="">
-		<table border="1">
+		<table id="content_table">
 			<tr>
 				<td><div>${dto.pd_content}</div></td>
 			</tr>
-			<tr>
-				<td>리뷰평점 <c:if test="${not empty staravg}"><b>${staravg}</b>/5 리뷰 개수 <b>${re_list.size()}</b></c:if></td>
-					<c:if test="${review=='OK'}"><td><a href="review_input?pd_number=${dto.pd_number}" onclick="popup(event)">리뷰 등록</a></td></c:if>
-					<c:forEach items="${re_list}" var="re">
-						<tr>
-						<td>${re.re_content}</td>
-						<td>${re.re_star}</td>
-						<td>${re.re_day}</td>
-						<c:if test="${re.mb_number==member.mb_number}"><td><a href="review_modify?pd_number=${dto.pd_number}&re_number=${re.review_number}" onclick="popup(event)">리뷰 수정</a>
-						<a href="review_delete?pd_number=${dto.pd_number}&re_number=${re.review_number}">리뷰 삭제</a>
-						</td></c:if>
-						</tr>
-					</c:forEach>
-			</tr>
 		</table>
 	</form>
+	<div class="review_css">
+		<ul>
+			<li>리뷰평점 <c:if test="${not empty staravg}"><b>${staravg}</b>/5 리뷰 개수 <b>${re_list.size()}</b></c:if></li>
+				<c:if test="${review=='OK'}">
+					<li>
+						<a href="review_input?pd_number=${dto.pd_number}" onclick="popup(event)">리뷰 등록</a>
+					</li>
+				</c:if>
+				<c:forEach items="${re_list}" var="re">
+					<li>${re.re_day}  ${re.re_star}</li>
+					<li>${re.re_content}</li>
+					<c:if test="${re.mb_number==member.mb_number}">
+						<li>
+							<a href="review_modify?pd_number=${dto.pd_number}&re_number=${re.review_number}" onclick="popup(event)">리뷰 수정</a><br>
+							<a href="review_delete?pd_number=${dto.pd_number}&re_number=${re.review_number}">리뷰 삭제</a>
+						</li>
+					</c:if>
+				</c:forEach>
+		</ul>
+	</div>
+</div>
 </body>
-
 <script type="text/javascript">
 function popup(event) {
     event.preventDefault(); // 기본 링크 동작을 중지합니다.
@@ -319,14 +477,5 @@ function reset_image() {
     // 원래 큰 이미지의 소스로 변경. 원래의 큰 이미지 소스를 변수에 저장하거나 다른 방법을 사용해 관리해야 합니다.
     document.getElementById('main_image').src = original_image;
 }
-document.getElementById('next').addEventListener('click', function() {
-    // 오른쪽으로 슬라이드
-    document.getElementById('image_container').scrollLeft += 100; // 100px을 오른쪽으로 슬라이드
-});
-
-document.getElementById('prev').addEventListener('click', function() {
-    // 왼쪽으로 슬라이드
-    document.getElementById('image_container').scrollLeft -= 100; // 100px을 왼쪽으로 슬라이드
-});
 </script>
 </html>

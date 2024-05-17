@@ -40,6 +40,25 @@
     width: 50vw;
     margin-left: 25vw;
     }
+    input[type="submit"],
+    input[type="button"] {
+    margin: 1%;
+	text-align: center;
+	width: 5vw;
+	height: 2vw;
+    background-color: #2A2F4F;
+	color: white;
+	border: none;
+	border-radius: 5px;
+	bottom: 190px;
+	left: 60px;
+	font-size: 15px;
+	font-family:'Pretendard-Regular';
+	}
+	input[type="submit"]:hover,
+	input[type="button"]:hover {
+		background-color:#917FB3;
+	}
 </style>
 </head>
 <body>

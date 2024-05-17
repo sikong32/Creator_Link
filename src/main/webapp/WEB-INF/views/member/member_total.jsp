@@ -35,9 +35,9 @@
 <img alt="찜목록" src="resources/member/totalPage_icon/dibs.png" width="100px"><br>
 <img alt="쿠폰함" src="resources/member/totalPage_icon/coupon.png" width="100px">
 <a href="order_list"><img alt="주문목록" src="resources/member/totalPage_icon/order.png" width="100px"></a>
-<c:if test="${dto.mb_attribute =='크리에이터'}"><a href="store_management"><img alt="상품관리" src="resources/member/totalPage_icon/pretty_myFace.png" width="100px"></a></c:if>
+<c:if test="${dto.mb_attribute =='크리에이터' || dto.mb_attribute == '관리자'}"><a href="store_management"><img alt="상품관리" src="resources/member/totalPage_icon/pretty_myFace.png" width="100px"></a></c:if>
 <a href="shopping_cart_view"><img alt="장바구니" src="resources/member/totalPage_icon/cart.png" width="100px"></a><br>
-<c:if test="${dto.mb_attribute =='크리에이터'}"><a href="store_order_management">주문관리</a></c:if>
+<c:if test="${dto.mb_attribute =='크리에이터' || dto.mb_attribute == '관리자'}"><a href="store_order_management">주문관리</a></c:if>
 <input type="hidden" name="id" value="${dto.mb_id }">
 <input type="hidden" name="mb_number" value="${dto.mb_number }">
 

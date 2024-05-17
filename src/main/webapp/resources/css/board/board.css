@@ -300,3 +300,23 @@ table.post_view{
 textarea{
 	resize: none;
 }
+input[type="button"],
+input[type="submit"],
+input[type="reset"] {
+	text-align: center;
+	width: 5vw;
+	height: 3vh;
+    background-color: #2A2F4F;
+	color: white;
+	border: none;
+	border-radius: 5px;
+	bottom: 190px;
+	left: 60px;
+	font-size: 15px;
+	font-family:'Pretendard-Regular';
+}
+input[type="button"]:hover,
+input[type="submit"]:hover,
+input[type="reset"]:hover{
+	background-color:#917FB3;
+}

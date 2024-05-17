@@ -110,4 +110,6 @@ public interface Store_Service {
 
 	void od_dlvyAdd_up(int od_number, String dlvyAdd);
 
+	ArrayList<Store_DTO> store_main_category_out(String category);
+
 }

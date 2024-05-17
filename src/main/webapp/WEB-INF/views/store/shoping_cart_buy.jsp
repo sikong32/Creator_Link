@@ -35,9 +35,20 @@
 	line-height: 1.5;
 }
 .shoping_container input[type="button"],input[type="submit"],input[type="reset"] {
-	font-size: 16px;
-	width: 6vw;
-	height: 2vw;
+	text-align: center;
+	width: 5vw;
+	height: 3vh;
+    background-color: #2A2F4F;
+	color: white;
+	border: none;
+	border-radius: 5px;
+	bottom: 190px;
+	left: 60px;
+	font-size: 15px;
+	font-family:'Pretendard-Regular';
+}
+.shoping_container input[type="button"]:hover,input[type="submit"]:hover,input[type="reset"]:hover{
+	background-color:#917FB3;
 }
 .shoping_container input[type="text"],input[type="number"] {
 	text-align:center;
@@ -113,7 +124,7 @@ window.onload = function() {
 								<input type="hidden" name="os_pd_number" value="${os.pd_number}">
 							<br>옵션명: ${os.os_1name}${os.os_2name}${os.os_3name}</td>
 							<td>1개 가격: ${os.os_price}원<br>
-								<input type="text" name="ostot_price" id="ostot_price" value="${os.os_price*os.os_buy_su}원" readonly>
+								<input type="text" name="ostot_price" id="ostot_price" value="${os.os_price*os.os_buy_su}" readonly>원
 							</td>
 							<td><input type="number" name="os_buy_quantity" value="${os.os_buy_su}" min="1" max="${os.os_stock}" onchange="os_updata_price(${os.os_price},this.value)" readonly>
 							</td>
@@ -132,7 +143,7 @@ window.onload = function() {
 							</td>
 							<td>
 								1개 가격: ${pd.pd_price}원<br>
-								<input type="text" name="pdtot_price" id="pdtot_price" value="${pd.pd_price*pd.pd_buy_su}원" readonly><br>
+								<input type="text" name="pdtot_price" id="pdtot_price" value="${pd.pd_price*pd.pd_buy_su}" readonly>원<br>
 							</td>
 							<td><input type="number" name="pd_buy_quantity" value="${pd.pd_buy_su}" min="1" max="${pd.pd_stock}" onchange="pd_updata_price(${pd.pd_price},this.value)" readonly></td>
 						</tr>
@@ -160,16 +171,16 @@ window.onload = function() {
 			<tr>
 				<th>수취인</th><td><input type="text" value="${member.mb_name}" required></td>
 			</tr>
-			<tr>
-				<th>쿠폰</th>
-				<td>보유 쿠폰 0
-				<select name="od_cp_code" id="od_cp_code">
-						<option value="co_code1">쿠폰1</option>
-						<option value="co_code2">쿠폰2</option>
-						<option value="co_code3">쿠폰3</option>
-				</select>
-				<input type="button" value="적용" onclick=""></td>
-			</tr>
+<!-- 			<tr> 쿠폰 미구현-->
+<!-- 				<th>쿠폰</th> -->
+<!-- 				<td>보유 쿠폰 0 -->
+<!-- 				<select name="od_cp_code" id="od_cp_code"> -->
+<!-- 						<option value="co_code1">쿠폰1</option> -->
+<!-- 						<option value="co_code2">쿠폰2</option> -->
+<!-- 						<option value="co_code3">쿠폰3</option> -->
+<!-- 				</select> -->
+<!-- 				<input type="button" value="적용" onclick=""></td> -->
+<!-- 			</tr> -->
 			<tr>
 				<th>결제 방법</th>
 				<td><input type="button" name="카드" id="카드" value="카드">

@@ -30,12 +30,16 @@
 							<div class="creator_background">
 								<c:if test="${mb.mb_photo=='basic_photo.png'}">
 									<div class="creator_img">
-										<img src="./resources/member/basic_photo/basic_photo.png">
+										<a href="board_main?mb_number=${mb.mb_number}">
+											<img src="./resources/member/basic_photo/basic_photo.png">
+										</a>
 									</div>
 								</c:if>
 								<c:if test="${mb.mb_photo!='basic_photo.png'}">
 									<div class="creator_img">
-										<img src="./resources/member/profile/${mb.mb_photo}">
+										<a href="board_main?mb_number=${mb.mb_number}">
+											<img src="./resources/member/profile/${mb.mb_photo}">
+										</a>
 									</div>
 								</c:if>
 							</div>
@@ -55,10 +59,10 @@
 					<div class="live_screen">
 					<c:choose>
 						<c:when test="${bc.bc_imglink != '1.jpg'}">
-							<img alt="" src="${bc.bc_imglink}" width="300" height="160">
+							<a href="${bc.bc_hreflink}"><img alt="" src="${bc.bc_imglink}" width="300" height="160"></a>
 						</c:when>
 						<c:otherwise>
-							<img src="./resources/a19.png" width="300px" height="160">
+							<a href="${bc.bc_hreflink}"><img src="./resources/a19.png" width="300px" height="160"></a>
 						</c:otherwise>
 					</c:choose>
 						<div class="live_icon">LIVE</div>

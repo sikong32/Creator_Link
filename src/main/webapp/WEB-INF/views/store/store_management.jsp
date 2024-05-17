@@ -6,38 +6,55 @@
 <meta charset="UTF-8">
 <title>상품 관리 페이지</title>
 <style>
- .product-content { 
+.product-content { 
      display: none;
      margin-top: 10px;
      padding: 10px;
-    background-color: #f9f9f9;
+   	 background-color: #f9f9f9;
      border-radius: 8px;
- }
- .list_items {
-        display: flex;
-        background-color: white;
-        border-radius: 1vw; /*테두리 부드럽게*/
-        box-shadow: 0 4px 16px rgba(0, 0, 0, .05); /*그림자 설정*/
-        width: 50vw; /* 넓이를 50%로 고정*/
-        height: 10vw; /* 높이를 10%로 고정*/
-        color: #555555;
-        font-size: 1vw; /* 폰트 크기를 뷰포트 너비의 1%로 설정 */
-        overflow: hidden; /* 내용이 div를 넘어가면 숨김 */
-        font-family:'Pretendard-Regular';
-    }
-    .list_items_test {
-        display: flex;
-	    margin-left: auto;
-	    flex-direction: column;
-	    align-items: stretch;
-	    justify-content: space-evenly;
-    }
-    .list_items img {
-        border-radius: 1vw;
-        height: 100%;
-        object-fit: cover;
 }
-    </style>
+.list_items {
+    display: flex;
+    background-color: white;
+    border-radius: 1vw; /*테두리 부드럽게*/
+    box-shadow: 0 4px 16px rgba(0, 0, 0, .05); /*그림자 설정*/
+    width: 50vw; /* 넓이를 50%로 고정*/
+    height: 10vw; /* 높이를 10%로 고정*/
+    color: #555555;
+    font-size: 1vw; /* 폰트 크기를 뷰포트 너비의 1%로 설정 */
+    overflow: hidden; /* 내용이 div를 넘어가면 숨김 */
+    font-family:'Pretendard-Regular';
+}
+.list_items_test {
+    display: flex;
+	margin-left: auto;
+	flex-direction: column;
+	align-items: stretch;
+	justify-content: space-evenly;
+}
+.list_items img {
+    border-radius: 1vw;
+    height: 100%;
+    object-fit: cover;
+}
+.list_items button[type="submit"],
+.list_items button[type="button"] {
+	text-align: center;
+	height: 3vh;
+	background-color: #2A2F4F;
+	color: white;
+	border: none;
+	border-radius: 5px;
+	bottom: 190px;
+	left: 60px;
+	font-size: 15px;
+	font-family:'Pretendard-Regular';
+}
+.list_items button[type="submit"]:hover,
+.list_items button[type="button"]:hover {
+	background-color:#917FB3;
+}
+   </style>
 </head>
 <body>
     <div style="background-color: #f4f6f8;">

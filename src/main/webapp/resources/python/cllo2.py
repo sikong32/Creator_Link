@@ -75,7 +75,7 @@ try:
     items = driver.find_elements(By.CSS_SELECTOR, "li[id^='live_']")
     # print(len(items))
     # 찾은 모든 요소에 대해 반복합니다.
-    for i in range(1,11):
+    for i in range(1,10):
         link = items[i].find_element(By.TAG_NAME,"a").get_attribute("href")
         saram = items[i].find_element(By.TAG_NAME,"em").text
         vido = items[i].find_element(By.TAG_NAME,"img").get_attribute("src")
@@ -98,7 +98,7 @@ try:
     # 인기 방송 중인 클래스 하위에 있는 요소를 찾습니다.
     items = driver.find_elements(By.CLASS_NAME, "component_item__\+48tj")
     # 찾은 모든 요소에 대해 반복합니다.
-    for i in range(1,11):
+    for i in range(1,13):
         link = items[i].find_element(By.CLASS_NAME,"video_card_thumbnail__QXYT8").get_attribute("href")
         saram = items[i].find_element(By.CLASS_NAME,"video_card_badge__w02UD").text.replace('명 시청', '').replace(',', '')
         try:
@@ -126,7 +126,7 @@ try:
     items = driver.find_elements(By.CLASS_NAME, "component_item__\+48tj")
     print(len(items))
     # 찾은 모든 요소에 대해 반복합니다.
-    for i in range(1,11):
+    for i in range(1,13):
         link = items[i].find_element(By.CLASS_NAME,"video_card_thumbnail__QXYT8").get_attribute("href")
         saram = items[i].find_element(By.CLASS_NAME,"video_card_badge__w02UD").text.replace('명 시청', '').replace(',', '')
         try:
@@ -154,7 +154,7 @@ try:
     items = driver.find_elements(By.CLASS_NAME, "component_item__\+48tj")
     print(len(items))
     # 찾은 모든 요소에 대해 반복합니다.
-    for i in range(1,11):
+    for i in range(1,13):
         link = items[i].find_element(By.CLASS_NAME,"video_card_thumbnail__QXYT8").get_attribute("href")
         saram = items[i].find_element(By.CLASS_NAME,"video_card_badge__w02UD").text.replace('명 시청', '').replace(',', '')
         try:
@@ -182,7 +182,7 @@ try:
     items = driver.find_elements(By.CLASS_NAME, "component_item__\+48tj")
     print(len(items))
     # 찾은 모든 요소에 대해 반복합니다.
-    for i in range(1,11):
+    for i in range(1,13):
         link = items[i].find_element(By.CLASS_NAME,"video_card_thumbnail__QXYT8").get_attribute("href")
         saram = items[i].find_element(By.CLASS_NAME,"video_card_badge__w02UD").text.replace('명 시청', '').replace(',', '')
         try:
@@ -210,7 +210,7 @@ try:
     items = driver.find_elements(By.CLASS_NAME, "component_item__\+48tj")
     print(len(items))
     # 찾은 모든 요소에 대해 반복합니다.
-    for i in range(1,11):
+    for i in range(1,13):
         link = items[i].find_element(By.CLASS_NAME,"video_card_thumbnail__QXYT8").get_attribute("href")
         saram = items[i].find_element(By.CLASS_NAME,"video_card_badge__w02UD").text.replace('명 시청', '').replace(',', '')
         try:

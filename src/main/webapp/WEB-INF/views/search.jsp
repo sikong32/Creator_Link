@@ -22,7 +22,7 @@
 									<img src="./resources/member/
 									<c:if test="${ct.mb_photo == 'basic_photo.png'}">basic_photo</c:if>
 									<c:if test="${ct.mb_photo != 'basic_photo.png'}">profile</c:if>
-									/${ct.mb_photo}" width="100px">
+									/${ct.mb_photo}" width="100px" height="100px">
 								</a>
 								${ct.mb_nick_name}
 								<c:if test="${state.index != creator.size()-1}"><br></c:if>

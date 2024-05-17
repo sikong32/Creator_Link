@@ -57,6 +57,14 @@ public class Store_Controller {
 		model.addAttribute("list",list);
 		return "store_main";
 	}
+	@RequestMapping(value = "store_main_category")
+	public String store_main_category(HttpServletRequest request,Model model) {
+		String category = request.getParameter("category");
+		Store_Service ss = sqlSession.getMapper(Store_Service.class);
+		ArrayList<Store_DTO> list = ss.store_main_category_out(category);
+		model.addAttribute("list",list);
+		return "store_main";
+	}
 	@RequestMapping(value = "order_list")
 	public String order_list(HttpServletRequest request,Model model) {
 		HttpSession hs = request.getSession();
@@ -492,8 +500,10 @@ public class Store_Controller {
 			//내가 등록한 상품이 있는지확인 후 있으면 모든 주문에서 내가 등록한 제품만 표시
 			if(pd_list.size()!=0) {
 				for (int i = 0; i < all_od_list.size(); i++) {
-					if(pd_list.get(i).getPd_number()== all_od_list.get(i).getOd_pd_number()) {
-						od_list.add(all_od_list.get(i));
+					for (int j = 0; j < pd_list.size(); j++) {
+						if(pd_list.get(j).getPd_number() == all_od_list.get(i).getOd_pd_number()) {
+							od_list.add(all_od_list.get(i));
+						}
 					}
 				}
 			//신규 구매 목록에 사진 넣기
