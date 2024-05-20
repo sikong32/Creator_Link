@@ -64,6 +64,19 @@ label {
 	padding-right: 20px;
 	padding-bottom: 20px;
 }
+.mypage_icon i {
+	font-size: 5vw;
+}
+.mypage_1, .mypage_2, .mypage_3 {
+	display: flex;
+    justify-content: space-evenly;
+    text-align: center;
+    /* align-items: center; */
+    gap: 16px;
+}
+.mypage_2, .mypage_3 {
+	margin-top: 2vh;
+}
 
 </style>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
@@ -91,17 +104,39 @@ label {
 		</div>
 		
 		<div class = "mypage_icon">
-			<img id="favorites" alt="즐겨찾기" src="resources/member/totalPage_icon/Favorite.png" width="100px">
-			<img id="wishList" alt="찜목록" src="resources/member/totalPage_icon/dibs.png" width="100px">
-			<img id="coupons" alt="쿠폰함" src="resources/member/totalPage_icon/coupon.png" width="100px"><br>
-				<a href="order_list"><img id="orderList" alt="주문목록" src="resources/member/totalPage_icon/order.png" width="100px"></a>
-			<c:if test="${dto.mb_attribute =='크리에이터' || dto.mb_attribute == '관리자'}">
-				<a href="store_management"><img id="product_management" alt="상품관리" src="resources/member/totalPage_icon/pretty_myFace.png" width="100px"></a>
-			</c:if>
-			<a href="shopping_cart_view"><img id="cart" alt="장바구니" src="resources/member/totalPage_icon/cart.png" width="100px"></a><br>
-			<c:if test="${dto.mb_attribute =='크리에이터' || dto.mb_attribute == '관리자'}">
-				<a href="store_order_management">주문관리</a>
-			</c:if>
+			<div class="mypage_1">
+				<div>
+					<i class="fa-solid fa-star"></i><br>즐겨찾기<br>
+				</div>
+				<div>
+					<i class="fa-solid fa-heart"></i><br>찜<br>
+				</div>
+				<div>
+					<i class="fa-solid fa-ticket-simple"></i><br>쿠폰<br>
+				</div>
+			</div>
+			<div class = "mypage_2">
+				<div>
+					<a href="order_list"><i class="fa-solid fa-bag-shopping"></i><br>주문목록</a><br>
+				</div>
+				<c:if test="${dto.mb_attribute =='크리에이터' || dto.mb_attribute == '관리자'}">
+					<div>
+						<a href="store_management"><i class="fa-solid fa-bars-progress"></i><br>상품관리</a><br>
+					</div>
+				</c:if>
+				<div>
+					<a href="shopping_cart_view"><i class="fa-solid fa-cart-shopping"></i><br>장바구니</a><br>
+				</div>
+			</div>
+			
+			<div class = "mypage_3">
+				<c:if test="${dto.mb_attribute =='크리에이터' || dto.mb_attribute == '관리자'}">
+					<div>
+						<a href="store_order_management"><i class="fa-solid fa-list" ></i><br>주문관리</a><br>
+					</div>
+				</c:if>
+			</div>
+			
 			<input type="hidden" name="id" value="${dto.mb_id }">
 			<input type="hidden" name="mb_number" value="${dto.mb_number }">
 		</div>
