@@ -19,8 +19,8 @@ plt.rcParams['axes.unicode_minus'] =False
 script_dir = os.path.dirname(os.path.abspath(__file__))
 instantclient_dir = os.path.normpath(os.path.join(script_dir, '..', 'instantclient_11_2'))
 print(instantclient_dir)
-#oracledb.init_oracle_client(lib_dir=r"C:\github\Creator_Link\src\main\webapp\resources\python/instantclient_11_2") #경로(한글x)
-oracledb.init_oracle_client(lib_dir=r"../instantclient_11_2") #경로(한글x)
+oracledb.init_oracle_client(lib_dir=r"C:\github\Creator_Link\src\main\webapp\resources\python/instantclient_11_2") #경로(한글x)
+#oracledb.init_oracle_client(lib_dir=r"../instantclient_11_2") #경로(한글x)
 connect = oracledb.connect(user='crering', password='12345',dsn='localhost')
 c=connect.cursor()#쿼리 저장 할 수 있게 설정
 

@@ -94,20 +94,13 @@ label {
 			<img id="favorites" alt="즐겨찾기" src="resources/member/totalPage_icon/Favorite.png" width="100px">
 			<img id="wishList" alt="찜목록" src="resources/member/totalPage_icon/dibs.png" width="100px">
 			<img id="coupons" alt="쿠폰함" src="resources/member/totalPage_icon/coupon.png" width="100px"><br>
-			<a href="order_list">
-				<img id="orderList" alt="주문목록" src="resources/member/totalPage_icon/order.png" width="100px">
-			</a>
+				<a href="order_list"><img id="orderList" alt="주문목록" src="resources/member/totalPage_icon/order.png" width="100px"></a>
 			<c:if test="${dto.mb_attribute =='크리에이터' || dto.mb_attribute == '관리자'}">
-				<a href="store_management">
-					<img id="product_management" alt="상품관리" src="resources/member/totalPage_icon/pretty_myFace.png" width="100px">
-				</a>
+				<a href="store_management"><img id="product_management" alt="상품관리" src="resources/member/totalPage_icon/pretty_myFace.png" width="100px"></a>
 			</c:if>
-			<a href="shopping_cart_view">
-				<img id="cart" alt="장바구니" src="resources/member/totalPage_icon/cart.png" width="100px">
-			</a><br>
+			<a href="shopping_cart_view"><img id="cart" alt="장바구니" src="resources/member/totalPage_icon/cart.png" width="100px"></a><br>
 			<c:if test="${dto.mb_attribute =='크리에이터' || dto.mb_attribute == '관리자'}">
-				<a href="store_order_management">주문관리
-				</a>
+				<a href="store_order_management">주문관리</a>
 			</c:if>
 			<input type="hidden" name="id" value="${dto.mb_id }">
 			<input type="hidden" name="mb_number" value="${dto.mb_number }">

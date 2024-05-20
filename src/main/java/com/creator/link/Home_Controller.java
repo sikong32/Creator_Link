@@ -112,7 +112,7 @@ public class Home_Controller {
 	    }
 	    
 	    int result = process.waitFor();
-	    System.out.println("파이썬 실행 정상 여부 0이면 성공" + result);
+	    System.out.println("파이썬 실행 성공은0 실패는 0이외 결과:" + result);
 	    return "redirect:index";
 	}
 }
