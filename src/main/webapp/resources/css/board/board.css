@@ -300,7 +300,7 @@ table.post_view{
 textarea{
 	resize: none;
 }
-.board button[type="button"]{
+.functions button[type="button"]{
 	text-align: center;
 	height: 2vh;
     background-color: #2A2F4F;
@@ -312,6 +312,6 @@ textarea{
 	font-size: 15px;
 	font-family:'Pretendard-Regular';
 }
-.board button[type="button"]:hover{
+.functions button[type="button"]:hover{
 	background-color:#917FB3;
 }
