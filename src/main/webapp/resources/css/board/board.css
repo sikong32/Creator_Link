@@ -300,12 +300,11 @@ table.post_view{
 textarea{
 	resize: none;
 }
-input[type="button"],
-input[type="submit"],
-input[type="reset"] {
+button[type="button"],
+button[type="submit"],
+button[type="reset"] {
 	text-align: center;
-	width: 5vw;
-	height: 3vh;
+	height: 2vh;
     background-color: #2A2F4F;
 	color: white;
 	border: none;
@@ -315,8 +314,8 @@ input[type="reset"] {
 	font-size: 15px;
 	font-family:'Pretendard-Regular';
 }
-input[type="button"]:hover,
-input[type="submit"]:hover,
-input[type="reset"]:hover{
+button[type="button"]:hover,
+button[type="submit"]:hover,
+button[type="reset"]:hover{
 	background-color:#917FB3;
 }

@@ -4,7 +4,6 @@
 <html>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script type="text/javascript">
-
 	function sendPostRequestMyPage() {
 		var memberId = "${member.mb_id}";
 		var exId = memberId.trim();
@@ -21,7 +20,6 @@
 		document.body.appendChild(form);
 		form.submit();
 	}
-
 </script>
 <head>
 	<meta charset="UTF-8">

@@ -16,16 +16,20 @@
 						<span>검색결과가 없습니다</span>
 					</c:when>
 					<c:otherwise>
-						<div style="display: flex;">
+						<div style="display: flex; justify-content: space-around;">
 							<c:forEach items="${creator}" var="ct" varStatus="state">
-								<a href="board_main?mb_number=${ct.mb_number}">
-									<img src="./resources/member/
-									<c:if test="${ct.mb_photo == 'basic_photo.png'}">basic_photo</c:if>
-									<c:if test="${ct.mb_photo != 'basic_photo.png'}">profile</c:if>
-									/${ct.mb_photo}" width="100px" height="100px">
-								</a>
-								${ct.mb_nick_name}
-								<c:if test="${state.index != creator.size()-1}"><br></c:if>
+								<c:if test="${state.index < 9}">
+								<div style="display: grid; text-align: center;">
+									<a href="board_main?mb_number=${ct.mb_number}">
+										<img src="./resources/member/
+										<c:if test="${ct.mb_photo == 'basic_photo.png'}">basic_photo</c:if>
+										<c:if test="${ct.mb_photo != 'basic_photo.png'}">profile</c:if>
+										/${ct.mb_photo}" width="100px" height="100px">
+									</a>
+									${ct.mb_nick_name}
+									<c:if test="${state.index != creator.size()-1}"><br></c:if>
+								</div>
+								</c:if>
 							</c:forEach>
 						</div>
 					</c:otherwise>
@@ -41,7 +45,7 @@
 						<c:forEach items="${seller}" var="sl">
 							판매자 : ${sl}<br>
 							<div style="width: 30%; height: 1px; background-color: black;"></div><br>
-							<c:forEach items="${item}" var="it">
+							<c:forEach items="${item}" var="it" varStatus="i">
 								<div style="display: flex;">
 									<c:if test="${sl == it.mb_nick_name}">
 										<div>

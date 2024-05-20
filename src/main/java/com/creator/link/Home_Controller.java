@@ -1,6 +1,7 @@
 package com.creator.link;
 
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Properties;
 
@@ -18,7 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.creator.link.Member.Member_DTO;
 
-
+import java.io.BufferedReader;
 import java.io.FileInputStream;
 
 @Controller
@@ -97,13 +98,21 @@ public class Home_Controller {
 	@RequestMapping(value = "/test")
 	public String NewFile(Model mo) throws IOException, InterruptedException {
 		ProcessBuilder processBuilder;
-        String a1; //실행될 파이선 파일의 경로
-        a1 = py_path + "cllo2.py"; 
-        processBuilder = new ProcessBuilder("python",a1);
-        processBuilder.redirectErrorStream(true);
-        Process process = processBuilder.start();
-        int result = process.waitFor();
-        System.out.println(result);
-	    return "test";
+	    String a1; // 실행될 파이썬 파일의 경로
+	    a1 = py_path + "Crawling.py"; 
+	    processBuilder = new ProcessBuilder("python", a1);
+	    processBuilder.redirectErrorStream(true);
+	    Process process = processBuilder.start();
+	    
+	    // 로그 출력
+	    BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream(),"utf-8"));
+	    String line;
+	    while ((line = reader.readLine()) != null) {
+	        System.out.println(line);
+	    }
+	    
+	    int result = process.waitFor();
+	    System.out.println("파이썬 실행 정상 여부 0이면 성공" + result);
+	    return "redirect:index";
 	}
 }
