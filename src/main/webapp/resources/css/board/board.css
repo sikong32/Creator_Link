@@ -300,9 +300,7 @@ table.post_view{
 textarea{
 	resize: none;
 }
-button[type="button"],
-button[type="submit"],
-button[type="reset"] {
+.board button[type="button"]{
 	text-align: center;
 	height: 2vh;
     background-color: #2A2F4F;
@@ -314,8 +312,6 @@ button[type="reset"] {
 	font-size: 15px;
 	font-family:'Pretendard-Regular';
 }
-button[type="button"]:hover,
-button[type="submit"]:hover,
-button[type="reset"]:hover{
+.board button[type="button"]:hover{
 	background-color:#917FB3;
 }
