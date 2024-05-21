@@ -37,15 +37,33 @@ public class Board_Controller {
 		String mode = request.getParameter("mode");
 		
 		Board_Service sv = sqlSession.getMapper(Board_Service.class);
-		String mb_nick_name = sv.call_mb_nick_name(mb_number);
-		value_of_total = sv.value_of_total(mb_number, bat_number, search, value);
-		Paging paging = new Paging(Integer.parseInt(now_page), Integer.parseInt(view_per_page), value_of_total);
-		ArrayList<Attribute_DTO> attribute_list = sv.attribute_list(mb_number);
-		ArrayList<Board_DTO> board_list = sv.board_list(mb_number, paging, bat_number, search, value, mode);
-		ArrayList<Board_DTO> noties_list = sv.board_noties_list(mb_number);
-		ArrayList<Comment_number> comment_number = sv.comment_number();
 		HttpSession hs = request.getSession();
 		Member_DTO login = (Member_DTO)hs.getAttribute("member");
+		String mb_nick_name = sv.call_mb_nick_name(mb_number);
+		if (mode != null) {
+			if (mode.equals("record_post")) value_of_total = sv.record_post_total(mb_number, login.getMb_id());
+			if (mode.equals("record_comment")) value_of_total = sv.record_commnet_total(mb_number, login.getMb_id());
+		}
+		else {
+			value_of_total = sv.value_of_total(mb_number, bat_number, search, value);
+		}
+		Paging paging = new Paging(Integer.parseInt(now_page), Integer.parseInt(view_per_page), value_of_total);
+		ArrayList<Attribute_DTO> attribute_list = sv.attribute_list(mb_number);
+		ArrayList<Board_DTO> board_list = new ArrayList<Board_DTO>();
+		ArrayList<Comment_DTO> commnet_list = new ArrayList<Comment_DTO>();
+		if (mode != null) {
+			if (mode.equals("record_post")) board_list = sv.record_list_post(mb_number, login.getMb_id(), paging);
+			if (mode.equals("record_comment")) {
+				commnet_list = sv.record_list_commnet(mb_number, login.getMb_id(), paging);
+				board_list = sv.board_list_all(mb_number);
+			}
+			if (mode.equals("best")) board_list = sv.board_list_best(mb_number, paging, bat_number, search, value);
+		}
+		else {
+			board_list = sv.board_list(mb_number, paging, bat_number, search, value);
+		}
+		ArrayList<Board_DTO> noties_list = sv.board_noties_list(mb_number);
+		ArrayList<Comment_number> comment_number = sv.comment_number();
 		ArrayList<Visit_history_DTO> history_list = new ArrayList<Visit_history_DTO>();
 		if (login != null) {
 			try {
@@ -64,6 +82,7 @@ public class Board_Controller {
 		}
 		
 		mo.addAttribute("board_list", board_list);
+		mo.addAttribute("commnet_list", commnet_list);
 		mo.addAttribute("attribute_list", attribute_list);
 		mo.addAttribute("noties_list", noties_list);
 		mo.addAttribute("page", paging);
@@ -77,6 +96,7 @@ public class Board_Controller {
 		mo.addAttribute("history_list", history_list);
 		mo.addAttribute("write_post", write_post);
 		mo.addAttribute("write_comment", write_comment);
+		mo.addAttribute("mode", mode);
 		
 		return "board_main";
 	}

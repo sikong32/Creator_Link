@@ -118,7 +118,7 @@ $(document).ready(function() {
 
 function change_vpp(selval) {
 	var view_per_page = selval.value;
-	window.location = "board_main?view_per_page="+view_per_page+batParams+searchParams;
+	window.location = "board_main?view_per_page="+view_per_page+batParams+searchParams+modeParams;
 }
 function search_do() {
 	var search = document.getElementById('search').value;

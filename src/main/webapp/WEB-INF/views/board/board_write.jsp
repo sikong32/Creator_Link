@@ -18,7 +18,7 @@
 								<img src="./resources/member/
 								<c:if test="${member.mb_photo == 'basic_photo.png'}">basic_photo</c:if>
 								<c:if test="${member.mb_photo != 'basic_photo.png'}">profile</c:if>
-								/${member.mb_photo}" width="180px">
+								/${member.mb_photo}" width="180px" style="max-height: 180px;">
 							</div>
 						</div>
 						<div class="info_data">
@@ -26,11 +26,11 @@
 							${member.mb_nick_name}
 							</div>
 							<div class="info_record">
-								<span>내가 쓴 글</span>
+								<span onclick="location.href='board_main?mode=record_post'" style="cursor: pointer;">내가 쓴 글</span>
 								<span>${write_post}</span>
 							</div>
 							<div class="info_record">
-								<span>내가 쓴 댓글</span>
+								<span onclick="location.href='board_main?mode=record_comment'" style="cursor: pointer;">내가 쓴 댓글</span>
 								<span>${write_comment}</span>
 							</div>
 						</div>
@@ -41,8 +41,21 @@
 						<span>CreatorLink</span>
 					</div>
 					<div onclick="location.href='board_main'" class="category">전체글</div>
+					
+					<div class="category" onclick="location.href='board_main?mb_number=${mb_number}&bat_number=1'">
+						<span>자유게시판</span>
+					</div>
+					<div class="category" onclick="location.href='board_main?mb_number=${mb_number}&bat_number=2'">
+						<span>문의게시판</span>
+					</div>
+					<div class="category" onclick="location.href='board_main?mb_number=${mb_number}&bat_number=3'">
+						<span>공지게시판</span>
+					</div>
+					
 					<c:forEach items="${attribute_list}" var="atli">
-					<div class="category" onclick="location.href='board_main?bat_number=${atli.bat_number}'">${atli.bat_cls}</div>
+						<c:if test="${atli.bat_number > 3}">
+							<div class="category" onclick="location.href='board_main?bat_number=${atli.bat_number}'">${atli.bat_cls}</div>
+						</c:if>
 					</c:forEach>
 				</aside>
 				<div class="store" onclick="location.href='store_main'">STORE</div>
@@ -54,8 +67,13 @@
 						<div style="display: flex; align-items: center; justify-content: space-between;">
 							<div style="width: 19%; display: flex; align-items: center;">
 								<select name="attribute" style="width: 100%; height: 21px;">
+									<option value="1">자유게시판</option>
+									<option value="2">문의게시판</option>
+									<option value="3">공지게시판</option>
 									<c:forEach items="${attribute_list}" var="atli">
-										<option value="${atli.bat_number}">${atli.bat_cls}</option>
+										<c:if test="${atli.bat_number > 3}">
+											<option value="${atli.bat_number}">${atli.bat_cls}</option>
+										</c:if>
 									</c:forEach>
 								</select>
 							</div>
