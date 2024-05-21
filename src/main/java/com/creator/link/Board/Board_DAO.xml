@@ -22,25 +22,21 @@
 			</if>
 		</if>
 	</select>
+	<select id="record_post_total" resultType="int">
+		select count(*) from board_content_tbl where mb_number = #{param1} and bct_writer_id = #{param2}
+	</select>
+	<select id="record_commnet_total" resultType="int">
+		select count(*) from comment_tbl where mb_number = #{param1} and mb_id = #{param2}
+	</select>
 	<select id="board_list" resultType="com.creator.link.Board.Board_DTO">
 		<if test="param3 == null">
 			select * from (
 				select rownum rn, list.* from (
-					<if test="param6 == null">
-						<if test="param4 == null">
-							select * from board_content_tbl where mb_number = #{param1} order by bct_content_number desc
-						</if>
-						<if test="param4 != null">
-							select * from board_content_tbl where mb_number = #{param1} and ${param4} like '%${param5}%' order by bct_content_number desc
-						</if>
+					<if test="param4 == null">
+						select * from board_content_tbl where mb_number = #{param1} order by bct_content_number desc
 					</if>
-					<if test="param6 != null">
-						<if test="param4 == null">
-							select * from board_content_tbl where mb_number = #{param1} order by bct_like_cnt desc, bct_content_number desc
-						</if>
-						<if test="param4 != null">
-							select * from board_content_tbl where mb_number = #{param1} and ${param4} like '%${param5}%' order by bct_like_cnt desc, bct_content_number desc
-						</if>
+					<if test="param4 != null">
+						select * from board_content_tbl where mb_number = #{param1} and ${param4} like '%${param5}%' order by bct_content_number desc
 					</if>
 				)list
 			)
@@ -49,26 +45,63 @@
 		<if test="param3 != null">
 			select * from (
 				select rownum rn, list.* from (
-					<if test="param6 == null">
-						<if test="param4 == null">
-							select * from board_content_tbl where mb_number = #{param1} and bat_number = ${param3} order by bct_content_number desc
-						</if>
-						<if test="param4 != null">
-							select * from board_content_tbl where mb_number = #{param1} and bat_number = ${param3} and ${param4} like '%${param5}%' order by bct_content_number desc
-						</if>
+					<if test="param4 == null">
+						select * from board_content_tbl where mb_number = #{param1} and bat_number = ${param3} order by bct_content_number desc
 					</if>
-					<if test="param6 != null">
-						<if test="param4 == null">
-							select * from board_content_tbl where mb_number = #{param1} and bat_number = ${param3} order by bct_like_cnt desc, bct_content_number desc
-						</if>
-						<if test="param4 != null">
-							select * from board_content_tbl where mb_number = #{param1} and bat_number = ${param3} and ${param4} like '%${param5}%' order by bct_like_cnt desc, bct_content_number desc
-						</if>
+					<if test="param4 != null">
+						select * from board_content_tbl where mb_number = #{param1} and bat_number = ${param3} and ${param4} like '%${param5}%' order by bct_content_number desc
 					</if>
 				)list
 			)
 			where rn between ${param2.start_value} and ${param2.end_value}
 		</if>
+	</select>
+	<select id="board_list_best" resultType="com.creator.link.Board.Board_DTO">
+			<if test="param3 == null">
+			select * from (
+				select rownum rn, list.* from (
+					<if test="param4 == null">
+						select * from board_content_tbl where mb_number = #{param1} order by bct_like_cnt desc, bct_content_number desc
+					</if>
+					<if test="param4 != null">
+						select * from board_content_tbl where mb_number = #{param1} and ${param4} like '%${param5}%' order by bct_like_cnt desc, bct_content_number desc
+					</if>
+				)list
+			)
+			where rn between ${param2.start_value} and ${param2.end_value}
+		</if>
+		<if test="param3 != null">
+			select * from (
+				select rownum rn, list.* from (
+					<if test="param4 == null">
+						select * from board_content_tbl where mb_number = #{param1} and bat_number = ${param3} order by bct_like_cnt desc, bct_content_number desc
+					</if>
+					<if test="param4 != null">
+						select * from board_content_tbl where mb_number = #{param1} and bat_number = ${param3} and ${param4} like '%${param5}%' order by bct_like_cnt desc, bct_content_number desc
+					</if>
+				)list
+			)
+			where rn between ${param2.start_value} and ${param2.end_value}
+		</if>
+	</select>
+	<select id="record_list_post" resultType="com.creator.link.Board.Board_DTO">
+		select * from (
+			select rownum rn, list.* from (
+				select * from board_content_tbl where mb_number = #{param1} and bct_writer_id = #{param2} order by bct_content_number desc
+			)list
+		)
+		where rn between ${param3.start_value} and ${param3.end_value}
+	</select>
+	<select id="record_list_commnet" resultType="com.creator.link.Board.Comment_DTO">
+		select * from (
+			select rownum rn, list.* from (
+				select * from comment_tbl where mb_number = #{param1} and mb_id = #{param2} order by cm_number desc
+			)list
+		)
+		where rn between ${param3.start_value} and ${param3.end_value}
+	</select>
+	<select id="board_list_all" resultType="com.creator.link.Board.Board_DTO">
+		select * from board_content_tbl where mb_number = #{param1}
 	</select>
 	<select id="attribute_list" resultType="com.creator.link.Board.Attribute_DTO">
 		select * from board_attribute_tbl where mb_number = #{param1}

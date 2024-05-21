@@ -29,6 +29,10 @@
 	<c:if test="${not empty bat_number}">
 		<c:set var="bat_numberParams" value="&bat_number=${bat_number}"/>
 	</c:if>
+	<c:set var="modeParams" value=""/>
+	<c:if test="${not empty mode}">
+		<c:set var="modeParams" value="&mode=${mode}"/>
+	</c:if>
 	
 	<div class="background">
 		<div class="container">
@@ -40,18 +44,18 @@
 								<img src="./resources/member/
 								<c:if test="${member.mb_photo == 'basic_photo.png'}">basic_photo</c:if>
 								<c:if test="${member.mb_photo != 'basic_photo.png'}">profile</c:if>
-								/${member.mb_photo}" width="180px">
+								/${member.mb_photo}" width="180px" style="max-height: 180px;">
 							</div>
 							<div class="info_data">
 								<div class="info_name">
 								${member.mb_nick_name}
 								</div>
 								<div class="info_record">
-									<span>내가 쓴 글</span>
+									<span onclick="location.href='board_main?mode=record_post'" style="cursor: pointer;">내가 쓴 글</span>
 									<span>${write_post}</span>
 								</div>
 								<div class="info_record">
-									<span>내가 쓴 댓글</span>
+									<span onclick="location.href='board_main?mode=record_comment'" style="cursor: pointer;">내가 쓴 댓글</span>
 									<span>${write_comment}</span>
 								</div>
 							</div>
@@ -71,12 +75,25 @@
 						<span id="list_add" style="font-size: 15px; display: none; cursor: pointer;">➕</span>
 					</div>
 					<div onclick="location.href='board_main?mb_number=${mb_number}'" class="category">전체글</div>
+					
+					<div class="category" onclick="location.href='board_main?mb_number=${mb_number}&bat_number=1'">
+						<span>자유게시판</span>
+					</div>
+					<div class="category" onclick="location.href='board_main?mb_number=${mb_number}&bat_number=2'">
+						<span>문의게시판</span>
+					</div>
+					<div class="category" onclick="location.href='board_main?mb_number=${mb_number}&bat_number=3'">
+						<span>공지게시판</span>
+					</div>
+					
 					<c:forEach items="${attribute_list}" var="atli" varStatus="state">
-						<div class="category" onclick="location.href='board_main?mb_number=${mb_number}&bat_number=${atli.bat_number}'">
-							<input type="text" id="input_${state.index}" value="${atli.bat_cls}" onclick="modi_name(event)" data-bat_number="${atli.bat_number}" style="display: none; width: 150px; border: none; outline: none; font-size: 16px;">
-							<span id="text_${state.index}">${atli.bat_cls}</span>
-							<span id="list_del_${state.index}" onclick="list_del(event)" data-bat_number="${atli.bat_number}" style="font-size: 15px; display: none; cursor: pointer;">➖</span>
-						</div>
+						<c:if test="${atli.bat_number > 3}">
+							<div class="category" onclick="location.href='board_main?mb_number=${mb_number}&bat_number=${atli.bat_number}'">
+								<input type="text" id="input_${state.index}" value="${atli.bat_cls}" onclick="modi_name(event)" data-bat_number="${atli.bat_number}" style="display: none; width: 150px; border: none; outline: none; font-size: 16px;">
+								<span id="text_${state.index}">${atli.bat_cls}</span>
+								<span id="list_del_${state.index}" onclick="list_del(event)" data-bat_number="${atli.bat_number}" style="font-size: 15px; display: none; cursor: pointer;">➖</span>
+							</div>
+						</c:if>
 					</c:forEach>
 				</aside>
 				<c:if test="${mb_number == member.mb_number || member.mb_attribute == '관리자'}">
@@ -155,48 +172,88 @@
 						<div class="empty_board"></div>
 					</c:if>
 					<table class="post_table">
-						<c:forEach items="${board_list}" var="boli" varStatus="state">
-						<tr>
-							<td style="width: 70%; padding-left: 10px;">
-								<div style="display: flex; align-items: center;">
-									<span><input type="checkbox" class="post_check" id="post_check_${state.index}" value="${boli.bct_content_number}" style="display: none;"></input></span>
-									<c:if test="${empty bat_number}">
-										<c:forEach items="${attribute_list}" var="atli">
-											<c:if test="${boli.bat_number == atli.bat_number}">
-												<span style="color:gray;">[${atli.bat_cls}]&ensp;</span>
+						<c:if test="${mode != 'record_comment' or mode == null}">
+							<c:forEach items="${board_list}" var="boli" varStatus="state">
+								<tr>
+									<td style="width: 70%; padding-left: 10px;">
+										<div style="display: flex; align-items: center;">
+											<span><input type="checkbox" class="post_check" id="post_check_${state.index}" value="${boli.bct_content_number}" style="display: none;"></input></span>
+											<c:if test="${empty bat_number}">
+												<c:if test="${boli.bat_number == 1}">
+													<span style="color:gray;">[자유게시판]&ensp;</span>
+												</c:if>
+												<c:if test="${boli.bat_number == 2}">
+													<span style="color:gray;">[문의게시판]&ensp;</span>
+												</c:if>
+												<c:if test="${boli.bat_number == 3}">
+													<span style="color:gray;">[공지게시판]&ensp;</span>
+												</c:if>
+												<c:forEach items="${attribute_list}" var="atli">
+													<c:if test="${atli.bat_number > 3}">
+														<c:if test="${boli.bat_number == atli.bat_number}">
+															<span style="color:gray;">[${atli.bat_cls}]&ensp;</span>
+														</c:if>
+													</c:if>
+												</c:forEach>
 											</c:if>
-										</c:forEach>
-									</c:if>
-									<a href="board_view?mb_number=${mb_number}&bct_content_number=${boli.bct_content_number}">
-										${boli.bct_title}
-										<c:forEach items="${comment_number}" var="cn">
-											<c:if test="${boli.bct_content_number == cn.bct_content_number}">
-												<span style="color:red;">(${cn.comment_number})</span>
-											</c:if>
-										</c:forEach>
-									</a>
-								</div>
-							</td>
-							<td style="width: 10%; text-align: center;">${boli.bct_writer}</td>
-							<td style="width: 10%; text-align: center;">
-								<c:choose>
-									<c:when test="${boli.bct_write_date.substring(0, 10) == now_date}">
-										${boli.bct_write_date.substring(11,16)}
-									</c:when>
-									<c:otherwise>
-										${boli.bct_write_date.substring(0, 10)}
-									</c:otherwise>
-								</c:choose>
-							</td>
-							<td style="width: 10%; text-align: center;">${boli.bct_view_cnt}</td>
-						</tr>
-						</c:forEach>
+											<a href="board_view?mb_number=${mb_number}&bct_content_number=${boli.bct_content_number}">
+												${boli.bct_title}
+												<c:forEach items="${comment_number}" var="cn">
+													<c:if test="${boli.bct_content_number == cn.bct_content_number}">
+														<span style="color:red;">(${cn.comment_number})</span>
+													</c:if>
+												</c:forEach>
+											</a>
+										</div>
+									</td>
+									<td style="width: 10%; text-align: center;">${boli.bct_writer}</td>
+									<td style="width: 10%; text-align: center;">
+										<c:choose>
+											<c:when test="${boli.bct_write_date.substring(0, 10) == now_date}">
+												${boli.bct_write_date.substring(11,16)}
+											</c:when>
+											<c:otherwise>
+												${boli.bct_write_date.substring(0, 10)}
+											</c:otherwise>
+										</c:choose>
+									</td>
+									<td style="width: 10%; text-align: center;">${boli.bct_view_cnt}</td>
+								</tr>
+							</c:forEach>
+						</c:if>
+						<c:if test="${mode == 'record_comment'}">
+							<c:forEach items="${commnet_list}" var="coli">
+								<tr>
+									<td style="width: 80%; padding-left: 10px;">
+										<div style="display: flex; align-items: center;">
+											<c:forEach items="${board_list}" var="boli">
+												<c:if test="${boli.bct_content_number == coli.bct_content_number}">
+													<span style="color:gray;">[${boli.bct_title}]&ensp;</span>
+												</c:if>
+											</c:forEach>
+											<a href="board_view?mb_number=${mb_number}&bct_content_number=${boli.bct_content_number}">${coli.cm_content}</a>
+										</div>
+									</td>
+									<td style="width: 10%; text-align: center;">${coli.mb_nick_name}</td>
+									<td style="width: 10%; text-align: center;">
+										<c:choose>
+											<c:when test="${coli.cm_write_date.substring(0, 10) == now_date}">
+												${coli.cm_write_date.substring(11,16)}
+											</c:when>
+											<c:otherwise>
+												${coli.cm_write_date.substring(0, 10)}
+											</c:otherwise>
+										</c:choose>
+									</td>
+								</tr>
+							</c:forEach>
+						</c:if>
 					</table>
 					
 					<div class="paging">
 						<c:if test="${page.start_page != page.end_page}">
 							<c:if test="${page.start_page != 1}">
-								<a href="board_main?now_page=${page.start_page-1}&view_per_page=${page.view_per_page}${searchParams}${sortParams}${batParams}">◀</a>
+								<a href="board_main?now_page=${page.start_page-1}&view_per_page=${page.view_per_page}${searchParams}${sortParams}${batParams}${modeParams}">◀</a>
 							</c:if>
 							
 							<c:forEach begin="${page.start_page}" end="${page.end_page}" var="p">
@@ -204,12 +261,12 @@
 									<span style="color: red;">${p}</span>
 								</c:if>
 								<c:if test="${p != page.now_page}">
-									<a href="board_main?now_page=${p}&view_per_page=${page.view_per_page}${searchParams}${sortParams}${batParams}">${p}</a>
+									<a href="board_main?now_page=${p}&view_per_page=${page.view_per_page}${searchParams}${sortParams}${batParams}${modeParams}">${p}</a>
 								</c:if>
 							</c:forEach>
 							
 							<c:if test="${page.end_page != page.last_page}">
-								<a href="board_main?now_page=${page.end_page+1}&view_per_page=${page.view_per_page}${searchParams}${sortParams}${batParams}">▶</a>
+								<a href="board_main?now_page=${page.end_page+1}&view_per_page=${page.view_per_page}${searchParams}${sortParams}${batParams}${modeParams}">▶</a>
 							</c:if>
 						</c:if>
 					</div>
@@ -239,6 +296,7 @@
 		var batParams = "${batParams}";
 		var searchParams = "${searchParams}";
 		var batParams = "${batParams}";
+		var modeParams = "${modeParams}";
 		var view_per_page = "${page.view_per_page}";
 		var mb_number = "${mb_number}";
 		var login_number = "${member.mb_number}";
