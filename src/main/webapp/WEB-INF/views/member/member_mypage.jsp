@@ -223,11 +223,11 @@ function phoneVr() {
         return false;
     }
 };
-
+/* 
 exPhoto.addEventListener("click", () => {
 	mdPhoto.click();
 });
-
+ */
 function previewImage(event) { //이미지 미리보기 함수
     var input = event.target;
     var preview = document.getElementById("exPhoto");

@@ -68,6 +68,6 @@
 		select * from BROADCAST_TBL WHERE BC_FLAFORM = #{param1}
 	</select>
 	<select id="mb_select" resultType="com.creator.link.Member.Member_DTO">
-		select * from MEMBER_TBL WHERE MB_ATTRIBUTE = '크리에이터'
+		select * from MEMBER_TBL WHERE MB_ATTRIBUTE = '크리에이터' order by mb_number DESC
 	</select>
 </mapper>
