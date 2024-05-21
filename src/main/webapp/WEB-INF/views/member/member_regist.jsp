@@ -13,7 +13,7 @@
 	<section class="regist_container">
 		<div class="regist_tot">
 			<h3>회원가입</h3>
-			<form class="regist_form" action="regist_do" method="post" onsubmit="return regiVr()">
+			<form id="registForm" class="regist_form" action="regist_do" method="post" onsubmit="return regiVr()">
 				<div class="regist_menu">
 					<label for="id">아이디</label>
 					<div class="regist_id">
@@ -34,7 +34,7 @@
 				</div>
 				</div>
 				<div class="regist_menu">
-					<label for="pw_verify">비밀번호 확인</label>
+					<label for="pwVr">비밀번호 확인</label>
 					<input type="password" id="pwVr" name="pwVr" placeholder="비밀번호 확인">
 				<div class="notice">	
 					<p id="pw3" hidden="hidden">*비밀번호 확인란에 비밀번호를 입력해주세요.</p>
@@ -50,7 +50,7 @@
 				</div>
 				</div>
 				<div class="regist_menu">
-					<label for="date">생년월일</label>
+					<label for="birthDate">생년월일</label>
 					<input type="date" id="birthDate" name="birthDate" max="9999-12-31">
 				<div class="notice">	
 					<p id="birthDate1" hidden="hidden">*생년월일 입력은 필수사항 입니다.</p>
@@ -74,6 +74,7 @@
 			</form>
 		</div>
 	</section>
+</body>
 <script type="text/javascript">
 $(document).ready(function() {
 	$("#id").blur(function() {
@@ -101,34 +102,37 @@ $(document).ready(function() {
 	});
 	
 	function idVr() {
-		var id = $("#id").val();
-		var idVr = /^[A-Za-z\d]{4,20}$/;
-		if (!id) {
-			$("#id1").show();
-			$("#id2").hide();
-			return false;
-		} else {
-			$("#id1").hide();
-		}
-		if (!idVr.test(id)) {
-			$("#id2").show();
-			return false;
-		} else {
-			$("#id2").hide();
-		}
-		if (idVr.test(id)) {
-			$.post("idCheck", {"id":id}, function(result) {
-				if (result == "pass") {
-					$("#id3").hide();
-					return true;
-				} else {
-					$("#id3").show();
-					return false;
-				}
-			}).fail (function() {
-				alert("서버 통신 중 오류가 발생했습니다.");
-			});
-		}
+	    return new Promise(function(resolve, reject) {
+	        var id = $("#id").val();
+	        var idVr = /^[A-Za-z\d]{4,20}$/;
+	        if (!id) {
+	            $("#id1").show();
+	            $("#id2").hide();
+	            resolve(false);
+	        } else {
+	            $("#id1").hide();
+	        }
+	        if (!idVr.test(id)) {
+	            $("#id2").show();
+	            resolve(false);
+	        } else {
+	            $("#id2").hide();
+	        }
+	        if (idVr.test(id)) {
+	            $.post("idCheck", {"id":id}, function(result) {
+	                if (result == "pass") {
+	                    $("#id3").hide();
+	                    resolve(true);
+	                } else {
+	                    $("#id3").show();
+	                    resolve(false);
+	                }
+	            }).fail (function() {
+	                alert("서버 통신 중 오류가 발생했습니다.");
+	                reject("server error");
+	            });
+	        }
+	    });
 	}
 	
 	function pw() {
@@ -248,40 +252,50 @@ $(document).ready(function() {
 			return true;
 		}
 	}
-	
-	function regiVr() {
+
+	async function regiVr() {
 		var idPass = idVr();
 		var pwPass = pw();
 		var pwVrPass = pwVr();
 		var namePass = nameVr();
 		var birthDatePass = birthDateVr();
 		var phonePass = phoneVr();
-		
-		if (idPass && pwPass && pwVrPass && namePass && birthDatePass && phonePass ) {
-			return true;
-		} else {
-			if (idPass == false) {
-				$("#id").focus();
-				return false;
-			} else if (pwPass == false) {
-				$("#pw").focus();
-				return false;
-			} else if (pwVrPass == false) {
-				$("#pwVr").focus();
-				return false;
-			} else if (namePass == false) {
-				$("#name").focus();
-				return false;
-			} else if (birthDatePass == false) {
-				$("#birthDate").focus();
-				return false;
-			} else if (phonePass == false) {
-				$("#phone").focus();
-				return false;
-			}
+	
+		if (idPass == false) {
+			$("#id").focus();
+			return false;
 		}
+		if (pwPass == false) {
+			$("#pw").focus();
+			return false;
+		}
+		if (pwVrPass == false) {
+			$("#pwVr").focus();
+			return false;
+		}
+		if (namePass == false) {
+			$("#name").focus();
+			return false;
+		}
+		if (birthDatePass == false) {
+			$("#birthDate").focus();
+			return false;
+		}
+		if (phonePass == false) {
+			$("#phone").focus();
+			return false;
+		}
+		
+		//모든 조건이 통과했을 경우
+		return true;
 	}
+	
+	$("#registForm").on("submit", async function(event) {
+	    if (!await regiVr()) {
+	        event.preventDefault();
+	    }
+	});
+	
 }); //document
 </script>
-</body>
 </html>

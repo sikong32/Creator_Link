@@ -45,14 +45,6 @@
 	</section>
 <script type="text/javascript">
 $(document).ready(function() {
-	$("#id").blur(function() {
-		idVr();
-	})//id
-	
-	$("#pw").blur(function() {
-		pwVr();
-	})//pw
-	
 	function idVr() {
 		var id = $("#id").val();
 		var idVr = /^[A-Za-z\d]{4,20}$/;
