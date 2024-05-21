@@ -110,6 +110,7 @@ public class Board_Controller {
 		ArrayList<Attribute_DTO> attribute_list = new ArrayList<Attribute_DTO>();
 		HttpSession hs = request.getSession();
 		Member_DTO login = (Member_DTO)hs.getAttribute("member");
+		ArrayList<Visit_history_DTO> history_list = new ArrayList<Visit_history_DTO>();
 		
 		Board_Service sv = sqlSession.getMapper(Board_Service.class);
 		if (mb_number == null) {
@@ -125,11 +126,17 @@ public class Board_Controller {
 			write_post = sv.write_post(login.getMb_id(), mb_number);
 			write_comment = sv.write_comment(login.getMb_id(), mb_number);
 		}
+		String mb_nick_name = sv.call_mb_nick_name(mb_number);
+		if (login != null) {
+			history_list = sv.visit_history_list(login.getMb_number());
+		}
 		
 		mo.addAttribute("attribute_list", attribute_list);
 		mo.addAttribute("mb_number", mb_number);
 		mo.addAttribute("write_post", write_post);
 		mo.addAttribute("write_comment", write_comment);
+		mo.addAttribute("mb_nick_name", mb_nick_name);
+		mo.addAttribute("history_list", history_list);
 		
 		return "board_write";
 	}
@@ -173,6 +180,7 @@ public class Board_Controller {
 		ArrayList<Comment_DTO> comment = sv.comment_list(bct_content_number);
 		ArrayList<Attribute_DTO> attribute_list = sv.attribute_list(mb_number);
 		ArrayList<Integer> liked_list = sv.board_liked_list(bct_content_number);
+		ArrayList<Visit_history_DTO> history_list = new ArrayList<Visit_history_DTO>();
 		int write_post = 0;
 		int write_comment = 0;
 		if (login != null) {
@@ -183,6 +191,10 @@ public class Board_Controller {
 		for (int list:liked_list) {
 			if (list == login_number) like = "true";
 		}
+		String mb_nick_name = sv.call_mb_nick_name(mb_number);
+		if (login != null) {
+			history_list = sv.visit_history_list(login.getMb_number());
+		}
 		
 		mo.addAttribute("post", post);
 		mo.addAttribute("comment", comment);
@@ -191,6 +203,9 @@ public class Board_Controller {
 		mo.addAttribute("mb_number", mb_number);
 		mo.addAttribute("write_post", write_post);
 		mo.addAttribute("write_comment", write_comment);
+		mo.addAttribute("mb_number", mb_number);
+		mo.addAttribute("mb_nick_name", mb_nick_name);
+		mo.addAttribute("history_list", history_list);
 		
 		return "board_view";
 	}
@@ -213,6 +228,7 @@ public class Board_Controller {
 		String mb_number = request.getParameter("mb_number");
 		HttpSession hs = request.getSession();
 		Member_DTO login = (Member_DTO)hs.getAttribute("member");
+		ArrayList<Visit_history_DTO> history_list = new ArrayList<Visit_history_DTO>();
 		
 		Board_Service sv = sqlSession.getMapper(Board_Service.class);
 		Board_DTO post = sv.board_view(bct_content_number);
@@ -223,12 +239,18 @@ public class Board_Controller {
 			write_post = sv.write_post(login.getMb_id(), mb_number);
 			write_comment = sv.write_comment(login.getMb_id(), mb_number);
 		}
+		String mb_nick_name = sv.call_mb_nick_name(mb_number);
+		if (login != null) {
+			history_list = sv.visit_history_list(login.getMb_number());
+		}
 		
 		mo.addAttribute("post", post);
 		mo.addAttribute("attribute_list", attribute_list);
 		mo.addAttribute("mb_number", mb_number);
 		mo.addAttribute("write_post", write_post);
 		mo.addAttribute("write_comment", write_comment);
+		mo.addAttribute("mb_nick_name", mb_nick_name);
+		mo.addAttribute("history_list", history_list);
 		
 		return "board_modify";
 	}

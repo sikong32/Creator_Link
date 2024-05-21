@@ -11,34 +11,44 @@
 	<div class="background">
 		<div class="container">
 			<div class="sidebar">
-				<div class="info_block">
-					<div class="info_my">
-						<div class="info_title">
-							<div class="info_photo">
-								<img src="./resources/member/
-								<c:if test="${member.mb_photo == 'basic_photo.png'}">basic_photo</c:if>
-								<c:if test="${member.mb_photo != 'basic_photo.png'}">profile</c:if>
-								/${member.mb_photo}" width="180px" style="max-height: 180px;">
+				<c:if test="${member != null}">
+					<div class="info_block">
+						<div class="info_my">
+							<div class="info_title">
+								<div class="info_photo">
+									<img src="./resources/member/
+									<c:if test="${member.mb_photo == 'basic_photo.png'}">basic_photo</c:if>
+									<c:if test="${member.mb_photo != 'basic_photo.png'}">profile</c:if>
+									/${member.mb_photo}" width="180px" style="max-height: 180px;">
+								</div>
 							</div>
-						</div>
-						<div class="info_data">
-							<div class="info_name">
-							${member.mb_nick_name}
-							</div>
-							<div class="info_record">
-								<span onclick="location.href='board_main?mode=record_post'" style="cursor: pointer;">내가 쓴 글</span>
-								<span>${write_post}</span>
-							</div>
-							<div class="info_record">
-								<span onclick="location.href='board_main?mode=record_comment'" style="cursor: pointer;">내가 쓴 댓글</span>
-								<span>${write_comment}</span>
+							<div class="info_data">
+								<div class="info_name">
+								${member.mb_nick_name}
+								</div>
+								<div class="info_record">
+									<span onclick="location.href='board_main?mode=record_post'" style="cursor: pointer;">내가 쓴 글</span>
+									<span>${write_post}</span>
+								</div>
+								<div class="info_record">
+									<span onclick="location.href='board_main?mode=record_comment'" style="cursor: pointer;">내가 쓴 댓글</span>
+									<span>${write_comment}</span>
+								</div>
 							</div>
 						</div>
 					</div>
-				</div>
+				</c:if>
 				<aside class="category_list">
 					<div class="category_title">
-						<span>CreatorLink</span>
+						<c:choose>
+							<c:when test="${mb_number == '1' || mb_number == null}">
+								<span>CreatorLink</span>
+							</c:when>
+							<c:otherwise>
+								<span>${mb_nick_name}</span>
+							</c:otherwise>
+						</c:choose>
+						<span id="list_add" style="font-size: 15px; display: none; cursor: pointer;">➕</span>
 					</div>
 					<div onclick="location.href='board_main'" class="category">전체글</div>
 					
@@ -61,6 +71,20 @@
 				<div class="store" onclick="location.href='store_main'">STORE</div>
 			</div>
 			<div class="board">
+				<div class="history">
+					<span style="font-weight: bold; padding-left: 10px; margin-right: 10px;">History</span>
+					<c:forEach items="${history_list}" var="hl" varStatus="state">
+						<c:if test="${mb_number != hl.mb_number }">
+							<c:if test="${state.index <= 10}">
+								<div style="margin-left: 10px; margin-right: 10px;">
+									<a href="board_main?mb_number=${hl.mb_number}">${hl.mb_nick_name}</a>
+									<a id="history_del_${state.index}" data-mb_number="${hl.mb_number}" style="cursor: pointer;">x</a>
+								</div>
+							</c:if>
+						</c:if>
+					</c:forEach>
+				</div>
+				
 				<form id="form_input" action="board_save" method="post">
 					<input type="hidden" name="mb_number" value="${mb_number}">
 					<div class="post_write">
