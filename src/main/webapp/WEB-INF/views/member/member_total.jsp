@@ -6,14 +6,14 @@
 <head>
 <style type="text/css">
 .mypage_profile img {
-	width: 80px;
-	height: 80px;
+	width: 180px;
+	height: 180px;
 	border-radius: 5px;
 }
 .mypage_textInfo{
-	width: auto;
-    height: min-content;
-    margin-left: 20px;
+	margin-left: 20px;
+    display: grid;
+    align-content: center;
 }
 
 .mypage_profile {
@@ -26,8 +26,7 @@
 }
 
 .mypage_container {
-	width: 100%;
-	height: 50vh;
+	margin: 2vh;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -43,13 +42,21 @@
     align-items: center;
 }
 #myPageLink {
-	width: 85px;
+    width: 85px;
     height: 40px;
-    color: white;
     background-color: #2A2F4F;
+    color: white;
+    border: none;
     border-radius: 5px;
+    bottom: 190px;
+    left: 60px;
+    font-size: 15px;
+    font-family: 'Pretendard-Regular';
 }
-label {
+#myPageLink:hover {
+    background-color: #917FB3;
+}
+.mypage_textInfo label {
 	font-size: 18px;
 	font-family:'Pretendard-Regular';
 	text-align: left;
