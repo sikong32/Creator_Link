@@ -229,9 +229,9 @@
 											<c:forEach items="${board_list}" var="boli">
 												<c:if test="${boli.bct_content_number == coli.bct_content_number}">
 													<span style="color:gray;">[${boli.bct_title}]&ensp;</span>
+													<a href="board_view?mb_number=${mb_number}&bct_content_number=${boli.bct_content_number}">${coli.cm_content}</a>
 												</c:if>
 											</c:forEach>
-											<a href="board_view?mb_number=${mb_number}&bct_content_number=${boli.bct_content_number}">${coli.cm_content}</a>
 										</div>
 									</td>
 									<td style="width: 10%; text-align: center;">${coli.mb_nick_name}</td>
