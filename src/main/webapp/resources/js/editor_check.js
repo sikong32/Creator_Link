@@ -10,7 +10,7 @@ function val_check() {
             // 데이터를 파일로 변환
             processImages(editorData)
                 .then(processedData => {
-                    editor.setData(processedData);
+                    editor.setData(fontdel(processedData));
                     f.submit();
                 })
                 .catch(error => {
@@ -97,4 +97,14 @@ function resizeBase64Img(base64, maxWidth, maxHeight) {
         img.onerror = reject;
         img.src = base64;
     });
+}
+function fontdel(processedData) {
+	const data_div = document.createElement('div');
+	data_div.innerHTML = processedData;
+    
+    const allElements = data_div.querySelectorAll('*');
+    allElements.forEach(element => {
+        element.style.removeProperty('font-family');
+    });
+    return data_div.innerHTML;
 }
