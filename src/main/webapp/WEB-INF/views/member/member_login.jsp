@@ -19,7 +19,6 @@
 		                <div class="notice">
 		                	<p id="id1" hidden="hidden">*아이디 입력은 필수사항 입니다.</p>
 							<p id="id2" hidden="hidden">*아이디는 영어 대/소문자와 숫자를 포함한 4~20자<br> 이내로 만들어야 합니다.</p>
-							<p id="id3" hidden="hidden">*이미 사용중인 아이디입니다.</p>
 		                </div>
 		                <input type="text" name="pw" id="pw" placeholder="비밀번호 입력">
 		                <div class="notice">
@@ -45,6 +44,7 @@
 	</section>
 <script type="text/javascript">
 $(document).ready(function() {
+}); //document
 	function idVr() {
 		var id = $("#id").val();
 		var idVr = /^[A-Za-z\d]{4,20}$/;
@@ -60,23 +60,11 @@ $(document).ready(function() {
 			return false;
 		} else {
 			$("#id2").hide();
-		}
-		if (idVr.test(id)) {
-			$.post("idCheck", {"id":id}, function(result) {
-				if (result == "pass") {
-					$("#id3").hide();
-					return true;
-				} else {
-					$("#id3").show();
-					return false;
-				}
-			}).fail (function() {
-				alert("서버 통신 중 오류가 발생했습니다.");
-			});
+			return true;
 		}
 	}
 	
-	function pw() {
+	function pwVr() {
 		//비밀번호 체크 정규식 및 변수
 		//var vrPw = /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[!@#_])[A-Za-z\d!@#_]{8,20}$/;
 		//아래 식은 임시식이므로 프로젝트 완성 후 위의 식으로 교체해야됩니다.
@@ -97,7 +85,7 @@ $(document).ready(function() {
 			return true;
 		}
 	}
-	
+
 	function logVr() {
 		var idPass = idVr();
 		var pwPass = pwVr();
@@ -115,7 +103,6 @@ $(document).ready(function() {
 		}//else
 		
 	}// logVr()
-}); //document
 </script>
 </body>
 </html>
