@@ -102,19 +102,18 @@ $(document).ready(function() {
 	});
 	
 	function idVr() {
-	    return new Promise(function(resolve, reject) {
 	        var id = $("#id").val();
 	        var idVr = /^[A-Za-z\d]{4,20}$/;
 	        if (!id) {
 	            $("#id1").show();
 	            $("#id2").hide();
-	            resolve(false);
+	            return false;
 	        } else {
 	            $("#id1").hide();
 	        }
 	        if (!idVr.test(id)) {
 	            $("#id2").show();
-	            resolve(false);
+	            return false;
 	        } else {
 	            $("#id2").hide();
 	        }
@@ -122,17 +121,16 @@ $(document).ready(function() {
 	            $.post("idCheck", {"id":id}, function(result) {
 	                if (result == "pass") {
 	                    $("#id3").hide();
-	                    resolve(true);
+	                    return true;
 	                } else {
 	                    $("#id3").show();
-	                    resolve(false);
+	                    return false;
 	                }
 	            }).fail (function() {
 	                alert("서버 통신 중 오류가 발생했습니다.");
-	                reject("server error");
+	         
 	            });
 	        }
-	    });
 	}
 	
 	function pw() {
