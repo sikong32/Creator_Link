@@ -4,8 +4,7 @@ CKEDITOR.ClassicEditor.create(document.getElementById("editor"), {
     // https://ckeditor.com/docs/ckeditor5/latest/features/toolbar/toolbar.html#extended-toolbar-configuration-format
     toolbar: {
         items: [
-            'heading', '|',
-            'bold', 'italic', '|',
+            'fontSize','fontFamily','fontColor','bold', 'italic', '|',
             'bulletedList', 'numberedList', 'todoList', '|',
             'outdent', 'indent', '|',
             'undo', 'redo', '|',
@@ -43,14 +42,15 @@ CKEDITOR.ClassicEditor.create(document.getElementById("editor"), {
     fontFamily: {
         options: [
             'default',
-            'Arial, Helvetica, sans-serif',
-            'Courier New, Courier, monospace',
-            'Georgia, serif',
-            'Lucida Sans Unicode, Lucida Grande, sans-serif',
-            'Tahoma, Geneva, sans-serif',
-            'Times New Roman, Times, serif',
-            'Trebuchet MS, Helvetica, sans-serif',
-            'Verdana, Geneva, sans-serif'
+		    'Arial, Helvetica, sans-serif',
+		    'Courier New, Courier, monospace',
+		    'Georgia, serif',
+		    'Lucida Sans Unicode, Lucida Grande, sans-serif',
+		    'Tahoma, Geneva, sans-serif',
+		    'Times New Roman, Times, serif',
+		    'Trebuchet MS, Helvetica, sans-serif',
+		    'Verdana, Geneva, sans-serif',
+		    'AppleSDGothicNeo, -apple-system, BlinkMacSystemFont, "Droid Sans", Roboto, "Segoe UI", Helvetica, Arial, sans-seri'
         ],
         supportAllValues: true
     },
