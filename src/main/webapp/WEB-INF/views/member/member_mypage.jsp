@@ -44,7 +44,10 @@
 				<div class="info_row">
 					<div class="mypage_info">
 						<label for="profile">프로필 사진</label>
+						
+						
 						<c:choose>
+						
 							<c:when test="${dto.mb_photo eq 'basic_photo.png' }">
 								<div class="mypage_profile">
 									<label for="mdPhoto">
@@ -54,6 +57,8 @@
 								<input type="hidden" name="exPhoto" value="${dto.mb_photo }">
 								<input type="file" id="mdPhoto" name="mdPhoto" onchange="previewImage(event)" style="display: none;">
 							</c:when>
+							
+							
 							<c:otherwise>
 								<div class="mypage_profile">
 									<label for="mdPhoto">
@@ -64,6 +69,8 @@
 								<input type="file" id="mdPhoto" name="mdPhoto" onchange="previewImage(event)" style="display: none;">
 							</c:otherwise>
 						</c:choose>
+						
+						
 					</div>
 					<div class="mypage_info" id="attribute">
 						<label for="attribute">회원유형</label>
@@ -223,11 +230,11 @@ function phoneVr() {
         return false;
     }
 };
-/* 
-exPhoto.addEventListener("click", () => {
-	mdPhoto.click();
+
+$("#exPhoto").on(function() {
+    $("#mdPhoto").click();
 });
- */
+
 function previewImage(event) { //이미지 미리보기 함수
     var input = event.target;
     var preview = document.getElementById("exPhoto");
@@ -309,7 +316,7 @@ $(document).ready(function () {
 			}
 			if (vrPw.test(mdPw) && (mdPw == mdPwVr)) {
 				$.ajax({
-					type:"post", //전송타입
+					type:"post", //전송타입 
 					async:true,
 					url:"mypage_pwModify",
 					dataType:"text",
