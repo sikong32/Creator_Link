@@ -14,7 +14,7 @@
 <link href="${pageContext.request.contextPath}/resources/css/store/store_main.css" rel="stylesheet" type="text/css">
 <title>Creator Link_Store Main</title>
 <script>
-$( document ).ready( function() {
+$(document).ready( function() {
 	$('.banner_list').slick({
 		autoplay: true,
 		autoplaySpeed: 4000,
@@ -62,12 +62,12 @@ $( document ).ready( function() {
 				<div class="category_title"> 카테고리 별 인기 굿즈</div>
 				<div class="category_list">
 					<div class="category"><a href="store_main">전체</a></div>
-					<div class="category"><a href="store_main_category?category=굿즈">굿즈</a></div>
-					<div class="category"><a href="store_main_category?category=포토카드">포토카드</a></div>
-					<div class="category"><a href="store_main_category?category=키캡">키캡</a></div>
-					<div class="category"><a href="store_main_category?category=아크릴 굿즈">아크릴 굿즈</a></div>
-					<div class="category"><a href="store_main_category?category=틴케이스">틴케이스</a></div>
-					<div class="category"><a href="store_main_category?category=상의">상의</a></div>
+					<div class="category"><a href="store_main_category?category=굿즈">#굿즈</a></div>
+					<div class="category"><a href="store_main_category?category=포토카드">#포토카드</a></div>
+					<div class="category"><a href="store_main_category?category=키캡">#키캡</a></div>
+					<div class="category"><a href="store_main_category?category=아크릴 굿즈">#아크릴 굿즈</a></div>
+					<div class="category"><a href="store_main_category?category=틴케이스">#틴케이스</a></div>
+					<div class="category"><a href="store_main_category?category=상의">#상의</a></div>
 				</div>
 				<div class="product_list">
 					<c:forEach items="${list}" var="s">

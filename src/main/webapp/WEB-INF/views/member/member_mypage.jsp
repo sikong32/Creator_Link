@@ -116,6 +116,7 @@
 								<span id="guide" style="color:#999;display:none"></span></div>
 								<input type="text" name="sample4_detailAddress" id="sample4_detailAddress" value="${dto.mb_addr_detail }" placeholder="상세주소">
 				</div>
+				<!-- 쿠폰 기능 미구현 -->
 			<!-- <div class="mypage_info">
 				<label for="signup_day">가입일</label>
 				<input type="text" value="${dto.mb_signup_date }" readonly>
@@ -274,7 +275,6 @@ $(document).ready(function () {
 	        return false;
 	    } else {
 	        $.post("mypage_password_check", { "exId" : exId, "exPw" : exPw }, function(result) {
-	        	alert(result);
 	        	console.log(result);
 	            if (result == "pass") {
 	            	passwordModify();

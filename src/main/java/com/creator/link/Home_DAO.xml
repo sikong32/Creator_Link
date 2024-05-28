@@ -6,7 +6,7 @@
 		<result property="pd_name" column="pd_name"/>
 		<result property="pd_price" column="pd_price"/>
 		<result property="pd_category" column="pd_category"/>
-		<result property="pd_content" column="pd_content"/>
+<!-- 		<result property="pd_content" column="pd_content"/> -->
 		<result property="pd_photo" column="pd_photo"/>
 		<result property="pd_size" column="pd_size"/>
 		<result property="pd_stock" column="pd_stock"/>
@@ -48,17 +48,17 @@
 	<select id="search_item" resultMap="search_dto">
 		select *
 		from product_tbl pt, member_tbl mt
-		where pt.mb_number = mt.mb_number and (mt.mb_id like '%'||#{param1}||'%' or pt.pd_name like '%'||#{param1}||'%')
+		where pt.mb_number = mt.mb_number and (mt.mb_id like '%'||#{param1}||'%' or pt.pd_name like '%'||#{param1}||'%' or mt.mb_nick_name like '%'||#{param1}||'%')
 		order by mt.mb_number
 	</select>
 	<select id="search_creator" resultType="com.creator.link.Member.Member_DTO">
 		SELECT *
-		from member_tbl where mb_attribute = '크리에이터' and mb_id like '%'||#{param1}||'%'
+		from member_tbl where mb_attribute = '크리에이터' and (mb_id like '%'||#{param1}||'%' or mb_nick_name like '%'||#{param1}||'%') 
 	</select>
 	<select id="search_seller" resultType="string">
 		select distinct mt.mb_nick_name
 		from product_tbl pt, member_tbl mt
-		where pt.mb_number = mt.mb_number and (mt.mb_id like '%'||#{param1}||'%' or pt.pd_name like '%'||#{param1}||'%')
+		where pt.mb_number = mt.mb_number and (mt.mb_id like '%'||#{param1}||'%' or pt.pd_name like '%'||#{param1}||'%' or mt.mb_nick_name like '%'||#{param1}||'%')
 		order BY mt.mb_nick_name
 	</select>
 	<select id="bc_select" resultType="com.creator.link.BC_DTO">
