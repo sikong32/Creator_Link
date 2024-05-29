@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 
 <!DOCTYPE html>
 <html>
@@ -210,7 +211,7 @@ padding: 1vw;
 			</tr>
 			<tr>
 				<th>가격</th>
-				<td><input type="hidden" name="pd_price" id="pd_price" value="${dto.pd_price}"><b>${dto.pd_price}</b>원</td>
+				<td><input type="hidden" name="pd_price" id="pd_price" value="${dto.pd_price}"><b><fmt:formatNumber pattern="#,###" value="${dto.pd_price}"/></b>원</td>
 			</tr>
 			<tr>
 				<th>재고</th>

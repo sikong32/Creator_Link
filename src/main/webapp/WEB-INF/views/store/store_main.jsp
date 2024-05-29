@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -75,7 +76,7 @@ $(document).ready( function() {
 							<a href="store_detail?pd_number=${s.pd_number}">
 								<img src="./resources/store/item_cover/${s.pd_photo}">
 								<span>${s.pd_name}</span>
-								<span>${s.pd_price}</span>
+								<span><fmt:formatNumber pattern="#,###" value="${s.pd_price}"/></span>
 							</a>
 						</div>
 					</c:forEach>

@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -89,10 +90,10 @@
 			<th>가격</th>
 			<c:choose>
 				<c:when test="${osdto.os_price!=null}">
-					<td>${osdto.os_price}원</td>
+					<td><fmt:formatNumber pattern="#,###" value="${osdto.os_price}"/>원</td>
 				</c:when>
 				<c:otherwise>
-					<td>${pddto.pd_price}원</td>
+					<td><fmt:formatNumber pattern="#,###" value="${pddto.pd_price}"/>원</td>
 				</c:otherwise>
 			</c:choose>
 		</tr>
@@ -140,10 +141,10 @@
 			<th>결제 금액</th>
 			<c:choose>
 				<c:when test="${osdto.os_price!=null}">
-					<td><input id="price" type="hidden" name="price" value="${osdto.os_price}"><span id="price1">${osdto.os_price}원</span></td>
+					<td><input id="price" type="hidden" name="price" value="${osdto.os_price}"><span id="price1"><fmt:formatNumber pattern="#,###" value="${osdto.os_price}"/>원</span></td>
 				</c:when>
 				<c:otherwise>
-					<td><input id="price" type="hidden" name="price" value="${pddto.pd_price}"><span id="price1">${pddto.pd_price}원</span></td>
+					<td><input id="price" type="hidden" name="price" value="${pddto.pd_price}"><span id="price1"><fmt:formatNumber pattern="#,###" value="${pddto.pd_price}"/>원</span></td>
 				</c:otherwise>
 			</c:choose>
 		</tr>

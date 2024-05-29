@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -43,7 +44,7 @@
 					<div class="list_items_test">
 					상품명:    <b>${od.od_pd_name}</b><br>
 					주문 개수:   ${od.od_pd_qnt}<br>
-					주문 가격:   ${od.od_price} 원<br>
+					주문 가격:   <fmt:formatNumber pattern="#,###" value="${od.od_price}"/>원<br>
 					주문 일자:   ${od.od_date}<br>
 					<c:choose>
 					<c:when test="${od.os_name!=null}">

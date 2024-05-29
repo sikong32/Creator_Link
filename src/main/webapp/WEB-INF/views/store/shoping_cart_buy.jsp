@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -123,7 +124,7 @@ window.onload = function() {
 								<input type="hidden" name="os_pd_name" value="${os.pd_name}">
 								<input type="hidden" name="os_pd_number" value="${os.pd_number}">
 							<br>옵션명: ${os.os_1name}${os.os_2name}${os.os_3name}</td>
-							<td>1개 가격: ${os.os_price}원<br>
+							<td>1개 가격: <fmt:formatNumber pattern="#,###" value="${os.os_price}"/>원<br>
 								<input type="text" name="ostot_price" id="ostot_price" value="${os.os_price*os.os_buy_su}" readonly>원
 							</td>
 							<td><input type="number" name="os_buy_quantity" value="${os.os_buy_su}" min="1" max="${os.os_stock}" onchange="os_updata_price(${os.os_price},this.value)" readonly>
@@ -142,7 +143,7 @@ window.onload = function() {
 								<input type="hidden" name="pd_name" value="${pd.pd_name}">
 							</td>
 							<td>
-								1개 가격: ${pd.pd_price}원<br>
+								1개 가격: <fmt:formatNumber pattern="#,###" value="${pd.pd_price}"/>원<br>
 								<input type="text" name="pdtot_price" id="pdtot_price" value="${pd.pd_price*pd.pd_buy_su}" readonly>원<br>
 							</td>
 							<td><input type="number" name="pd_buy_quantity" value="${pd.pd_buy_su}" min="1" max="${pd.pd_stock}" onchange="pd_updata_price(${pd.pd_price},this.value)" readonly></td>

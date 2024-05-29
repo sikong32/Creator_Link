@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -67,7 +68,7 @@
                             상품 카테고리: ${ma.pd_category}<br>
                             상품 번호: ${ma.pd_number}<input type="hidden" id="pd_number" name="pd_number" value="${ma.pd_number}"><br>
                             상품 이름: ${ma.pd_name}<br>
-                            상품 가격: ${ma.pd_price}<br>
+                            상품 가격: <fmt:formatNumber pattern="#,###" value="${ma.pd_price}"/><br>
                             상품 재고: ${ma.pd_stock}<br>
                             판매 수량: ${ma.pd_buy_su}<br>
                            	<div class="list_items_test">
@@ -90,7 +91,7 @@
             contentDiv.style.display = contentDiv.style.display === "block" ? "none" : "block";
         }
         function pd_delete(pd_number) {
-        	if(confirm("정발로 삭제하시겠습니까?")){
+        	if(confirm("정말로 삭제하시겠습니까?")){
         		window.location.href="store_Delete?pd_number="+pd_number;
         	}
 		}
