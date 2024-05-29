@@ -76,7 +76,7 @@ $(document).ready( function() {
 							<a href="store_detail?pd_number=${s.pd_number}">
 								<img src="./resources/store/item_cover/${s.pd_photo}">
 								<span>${s.pd_name}</span>
-								<span><fmt:formatNumber pattern="#,###" value="${s.pd_price}"/></span>
+								<span><fmt:formatNumber pattern="#,###" value="${s.pd_price}"/>원</span>
 							</a>
 						</div>
 					</c:forEach>

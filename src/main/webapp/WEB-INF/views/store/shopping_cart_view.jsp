@@ -81,7 +81,7 @@
 				<c:set var="nameDisplayed" value="true" />  <!-- 이름을 1번만 출력 후 불리안를 true로 설정하여 다시 출력 방지 -->
 				</c:if>
 			</c:forEach>
-				옵션명 : ${os.os_1name}${os.os_2name}${os.os_3name}<br> 가격${os.os_price}<br>구매수량
+				옵션명 : ${os.os_1name}${os.os_2name}${os.os_3name}<br> 가격 : <fmt:formatNumber pattern="#,###" value="${os.os_price}"/>원 <br>구매수량
 			<c:choose>
 				<c:when test="${os.os_stock < 1}">
 					품절
@@ -101,7 +101,7 @@
 		<input type="hidden" id="cart_qnt" name="cart_qnt" value="${pd.ct_pd_qnt}">
 			<input type="checkbox" name="selectedPd" value="${pd.pd_number}">
 			<img alt="" src="./resources/store/item_cover/${pd.pd_photo}" width="100">
-			상품명 : ${pd.pd_name}<br> 가격 : <fmt:formatNumber pattern="#,###" value="${pd.pd_price}"/> <br>구매수량
+			상품명 : ${pd.pd_name}<br> 가격 : <fmt:formatNumber pattern="#,###" value="${pd.pd_price}"/>원 <br>구매수량
 				<c:choose>
 					<c:when test="${pd.pd_stock < 1}">
 						품절
