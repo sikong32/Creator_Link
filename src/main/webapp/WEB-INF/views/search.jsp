@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -53,7 +54,7 @@
 										</div>
 										<div>
 											상품명 : ${it.pd_name} <br>
-											가격 : ${it.pd_price} <br>
+											가격 : <fmt:formatNumber pattern="#,###" value="${it.pd_price}"/>원<br>
 											재고 : ${it.pd_stock} <br>
 										</div>
 										<br>
