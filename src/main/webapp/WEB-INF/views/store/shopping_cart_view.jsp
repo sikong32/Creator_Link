@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -100,7 +101,7 @@
 		<input type="hidden" id="cart_qnt" name="cart_qnt" value="${pd.ct_pd_qnt}">
 			<input type="checkbox" name="selectedPd" value="${pd.pd_number}">
 			<img alt="" src="./resources/store/item_cover/${pd.pd_photo}" width="100">
-			상품명 : ${pd.pd_name}<br> 가격 : ${pd.pd_price} <br>구매수량
+			상품명 : ${pd.pd_name}<br> 가격 : <fmt:formatNumber pattern="#,###" value="${pd.pd_price}"/> <br>구매수량
 				<c:choose>
 					<c:when test="${pd.pd_stock < 1}">
 						품절
