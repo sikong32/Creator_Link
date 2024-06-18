@@ -108,7 +108,7 @@ function os_list() { // 여기가 입력
 								+ '<td class="os_td"><input class="os_input" type="text" name="os_1_' + os_su + '" value="' + value1 + '" required maxlength="100"></td>'
 								+ '<td class="os_td"><input class="os_input" type="text" name="os_2_' + os_su + '" value="' + value2 + '" required maxlength="100"></td>'
 								+ '<td class="os_td"><input class="os_input" type="text" name="os_3_' + os_su + '" value="' + value3 + '" required maxlength="100"></td>'
-								+ '<td class="os_td"><input class="os_input" type="number" name="os_' + os_su + 'price" placeholder="옵션의 최종 판매가격"></td>'
+								+ '<td class="os_td"><input class="os_input" type="number" name="os_' + os_su + 'price" placeholder="옵션의 최종 판매가격 입렵을 안하면 품절=0"></td>'
 								+ '<td class="os_td"><input class="os_input_stock" type="number" name="os_' + os_su + 'stock" onchange="tot_stock()" min="0" max="9999999999"></td>'
 								+ '<td class="os_td"><input class="os_input" type="file" name="os_' + os_su + 'photo"></td>'
 								+ '</tr>';
@@ -117,7 +117,7 @@ function os_list() { // 여기가 입력
 						os_su++;
 						result += '<tr><td class="os_td"><input class="os_input" type="text" name="os_1_' + os_su + '" value="' + value1 + '" required maxlength="100"></td>'
 							+ '<td class="os_td"><input class="os_input" type="text" name="os_2_' + os_su + '" value="' + value2 + '" required maxlength="100"></td>'
-							+ '<td class="os_td"><input class="os_input" type="number" name="os_' + os_su + 'price"></td>'
+							+ '<td class="os_td"><input class="os_input" type="number" name="os_' + os_su + 'price" placeholder="옵션의 최종 판매가격 입렵을 안하면 품절=0"></td>'
 							+ '<td class="os_td"><input class="os_input_stock" type="number" name="os_' + os_su + 'stock" onchange="tot_stock()" min="0" max="9999999999"></td>'
 							+ '<td class="os_td"><input class="os_input" type="file" name="os_' + os_su + 'photo"></td>'
 							+ '</tr>';
@@ -126,7 +126,7 @@ function os_list() { // 여기가 입력
 			} else {
 				os_su++;
 				result += '<tr><td class="os_td"><input class="os_input" type="text" name="os_1_' + os_su + '" value="' + value1 + '" required maxlength="100"></td>'
-					+ '<td class="os_td"><input class="os_input" type="number" name="os_' + os_su + 'price"></td>'
+					+ '<td class="os_td"><input class="os_input" type="number" name="os_' + os_su + 'price" placeholder="옵션의 최종 판매가격 입렵을 안하면 품절=0"></td>'
 					+ '<td class="os_td"><input class="os_input_stock" type="number" name="os_' + os_su + 'stock" onchange="tot_stock()" min="0" max="9999999999"></td>'
 					+ '<td class="os_td"><input class="os_input" type="file" name="os_' + os_su + 'photo"></td>'
 					+ '</tr>';

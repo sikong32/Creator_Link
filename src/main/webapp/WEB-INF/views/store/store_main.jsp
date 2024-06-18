@@ -81,6 +81,24 @@ $(document).ready( function() {
 						</div>
 					</c:forEach>
 				</div>
+				<div class="paging">
+					<c:if test="${page.start_page != page.end_page}">
+						<c:if test="${page.start_page != 1}">
+							<a href="store_main?now_page=${page.start_page-1}&view_per_page=${page.view_per_page}">◀</a>
+						</c:if>
+					</c:if>
+					<c:forEach begin="${page.start_page}" end="${page.end_page}" var="p">
+						<c:if test="${p == page.now_page}">
+							<span style="color: red;font-size: 25px">${p}</span>
+						</c:if>
+						<c:if test="${p != page.now_page}">
+							<a href="store_main?now_page=${p}&view_per_page=${page.view_per_page}">${p}</a>
+						</c:if>
+					</c:forEach>
+					<c:if test="${page.end_page != page.last_page}">
+						<a href="store_main?now_page=${page.end_page+1}&view_per_page=${page.view_per_page}">▶</a>
+					</c:if>
+				</div>
 			</div>
 		</div>
 	</section>

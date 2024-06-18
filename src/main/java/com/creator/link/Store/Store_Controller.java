@@ -25,6 +25,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import com.creator.link.Paging;
 import com.creator.link.Member.Member_DTO;
 
 @Controller
@@ -51,10 +52,18 @@ public class Store_Controller {
 	}
 	
 	@RequestMapping(value = "store_main")
-	public String store_main(Model model) {
+	public String store_main(HttpServletRequest request,Model model) {
 		Store_Service ss = sqlSession.getMapper(Store_Service.class);
-		ArrayList<Store_DTO> list = ss.store_mainout();
+		String now_page = request.getParameter("now_page");
+		if(now_page==null) now_page = "1";
+		String view_per_page = request.getParameter("view_per_page");
+		if(view_per_page == null) view_per_page = "12";
+		int value_of_total = ss.pd_total();
+		Paging page = new Paging(Integer.parseInt(now_page),Integer.parseInt(view_per_page),value_of_total);
+//		System.out.println("start "+page.getStart_value()+"end "+page.getEnd_value());
+		ArrayList<Store_DTO> list = ss.store_mainout(page);
 		model.addAttribute("list",list);
+		model.addAttribute("page",page);
 		return "store_main";
 	}
 	@RequestMapping(value = "store_main_category")

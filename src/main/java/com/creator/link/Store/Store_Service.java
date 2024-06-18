@@ -2,9 +2,11 @@ package com.creator.link.Store;
 
 import java.util.ArrayList;
 
+import com.creator.link.Paging;
+
 public interface Store_Service {
 
-	ArrayList<Store_DTO> store_mainout();
+	ArrayList<Store_DTO> store_mainout(Paging page);
 
 	void store_insert0(String pd_name, int pd_price, String pd_category, String pd_content, String pd_pohto,
 			int pd_stock, int mb_number);
@@ -111,5 +113,7 @@ public interface Store_Service {
 	void od_dlvyAdd_up(int od_number, String dlvyAdd);
 
 	ArrayList<Store_DTO> store_main_category_out(String category);
+
+	int pd_total();
 
 }

@@ -2,7 +2,13 @@
 
 <mapper namespace="com.creator.link.Store.Store_Service">
 <select id="store_mainout" resultType="com.creator.link.Store.Store_DTO">
-	select * from PRODUCT_TBL
+	SELECT * FROM (
+    SELECT rownum AS rn, list.* 
+    FROM PRODUCT_TBL list) 
+    WHERE rn BETWEEN #{start_value} AND #{end_value}
+</select>
+<select id="pd_total" resultType="int">
+	SELECT COUNT(*) FROM product_tbl
 </select>
 <select id="store_main_category_out" resultType="com.creator.link.Store.Store_DTO">
 	select * from PRODUCT_TBL where PD_CATEGORY like '%'||#{param1}||'%'
